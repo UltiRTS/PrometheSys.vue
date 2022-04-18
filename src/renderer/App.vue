@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Hello from './components/Hello.vue'
 import { ipcRenderer } from './electron'
+import { RouterView } from 'vue-router'
 
 ipcRenderer.send('toMain', JSON.stringify({
   action: 'queryMap',
@@ -17,6 +17,6 @@ ipcRenderer.receive('fromMain', (data) => {
 
 <template>
   <div id="app">
-    <Hello/>
+    <router-view></router-view>
   </div>
 </template>
