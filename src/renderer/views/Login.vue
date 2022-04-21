@@ -23,11 +23,7 @@ export default {
 
     methods: {
         ...mapActions(['login']),
-        automaticScene(){
-            setTimeout(() => {
-                RouterView.push('/Login')
-            }, 9000);
-        }
+
         
     },
     computed: {
