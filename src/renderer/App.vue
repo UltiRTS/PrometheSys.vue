@@ -13,6 +13,7 @@ ipcRenderer.receive('fromMain', (data) => {
   console.log(data);
 });
 
+
 </script>
 
 <template>
