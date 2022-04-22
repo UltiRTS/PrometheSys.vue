@@ -46,6 +46,16 @@ ipcRenderer.receive('fromMain', (data) => {
     font-family: font6;
     src: url('public/fonts/6.ttf');
 }
+
+@font-face {
+    font-family: font7;
+    src: url('public/fonts/nagayama_kai08.otf');
+}
+
+@font-face {
+    font-family: font8;
+    src: url('public/fonts/genkai-mincho.ttf');
+}
 </style>
 
 <template>

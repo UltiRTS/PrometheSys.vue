@@ -16,7 +16,7 @@
         <div id="loginPanel" style="width: 43%; height: 20%; top: 33%; left: 27%; position: absolute;">
             <img src="public/imgs/thea_frame.png" style="position: absolute;width: 11vw;filter: drop-shadow(8px 20px 16px #000);">
         
-            <a id='preClick' class="edgy-link" :class='yijingqichuang' @click='qichuangdachenggong()' style='filter: drop-shadow(8px 20px 16px #000);position: absolute;margin:2vw;top:-4%;left:5vw;font-family:font1;font-weight:900;font-size:2vw;color:white;'><span >目覚め始める</span></a>
+            <a id='preClick' class="edgy-link" :class='yijingqichuang' @click='qichuangdachenggong()' style='filter: drop-shadow(8px 20px 16px #000);position: absolute;margin:2vw;top:-4%;left:5vw;font-family:font8;font-weight:900;font-size:2vw;color:white;'><span >目覚め始める</span></a>
 
 
 
