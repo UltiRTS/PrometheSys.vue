@@ -13,10 +13,18 @@
         <div style="position:absolute;width:100%;height:100%;top:0%;left:0%;background: #95928a;"></div>
         <img src="public/imgs/bg.png" style="position: absolute;width: 100%;height: 100%;left: 0%;top: 0%;filter: grayscale(100%) contrast(22%) brightness(99%);-webkit-mask-image: linear-gradient(rgb(80 80 80 / 0%), rgb(0, 0, 0));">
     
-        <div id="loginPanel" style="width: 43%; height: 20%; top: 33%; left: 27%; position: absolute;">
+        <div id="cover" v-bind:class="{cover:yijingqichuang}" style="width: 43%; height: 20%; top: 33%; left: 27%; position: absolute;">
             <img src="public/imgs/thea_frame.png" style="position: absolute;width: 11vw;filter: drop-shadow(8px 20px 16px #000);">
         
-            <a id='preClick' class="edgy-link" :class='yijingqichuang' @click='qichuangdachenggong()' style='filter: drop-shadow(8px 20px 16px #000);position: absolute;margin:2vw;top:-4%;left:5vw;font-family:font8;font-weight:900;font-size:2vw;color:white;'><span >目覚め始める</span></a>
+            <a id="preClick" class="edgy-link" :class='yijingqichuang' @click='qichuangdachenggong()' style="filter: drop-shadow(rgb(0, 0, 0) 8px 20px 16px); position: absolute; margin: 2vw; top: -4%; left: 5vw; font-size: 2vw;color:white;">
+                <span  style="font-family: font6;position: relative;opacity: 0.95;left: 0vw;font-weight: 900;color: grey;"> 目覚め始める </span>
+                <span  style="font-family: font8;position: relative;opacity: 0.95;left: -12.45vw;"> 目覚め始める </span>
+            </a>
+
+            <div id='postClick'>
+                <div v-if="yijingqichuang" class='theaTitle' style='position:absolute;font-family:font2;top:9%;left:19%;font-size:2vw;color:white;opacity:0;' >THEA,</div>
+                <div v-if="yijingqichuang" class='theaTitle2' style='position:absolute;font-family:font2;top:29%;%;opacity:0;font-size:1.2vw;left:19%;color:white;'>INC.</div>
+            </div>
 
 
 
@@ -70,6 +78,14 @@ export default {
 
     75% {
         opacity: 1;
+        visibility:hidden;
+    }
+
+    98% {
+        width:2vw;
+    }
+    99% {
+        width:0vw;
     }
 
 
@@ -82,6 +98,68 @@ export default {
     animation-fill-mode: forwards;
 }
 
+@keyframes theaVanish {
+    0% {
+        opacity: 1;
+    }
+
+
+    100% {
+        left:25%;
+        opacity: 0;
+    }
+
+
+
+}
+.cover{
+    animation-delay: 2.4s;
+    animation-name: theaVanish;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
+}
+
+
+
+@keyframes theaTitle {
+    0% {
+        opacity: 0;
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    60% {
+        opacity: 0;
+        
+    }
+
+    100% {
+        opacity: 1;
+    }
+
+
+
+}
+.theaTitle{
+    
+    animation-name: theaTitle;
+    animation-duration: 0.15s;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+    animation-delay: 0.75s;
+}
+
+.theaTitle2{
+    
+    animation-name: theaTitle;
+    animation-duration: 0.15s;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+    animation-delay: 0.80s;
+}
 
 .qichuangyijingchenggong{
     animation: qichuangyijingchenggong 0.5s;
