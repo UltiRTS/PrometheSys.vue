@@ -32,6 +32,69 @@
 
         <div id='loginInterface'>
             <img src='public/imgs/thea_auth.png' v-bind:class="{loginInterface_bgWaterMark:yijingqichuang}" style='opacity:0.00; position: absolute;width: 50vw;top: 70%; '>
+
+            <div class="loginbox" style="position: absolute; height: 100%; width: 100%; mix-blend-mode: screen;display:none;" id="loginbox">
+			    <div style="position:absolute;top:45%;color:white;margin:0;left:30%;height:6vw;width:12vw;overflow:hidden;">
+				    <div style="background:white;position:absolute;top:0;width:100%;height:2px;"></div>
+				    <p id='prtsLOGO' class=""
+					style="position:absolute;margin:0;top:0.5vw;font-family:JuneBug4;font-weight:900;font-size:2vw;">
+					THEA </p>
+				    <p id='prtsPharma' class='' style="position:absolute;margin:0;top:3vw;">PHARMACEUTICALS</p>
+
+				    <div style="position:absolute;margin:0;font-size:1vw;width:100%;" class=''>
+                        <span id="prtsOS">Analysis&nbsp;</span>
+                        <span id="prtsOS1" style="font-weight:900;">OS</span>
+                        <span id="prtsVer" style="font-size:0.6vw;position:absolute;right:0;top:4px">&nbsp;LTS BUILD
+						V11.04</span>
+                    </div>
+				    <div class="" id='underlinePRTS' style="background:white;position:absolute;width:100%;height:2px;">
+				    </div>
+			    </div>
+			    <div class="logininput" id="logininput" style="position:absolute;height:6vw;top:45%;filter: drop-shadow(10px 10px 2px rgba(255,255,255,0.5));z-index:1;">
+				    <img src="assets/thea.png" style="position:absolute;width: 48%;/* height: 110%; */top: 21%;right: 1%;filter: invert(0.1);">
+				    <p style="cursor: default;top:1.2vw;position:absolute;left:1.2vw;font-size:1.5vw;background-color:black;color:white;margin:0;padding:0;filter: drop-shadow(4px 5px 2px rgba(0,0,0,0.5));">
+					Dr.&nbsp;</p> 
+                    <input id="usr" style="cursor: text;top:1.2vw;position:absolute;left:3.5vw;font-size:1.5vw; display: inline;border:none;outline:none;width:18vw;background: transparent;" type="text" placeholder="Name" name="uname" required="">
+
+				    <input id="passwd" style="font-size:1.5vw;margin:0;cursor: text;top:3.2vw;position:absolute;left:1.2vw;border:none;outline:none;background: transparent;" type="password" placeholder="Password" name="psw" required="">
+
+				    <p class="connect" onmouseover="pushToolTip('Press this [ button ] to [ login ]')" id="loginInputStatus"
+					onclick="playFX('acknowledge.wav');logMeIn();this.onclick=''"
+					style="cursor: pointer;top:3.2vw;position:absolute;/* left:16.2vw; */left:85%;font-size: 1vw;margin:0;color:black;font-weight:900;filter: drop-shadow(4px 5px 2px rgba(0,0,0,0.5));">
+					▶</p>
+			    </div>
+
+                <div
+                    style="position:absolute;top:80%;left:30%;height:10vw;width:37vw;font-size:0.8vw;height:100%;overflow:hidden;">
+                    <div class="button-block" style="position:absolute;top:0%;width:100%;" id="" onclick="rememberMe()">
+                        <button style="width:100%;height:3vw;" id="rememberName" class=''>Persistent Neural Link</button>
+                    </div>
+                    <div class="button-block" style="position:absolute;top:4vw;width:100%;" onclick="registerMe()">
+                        <button style="width:100%;height:3vw;" id="register" class=''>Register this Neural Link</button>
+                    </div>
+                </div>
+
+                <div style="position:absolute;left:48%;height:6vw;top:45%;color:white;width:100%;overflow:hidden;display:none; "
+                    class="welcomeMsg" id="welcomeMsg">
+                    <div class='' id='welcomeHeading' style="font-size:6vw;display:none;top:-2vw;">歓迎</div>
+
+                    <div id='welcomeUser' class='' style="font-size:3vw;position:absolute;display:none;">
+                        <span style="font-size:3vw;font-weight:900;opacity:0.4">Dr. &nbsp;</span>
+                    </div>
+
+                    <div id='welcomeSubline1' style="font-size:0.5vw;position: absolute; top: 3vw;display:none;">
+                        UDEV/URANDOM System Entropy: 100%</div>
+                    <div id='welcomeSubline2' style="font-size:0.5vw;position: absolute; top: 3.5vw;display:none;">
+                        INIT.RC Neural Connectivity: 100%</div>
+                    <div id='welcomeSubline3' style="font-size:0.5vw;position: absolute; top: 4vw;display:none;">PAM
+                        Authenticating</div>
+                    <div id='welcomeSubline4' style="font-size:0.5vw;position: absolute; top: 4.5vw;display:none;">
+                        Authority: 42</div>
+                    <div id='welcomeSubline5' style="font-size:0.5vw;position: absolute; top: 5vw;display:none;">Neural
+                        UART Logging In</div>
+
+                </div>
+            </div>
         </div>
         <div style="position: absolute; top: 93%; left: 44%; font-family: font1; font-size: 1.5vh; color: white;">© THEA Pharmaceuticals, Inc.
 
