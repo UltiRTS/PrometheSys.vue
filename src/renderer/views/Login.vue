@@ -29,6 +29,10 @@
 
 
         </div>
+
+        <div id='loginInterface'>
+            <img src='public/imgs/thea_auth.png' v-bind:class="{loginInterface_bgWaterMark:yijingqichuang}" style='opacity:0.00; position: absolute;width: 50vw;top: 70%; '>
+        </div>
         <div style="position: absolute; top: 93%; left: 44%; font-family: font1; font-size: 1.5vh; color: white;">© THEA Pharmaceuticals, Inc.
 
         </div>
@@ -120,7 +124,29 @@ export default {
     animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
 }
 
+@keyframes loginInterface_bgWaterMark {
+    0% {
+        left: -3%;
+        opacity:0.00;
+    }
 
+
+    100% {
+        left: -5%;
+        opacity:0.05;
+    }
+
+
+
+}
+.loginInterface_bgWaterMark{
+    
+    animation-delay: 3s;
+    animation-name: loginInterface_bgWaterMark;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
+}
 
 @keyframes theaTitle {
     0% {
@@ -146,7 +172,7 @@ export default {
 .theaTitle{
     
     animation-name: theaTitle;
-    animation-duration: 0.15s;
+    animation-duration: 0.1s;
     animation-fill-mode: forwards;
     animation-timing-function: linear;
     animation-delay: 0.75s;
@@ -155,7 +181,7 @@ export default {
 .theaTitle2{
     
     animation-name: theaTitle;
-    animation-duration: 0.15s;
+    animation-duration: 0.1s;
     animation-fill-mode: forwards;
     animation-timing-function: linear;
     animation-delay: 0.80s;
