@@ -2,7 +2,7 @@
     <div id="prelogin" style="background:black;position:absolute;height:110%;width:110%;top:-5%;left:-5%;">
         <div id="init" class="init" style="position: absolute;width:110%;height:110%;top:-5%;left: 3%;overflow:hidden;">
 
-            <div style="position:absolute;left: 27vw;width: 9vw;top: 39%;height: 20vw;"><img src="public/imgs/thea.png" style="position:absolute;width:100%"></div>
+            <div style="position:absolute;left: 27vw;width: 9vw;top: 39%;height: 20vw;"><img src="/imgs/thea.png" style="position:absolute;width:100%"></div>
             <div style="position:absolute;left: 40vw;width: 9vw;top: 39%;height: 20vw;">
                 <div style="font-family:font6;color:white;position:absolute;top: 6.4%;/* height: 43%; */font-size: 2.4vw;">
                     PROMETHESIS</div>
@@ -22,9 +22,9 @@
             </div>
         </div>
         <div id="warning" class="warning" style="opacity:0;">
-            <img src="public/imgs/When_the_city_but_FOGG.png" style="-webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+            <img src="/imgs/When_the_city_but_FOGG.png" style="-webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
       mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));">
-            <div style="position:absolute;left: 27vw;width: 9vw;top: 16%;height: 20vw;"><img src="public/imgs/thea.png" style="position:absolute;width:100%"></div>
+            <div style="position:absolute;left: 27vw;width: 9vw;top: 16%;height: 20vw;"><img src="/imgs/thea.png" style="position:absolute;width:100%"></div>
             <div style="position:absolute;left: 40vw;width: 9vw;top: 14%;height: 20vw;">
                 <div style="font-family:font6;color:white;position:absolute;top: 6.4%;/* height: 43%; */font-size: 2.4vw;">
                     PROMETHESIS</div>

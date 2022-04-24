@@ -19,42 +19,42 @@ ipcRenderer.receive('fromMain', (data) => {
 <style>
 @font-face {
     font-family: font1;
-    src: url('public/fonts/1.ttf');
+    src: url('/fonts/1.ttf');
 }
 
 @font-face {
     font-family: font2;
-    src: url('public/fonts/2.ttf');
+    src: url('/fonts/2.ttf');
 }
 
 @font-face {
     font-family: font3;
-    src: url('public/fonts/3.ttf');
+    src: url('/fonts/3.ttf');
 }
 
 @font-face {
     font-family: font4;
-    src: url('public/fonts/4.ttf');
+    src: url('/fonts/4.ttf');
 }
 
 @font-face {
     font-family: font5;
-    src: url('public/fonts/5.otf');
+    src: url('/fonts/5.otf');
 }
 
 @font-face {
     font-family: font6;
-    src: url('public/fonts/6.ttf');
+    src: url('/fonts/6.ttf');
 }
 
 @font-face {
     font-family: font7;
-    src: url('public/fonts/nagayama_kai08.otf');
+    src: url('/fonts/nagayama_kai08.otf');
 }
 
 @font-face {
     font-family: font8;
-    src: url('public/fonts/genkai-mincho.ttf');
+    src: url('/fonts/genkai-mincho.ttf');
 }
 </style>
 

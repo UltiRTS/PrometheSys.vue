@@ -11,12 +11,12 @@
     <div style="position:absolute;width:100%;height:100%;top:0%;left:0%;background: #000;margin:0;"></div>
     <div id='mainContent' class='mainContent' style=' position:absolute;height:100%;width:100%;overflow:hidden;margin:0;top:0%;left:0%'>
         <div style="position:absolute;width:100%;height:100%;top:0%;left:0%;background: #95928a;"></div>
-        <img src="public/imgs/bg.png" style="position: absolute;width: 100%;height: 100%;left: 0%;top: 0%;filter: grayscale(100%) contrast(22%) brightness(99%);-webkit-mask-image: linear-gradient(rgb(80 80 80 / 0%), rgb(0, 0, 0));">
+        <img src="/imgs/bg.png" style="position: absolute;width: 100%;height: 100%;left: 0%;top: 0%;filter: grayscale(100%) contrast(22%) brightness(99%);-webkit-mask-image: linear-gradient(rgb(80 80 80 / 0%), rgb(0, 0, 0));">
         <canvas id=c style='	position: absolute;top: 0;left: 0;opacity: .2;pointer-events: none;'></canvas>
 
     
         <div id="cover" v-bind:class="{cover:yijingqichuang}" style="width: 43%; height: 20%; top: 33%; left: 27%; position: absolute;">
-            <img src="public/imgs/thea_frame.png" style="position: absolute;width: 11vw;filter: drop-shadow(8px 20px 16px #000);">
+            <img src="/imgs/thea_frame.png" style="position: absolute;width: 11vw;filter: drop-shadow(8px 20px 16px #000);">
         
             <a id="preClick" class="edgy-link" :class='yijingqichuang' @click='qichuangdachenggong()' style="filter: drop-shadow(rgb(0, 0, 0) 8px 20px 16px); position: absolute; margin: 2vw; top: -4%; left: 5vw; font-size: 2vw;color:white;">
                 <span  style="font-family: font6;position: relative;opacity: 0.95;left: 0vw;font-weight: 900;color: rgba(255,255,255,0.9);"> 目覚め始める </span>
@@ -33,7 +33,7 @@
         </div>
 
         <div id='loginInterface' :style='{"display":(yijingqichuang? "":"none")}'>
-            <img src='public/imgs/thea_auth.png' v-bind:class="{loginInterface_bgWaterMark:yijingqichuang}" style='opacity:0.00; position: absolute;width: 50vw;top: 70%; '>
+            <img src='/imgs/thea_auth.png' v-bind:class="{loginInterface_bgWaterMark:yijingqichuang}" style='opacity:0.00; position: absolute;width: 50vw;top: 70%; '>
 
             <div class="loginbox" style="position: absolute; height: 100%; width: 100%; mix-blend-mode: screen;" id="loginbox">
 			    <div class='PRTSLOGO' style="position:absolute;top:45%;color:white;margin:0;left:30%;width:12vw;overflow:hidden;">
@@ -52,16 +52,15 @@
 				    </div>
 			    </div>
 			    <div class="logininput" id="logininput" style="position:absolute;height:5.5vw;top:45%;filter: drop-shadow(10px 10px 2px rgba(255,255,255,0.5));left:45%;background:rgb(177 170 160 / 78%);width:20%;overflow:hidden;">
-				    <img src="public/imgs/thea.png" style="position:absolute;width: 48%;top: 31%;right: 1%;filter: invert(0.1);opacity:0.1">
+				    <img src="/imgs/thea.png" style="position:absolute;width: 48%;top: 31%;right: 1%;filter: invert(0.1);opacity:0.1">
 				    <p style="cursor: default;top:1.2vw;position:absolute;left:1.2vw;font-size:1.5vw;background-color:black;color:white;margin:0;padding:0;filter: drop-shadow(4px 5px 2px rgba(0,0,0,0.5));">
 					Dr.&nbsp;</p> 
-                    <input id="usr" style="cursor: text;top:1.2vw;position:absolute;left:3.5vw;font-size:1.5vw; display: inline;border:none;outline:none;width:18vw;background: transparent;color:black;" type="text" placeholder="Name" name="uname" required="">
+                    <input id="usr" style="cursor: text;top:1.2vw;position:absolute;left:3.5vw;font-size:1.5vw; display: inline;border:none;outline:none;width:18vw;background: transparent;color:black;" type="text" placeholder="Name" name="uname" required="" v-model="username">
 
-				    <input id="passwd" style="font-size:1.5vw;margin:0;cursor: text;top:3.2vw;position:absolute;left:1.2vw;border:none;outline:none;background: transparent;" type="password" placeholder="Password" name="psw" required="">
+				    <input id="passwd" style="font-size:1.5vw;margin:0;cursor: text;top:3.2vw;position:absolute;left:1.2vw;border:none;outline:none;background: transparent;" type="password" placeholder="Password" name="psw" required="" v-model="password">
 
 				    <p class="connect" onmouseover="pushToolTip('Press this [ button ] to [ login ]')" id="loginInputStatus"
-					onclick="playFX('acknowledge.wav');logMeIn();this.onclick=''"
-					style="cursor: pointer;top:3.2vw;position:absolute;left:85%;font-size: 1vw;margin:0;color:black;font-weight:900;filter: drop-shadow(4px 5px 2px rgba(0,0,0,0.5));">
+					style="cursor: pointer;top:3.2vw;position:absolute;left:85%;font-size: 1vw;margin:0;color:black;font-weight:900;filter: drop-shadow(4px 5px 2px rgba(0,0,0,0.5));" @click="loginWrapper">
 					▶</p>
 			    </div>
 
@@ -113,6 +112,9 @@ export default {
             username: '',
             password: '',
             yijingqichuang:'',
+			bubbles: [],
+			bubbleNum: 20,
+			xVariation: 2,
         }
     },
 
@@ -494,11 +496,64 @@ window.addEventListener('resize', function() {
             this.yijingqichuang='qichuangyijingchenggong';
             // console.log('setting var');
         },
+		loginWrapper() {
+			// do something else
+			this.login(this.username, this.password);
+		},
+		//setup the canvas based on the window size
+		setup() {
+			createCanvas(window.innerWidth, window.innerHeight);
+			noStroke();
+			//frameRate(10);
+			//make random bubble objects {x,y,size,speed}
+			for (var i = 0; i < bubbleNum; i++) {
+				bubbles[i] = {
+				x: random(window.innerWidth),
+				y: random(window.innerHeight),
+				size: random(3, 10),
+				speed: 0
+				};
+			}
+			//set color of the bubbles 'feel free to play with opacity, I think .4 looks nice'
+			fill("rgba(255,255,255, 0.4)");
+		},
+		//handle window resize events and fix the canvas
+		windowResized() {
+			resizeCanvas(windowWidth, windowHeight);
+		},
+		//animation loop
+		draw() {
+			background("#164899");
+			bubbles.forEach(function(bub, index) {
+				moveBubbles(bub);
+				if (bub.y < -10) newBubble(index);
+			});
+		},
+		//makes a new bubble at a specified index once its off screen
+		newBubble(index) {
+			bubbles[index] = {
+				x: random(window.innerWidth),
+				y: window.innerHeight,
+				size: random(3, 10),
+				speed: 0
+			};
+		},
 
+		//move the bubbles based on their size
+		moveBubbles(bubble) {
+			bubble.x += random(-xVariation, xVariation);
+			bubble.speed += bubble.size / 100;
+			bubble.y -= bubble.speed;
+			//draw the bubble NOTE they must be integer values to draw to the canvas
+			ellipse(
+				Math.round(bubble.x),
+				Math.round(bubble.y),
+				Math.round(bubble.size),
+				Math.round(bubble.size)
+			);
+		},
 
-
-
-        
+	// end of methods
     },
     computed: {
         ...mapState(['userState']),

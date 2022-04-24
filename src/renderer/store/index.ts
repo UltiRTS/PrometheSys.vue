@@ -27,7 +27,10 @@ export const store = createStore<State>({
   },
   actions: {
     login({commit}, {username, password}) {
-      if(this.state.ws_open == false) return; 
+      if(this.state.ws_open == false) {
+        console.log("ws is not open");
+        return;
+      }
 
       ws.send(JSON.stringify({
         action: 'LOGIN',
