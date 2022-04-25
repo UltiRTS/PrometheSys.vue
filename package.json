@@ -29,8 +29,7 @@
   "dependencies": {
     "electron-store": "^8.0.1",
     "vue": "^3.2.31",
-    "vue-router": "^4.0.14",
-    "vuex": "^4.0.0"
+    "vue-router": "^4.0.14"
   },
   "env": {
     "VITE_DEV_SERVER_HOST": "127.0.0.1",
