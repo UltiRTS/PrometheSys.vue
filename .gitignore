@@ -1,6 +1,10 @@
 node_modules
+.DS_Store
 dist
-build
+dist-ssr
+*.local
+.debug.env
 
-.vscode
-.idea
+tmp
+**/.tmp
+release
