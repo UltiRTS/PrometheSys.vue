@@ -3,34 +3,56 @@
   "version": "0.1.0",
   "description": "A minimal Electron + Vue application",
   "author": {
-    "name": "Deluze",
-    "url": "https://github.com/Deluze"
+    "name": "UltiRTS"
   },
+  "keywords": [
+    "electron",
+    "rollup",
+    "vite",
+    "vue",
+    "rts"
+  ],
   "scripts": {
-    "build": "node scripts/build.js && electron-builder -c config/electron-builder.json",
-    "build:linux": "node scripts/build.js && electron-builder -c config/electron-builder.json --linux",
-    "build:mac": "node scripts/build.js && electron-builder -c config/electron-builder.json --mac",
-    "build:win": "node scripts/build.js && electron-builder -c config/electron-builder.json --win",
-    "dev": "node scripts/dev-server.js"
+    "prebuild": "vue-tsc --noEmit --p packages/renderer/tsconfig.json && node scripts/build.mjs",
+    "build": "electron-builder",
+    "build:linux": "node scripts/build.js && electron-builder --linux",
+    "build:mac": "node scripts/build.js && electron-builder --mac",
+    "build:win": "node scripts/build.js && electron-builder --win",
+    "dev": "node scripts/watch.mjs",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
-  "main": "build/main/main.js",
+  "main": "dist/main/index.cjs",
+  "engines": {
+    "node": ">=14.17.0"
+  },
   "dependencies": {
     "electron-store": "^8.0.1",
     "vue": "^3.2.31",
     "vue-router": "^4.0.14",
     "vuex": "^4.0.0"
   },
+  "env": {
+    "VITE_DEV_SERVER_HOST": "127.0.0.1",
+    "VITE_DEV_SERVER_PORT": 3344
+  },
   "devDependencies": {
+    "@antfu/eslint-config": "^0.21.0",
     "@vitejs/plugin-vue": "^2.2.4",
     "@vue/cli": "^5.0.1",
     "@vue/cli-plugin-vuex": "~5.0.0",
     "chalk": "^4.1.2",
     "chokidar": "^3.5.3",
-    "electron": "^17.4.1",
-    "electron-builder": "^22.14.13",
-    "pnpm": "^6.32.9",
+    "electron": "18.0.2",
+    "electron-builder": "^23.0.3",
+    "eslint": "^8.14.0",
+    "pnpm": "^6.32.10",
     "typescript": "^4.6.2",
-    "vite": "^2.8.6"
+    "vite": "^2.8.6",
+    "vite-plugin-electron": "^0.4.3",
+    "vite-plugin-pages": "^0.23.0",
+    "vite-plugin-resolve": "^2.0.7",
+    "vue-tsc": "^0.34.10"
   },
-  "repository": "https://github.com/deluze/electron-vue-template"
+  "repository": "https://github.com/UltiRTS/PrometheSys.vue"
 }
