@@ -1,10 +1,10 @@
 <script>
 // pre login
-import { mapActions, mapState } from 'vuex'
-import router from '../router'
-setTimeout(() => {
-  router.push('/Login')
-}, 9000)
+// import { mapActions, mapState } from 'vuex'
+// import router from '../router'
+// setTimeout(() => {
+//   router.push('/Login')
+// }, 9000)
 
 export default {
   data() {
@@ -13,12 +13,12 @@ export default {
       password: '',
     }
   },
+  computed: {
+    // ...mapState(['userState']),
+  },
 
   methods: {
-    ...mapActions(['login']),
-  },
-  computed: {
-    ...mapState(['userState']),
+    // ...mapActions(['login']),
   },
 
 }

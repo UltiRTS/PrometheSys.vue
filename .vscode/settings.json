@@ -2,5 +2,7 @@
   "prettier.enable": false,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
-  }
+  },
+  "workbench.tree.indent": 4,
+  "editor.tabSize": 2
 }
