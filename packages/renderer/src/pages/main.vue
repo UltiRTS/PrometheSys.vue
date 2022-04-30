@@ -1,20 +1,32 @@
 <script>
 export default {
-  inject: ['mouse_pos'],
+  inject: ['mouse_pos', 'window_size'],
   computed: {
     modal() {
-      const translateX = this.mouse_pos.x / 2
-      const translateZ = this.mouse_pos.y / 2
-      const width = this.mouse_pos.x / 2
-      const height = this.mouse_pos.y / 2
+      const width = this.window_size.width
+      const height = this.window_size.height
+      const offset = {
+        x: (this.mouse_pos.x - width / 2) / 10,
+        y: (this.mouse_pos.y - height / 2) / 10,
+      }
+      const p_x = 0.001 + 0.001 * ((this.mouse_pos.x - width) / (width))
 
       return {
-        transform: `translate3d(${translateX}px, 0, ${translateZ}px)`,
+        m3d: `matrix3d(
+          1, 0, 0, ${p_x},
+          0, 1, 0, 0,
+          0, 0, 1, 0,
+          ${offset.x}, ${offset.y}, 0, 1 
+
+        )`,
         width: `${width}px`,
         height: `${height}px`,
       }
     },
 
+  },
+  mounted() {
+    window.console.log(this.window_size)
   },
 }
 </script>
@@ -245,7 +257,7 @@ export default {
 <style scoped>
 #modalMenu {
   /* transform: var(modal_menu_transform); */
-  transform: v-bind('modal.transform');
+  transform: v-bind('modal.m3d');
   width: 59%;
   height: 108%;
   position:absolute;
