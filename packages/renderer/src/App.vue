@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script>
 import { ipcRenderer } from 'electron'
 import { RouterView } from 'vue-router'
 
@@ -7,8 +7,23 @@ ipcRenderer.send('toMain', JSON.stringify({
   data: {
     mapId: '1',
   },
-}),
-)
+}))
+
+export default {
+  provide() {
+    return {
+      mouse_pos: this.mouse_pos,
+    }
+  },
+  data() {
+    return {
+      mouse_pos: {
+        x: 0,
+        y: 0,
+      },
+    }
+  },
+}
 
 // ipcRenderer.receive('fromMain', (data) => {
 //   console.log(data)
@@ -16,7 +31,9 @@ ipcRenderer.send('toMain', JSON.stringify({
 </script>
 
 <template>
-  <router-view />
+  <div class="app-wrapper">
+    <router-view />
+  </div>
 </template>
 
 <style>
@@ -27,6 +44,12 @@ ipcRenderer.send('toMain', JSON.stringify({
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+html {
+  overflow: hidden;
 }
 
 .logo-box {
