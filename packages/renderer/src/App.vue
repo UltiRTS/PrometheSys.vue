@@ -1,6 +1,7 @@
 <script>
 import { ipcRenderer } from 'electron'
 import { RouterView } from 'vue-router'
+import router from './router'
 
 ipcRenderer.send('toMain', JSON.stringify({
   action: 'queryMap',
@@ -23,6 +24,15 @@ export default {
       },
     }
   },
+  mounted() {
+    router.push('main')
+  },
+  methods: {
+    onMouseMove(e) {
+      this.mouse_pos.x = e.clientX
+      this.mouse_pos.y = e.clientY
+    },
+  },
 }
 
 // ipcRenderer.receive('fromMain', (data) => {
@@ -31,12 +41,17 @@ export default {
 </script>
 
 <template>
-  <div class="app-wrapper">
+  <div class="app-wrapper" @mousemove="onMouseMove">
     <router-view />
   </div>
 </template>
 
 <style>
+.app-wrapper {
+  height: 100%;
+  width: 100%;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

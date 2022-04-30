@@ -1,5 +1,21 @@
 <script>
 export default {
+  inject: ['mouse_pos'],
+  computed: {
+    modal() {
+      const translateX = this.mouse_pos.x / 2
+      const translateZ = this.mouse_pos.y / 2
+      const width = this.mouse_pos.x / 2
+      const height = this.mouse_pos.y / 2
+
+      return {
+        transform: `translate3d(${translateX}px, 0, ${translateZ}px)`,
+        width: `${width}px`,
+        height: `${height}px`,
+      }
+    },
+
+  },
 }
 </script>
 
@@ -19,8 +35,7 @@ export default {
             position: relative; height: 100%; width: 100%;  display: block; left: 0px; top: 0px; "
     >
       <div
-        id="modalMenu" style="transform: rotateY(2.4deg) translateZ(-11em);
-                width: 59%;height: 108%;position:absolute;background: rgba(255,255,255,1);left: -52%;"
+        id="modalMenu"
       />
       <div
         id="rightHome" class="rightHome" style="transform: rotateY(-28.6deg) translateZ(-9vw);
@@ -228,6 +243,16 @@ export default {
 </template>
 
 <style scoped>
+#modalMenu {
+  /* transform: var(modal_menu_transform); */
+  transform: v-bind('modal.transform');
+  width: 59%;
+  height: 108%;
+  position:absolute;
+  background: rgba(255,255,255,1);
+  left: -52%;
+}
+
 @font-face {
   font-family: JuneBug;
   src: url('fonts/iosevka-ss09-extralight.ttf');
