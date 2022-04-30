@@ -14,6 +14,7 @@ export default {
   provide() {
     return {
       mouse_pos: this.mouse_pos,
+      window_size: this.window_size,
     }
   },
   data() {
@@ -21,6 +22,10 @@ export default {
       mouse_pos: {
         x: 0,
         y: 0,
+      },
+      window_size: {
+        height: window.innerHeight,
+        width: window.innerWidth,
       },
     }
   },
