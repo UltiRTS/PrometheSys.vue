@@ -32,6 +32,7 @@ export default {
           message: 'hello',
         },
       ],
+      isBottom: false,
     }
   },
   computed: {
@@ -68,11 +69,36 @@ export default {
       return res
     },
   },
+  updated() {
+    if (this.isBottom)
+      this.$refs.chats.scrollTop = this.$refs.chats.scrollHeight
+  },
+  methods: {
+    pushMessage() {
+      this.moving = this.isBottom
+      this.chats.push({
+        username: 'pushUser',
+        message: 'pushed',
+      })
+    },
+    onscroll(ev) {
+      const elem = ev.target
+      if (elem.scrollHeight - elem.scrollTop === elem.clientHeight)
+        this.isBottom = true
+      else
+        this.isBottom = false
+    },
+  },
 }
 </script>
 
 <template>
-  <div class="chat-container">
+  <button @click="pushMessage">
+    push
+  </button>
+  <div>bottom: {{ isBottom }}</div>
+
+  <div ref="chats" class="chat-container" @scroll="onscroll">
     <div v-for="chat in timeline" :key="chat.username" class="chats">
       <div class="avator">
         {{ chat.username }}
