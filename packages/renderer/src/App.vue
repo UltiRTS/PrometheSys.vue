@@ -30,7 +30,7 @@ export default {
     }
   },
   mounted() {
-    router.push('main')
+    router.push('chat')
   },
   methods: {
     onMouseMove(e) {
