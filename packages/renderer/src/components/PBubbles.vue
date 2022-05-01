@@ -24,7 +24,7 @@ const sketch = (s: p5) => {
   // move the bubbles based on their size
   function moveBubbles(bubble: Bubble) {
     bubble.x += s.random(-xVariation, xVariation)
-    bubble.speed += bubble.size / 5
+    bubble.speed += bubble.size 
     bubble.y -= bubble.speed
     // draw the bubble NOTE they must be integer values to draw to the canvas
     s.ellipse(
