@@ -2,11 +2,34 @@
 export default {
   data() {
     return {
-      activeWindow: 'default',
+      activeWindow: 'menu',
+      mouseOn: 'default',
     }
   },
   computed: {
+      shouldIlightUpModal(){
+          if (this.activeWindow=='modal'){
+              return 0.9
+          }
+          else if(this.mouseOn== 'modal'){
+              return 0.3
+          }
+          else{
+              return 0.1
+          }
+      },
 
+    shouldIlightUpMenu(){
+          if (this.activeWindow=='menu'){
+              return 0.9
+          }
+          else if(this.mouseOn== 'menu'){
+              return 0.3
+          }
+          else{
+              return 0.1
+          }
+      }
 
   },
   mounted() {
@@ -23,12 +46,12 @@ export default {
   <div id="home" data-depth="2" style="perspective: 200vw; transform-style: preserve-3d; backface-visibility: hidden;
   position: absolute;height: 100%;width: 100%;top: 0px;left: 0px;/* margin: 0px; */overflow:hidden;margin:0;">
     <div id='homeUIContainer' :class="activeWindow" style="perspective: 100vw; position: absolute; height: 100%; width: 100%; display: block; left: 0px; top: 0px;">
-      <div id="mainContent"  style="transform: translateZ(0vw);
+      <div id="mainContent" @click="activeWindow='default'" style="transform: translateZ(0vw);
                       position:absolute;color:white;width: 181%;height: 181%;top: -39%;left: -18%;background:green;">
       </div>
-      <div id="modalMenu" @mouseover="activeWindow='modal'" @mouseleave="activeWindow='default'" v-bind:style='{"opacity" : (activeWindow=="modal"? "90%" : "20%" )}' style="transform: rotateY(42.6deg) translateZ(-4vw) translateX(-55vw); top: 5%;width: 56%; height: 84%; position: absolute; background: rgb(255, 255, 255);">
+      <div id="modalMenu" @click="activeWindow='modal'" @mouseover='mouseOn="modal"' :style="{opacity:shouldIlightUpModal}" @mouseleave="mouseOn='default'"  style="transform: rotateY(42.6deg) translateZ(-4vw) translateX(-55vw); top: 5%;width: 56%; height: 84%; position: absolute; background: rgb(255, 255, 255);">
       </div>
-      <div class="rightHome" @mouseover="activeWindow='menu'" @mouseleave="activeWindow='default'" id="rightHome" v-bind:style='{"opacity" : (activeWindow=="menu"? "90%" : "20%" )}' style="transform: rotateY(-80.6deg) translateZ(-187vw); width: 100%; height: 102%; position: absolute; backdrop-filter: blur(53px);top: -41%;">
+      <div class="rightHome" @click="activeWindow='menu'" @mouseover='mouseOn="menu"' @mouseleave="mouseOn='default'" :style="{opacity:shouldIlightUpMenu}" id="rightHome"  style="transform: rotateY(-80.6deg) translateZ(-187vw); width: 100%; height: 102%; position: absolute; backdrop-filter: blur(53px);top: -41%;">
                   <img src="assets/horizontalSep1.png" style="position:absolute;top:-1%;height: 5px;width: 93%;opacity:0.3;">
                   <div style="position:absolute;height: 6%;width: 93%;background: rgb(202 246 255 / 5%);top: 0%;padding:2%;">
                       <i class="fa fa-wifi" aria-hidden="true" style="font-size: 2vw;color: #ffffff8c;"></i>
@@ -389,7 +412,7 @@ export default {
         .menu{
             animation-fill-mode: forwards;
             animation-name: homeUIContainerRight;
-            animation-duration: 0.7s;
+            animation-duration: 0.3s;
             animation-iteration-count: 1;
             animation-delay: 0s;
             transform: rotateY(0deg) translateZ(-197vw) translateX(-17vw);
@@ -409,7 +432,7 @@ export default {
             transform: rotateY(0deg) translateZ(-197vw) translateX(-17vw);
             animation-fill-mode: forwards;
             animation-name: homeUIContainerLeft;
-            animation-duration: 0.7s;
+            animation-duration: 0.3s;
             animation-iteration-count: 1;
             animation-delay: 0s;
         }
