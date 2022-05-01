@@ -1,5 +1,7 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import Components from 'unplugin-vue-components/vite'
+
 import resolve from 'vite-plugin-resolve'
 import electron from 'vite-plugin-electron/renderer'
 import Pages from 'vite-plugin-pages'
@@ -14,6 +16,8 @@ export default defineConfig({
     electron(),
 
     Pages(),
+
+    Components(),
 
     resolve(
       /**
