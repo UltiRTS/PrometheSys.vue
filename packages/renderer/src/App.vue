@@ -30,7 +30,7 @@ export default {
     }
   },
   mounted() {
-    router.push('chat')
+    router.push('prelogin')
   },
   methods: {
     onMouseMove(e) {
@@ -51,51 +51,7 @@ export default {
   </div>
 </template>
 
-<style>
-.app-wrapper {
-  height: 100%;
-  width: 100%;
-}
 
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
-}
-html {
-  overflow: hidden;
-}
-
-.logo-box {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-}
-
-.logo-box span {
-  width: 74px;
-}
-
-.static-public {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.static-public code {
-  background-color: #eee;
-  padding: 2px 4px;
-  margin: 0 4px;
-  border-radius: 4px;
-  color: #304455;
-}
-</style>
 
 <style>
 @font-face {

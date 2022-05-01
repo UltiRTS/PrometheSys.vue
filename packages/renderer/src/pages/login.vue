@@ -363,14 +363,11 @@ onMounted(() => {
 
 const username = ref('')
 const password = ref('')
-const yijingqichuang = ref('')
-const bubbles = ref([])
-const bubbleNum = ref(20)
-const xVariation = ref(2)
+
 
 function qichuangdachenggong() {
   this.yijingqichuang = 'qichuangyijingchenggong'
-  // console.log('setting var');
+  console.log('setting var');
 }
 
 function loginWrapper() {
@@ -381,58 +378,7 @@ function loginWrapper() {
   })
 }
 // setup the canvas based on the window size
-function setup() {
-  createCanvas(window.innerWidth, window.innerHeight)
-  noStroke()
-  // frameRate(10);
-  // make random bubble objects {x,y,size,speed}
-  for (let i = 0; i < bubbleNum.value; i++) {
-    bubbles[i] = {
-      x: random(window.innerWidth),
-      y: random(window.innerHeight),
-      size: random(3, 10),
-      speed: 0,
-    }
-  }
-  // set color of the bubbles 'feel free to play with opacity, I think .4 looks nice'
-  fill('rgba(255,255,255, 0.4)')
-}
-// handle window resize events and fix the canvas
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight)
-}
-// animation loop
-function draw() {
-  background('#164899')
-  bubbles.value.forEach((bub, index) => {
-    moveBubbles(bub)
-    if (bub.y < -10)
-      newBubble(index)
-  })
-}
-// makes a new bubble at a specified index once its off screen
-function newBubble(index) {
-  bubbles[index] = {
-    x: random(window.innerWidth),
-    y: window.innerHeight,
-    size: random(3, 10),
-    speed: 0,
-  }
-}
 
-// move the bubbles based on their size
-function moveBubbles(bubble) {
-  bubble.x += random(-xVariation.value, xVariation)
-  bubble.speed += bubble.size / 100
-  bubble.y -= bubble.speed
-  // draw the bubble NOTE they must be integer values to draw to the canvas
-  ellipse(
-    Math.round(bubble.x),
-    Math.round(bubble.y),
-    Math.round(bubble.size),
-    Math.round(bubble.size),
-  )
-}
 
 </script>
 
@@ -453,7 +399,7 @@ function moveBubbles(bubble) {
     <div style="position:absolute;width:100%;height:100%;top:0%;left:0%;background: #95928a;" />
     <img src="/imgs/bg.png" style="position: absolute;width: 100%;height: 100%;left: 0%;top: 0%;filter: grayscale(100%) contrast(22%) brightness(99%);-webkit-mask-image: linear-gradient(rgb(80 80 80 / 0%), rgb(0, 0, 0));">
     <canvas id="c" style="	position: absolute;top: 0;left: 0;opacity: .2;pointer-events: none;" />
-
+    <div id='stupidCanvas' style='position:absolute;top:0;left:0;width:100%;height:100%;pointer-events: none;z-index:-2;'> <PBubbles /></div>
     <div id="cover" :class="{cover:yijingqichuang}" style="width: 43%; height: 20%; top: 33%; left: 27%; position: absolute;">
       <img src="/imgs/thea_frame.png" style="position: absolute;width: 11vw;filter: drop-shadow(8px 20px 16px #000);">
 
@@ -472,7 +418,7 @@ function moveBubbles(bubble) {
       </div>
     </div>
 
-    <div id="loginInterface" :style="{&quot;display&quot;:(yijingqichuang? &quot;&quot;:&quot;none&quot;)}">
+    <div id="loginInterface" :style="{'display':(yijingqichuang? '':'none')}">
       <img src="/imgs/thea_auth.png" :class="{loginInterface_bgWaterMark:yijingqichuang}" style="opacity:0.00; position: absolute;width: 50vw;top: 70%; ">
 
       <div id="loginbox" class="loginbox" style="position: absolute; height: 100%; width: 100%; mix-blend-mode: screen;">

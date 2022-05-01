@@ -8,7 +8,7 @@ interface Bubble { x: number; y: number; size: number; speed: number }
 
 const sketch = (s: p5) => {
   const bubbles: Bubble[] = []// holds bubble objects
-  const bubbleNum = 20// # of bubbles?
+  const bubbleNum = 2// # of bubbles?
   const xVariation = 2// how much the bubbles move in the x direction
 
   // makes a new bubble at a specified index once its off screen
@@ -24,7 +24,7 @@ const sketch = (s: p5) => {
   // move the bubbles based on their size
   function moveBubbles(bubble: Bubble) {
     bubble.x += s.random(-xVariation, xVariation)
-    bubble.speed += bubble.size / 100
+    bubble.speed += bubble.size / 5
     bubble.y -= bubble.speed
     // draw the bubble NOTE they must be integer values to draw to the canvas
     s.ellipse(
@@ -38,6 +38,7 @@ const sketch = (s: p5) => {
   // setup the canvas based on the window size
   s.setup = () => {
     const canvas = s.createCanvas(window.innerWidth, window.innerHeight)
+    canvas.parent('stupidCanvas')
     canvas.canvas.id = 'p5-bubbles'
 
     s.noStroke()
@@ -57,7 +58,8 @@ const sketch = (s: p5) => {
 
   s.draw = () => {
     // s.background('#164899')
-    s.background('#164899')
+    s.clear();
+    // fill(255,0,0,127);
     bubbles.forEach((bub, index) => {
       moveBubbles(bub)
       if (bub.y < -10)
@@ -90,6 +92,6 @@ onMounted(async () => {
   position: fixed;
   top:0px;
   left:0px;
-  z-index: 0;
+
 }
 </style>
