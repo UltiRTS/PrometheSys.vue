@@ -363,7 +363,7 @@ onMounted(() => {
 
 const username = ref('')
 const password = ref('')
-
+const yijingqichuang = ref('')
 
 function qichuangdachenggong() {
   this.yijingqichuang = 'qichuangyijingchenggong'
