@@ -93,6 +93,7 @@ export default {
 </script>
 
 <template>
+  <PBubbles />
   <button @click="pushMessage">
     push
   </button>
