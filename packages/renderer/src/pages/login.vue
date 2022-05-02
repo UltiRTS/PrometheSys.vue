@@ -404,8 +404,8 @@ function loginWrapper() {
       <img src="/imgs/thea_frame.png" style="position: absolute;width: 11vw;filter: drop-shadow(8px 20px 16px #000);">
 
       <a id="preClick" class="edgy-link" :class="yijingqichuang" style="filter: drop-shadow(rgb(0, 0, 0) 8px 20px 16px); position: absolute; margin: 2vw; top: -4%; left: 5vw; font-size: 2vw;color:white;" @click="qichuangdachenggong()">
-        <span style="font-family: font6;position: relative;opacity: 0.95;left: 0vw;font-weight: 900;color: rgba(255,255,255,0.9);"> 目覚め始める </span>
-        <span style="font-family: font8;position: relative;opacity: 0.95;left: -12.45vw;"> 目覚め始める </span>
+        <span style="font-family: font6;position: relative;opacity: 0.95;left: 0vw;font-weight: 900;color: rgba(255,255,255,0.9);">目覚める</span>
+        <span style="font-family: font8;position: relative;opacity: 0.95;left: -12.45vw;">目覚める</span>
       </a>
 
       <div id="postClick">

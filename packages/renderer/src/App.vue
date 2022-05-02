@@ -30,7 +30,7 @@ export default {
     }
   },
   mounted() {
-    router.push('prelogin')
+    router.push('postlogin')
   },
   methods: {
     onMouseMove(e) {

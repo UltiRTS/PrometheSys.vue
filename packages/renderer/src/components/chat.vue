@@ -11,6 +11,10 @@ export default {
           username: 'user1',
           message: 'hello',
         },
+                {
+          username: 'user1',
+          message: 'hello',
+        },
         {
           username: 'user2',
           message: 'world',
@@ -24,6 +28,14 @@ export default {
           message: 'hello',
         },
         {
+          username: 'user3',
+          message: 'hello',
+        },
+        {
+          username: 'user3',
+          message: 'hello',
+        },
+                {
           username: 'user3',
           message: 'hello',
         },
@@ -93,54 +105,31 @@ export default {
 </script>
 
 <template>
+  <div style='position:absolute;width:100%;height:100%;background:rgba(0,0,0,0.5)' />
   
-  <button @click="pushMessage">
-    push
-  </button>
-  <div>bottom: {{ isBottom }}</div>
+    <button @click="pushMessage" style='display:none;'>
+      push
+    </button>
+    <div style='display:none;'>bottom: {{ isBottom }}</div>
 
-  <div ref="chats" class="chat-container" @scroll="onscroll">
-    <div v-for="chat in timeline" :key="chat.username" class="chats">
-      <div class="avator">
-        {{ chat.username }}
-      </div>
-      <div class="chat-wrapper">
-        <div v-for="message in chat.chats" :id="chat.username" :key="message" class="chat">
-          <div class="message">
+    <div ref="chats" id='chatContainer' @scroll="onscroll" style='left:3vw;background:grey;position:absolute;height:90%;width:90%;overflow-x:hidden;overflow-y:auto;top:1%;padding-top:2vh;padding-bottom:2vh;'>
+      <div v-for="chat in timeline" :key="chat.username" id='chatBlock' style='margin-bottom:2.5%;position:relative;left:2%;'>
+        
+        <div id='userHeading' style='left:2%;margin:0;position:relative;margin-bottom:2%;'>
+          {{ chat.username }}
+        </div>
+        <div id='userMsgs' style='left:2%;font-size:2vh;margin:0;height:100%;position:relative;'>
+          <div v-for="message in chat.chats" :id="chat.username" :key="message" class="chat" style='margin:0;'>
             {{ message }}
           </div>
         </div>
+        <div id='colorBlock' style='width:1%;height:110%;top:0;background:blue;margin:0;position:absolute;;'> </div>
       </div>
     </div>
-  </div>
+  
 </template>
 
 <style scoped>
-.avator {
-  margin: 5%;
-}
-.chat-container {
-  height: 20%;
-  width: 20%;
-  background-color: aqua;
-  overflow-y: scroll;
-}
-.chats {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  background-color: antiquewhite;
-  margin-bottom: 3%;
-}
-.avator {
-  margin-right: 5%;
-}
-.chat {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  background-color: #eee;
-  padding: 5px;
-}
+
 </style>
 

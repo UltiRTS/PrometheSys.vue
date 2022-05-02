@@ -49,7 +49,8 @@ export default {
       <div id="mainContent" @click="activeWindow='default'" style="transform: translateZ(0vw);
                       position:absolute;color:white;width: 181%;height: 181%;top: -39%;left: -18%;background:green;">
       </div>
-      <div id="modalMenu" @click="activeWindow='modal'" @mouseover='mouseOn="modal"' :style="{opacity:shouldIlightUpModal}" @mouseleave="mouseOn='default'"  style="transform: rotateY(42.6deg) translateZ(-4vw) translateX(-55vw); top: 5%;width: 56%; height: 84%; position: absolute; background: rgb(255, 255, 255);">
+      <div id="modalMenu" @click="activeWindow='modal'" @mouseover='mouseOn="modal"' :style="{opacity:shouldIlightUpModal}" @mouseleave="mouseOn='default'"  style="transform: rotateY(42.6deg) translateZ(-4vw) translateX(-55vw); top: 5%;width: 56%; height: 84%; position: absolute; ">
+          <chat/>
       </div>
       <div class="rightHome" @click="activeWindow='menu'" @mouseover='mouseOn="menu"' @mouseleave="mouseOn='default'" :style="{opacity:shouldIlightUpMenu}" id="rightHome"  style="transform: rotateY(-80.6deg) translateZ(-187vw); width: 100%; height: 102%; position: absolute; backdrop-filter: blur(53px);top: -41%;">
                   <img src="assets/horizontalSep1.png" style="position:absolute;top:-1%;height: 5px;width: 93%;opacity:0.3;">
