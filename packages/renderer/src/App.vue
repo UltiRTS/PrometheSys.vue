@@ -2,6 +2,7 @@
 import { ipcRenderer } from 'electron'
 import { RouterView } from 'vue-router'
 import router from './router'
+import { useUserStore } from './stores'
 
 ipcRenderer.send('toMain', JSON.stringify({
   action: 'queryMap',
@@ -16,6 +17,10 @@ export default {
       mouse_pos: this.mouse_pos,
       window_size: this.window_size,
     }
+  },
+  setup() {
+    const userStore = useUserStore()
+    userStore.login({ username: 'test', password: 'testpassword' })
   },
   data() {
     return {
@@ -50,8 +55,6 @@ export default {
     <router-view />
   </div>
 </template>
-
-
 
 <style>
 @font-face {
