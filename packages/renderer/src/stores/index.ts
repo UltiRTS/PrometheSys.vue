@@ -4,18 +4,19 @@ import consola from 'consola'
 import { ref } from 'vue'
 
 export const useUserStore = defineStore('user', () => {
-  const ws = new WebSocket('ws://178.18.243.134:9090')
+  const ws = new WebSocket('ws://185.205.246.232:9090')
 
   const ws_open = ref<boolean>()
   const count = ref<number>()
   const userState = ref({})
+  const chatLog = ref<object[]>([])
 
   function login(params: {
     username: string
     password: string
   }) {
     if (ws_open.value !== true) {
-      console.log('ws is not open')
+      window.console.log('ws is not open')
       return
     }
 
@@ -30,13 +31,21 @@ export const useUserStore = defineStore('user', () => {
 
   ws.onmessage = (ev) => {
     const msg = JSON.parse(ev.data)
-    consola.info(msg)
     if (msg.action === undefined)
       return
 
     switch (msg.action) {
       case 'stateDump':
         userState.value = msg
+        consola.info(msg)
+
+        if (msg.triggeredBy === 'SAYCHAT') {
+          if (chatLog.value.length === 100)
+            chatLog.value.shift()
+
+          chatLog.value.push(msg.parameters.usrstats.chatMsg)
+        }
+
         break
       default:
         break
