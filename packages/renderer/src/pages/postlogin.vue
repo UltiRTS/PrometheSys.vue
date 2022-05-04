@@ -50,7 +50,8 @@ export default {
                       position:absolute;color:white;width: 181%;height: 181%;top: -39%;left: -18%;background:rgba(255,255,255,0.05);">
       </div>
       <div id="modalMenu" @click="activeWindow='modal'" @mouseover='mouseOn="modal"' :style="{opacity:shouldIlightUpModal}" @mouseleave="mouseOn='default'"  style="transform: rotateY(15.6deg) translateZ(10vw) translateX(-55vw); top: 5%;width: 56%; height: 84%; position: absolute; backdrop-filter: blur(9px);">
-          <chat/>
+        <!--  <chat/>-->
+        <gem/>
       </div>
       <div class="rightHome" @click="activeWindow='menu'" @mouseover='mouseOn="menu"' @mouseleave="mouseOn='default'" :style="{opacity:shouldIlightUpMenu}" id="rightHome"  style="transform:rotateY(-15.6deg) translateZ(-147vw) translateX(209vw); width: 100%; height: 102%; position: absolute; backdrop-filter: blur(53px);top: -41%;">
                   <img src="assets/horizontalSep1.png" style="position:absolute;top:-1%;height: 5px;width: 93%;opacity:0.3;">
