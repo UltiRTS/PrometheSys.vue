@@ -57,6 +57,8 @@ export default {
 </template>
 
 <style>
+@import '../public/css/font-awesome-4.7.0/css/font-awesome.css';
+
 @font-face {
     font-family: font1;
     src: url('/fonts/1.ttf');

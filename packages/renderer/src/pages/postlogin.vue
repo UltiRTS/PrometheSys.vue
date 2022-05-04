@@ -43,16 +43,16 @@ export default {
     style="top:0%; position:fixed;width:100%;height:100%;background: linear-gradient(to bottom, #1e5799 -75%, rgba(0, 29, 60, 0) 75%);">
     <img alt="background" src="../../public/imgs/bg.png" id="bgPic" style="position:fixed; width:100%;top:0;left:0;">
   </div>
-  <div id="home" data-depth="2" style="perspective: 200vw; transform-style: preserve-3d; backface-visibility: hidden;
+  <div id="home" data-depth="2" style="perspective: 500vw; transform-style: preserve-3d; backface-visibility: hidden;
   position: absolute;height: 100%;width: 100%;top: 0px;left: 0px;/* margin: 0px; */overflow:hidden;margin:0;">
     <div id='homeUIContainer' :class="activeWindow" style="perspective: 100vw; position: absolute; height: 100%; width: 100%; display: block; left: 0px; top: 0px;">
       <div id="mainContent" @click="activeWindow='default'" style="transform: translateZ(0vw);
-                      position:absolute;color:white;width: 181%;height: 181%;top: -39%;left: -18%;background:green;">
+                      position:absolute;color:white;width: 181%;height: 181%;top: -39%;left: -18%;background:rgba(255,255,255,0.2);">
       </div>
-      <div id="modalMenu" @click="activeWindow='modal'" @mouseover='mouseOn="modal"' :style="{opacity:shouldIlightUpModal}" @mouseleave="mouseOn='default'"  style="transform: rotateY(42.6deg) translateZ(-4vw) translateX(-55vw); top: 5%;width: 56%; height: 84%; position: absolute; ">
+      <div id="modalMenu" @click="activeWindow='modal'" @mouseover='mouseOn="modal"' :style="{opacity:shouldIlightUpModal}" @mouseleave="mouseOn='default'"  style="transform: rotateY(15.6deg) translateZ(10vw) translateX(-55vw); top: 5%;width: 56%; height: 84%; position: absolute; ">
           <chat/>
       </div>
-      <div class="rightHome" @click="activeWindow='menu'" @mouseover='mouseOn="menu"' @mouseleave="mouseOn='default'" :style="{opacity:shouldIlightUpMenu}" id="rightHome"  style="transform: rotateY(-80.6deg) translateZ(-187vw); width: 100%; height: 102%; position: absolute; backdrop-filter: blur(53px);top: -41%;">
+      <div class="rightHome" @click="activeWindow='menu'" @mouseover='mouseOn="menu"' @mouseleave="mouseOn='default'" :style="{opacity:shouldIlightUpMenu}" id="rightHome"  style="transform:rotateY(-15.6deg) translateZ(-147vw) translateX(209vw); width: 100%; height: 102%; position: absolute; backdrop-filter: blur(53px);top: -41%;">
                   <img src="assets/horizontalSep1.png" style="position:absolute;top:-1%;height: 5px;width: 93%;opacity:0.3;">
                   <div style="position:absolute;height: 6%;width: 93%;background: rgb(202 246 255 / 5%);top: 0%;padding:2%;">
                       <i class="fa fa-wifi" aria-hidden="true" style="font-size: 2vw;color: #ffffff8c;"></i>
@@ -256,7 +256,6 @@ export default {
 </template>
 
 <style scoped>
-@import '../../public/css/font-awesome-4.7.0/css/font-awesome.css';
 
 @font-face {
             font-family: JuneBug;
@@ -406,7 +405,7 @@ export default {
             }
 
             100% {
-                transform: rotateY(0deg) translateZ(-154vw) translateX(-21vw);
+                transform:rotateY(3deg) translateZ(-376vw) translateX(0vw);
             }
         }
 
@@ -421,11 +420,11 @@ export default {
 
         @keyframes homeUIContainerRight {
             0% {
-                transform: rotateY(0deg) translateZ(-197vw) translateX(-17vw);
+                transform:rotateY(3deg) translateZ(-376vw) translateX(0vw);
             }
 
             100% {
-                transform: rotateY(10.4deg) translateZ(-300vw) translateX(-17vw);
+                transform:rotateY(10.3deg) translateZ(-381vw) translateX(0vw)
             }
         }
 
@@ -440,11 +439,11 @@ export default {
 
         @keyframes homeUIContainerLeft {
             0% {
-                transform: rotateY(0deg) translateZ(-197vw) translateX(-17vw);
+                transform:rotateY(3deg) translateZ(-376vw) translateX(0vw);
             }
 
             100% {
-                transform: rotateY(-10.4deg) translateZ(-300vw) translateX(-17vw);
+                transform: rotateY(-8deg) translateZ(-381vw) translateX(0vw);
             }
         }
 </style>
