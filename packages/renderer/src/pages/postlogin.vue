@@ -9,7 +9,7 @@ export default {
   computed: {
       shouldIlightUpModal(){
           if (this.activeWindow=='modal'){
-              return 0.9
+              return 1
           }
           else if(this.mouseOn== 'modal'){
               return 0.3
@@ -21,7 +21,7 @@ export default {
 
     shouldIlightUpMenu(){
           if (this.activeWindow=='menu'){
-              return 0.9
+              return 1
           }
           else if(this.mouseOn== 'menu'){
               return 0.3
@@ -43,13 +43,13 @@ export default {
     style="top:0%; position:fixed;width:100%;height:100%;background: linear-gradient(to bottom, #1e5799 -75%, rgba(0, 29, 60, 0) 75%);">
     <img alt="background" src="../../public/imgs/bg.png" id="bgPic" style="position:fixed; width:100%;top:0;left:0;">
   </div>
-  <div id="home" data-depth="2" style="perspective: 500vw; transform-style: preserve-3d; backface-visibility: hidden;
+  <div id="home" data-depth="2" style="perspective: 500vw; backface-visibility: hidden;
   position: absolute;height: 100%;width: 100%;top: 0px;left: 0px;/* margin: 0px; */overflow:hidden;margin:0;">
     <div id='homeUIContainer' :class="activeWindow" style="perspective: 100vw; position: absolute; height: 100%; width: 100%; display: block; left: 0px; top: 0px;">
       <div id="mainContent" @click="activeWindow='default'" style="transform: translateZ(0vw);
-                      position:absolute;color:white;width: 181%;height: 181%;top: -39%;left: -18%;background:rgba(255,255,255,0.2);">
+                      position:absolute;color:white;width: 181%;height: 181%;top: -39%;left: -18%;background:rgba(255,255,255,0.05);">
       </div>
-      <div id="modalMenu" @click="activeWindow='modal'" @mouseover='mouseOn="modal"' :style="{opacity:shouldIlightUpModal}" @mouseleave="mouseOn='default'"  style="transform: rotateY(15.6deg) translateZ(10vw) translateX(-55vw); top: 5%;width: 56%; height: 84%; position: absolute; ">
+      <div id="modalMenu" @click="activeWindow='modal'" @mouseover='mouseOn="modal"' :style="{opacity:shouldIlightUpModal}" @mouseleave="mouseOn='default'"  style="transform: rotateY(15.6deg) translateZ(10vw) translateX(-55vw); top: 5%;width: 56%; height: 84%; position: absolute; backdrop-filter: blur(9px);">
           <chat/>
       </div>
       <div class="rightHome" @click="activeWindow='menu'" @mouseover='mouseOn="menu"' @mouseleave="mouseOn='default'" :style="{opacity:shouldIlightUpMenu}" id="rightHome"  style="transform:rotateY(-15.6deg) translateZ(-147vw) translateX(209vw); width: 100%; height: 102%; position: absolute; backdrop-filter: blur(53px);top: -41%;">

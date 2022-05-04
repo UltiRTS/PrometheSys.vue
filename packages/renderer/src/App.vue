@@ -98,5 +98,20 @@ export default {
     font-family: font8;
     src: url('/fonts/genkai-mincho.ttf');
 }
+
+@font-face {
+    font-family: font8;
+    src: url('/fonts/9.ttf');
+}
+
+@font-face {
+    font-family: font9;
+    src: url('/fonts/Roboto-Regular.ttf');
+}
+
+@font-face {
+    font-family: font10;
+    src: url('/fonts/ARIAL.TTF');
+}
 </style>
 
