@@ -6,11 +6,15 @@ import '@vue/runtime-core'
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Chat: typeof import('./src/components/chat.vue')['default']
+    'Chat copy': typeof import('./src/components/chat copy.vue')['default']
+    Gem: typeof import('./src/components/gem.vue')['default']
     Hello: typeof import('./src/components/Hello.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     PBubbles: typeof import('./src/components/PBubbles.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SampleComponent: typeof import('./src/components/sampleComponent.vue')['default']
+    'SampleComponent copy': typeof import('./src/components/sampleComponent copy.vue')['default']
   }
 }
 
