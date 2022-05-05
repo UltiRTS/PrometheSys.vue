@@ -35,7 +35,7 @@ export default {
     }
   },
   mounted() {
-    router.push('postlogin')
+    router.push('login')
   },
   methods: {
     onMouseMove(e) {

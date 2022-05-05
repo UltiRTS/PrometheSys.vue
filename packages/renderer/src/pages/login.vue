@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { computed } from '@vue/reactivity'
 import { onMounted, ref } from 'vue'
+import consola from 'consola'
 // import { mapActions, mapState } from 'vuex'
 
 import { useUserStore } from '../stores'
@@ -365,9 +366,9 @@ const username = ref('')
 const password = ref('')
 const yijingqichuang = ref('')
 
-function qichuangdachenggong() {
-  this.yijingqichuang = 'qichuangyijingchenggong'
-  console.log('setting var')
+const qichuangdachenggong = () => {
+  yijingqichuang.value = 'qichuangyijingchenggong'
+  consola.log('setting var')
 }
 
 function loginWrapper() {
@@ -397,7 +398,7 @@ function loginWrapper() {
   <div id="mainContent" class="mainContent" style=" position:absolute;height:100%;width:100%;overflow:hidden;margin:0;top:0%;left:0%">
     <div style="position:absolute;width:100%;height:100%;top:0%;left:0%;background: #95928a;" />
     <img src="/imgs/bg.png" style="position: absolute;width: 100%;height: 100%;left: 0%;top: 0%;filter: grayscale(100%) contrast(22%) brightness(99%);-webkit-mask-image: linear-gradient(rgb(80 80 80 / 0%), rgb(0, 0, 0));">
-    <canvas id="c" style="	position: absolute;top: 0;left: 0;opacity: .2;pointer-events: none;" />
+    <canvas id="c" ref="canvas" style="position: absolute;top: 0;left: 0;opacity: .2;pointer-events: none;" />
     <div id="stupidCanvas" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events: none;">
       <PBubbles />
     </div>
