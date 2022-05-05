@@ -367,7 +367,7 @@ const yijingqichuang = ref('')
 
 function qichuangdachenggong() {
   this.yijingqichuang = 'qichuangyijingchenggong'
-  console.log('setting var');
+  console.log('setting var')
 }
 
 function loginWrapper() {
@@ -378,7 +378,6 @@ function loginWrapper() {
   })
 }
 // setup the canvas based on the window size
-
 
 </script>
 
@@ -399,7 +398,9 @@ function loginWrapper() {
     <div style="position:absolute;width:100%;height:100%;top:0%;left:0%;background: #95928a;" />
     <img src="/imgs/bg.png" style="position: absolute;width: 100%;height: 100%;left: 0%;top: 0%;filter: grayscale(100%) contrast(22%) brightness(99%);-webkit-mask-image: linear-gradient(rgb(80 80 80 / 0%), rgb(0, 0, 0));">
     <canvas id="c" style="	position: absolute;top: 0;left: 0;opacity: .2;pointer-events: none;" />
-    <div id='stupidCanvas' style='position:absolute;top:0;left:0;width:100%;height:100%;pointer-events: none;'> <PBubbles /></div>
+    <div id="stupidCanvas" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events: none;">
+      <PBubbles />
+    </div>
     <div id="cover" :class="{cover:yijingqichuang}" style="width: 43%; height: 20%; top: 33%; left: 27%; position: absolute;">
       <img src="/imgs/thea_frame.png" style="position: absolute;width: 11vw;filter: drop-shadow(8px 20px 16px #000);">
 
@@ -542,7 +543,6 @@ color:white;
 }
 
 @keyframes logininputAnime {
-
 	0%   {left:80%;width:0.2vw;opacity:0;}
 	30% {opacity:0;}
 	50% {left:45%;width:0.2vw;opacity:1;}
