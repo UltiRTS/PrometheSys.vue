@@ -9,7 +9,13 @@ export const useUserStore = defineStore('user', () => {
   const ws_open = ref<boolean>()
   const count = ref<number>()
   const userState = ref({})
-  const chatLog = ref<object[]>([])
+  const chatLog = ref<object[]>([
+    {
+      author: 'Александр Карпов',
+      msg: 'Привет, как дела?',
+      chatName: 'general',
+    },
+  ])
 
   function login(params: {
     username: string
@@ -64,6 +70,7 @@ export const useUserStore = defineStore('user', () => {
     ws_open,
     count,
     userState,
+    chatLog,
 
     login,
   }
