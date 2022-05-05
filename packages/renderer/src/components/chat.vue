@@ -1,4 +1,5 @@
 <script>
+import consola from 'consola'
 export default {
   // feed those
   props: ['chatLog'],
@@ -39,6 +40,7 @@ export default {
         if (!res.includes(chat.chatName))
           res.push(chat.chatName)
       }
+      consola.info(res)
       return res
     },
     timeline() {

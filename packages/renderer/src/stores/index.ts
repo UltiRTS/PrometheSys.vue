@@ -2,6 +2,7 @@ import { acceptHMRUpdate, defineStore } from 'pinia'
 
 import consola from 'consola'
 import { ref } from 'vue'
+import router from '../router'
 
 export const useUserStore = defineStore('user', () => {
   const ws = new WebSocket('ws://185.205.246.232:9090')
@@ -13,7 +14,7 @@ export const useUserStore = defineStore('user', () => {
     {
       author: 'Александр Карпов',
       msg: 'Привет, как дела?',
-      chatName: 'general',
+      chatName: 'global',
     },
   ])
 
@@ -35,21 +36,60 @@ export const useUserStore = defineStore('user', () => {
     }))
   }
 
+  function joinChat(params: {
+    chatName: string
+  }) {
+    if (ws_open.value !== true) {
+      consola.error('ws is not open')
+      return
+    }
+
+    ws.send(JSON.stringify({
+      action: 'JOINCHAT',
+      parameters: {
+        chatName: params.chatName,
+      },
+    }))
+  }
+
+  function sayChat(params: {
+    chatName: string
+    msg: string
+  }) {
+    if (ws_open.value !== true) {
+      consola.error('ws is not open')
+      return
+    }
+    ws.send(JSON.stringify({
+      action: 'JOINCHAT',
+      parameters: {
+        chatName: params.chatName,
+        msg: params.msg,
+      },
+    }))
+  }
+
   ws.onmessage = (ev) => {
     const msg = JSON.parse(ev.data)
+    consola.info(msg)
     if (msg.action === undefined)
       return
 
     switch (msg.action) {
       case 'stateDump':
         userState.value = msg
-        consola.info(msg)
 
         if (msg.triggeredBy === 'SAYCHAT') {
           if (chatLog.value.length === 100)
             chatLog.value.shift()
 
-          chatLog.value.push(msg.parameters.usrstats.chatMsg)
+          chatLog.value.push(msg.paramaters.usrstats.chatMsg)
+          consola.info(chatLog)
+        }
+
+        if (msg.triggeredBy === 'LOGIN') {
+          router.push('postlogin')
+          joinChat({ chatName: 'global' })
         }
 
         break
@@ -72,6 +112,8 @@ export const useUserStore = defineStore('user', () => {
     userState,
     chatLog,
 
+    sayChat,
+    joinChat,
     login,
   }
 })
