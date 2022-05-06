@@ -83,7 +83,7 @@ export default {
   },
   watch: {
     chatLog(newVal, oldVal) { // watch it
-      this.unreadChannel.push(this.newVal.slice(-1))
+      this.unreadChannel.push(this.newVal.slice(-1).chatName)
     },
   },
 
