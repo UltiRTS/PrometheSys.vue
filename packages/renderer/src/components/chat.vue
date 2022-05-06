@@ -12,28 +12,7 @@ export default {
       // channels: ['general', 'room1'],
       current_channel: 'global',
       msg: '',
-      // chatLog: [
-      //   {
-      //     author: 'sometwo',
-      //     msg: 'msg1',
-      //     chatName: 'general',
-      //   },
-      //   {
-      //     author: 'sometwo',
-      //     msg: 'msg1',
-      //     chatName: 'general',
-      //   },
-      //   {
-      //     author: 'someone',
-      //     msg: 'msg2',
-      //     chatName: 'room1',
-      //   },
-      //   {
-      //     author: 'someone',
-      //     msg: 'msg3',
-      //     chatName: 'general',
-      //   },
-      // ],
+      unreadChannel: [],
     }
   },
   computed: {
@@ -46,6 +25,7 @@ export default {
       consola.info(res)
       return res
     },
+
     timeline() {
       const res = []
       const filteredChats = this.chatLog.filter(chat => chat.chatName === this.current_channel)
@@ -101,6 +81,11 @@ export default {
       return res
     },
   },
+  watch: {
+    chatLog(newVal, oldVal) { // watch it
+      this.unreadChannel.push(this.newVal.slice(-1))
+    },
+  },
 
   updated() {
     if (this.isBottom)
@@ -124,6 +109,8 @@ export default {
     },
     onChangeChannel(ev) {
       this.current_channel = ev
+      // remove this channel from this.updatedChat
+      this.lastUpdatedChannels = this.lastUpdatedChannels.filter(chat => chat.chatName !== ev)
     },
     // parent must provide sayChat interface
     sendMessage() {
@@ -187,6 +174,7 @@ export default {
         {{ channel }}
       </div>
       <i class="fa fa-times-circle chatClose" aria-hidden="true" style="cursor: crosshair;position:absolute;color:white;font-size:5vh;top:30%;right:-5%;" />
+      <gem v-if="unreadChannel.includes(channel)" />
     </div>
   </div>
 
@@ -197,7 +185,7 @@ export default {
     <div style="font-family: font2; right: 0px; position: absolute; width: 100%; text-align: right; height: 100%; text-transform: uppercase; color: black; opacity: 0.2; font-weight: 900; padding-right: 1vw;top: 23.3%;top:-1vh;right:-5%;">
       追加
     </div>
-    <i class="fa fa-plus-circle chatClose" aria-hidden="true" style="position:absolute;color:rgba(0,0,0,0.8);font-size:5vh;top:30%;right:-5%;" />
+    <i class="fa fa-plus-circle" aria-hidden="true" style="position:absolute;color:rgba(0,0,0,0.8);font-size:5vh;top:30%;right:-5%;" />
   </div>
 </template>
 
