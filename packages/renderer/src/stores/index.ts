@@ -61,7 +61,7 @@ export const useUserStore = defineStore('user', () => {
       return
     }
     ws.send(JSON.stringify({
-      action: 'JOINCHAT',
+      action: 'SAYCHAT',
       parameters: {
         chatName: params.chatName,
         msg: params.msg,
@@ -71,13 +71,13 @@ export const useUserStore = defineStore('user', () => {
 
   ws.onmessage = (ev) => {
     const msg = JSON.parse(ev.data)
-    consola.info(msg)
     if (msg.action === undefined)
       return
 
     switch (msg.action) {
       case 'stateDump':
         userState.value = msg
+        consola.info(msg)
 
         if (msg.triggeredBy === 'SAYCHAT') {
           if (chatLog.value.length === 100)

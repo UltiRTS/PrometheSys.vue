@@ -32,9 +32,10 @@ export default {
       else
         return 0.1
     },
-
   },
   mounted() {
+  },
+  methods: {
   },
 }
 </script>

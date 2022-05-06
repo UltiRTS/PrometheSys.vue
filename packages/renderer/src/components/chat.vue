@@ -1,5 +1,7 @@
 <script>
 import consola from 'consola'
+import { mapActions, mapState } from 'pinia'
+import { useUserStore } from '../stores'
 export default {
   // feed those
   props: ['chatLog'],
@@ -8,7 +10,8 @@ export default {
 
       isBottom: false,
       // channels: ['general', 'room1'],
-      current_channel: 'general',
+      current_channel: 'global',
+      msg: '',
       // chatLog: [
       //   {
       //     author: 'sometwo',
@@ -104,6 +107,7 @@ export default {
       this.$refs.chats.scrollTop = this.$refs.chats.scrollHeight
   },
   methods: {
+    ...mapActions(useUserStore, ['joinChat', 'sayChat']),
     pushMessage() {
       this.moving = this.isBottom
       this.chats.push({
@@ -120,6 +124,14 @@ export default {
     },
     onChangeChannel(ev) {
       this.current_channel = ev
+    },
+    // parent must provide sayChat interface
+    sendMessage() {
+      consola.info(this.msg)
+      this.sayChat({
+        chatName: this.current_channel,
+        msg: this.msg,
+      })
     },
   },
 }
@@ -140,7 +152,7 @@ export default {
           {{ message }}
         </div>
       </div>
-      <div id="colorBlock" style="width:0.1%;height:110%;top:0;background:#2196f3;margin:0;position:absolute;" />
+      <div id="colorBlock" style="width:0.1%;height:110%;top:0;background:#2196f3;margin:0;psition:absolute;" />
       <div id="timeBlk" style="position:absolute;right:4%;font-size: 3.7vh;font-family:font3;font-weight:900;opacity:0.5;bottom:0;/* height:4vh; */">
         25:61 <br>PM
       </div>
@@ -154,12 +166,12 @@ export default {
   </div>
 
   <div id="typeBar" style="position: absolute; bottom: 0px; height: 7vh; background: rgb(86 86 86); color: white; width: 100%; filter: drop-shadow(rgba(0, 0, 0, 0.675) 7px 13px 6px); left: 0%;">
-    <div class="send" style="position:absolute;height:100%;width: 8%;left: 1%;cursor:pointer;">
+    <div class="send" style="position:absolute;height:100%;width: 8%;left: 1%;cursor:pointer;" @click="sendMessage">
       <i class="fa fa-caret-right" style="font-size: min(7.2vh,3.9vw);color: #ffffff78;font-weight:900;left: 14%;top:0;position:absolute;" aria-hidden="true" />
 
       <span style="font-size: min(4vh,2.6vw);color: #74747417;font-weight:900;right:0;bottom:0;position:absolute;">送る</span>
     </div>
-    <textarea style="position: absolute; color: white; width: 90%; height: 85%; padding: 0px; border-width: 0px; background: #ffffff00; resize: none; outline: none; right: 0%; margin: 0px; top: 7%;overflow:auto;font-family:font5;">At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.</textarea>
+    <textarea v-model="msg" style="position: absolute; color: white; width: 90%; height: 85%; padding: 0px; border-width: 0px; background: #ffffff00; resize: none; outline: none; right: 0%; margin: 0px; top: 7%;overflow:auto;font-family:font5;">{ msg }</textarea>
   </div>
 
   <div id="channelContainer" style="position: absolute; right: 3%; font-size: 4vh; top: -4%; width: 10vw; height: 100%;">
