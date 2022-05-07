@@ -15,6 +15,7 @@ export const useUserStore = defineStore('user', () => {
       author: 'Александр Карпов',
       msg: 'Привет, как дела?',
       chatName: 'global',
+      timestamp: Date.now(),
     },
   ])
 
@@ -83,7 +84,10 @@ export const useUserStore = defineStore('user', () => {
           if (chatLog.value.length === 100)
             chatLog.value.shift()
 
-          chatLog.value.push(msg.paramaters.usrstats.chatMsg)
+          chatLog.value.push({
+            ...msg.paramaters.usrstats.chatMsg,
+            timestamp: Date.now(),
+          })
           consola.info(chatLog)
         }
 
@@ -100,6 +104,7 @@ export const useUserStore = defineStore('user', () => {
 
   ws.onopen = () => {
     ws_open.value = true
+    consola.log('ws is open')
   }
 
   ws.onclose = () => {

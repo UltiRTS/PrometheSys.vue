@@ -61,19 +61,44 @@ export default {
       cur.username = lastUser
       cur.chats.push(filteredChats[0].msg)
 
+      // time in ms
+      let lastTime, curTime
       for (let i = 1; i < filteredChats.length; i++) {
         // the same with last user
         if (filteredChats[i].author === lastUser) {
-          cur.chats.push(filteredChats[i].msg)
+          curTime = filteredChats[i].timestamp
+          // duration between two messages greater than 2min
+          if ((curTime - lastTime) > 1000 * 60 * 2) {
+            lastTime = curTime
+            cur.chats.push({
+              msg: filteredChats[i].msg,
+              timestring: new Date(curTime).toISOString().slice(11, -7),
+            })
+          }
+          else {
+            cur.chats.push({
+              msg: filteredChats[i].msg,
+              timestring: '',
+            })
+          }
         }
         else {
-          res.push(cur)
+          if (i !== 0)
+            res.push(cur)
+
+          curTime = filteredChats[i].timestamp
           cur = {
             username: filteredChats[i].author,
-            chats: [filteredChats[i].msg],
+            chats: [
+              {
+                msg: filteredChats[i].msg,
+                timestring: new Date(curTime).toISOString().slice(11, -7),
+              }],
           }
           lastUser = filteredChats[i].author
+          lastTime = filteredChats[i].timestamp
         }
+        consola.info(curTime)
       }
       res.push(cur)
       return res
@@ -148,11 +173,12 @@ export default {
       </div>
 
       <div id="userMsgs" style="left:2%;font-size:2vh;height:100%;position:relative;font-family:font5;">
-        <div v-for="message in chat.chats" :id="chat.username" :key="message" class="chat" style="margin:0;">
-          {{ message }}
+        <div v-for="message in chat.chats" :id="chat.username" :key="message.timestring" class="chat" style="margin:0;">
+          {{ message.msg }} - {{ message.timestring }}
         </div>
       </div>
       <div id="colorBlock" style="width:0.1%;height:110%;top:0;background:#2196f3;margin:0;psition:absolute;" />
+      <!-- ??? out of the v-for ??? -->
       <div id="timeBlk" style="position:absolute;right:4%;font-size: 3.7vh;font-family:font3;font-weight:900;opacity:0.5;bottom:0;/* height:4vh; */">
         25:61 <br>PM
       </div>
