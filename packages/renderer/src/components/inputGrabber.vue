@@ -26,6 +26,8 @@ export default {
       setTimeout(() => {
         // this.activated = false
         this.$emit('input-received', this.text2say)
+        this.exiting = false
+        this.text2say = 'Input Await'
       }, 1000)
     },
     cancel() {
