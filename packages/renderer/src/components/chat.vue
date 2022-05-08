@@ -7,7 +7,7 @@ export default {
   props: ['chatLog'],
   data() {
     return {
-
+      addChatActivated: false,
       isBottom: false,
       // channels: ['general', 'room1'],
       current_channel: 'global',
@@ -119,6 +119,8 @@ export default {
   },
   methods: {
     ...mapActions(useUserStore, ['joinChat', 'sayChat']),
+    activateAdd() {
+    },
     pushMessage() {
       this.moving = this.isBottom
       this.chats.push({
@@ -209,7 +211,7 @@ export default {
     <div style="position: absolute; color: black; font-size: 2vh; font-family: font6; text-align: right; left: 0px; width: 87%;top: 53%;">
       Add a Chat
     </div>
-    <div style="font-family: font2; right: 0px; position: absolute; width: 100%; text-align: right; height: 100%; text-transform: uppercase; color: black; opacity: 0.2; font-weight: 900; padding-right: 1vw;top: 23.3%;top:-1vh;right:-5%;">
+    <div style="font-family: font2; right: 0px; position: absolute; width: 100%; text-align: right; height: 100%; text-transform: uppercase; color: black; opacity: 0.2; font-weight: 900; padding-right: 1vw;top: 23.3%;top:-1vh;right:-5%;" @click="activateAdd">
       追加
     </div>
     <i class="fa fa-plus-circle" aria-hidden="true" style="position:absolute;color:rgba(0,0,0,0.8);font-size:5vh;top:30%;right:-5%;" />
