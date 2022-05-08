@@ -1,12 +1,17 @@
+/* eslint-disable vue/first-attribute-linebreak */
+/* eslint-disable vue/html-self-closing */
 <script>
 export default {
   // feed those
   // props: ['channels', 'chatLog'],
+  // props: ['activated'],
+
+  emits: ['input-received'],
   data() {
     return {
-
-      isBottom: false,
-
+      text2say: 'Input Await',
+      activated: true,
+      exiting: false,
     }
   },
   computed: {
@@ -17,20 +22,200 @@ export default {
 
   },
   methods: {
+    deactivate() {
+      setTimeout(() => {
+        this.activated = false
+        this.$emit('input-received', this.text2say)
+      }, 1000)
+    },
+    cancel() {
+      this.text2say = 'canceling'
+      this.exiting = true
+      this.deactivate()
+    },
+    enter() {
+      this.exiting = true
+      this.deactivate()
+    },
 
   },
 }
 </script>
 <template>
-  <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:black;">
-    <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:black;">
-      <div style="position: absolute; top: 32%; left: 0px; width: 100%; height: 28%; background: linear-gradient(18deg, #3a4085, #4685c5);">
+  <div v-if="activated" :class="{'bg':!exiting, 'bgExit':exiting}" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh;" @click="cancel">
+    <div :class="{'contr':!exiting, 'contrExit':exiting}" style="position: absolute; top: 32%; width: 100%; height: 28%; background: linear-gradient(18deg, rgb(58, 64, 133), rgb(70, 133, 197));">
+    </div>
+    <div class="stripy1" style="position: absolute; top: 32%;  width: 100%;overflow:hidden; height: 28%; ">
+      <div style="position: absolute; width: 200%; height: 100%; background: repeating-linear-gradient(56deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.19) 3px, rgba(70, 82, 152, 0) 7px, rgba(70, 82, 152, 0) 17px);"></div>
+    </div>
+    <div class="stripy2" style="position: absolute; top: 32%;  width: 100%; height: 28%; overflow:hidden;">
+      <div style="left: -0.7%;position:absolute;width:200%;height:100%;background:repeating-linear-gradient(56deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.19) 3px, rgba(70, 82, 152, 0) 7px, rgba(70, 82, 152, 0) 17px);overflow:hidden;"></div>
+    </div>s
+    <div style="position: absolute; top: 32%; left: 0px; width: 100%; height: 28%;">
+      <div style="position:absolute;color: #ffffff4a;font-weight:900;font-size: 14vh;font-family: 'font5';top: 10%;left: 4%;padding-top: 1.1%;padding-left: 1.1%;filter: drop-shadow(13px 10px 9px rgba(255, 255, 255, 0.35));width:100%;height: 59%;overflow:hidden;">
+        {{ text2say }}
+      </div>
+      <div class="submit" style="position:absolute;color: white;font-weight:900;font-size: 3vh;font-family: 'font10';top: 40%;left: 34%;">
+        Submit Game Name
+      </div>
+      <div :class="{'upload':!exiting, 'uploadExit':exiting}" style="cursor:pointer;position:absolute;mix-blend-mode:screen;color:black;font-weight:900;font-size: 3vh;font-family: 'font2';left: 4%;padding-top: 1.1%;padding-left: 1.1%;filter: drop-shadow(13px 10px 9px rgba(255, 255, 255, 0.35));" @click.stop="enter">
+        Upload Text
+      </div>
+      <div style="position:absolute;color: white;font-weight:900;font-size: 3vh;font-family: 'font10';top: 0%;left: 60%;overflow:hidden;height:100%;width: 100%;">
+        <img src="public/imgs/thea.png" style="  /* filter: invert(100%); */height: 76vh;top: -46%;/* left: 54%; */position:absolute;opacity: 7%;/* width: 8vh; */">
+      </div>
+      <img src="public/imgs/upArrow.png" style="  filter: invert(100%);height: 12vh;top: 30%;left: 45%;position:absolute;opacity: 16%;width: 8vh;">
 
-      </div>
-      <div style="position: absolute; top: 32%; left: 0px; width: 100%; height: 28%; background: repeating-linear-gradient(56deg,#fff0,#ffffff30 3px,#46529800 7px,#46529800 17px);">
-      </div>
+      <textarea v-model="text2say" style="position: absolute; color: #ffffffad; width: 41.6%; height: 45%; padding: 0px; border-width: 0px; background: #ffffff00; resize: none; outline: none; right: 54.4%; margin: 0px; top: 52%;overflow:auto;font-family: 'font6';text-align:right" @click.stop />
     </div>
   </div>
 </template>
-  <style scoped>
+<style scoped>
+.contr {
+  animation-fill-mode: forwards;
+  animation: contr 0.7s;
+  animation-iteration-count: 1;
+  animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
+}
+
+@keyframes contr {
+  0% {
+    left: -5%;
+    opacity: 0;
+  }
+  100% {
+    left: 0%;
+    opacity: 1;
+  }
+}
+
+.contrExit {
+  animation-fill-mode: forwards;
+  animation: contrExit 0.7s;
+  animation-iteration-count: 1;
+  animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
+  opacity: 0;
+}
+
+@keyframes contrExit {
+  0% {
+    left: 0%;
+    opacity: 1;
+
+  }
+  100% {
+    left: -5%;
+    opacity: 0;
+  }
+}
+
+.bg{
+  animation: bg 1s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+}
+
+@keyframes bg {
+  0% {
+    backdrop-filter: blur(0px);
+    background: #00000000;
+  }
+  100% {
+    backdrop-filter: blur(11px);
+    background: #0000004d;
+  }
+}
+
+.bgExit{
+  animation: bgExit 1s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+}
+
+@keyframes bgExit {
+  0% {
+    backdrop-filter: blur(11px);
+    background: #0000004d;
+  }
+  100% {
+        backdrop-filter: blur(0px);
+    background: #00000000;
+  }
+}
+
+.upload{
+  background: #ffffffc2;
+    animation: upload 0.7s;
+  animation-iteration-count: 1;
+  animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
+  animation-fill-mode: forwards;
+}
+@keyframes upload {
+  0% {
+    top: 20%;
+    opacity: 0;
+  }
+  100% {
+    top: 10%;
+    opacity: 1;
+  }
+}
+.upload:hover{
+  background: #ffffff;
+}
+
+.uploadExit{
+  background: #ffffffc2;
+    animation: uploadExit 0.7s;
+  animation-iteration-count: 1;
+  animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
+  animation-fill-mode: forwards;
+}
+@keyframes uploadExit {
+  0% {
+        top: 10%;
+    opacity: 1;
+
+  }
+  100% {
+    top: 20%;
+    opacity: 0;
+  }
+}
+.stripy1 {
+  left:-100%;
+  animation: stripy1 160s;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.stripy2 {
+  left:0;
+  animation: stripy2 160s;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes stripy1 {
+  0% {
+    left:-100%;
+  }
+
+  100% {
+    left:0%;
+  }
+}
+@keyframes stripy2 {
+  0% {
+    left:0;
+  }
+
+  100% {
+    left:100%;
+  }
+}
 </style>

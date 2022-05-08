@@ -256,9 +256,8 @@ export default {
       </div>
     </div>
   </div>
-
   <div id="visualOverlay">
-    <inputGrabber />
+    <inputGrabber @input-received.stop="" />
   </div>
 </template>
 
