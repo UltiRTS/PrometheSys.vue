@@ -21,10 +21,8 @@ export default {
   },
 }
 </script>
-
-<template />
-
+<template>
+  wf
+</template>
 <style scoped>
-
 </style>
-

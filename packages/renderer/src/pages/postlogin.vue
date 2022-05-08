@@ -1,3 +1,4 @@
+/* eslint-disable vue/first-attribute-linebreak */
 <script>
 import { mapState } from 'pinia'
 import { useUserStore } from '../stores'
@@ -254,6 +255,10 @@ export default {
         <img src="assets/horizontalSep2.png" style="position:absolute;top: 101%;height: 5px;width: 93%;opacity:0.3;">
       </div>
     </div>
+  </div>
+
+  <div id="visualOverlay">
+    <inputGrabber />
   </div>
 </template>
 

@@ -451,7 +451,7 @@ function loginWrapper() {
           <input id="passwd" v-model="password" style="font-size:1.5vw;margin:0;cursor: text;top:3.2vw;position:absolute;left:1.2vw;border:none;outline:none;background: transparent;" type="password" placeholder="Password" name="psw" required="">
 
           <p
-            id="loginInputStatus" class="connect" onmouseover="pushToolTip('Press this [ button ] to [ login ]')"
+            id="loginInputStatus" class="connect"
             style="cursor: pointer;top:3.2vw;position:absolute;left:85%;font-size: 1vw;margin:0;color:black;font-weight:900;filter: drop-shadow(4px 5px 2px rgba(0,0,0,0.5));" @click="loginWrapper"
           >
             ▶
