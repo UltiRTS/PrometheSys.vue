@@ -80,21 +80,10 @@ export const useUserStore = defineStore('user', () => {
         userState.value = msg
         consola.info(msg)
 
-<<<<<<< HEAD
-        if (msg.triggeredBy === 'SAYCHAT') {
-          if (chatLog.value.length === 100)
-            chatLog.value.shift()
-
-          chatLog.value.push({
-            ...msg.paramaters.usrstats.chatMsg,
-            timestamp: Date.now(),
-          })
-=======
         if (chatLog.value.length === 100)
           chatLog.value.shift()
         if (msg.paramaters.usrstats.chatMsg != null) {
           chatLog.value.push(msg.paramaters.usrstats.chatMsg)
->>>>>>> addc6281014b926fc37ba58baee973b691eba338
           consola.info(chatLog)
         }
 

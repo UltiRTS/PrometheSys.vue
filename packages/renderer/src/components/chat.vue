@@ -50,6 +50,7 @@ export default {
           // duration between two messages greater than 2min
           if ((curTime - lastTime) > 1000 * 60 * 2) {
             lastTime = curTime
+            // console.log(curTime)
             cur.chats.push({
               msg: filteredChats[i].msg,
               timestring: new Date(curTime).toISOString().slice(11, -7),

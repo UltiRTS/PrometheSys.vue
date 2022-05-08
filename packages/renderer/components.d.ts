@@ -10,6 +10,7 @@ declare module '@vue/runtime-core' {
     Gem: typeof import('./src/components/gem.vue')['default']
     Hello: typeof import('./src/components/Hello.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    InputGrabber: typeof import('./src/components/inputGrabber.vue')['default']
     PBubbles: typeof import('./src/components/PBubbles.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
