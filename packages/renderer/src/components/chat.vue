@@ -7,7 +7,6 @@ export default {
   props: ['chatLog'],
   data() {
     return {
-      addChatActivated: false,
       isBottom: false,
       // channels: ['general', 'room1'],
       current_channel: 'global',
