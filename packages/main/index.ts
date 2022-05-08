@@ -1,9 +1,8 @@
 import { release } from 'os'
 import { join } from 'path'
 // import Store from 'electron-store'
-import pkg from '../../package.json'
-
 import { BrowserWindow, app, shell } from 'electron'
+import pkg from '../../package.json'
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith('6.1'))

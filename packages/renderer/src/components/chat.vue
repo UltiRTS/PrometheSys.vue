@@ -53,7 +53,7 @@ export default {
             // console.log(curTime)
             cur.chats.push({
               msg: filteredChats[i].msg,
-              timestring: new Date(curTime).toISOString().slice(11, -7),
+              timestring: new Date(curTime).toISOString().slice(11, -8),
             })
           }
           else {
@@ -73,13 +73,13 @@ export default {
             chats: [
               {
                 msg: filteredChats[i].msg,
-                timestring: new Date(curTime).toISOString().slice(11, -7),
+                timestring: new Date(curTime).toISOString().slice(11, -8),
               }],
           }
           lastUser = filteredChats[i].author
           lastTime = filteredChats[i].timestamp
         }
-        consola.info(curTime)
+        // consola.info(curTime)
       }
       res.push(cur)
       return res
@@ -165,14 +165,14 @@ export default {
       </div>
 
       <div id="userMsgs" style="left:2%;font-size:2vh;height:100%;position:relative;font-family:font5;">
-        <div v-for="message in chat.chats" :id="chat.username" :key="message.timestring" class="chat" style="margin:0;">
-          {{ message.msg }} - {{ message.timestring }}
+        <div v-for="message in chat.chats" :id="chat.username" :key="message" class="chat" style="margin:0;">
+          {{ message.msg }}
         </div>
       </div>
-      <div id="colorBlock" style="width:0.1%;height:110%;top:0;background:#2196f3;margin:0;psition:absolute;" />
-      <!-- ??? out of the v-for ??? -->
+      <div id="colorBlock" style="width:0.1%;height:110%;top:0;background:#2196f3;margin:0;position:absolute;" />
+
       <div id="timeBlk" style="position:absolute;right:4%;font-size: 3.7vh;font-family:font3;font-weight:900;opacity:0.5;bottom:0;/* height:4vh; */">
-        25:61 <br>PM
+        {{ chat.chats[0].timestring }} <br>PM
       </div>
     </div>
   </div>
