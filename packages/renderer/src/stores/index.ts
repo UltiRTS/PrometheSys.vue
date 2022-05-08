@@ -83,8 +83,11 @@ export const useUserStore = defineStore('user', () => {
         if (chatLog.value.length === 100)
           chatLog.value.shift()
         if (msg.paramaters.usrstats.chatMsg != null) {
-          chatLog.value.push(msg.paramaters.usrstats.chatMsg)
-          consola.info(chatLog)
+          chatLog.value.push({
+            ...msg.paramaters.usrstats.chatMsg,
+            timestamp: Date.now(),
+          })
+          // console.log(chatLog)
         }
 
         if (msg.triggeredBy === 'LOGIN') {
@@ -94,6 +97,7 @@ export const useUserStore = defineStore('user', () => {
 
         break
       default:
+        consola.info(msg)
         break
     }
   }
