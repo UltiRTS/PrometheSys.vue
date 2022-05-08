@@ -1,6 +1,6 @@
 /* eslint-disable vue/first-attribute-linebreak */
 <script>
-import { mapState } from 'pinia'
+import { mapActions, mapState } from 'pinia'
 import { useUserStore } from '../stores'
 
 export default {
@@ -8,6 +8,7 @@ export default {
     return {
       activeWindow: 'menu',
       mouseOn: 'default',
+      grabberActivated: false,
     }
   },
   computed: {
@@ -37,6 +38,19 @@ export default {
   mounted() {
   },
   methods: {
+    ...mapActions(useUserStore, ['pushGrabberInput', 'pushGrabberAction']),
+    grabberInputHandler(text2say) {
+      this.grabberActivated = false
+      this.pushGrabberInput(text2say)
+    },
+    btnPressedHandler(action) {
+      switch (action) {
+        case 'AddChat':
+          this.pushGrabberAction('AddChat')
+          this.grabberActivated = true
+          break
+      }
+    },
   },
 }
 </script>
@@ -58,7 +72,7 @@ export default {
                       position:absolute;color:white;width: 181%;height: 181%;top: -39%;left: -18%;background:rgba(255,255,255,0.05);" @click="activeWindow='default'"
       />
       <div id="modalMenu" :style="{opacity:shouldIlightUpModal}" style="transform: rotateY(15.6deg) translateZ(10vw) translateX(-55vw); top: 5%;width: 56%; height: 84%; position: absolute; backdrop-filter: blur(9px);" @click="activeWindow='modal'" @mouseover="mouseOn=&quot;modal&quot;" @mouseleave="mouseOn='default'">
-        <Chat :chat-log="chatLog" />
+        <Chat :chat-log="chatLog" @btn-pressed="btnPressedHandler" />
       </div>
       <div id="rightHome" class="rightHome" :style="{opacity:shouldIlightUpMenu}" style="transform:rotateY(-15.6deg) translateZ(-147vw) translateX(209vw); width: 100%; height: 102%; position: absolute; backdrop-filter: blur(53px);top: -41%;" @click="activeWindow='menu'" @mouseover="mouseOn=&quot;menu&quot;" @mouseleave="mouseOn='default'">
         <img src="assets/horizontalSep1.png" style="position:absolute;top:-1%;height: 5px;width: 93%;opacity:0.3;">
@@ -257,7 +271,7 @@ export default {
     </div>
   </div>
   <div id="visualOverlay">
-    <inputGrabber @input-received.stop="" />
+    <InputGrabber :activated="grabberActivated" @input-received="grabberInputHandler" />
   </div>
 </template>
 
