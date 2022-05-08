@@ -5,6 +5,7 @@ import { useUserStore } from '../stores'
 export default {
   // feed those
   props: ['chatLog'],
+  emits: ['btn-pressed'],
   data() {
     return {
       isBottom: false,
@@ -147,6 +148,9 @@ export default {
         msg: this.msg,
       })
     },
+    addChat() {
+      this.$emit('btn-pressed', 'AddChat')
+    },
   },
 }
 </script>
@@ -206,7 +210,7 @@ export default {
     </div>
   </div>
 
-  <div id="channelAdd" class="channelAdd" style="position: absolute; right: -3%; font-size: 4vh; top: 84%; width: 13vw; height: 6%; background: white;cursor:pointer;overflow:hidden;">
+  <div id="channelAdd" class="channelAdd" style="position: absolute; right: -3%; font-size: 4vh; top: 84%; width: 13vw; height: 6%; background: white;cursor:pointer;overflow:hidden;" @click="addChat">
     <div style="position: absolute; color: black; font-size: 2vh; font-family: font6; text-align: right; left: 0px; width: 87%;top: 53%;">
       Add a Chat
     </div>

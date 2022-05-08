@@ -18,6 +18,38 @@ export const useUserStore = defineStore('user', () => {
       timestamp: Date.now(),
     },
   ])
+  const grabberInput = ref('')
+  const grabberTriggerAction = ref('')
+
+  function pushGrabberAction(action: string) {
+    grabberTriggerAction.value = action
+  }
+
+  function pushGrabberInput(input: string) {
+    if (input === 'canceling') {
+      consola.info('canceling')
+      return
+    }
+
+    grabberInput.value = input
+    consola.info('grabberInput', grabberInput.value)
+
+    switch (grabberTriggerAction.value) {
+      case 'AddChat': {
+        joinChat({
+          chatName: grabberInput.value,
+        })
+        break
+      }
+      default: {
+        consola.info('default trigger')
+        break
+      }
+    }
+
+    // reset action to empty
+    grabberTriggerAction.value = ''
+  }
 
   function login(params: {
     username: string
@@ -80,14 +112,15 @@ export const useUserStore = defineStore('user', () => {
         userState.value = msg
         consola.info(msg)
 
-        if (chatLog.value.length === 100)
-          chatLog.value.shift()
-        if (msg.paramaters.usrstats.chatMsg != null) {
+        if (msg.triggeredBy === 'SAYCHAT') {
+          if (chatLog.value.length === 100)
+            chatLog.value.shift()
+
           chatLog.value.push({
             ...msg.paramaters.usrstats.chatMsg,
             timestamp: Date.now(),
           })
-          // console.log(chatLog)
+          consola.info(chatLog)
         }
 
         if (msg.triggeredBy === 'LOGIN') {
@@ -97,7 +130,6 @@ export const useUserStore = defineStore('user', () => {
 
         break
       default:
-        consola.info(msg)
         break
     }
   }
@@ -116,10 +148,14 @@ export const useUserStore = defineStore('user', () => {
     count,
     userState,
     chatLog,
+    grabberInput,
+    grabberTriggerAction,
 
     sayChat,
     joinChat,
     login,
+    pushGrabberAction,
+    pushGrabberInput,
   }
 })
 
