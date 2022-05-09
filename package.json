@@ -2,9 +2,6 @@
   "name": "electron-vue-template",
   "version": "0.1.0",
   "description": "A minimal Electron + Vue application",
-  "author": {
-    "name": "UltiRTS"
-  },
   "keywords": [
     "electron",
     "rollup",
@@ -12,6 +9,11 @@
     "vue",
     "rts"
   ],
+  "author": {
+    "name": "UltiRTS"
+  },
+  "repository": "https://github.com/UltiRTS/PrometheSys.vue",
+  "main": "dist/main/index.cjs",
   "scripts": {
     "prebuild": "vue-tsc --noEmit --p packages/renderer/tsconfig.json && node scripts/build.mjs",
     "build": "electron-builder",
@@ -19,10 +21,8 @@
     "build:mac": "node scripts/build.js && electron-builder --mac",
     "build:win": "node scripts/build.js && electron-builder --win",
     "dev": "node scripts/watch.mjs",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint": "eslint ."
   },
-  "main": "dist/main/index.cjs",
   "engines": {
     "node": ">=14.17.0"
   },
@@ -59,6 +59,5 @@
     "vite-plugin-pages": "^0.23.0",
     "vite-plugin-resolve": "^2.0.7",
     "vue-tsc": "^0.34.10"
-  },
-  "repository": "https://github.com/UltiRTS/PrometheSys.vue"
+  }
 }
