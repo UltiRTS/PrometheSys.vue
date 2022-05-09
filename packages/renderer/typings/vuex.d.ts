@@ -1,4 +1,4 @@
-import { Store } from 'vuex'
+import type { Store } from 'vuex'
 
 declare module '@vue/runtime-core' {
   // declare your own store states
