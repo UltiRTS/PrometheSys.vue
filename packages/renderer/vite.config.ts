@@ -5,6 +5,7 @@ import Components from 'unplugin-vue-components/vite'
 import resolve from 'vite-plugin-resolve'
 import electron from 'vite-plugin-electron/renderer'
 import Pages from 'vite-plugin-pages'
+import Unocss from 'unocss/vite'
 import pkg from '../../package.json'
 
 // https://vitejs.dev/config/
@@ -18,6 +19,10 @@ export default defineConfig({
     Pages(),
 
     Components(),
+
+    // https://github.com/antfu/unocss
+    // see unocss.config.ts for config
+    Unocss(),
 
     resolve(
       /**
