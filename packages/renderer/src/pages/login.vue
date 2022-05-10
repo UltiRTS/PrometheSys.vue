@@ -2,7 +2,6 @@
 import { computed } from '@vue/reactivity'
 import { onMounted, ref } from 'vue'
 import consola from 'consola'
-// import { mapActions, mapState } from 'vuex'
 
 import { useUserStore } from '../stores'
 
@@ -10,6 +9,7 @@ const uStore = useUserStore()
 const userState = computed(() => uStore.userState)
 
 onMounted(() => {
+  const c = window.c
   let w = c.width = window.innerWidth
   let h = c.height = window.innerHeight
   const ctx = c.getContext('2d')
