@@ -37,7 +37,7 @@ export default {
 </script>
 
 <template>
-  <div class="app-wrapper" >
+  <div class="app-wrapper">
     <router-view />
   </div>
 </template>
@@ -49,7 +49,6 @@ body{
   margin: 0;
   overflow:hidden;
 }
-
 
 @font-face {
     font-family: font1;
