@@ -1,5 +1,7 @@
-/* eslint-disable vue/first-attribute-linebreak */
 <script>
+/* eslint-disable vue/first-attribute-linebreak */
+/* eslint-disable vue/html-self-closing */
+
 import { mapActions, mapState } from 'pinia'
 import { useUserStore } from '../stores'
 
@@ -56,21 +58,19 @@ export default {
 </script>
 
 <template>
-  <div
-    id="bg"
-    style="top:0%; position:fixed;width:100%;height:100%;background: linear-gradient(to bottom, #1e5799 -75%, rgba(0, 29, 60, 0) 75%);"
-  >
-    <img id="bgPic" alt="background" src="../../public/imgs/bg.png" style="position:fixed; width:100%;top:0;left:0;">
+  <div id="bg" style="top: 0%; position: fixed; width: 100%; height: 100%; background: black;">
+    <img id="bgPic" alt="background" src="imgs/replaceThisBgPlz.png" style="position: fixed; top: 0px; left: 0px; height:100%;opacity: 100%;">
+    <div id="mask" style="position:absolute;top:0;left:0;width:100%;height:100%;background: radial-gradient(#00000014 13%, #000000 67%);"></div>
   </div>
   <div
     id="home" data-depth="2" style="perspective: 500vw; backface-visibility: hidden;
   position: absolute;height: 100%;width: 100%;top: 0px;left: 0px;/* margin: 0px; */overflow:hidden;margin:0;"
   >
     <div id="homeUIContainer" :class="activeWindow" style="perspective: 100vw; position: absolute; height: 100%; width: 100%; display: block; left: 0px; top: 0px;">
-      <div
-        id="mainContent" style="transform: translateZ(0vw);
-                      position:absolute;color:white;width: 181%;height: 181%;top: -39%;left: -18%;background:rgba(255,255,255,0.05);" @click="activeWindow='default'"
-      />
+      <div id="mainContent" style="transform: translateZ(0vw); position: absolute; color: white; width: 181%; height: 181%; top: -39%; left: -18%;" @click="activeWindow='default'">
+        <div id="mainMask" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; background: radial-gradient(rgba(179, 223, 255, 0.58) 0%, rgba(41, 51, 52, 0.5) 73%, rgba(0, 0, 0, 0.05) 81%); backdrop-filter: blur(5px);">
+        </div>
+      </div>
       <div id="modalMenu" :style="{opacity:shouldIlightUpModal}" style="transform: rotateY(15.6deg) translateZ(10vw) translateX(-55vw); top: 5%;width: 56%; height: 84%; position: absolute; backdrop-filter: blur(9px);" @click="activeWindow='modal'" @mouseover="mouseOn=&quot;modal&quot;" @mouseleave="mouseOn='default'">
         <Chat :chat-log="chatLog" @btn-pressed="btnPressedHandler" />
       </div>

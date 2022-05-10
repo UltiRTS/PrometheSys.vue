@@ -47,10 +47,10 @@ export default {
   <div v-if="activated" :class="{'bg':!exiting, 'bgExit':exiting}" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh;" @click="cancel">
     <div :class="{'contr':!exiting, 'contrExit':exiting}" style="position: absolute; top: 32%; width: 100%; height: 28%; background: linear-gradient(18deg, rgb(58, 64, 133), rgb(70, 133, 197));" />
     <div class="stripy1" style="position: absolute; top: 32%;  width: 100%;overflow:hidden; height: 28%; ">
-      <div style="position: absolute; width: 200%; height: 100%; background: repeating-linear-gradient(56deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.19) 3px, rgba(70, 82, 152, 0) 7px, rgba(70, 82, 152, 0) 17px);" />
+      <div style="position: absolute; width: 200%; height: 100%; background: repeating-linear-gradient(56deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.19) 3px, rgba(70, 82, 152, 0) 7px, rgba(70, 82, 152, 0) 17px);opacity:0.5;" />
     </div>
     <div class="stripy2" style="position: absolute; top: 32%;  width: 100%; height: 28%; overflow:hidden;">
-      <div style="left: -0.7%;position:absolute;width:200%;height:100%;background:repeating-linear-gradient(56deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.19) 3px, rgba(70, 82, 152, 0) 7px, rgba(70, 82, 152, 0) 17px);overflow:hidden;" />
+      <div style="left: -0.4%;position:absolute;width:200%;height:100%;background:repeating-linear-gradient(56deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.19) 3px, rgba(70, 82, 152, 0) 7px, rgba(70, 82, 152, 0) 17px);overflow:hidden;opacity:0.5;" />
     </div>s
     <div style="position: absolute; top: 32%; left: 0px; width: 100%; height: 28%;">
       <div style="position:absolute;color: #ffffff4a;font-weight:900;font-size: 14vh;font-family: 'font5';top: 10%;left: 4%;padding-top: 1.1%;padding-left: 1.1%;filter: drop-shadow(13px 10px 9px rgba(255, 255, 255, 0.35));width:100%;height: 59%;overflow:hidden;">
@@ -187,7 +187,7 @@ export default {
 }
 .stripy1 {
   left:-100%;
-  animation: stripy1 160s;
+  animation: stripy1 320s;
   animation-fill-mode: forwards;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
@@ -195,7 +195,7 @@ export default {
 
 .stripy2 {
   left:0;
-  animation: stripy2 160s;
+  animation: stripy2 320s;
   animation-fill-mode: forwards;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
