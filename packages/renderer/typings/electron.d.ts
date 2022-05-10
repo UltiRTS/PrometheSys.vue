@@ -6,13 +6,13 @@ export default interface ElectronApi {
 }
 
 export interface IpcRendererApi {
-  send: (channel: string, ...args: any[]) => void,
-  receive: (channel: string, func: Function) => void,
+  send: (channel: string, ...args: any[]) => void
+  receive: (channel: string, func: Function) => void
 }
 
 declare global {
   interface Window {
-    electron: ElectronApi,
-    ipcRenderer: IpcRendererApi,
+    electron: ElectronApi
+    ipcRenderer: IpcRendererApi
   }
 }

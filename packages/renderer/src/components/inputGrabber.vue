@@ -1,51 +1,41 @@
+<script lang="ts" setup>
 /* eslint-disable vue/first-attribute-linebreak */
 /* eslint-disable vue/html-self-closing */
-<script>
-export default {
-  // feed those
-  // props: ['channels', 'chatLog'],
-  props: ['activated'],
 
-  emits: ['input-received'],
-  data() {
-    return {
-      text2say: 'Input Await',
-      // activated: true,
-      exiting: false,
-    }
-  },
-  computed: {
+import { ref } from 'vue'
+// props: ['channels', 'chatLog'],
+defineProps<{
+  activated: boolean
+}>()
 
-  },
+const emit = defineEmits(['input-received'])
 
-  updated() {
+const text2say = ref('Input Await')
+const exiting = ref(false)
 
-  },
-  methods: {
-    deactivate() {
-      setTimeout(() => {
-        // this.activated = false
-        this.$emit('input-received', this.text2say)
-        this.exiting = false
-        this.text2say = 'Input Await'
-      }, 1000)
-    },
-    cancel() {
-      this.text2say = 'canceling'
-      this.exiting = true
-      this.deactivate()
-    },
-    enter() {
-      this.exiting = true
-      this.deactivate()
-    },
+const deactivate = () => {
+  setTimeout(() => {
+    // this.activated = false
+    emit('input-received', text2say.value)
+    exiting.value = false
+    text2say.value = 'Input Await'
+  }, 1000)
+}
 
-  },
+const cancel = () => {
+  text2say.value = 'canceling'
+  exiting.value = true
+  deactivate()
+}
+
+const enter = () => {
+  exiting.value = true
+  deactivate()
 }
 </script>
 <template>
-  <div v-if="activated" :class="{'bg':!exiting, 'bgExit':exiting}" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh;" @click="cancel">
-    <div :class="{'contr':!exiting, 'contrExit':exiting}" style="position: absolute; top: 32%; width: 100%; height: 28%; background: linear-gradient(18deg, rgb(58, 64, 133), rgb(70, 133, 197));" />
+  <div v-if="activated" class="fixed top-0 left-0 w-screen h-screen" :class="{'bg':!exiting, 'bgExit':exiting}" @click="cancel">
+    <div class="absolute" :class="{'contr':!exiting, 'contrExit':exiting}" style="top: 32%; width: 100%; height: 28%; background: linear-gradient(18deg, rgb(58, 64, 133), rgb(70, 133, 197));" />
     <div class="stripy1" style="position: absolute; top: 32%;  width: 100%;overflow:hidden; height: 28%; ">
       <div style="position: absolute; width: 200%; height: 100%; background: repeating-linear-gradient(56deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.19) 3px, rgba(70, 82, 152, 0) 7px, rgba(70, 82, 152, 0) 17px);opacity:0.5;" />
     </div>
