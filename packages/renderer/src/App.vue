@@ -1,6 +1,5 @@
 <script>
 import { ipcRenderer } from 'electron'
-import { RouterView } from 'vue-router'
 import router from './router'
 import { useUserStore } from './stores'
 
@@ -14,8 +13,7 @@ ipcRenderer.send('toMain', JSON.stringify({
 export default {
   provide() {
     return {
-      mouse_pos: this.mouse_pos,
-      window_size: this.window_size,
+
     }
   },
   setup() {
@@ -24,25 +22,13 @@ export default {
   },
   data() {
     return {
-      mouse_pos: {
-        x: 0,
-        y: 0,
-      },
-      window_size: {
-        height: window.innerHeight,
-        width: window.innerWidth,
-      },
+
     }
   },
   mounted() {
     router.push('login')
   },
-  methods: {
-    onMouseMove(e) {
-      this.mouse_pos.x = e.clientX
-      this.mouse_pos.y = e.clientY
-    },
-  },
+
 }
 
 // ipcRenderer.receive('fromMain', (data) => {
@@ -51,13 +37,19 @@ export default {
 </script>
 
 <template>
-  <div class="app-wrapper" @mousemove="onMouseMove">
+  <div class="app-wrapper" >
     <router-view />
   </div>
 </template>
 
 <style>
 @import '../public/css/font-awesome-4.7.0/css/font-awesome.css';
+
+body{
+  margin: 0;
+  overflow:hidden;
+}
+
 
 @font-face {
     font-family: font1;
