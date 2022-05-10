@@ -1,27 +1,14 @@
-<script>
-// pre login
-// import { mapActions, mapState } from 'vuex'
+<script setup lang="ts">
+import { ref } from 'vue'
+
 import router from '../router'
+
 setTimeout(() => {
   router.push('login')
 }, 9000)
 
-export default {
-  data() {
-    return {
-      username: '',
-      password: '',
-    }
-  },
-  computed: {
-    // ...mapState(['userState']),
-  },
-
-  methods: {
-    // ...mapActions(['login']),
-  },
-
-}
+const username = ref('')
+const password = ref('')
 </script>
 
 <template>
