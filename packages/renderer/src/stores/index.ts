@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import { acceptHMRUpdate, defineStore } from 'pinia'
 
 import consola from 'consola'
@@ -9,8 +10,8 @@ export const useUserStore = defineStore('user', () => {
 
   const ws_open = ref<boolean>()
   const count = ref<number>()
-  const userState = ref({})
-  const chatLog = ref<object[]>([
+  const userState = ref({ paramaters: { usrstats: { loggedIn: false } } })
+  const chatLog = ref([
     {
       author: 'Александр Карпов',
       msg: 'Привет, как дела?',
@@ -109,10 +110,7 @@ export const useUserStore = defineStore('user', () => {
 
     switch (msg.action) {
       case 'stateDump':
-        userState.value = msg
-        consola.info(msg)
-
-        if (msg.triggeredBy === 'SAYCHAT') {
+        if (msg.paramaters.usrstats.chatMsg) {
           if (chatLog.value.length === 100)
             chatLog.value.shift()
 
@@ -120,13 +118,16 @@ export const useUserStore = defineStore('user', () => {
             ...msg.paramaters.usrstats.chatMsg,
             timestamp: Date.now(),
           })
-          consola.info(chatLog)
+          // consola.info(chatLog)
         }
-
-        if (msg.triggeredBy === 'LOGIN') {
-          router.push('postlogin')
+        console.log(userState.value)
+        if (msg.paramaters.usrstats.loggedIn && !userState.value.paramaters.usrstats.loggedIn) {
+          router.push('postlogin') // just logged in
           joinChat({ chatName: 'global' })
         }
+
+        userState.value = msg
+        consola.info(msg)
 
         break
       default:
