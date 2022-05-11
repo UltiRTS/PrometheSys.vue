@@ -44,7 +44,7 @@
     "chalk": "^4.1.2",
     "chokidar": "^3.5.3",
     "consola": "^2.15.3",
-    "electron": "18.0.2",
+    "electron": "18.2.0",
     "electron-builder": "^23.0.3",
     "eslint": "^8.14.0",
     "p5": "^1.4.1",
