@@ -1,5 +1,7 @@
 @use '/public/css/font-awesome-4.7.0/css/font-awesome.css';
-
+body{
+    overflow: hidden;
+}
 @font-face {
     font-family: font1;
     src: url('/fonts/1.ttf');
