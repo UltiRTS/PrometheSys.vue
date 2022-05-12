@@ -127,7 +127,8 @@ export const useUserStore = defineStore('user', () => {
         }
 
         userState.value = msg
-        // consola.info(userState.value)
+        consola.info('received userstats:')
+        consola.info(userState.value)
 
         break
       default:
