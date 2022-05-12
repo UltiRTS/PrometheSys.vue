@@ -120,14 +120,14 @@ export const useUserStore = defineStore('user', () => {
           })
           // consola.info(chatLog)
         }
-        console.log(userState.value)
+        // console.log(userState.value)
         if (msg.paramaters.usrstats.loggedIn && !userState.value.paramaters.usrstats.loggedIn) {
           router.push('postlogin') // just logged in
           joinChat({ chatName: 'global' })
         }
 
         userState.value = msg
-        consola.info(msg)
+        // consola.info(userState.value)
 
         break
       default:

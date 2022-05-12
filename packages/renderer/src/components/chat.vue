@@ -4,7 +4,7 @@ import { mapActions, mapState } from 'pinia'
 import { useUserStore } from '../stores'
 export default {
   // feed those
-  props: ['chatLog'],
+  props: ['chatLog', 'joinedChannels'],
   emits: ['btn-pressed'],
   data() {
     return {
@@ -18,7 +18,7 @@ export default {
   computed: {
     channels() {
       const res = []
-      for (const chat of this.chatLog) {
+      for (const chat of this.joinedChannels) {
         if (!res.includes(chat.chatName))
           res.push(chat.chatName)
       }
