@@ -18,9 +18,9 @@ export default {
   computed: {
     channels() {
       const res = []
-      for (const chat of this.joinedChannels) {
-        if (!res.includes(chat.chatName))
-          res.push(chat.chatName)
+      for (const chat in this.joinedChannels) {
+        if (!res.includes(this.joinedChannels[chat]))
+          res.push(this.joinedChannels[chat])
       }
       consola.info(res)
       return res
