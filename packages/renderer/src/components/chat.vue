@@ -11,7 +11,6 @@ export default {
       isBottom: false,
       // channels: ['general', 'room1'],
       current_channel: 'global',
-      msg: '',
       unreadChannel: [],
     }
   },
@@ -32,56 +31,48 @@ export default {
       if (filteredChats.length === 0)
         return res
 
-      let cur = {
-        username: '',
-        chats: [],
-      }
-      let lastUser = ''
-      lastUser = filteredChats[0].author
-      cur.username = lastUser
-      cur.chats.push(filteredChats[0].msg)
+      let lastUser
+      lastUser = ''
 
       // time in ms
-      let lastTime, curTime
-      for (let i = 1; i < filteredChats.length; i++) {
-        // the same with last user
-        if (filteredChats[i].author === lastUser) {
-          curTime = filteredChats[i].timestamp
-          // duration between two messages greater than 2min
-          if ((curTime - lastTime) > 1000 * 60 * 2) {
-            lastTime = curTime
-            // console.log(curTime)
-            cur.chats.push({
-              msg: filteredChats[i].msg,
-              timestring: new Date(curTime).toISOString().slice(11, -8),
-            })
-          }
-          else {
-            cur.chats.push({
-              msg: filteredChats[i].msg,
-              timestring: '',
-            })
-          }
+      let lastTime, curTime, timeStampShown, cur
+      lastTime = 0
+      for (let i = 0; i < filteredChats.length; i++) {
+        curTime = filteredChats[i].timestamp
+        // console.log('curTime:'+curTime)
+        // duration between two messages greater than 2min
+        if ((curTime - lastTime) > 1000 * 60 * 2) {
+          lastTime = curTime
+          timeStampShown = new Date(lastTime).toISOString().slice(11, -8)
         }
         else {
-          if (i !== 0)
-            res.push(cur)
-
-          curTime = filteredChats[i].timestamp
+          timeStampShown = null
+        }
+        // console.log('timestamp:'+timeStampShown)
+        // the same with last user
+        if (filteredChats[i].author !== lastUser) {
           cur = {
             username: filteredChats[i].author,
             chats: [
               {
                 msg: filteredChats[i].msg,
-                timestring: new Date(curTime).toISOString().slice(11, -8),
+                timestring: timeStampShown,
               }],
           }
-          lastUser = filteredChats[i].author
-          lastTime = filteredChats[i].timestamp
+          res.push(cur)
         }
-        // consola.info(curTime)
+
+        else {
+          res[res.length - 1].chats.push({
+            msg: filteredChats[i].msg,
+            timestring: timeStampShown,
+          })
+        }
+        lastUser = filteredChats[i].author
+        lastTime = filteredChats[i].timestamp
       }
-      res.push(cur)
+      console.log('returning res')
+      console.log(res)
       return res
     },
 
@@ -138,7 +129,7 @@ export default {
     onChangeChannel(ev) {
       this.current_channel = ev
       // remove this channel from this.updatedChat
-      this.lastUpdatedChannels = this.lastUpdatedChannels.filter(chat => chat.chatName !== ev)
+      // this.lastUpdatedChannels = this.lastUpdatedChannels.filter(chat => chat.chatName !== ev)
     },
     // parent must provide sayChat interface
     sendMessage() {
@@ -170,13 +161,13 @@ export default {
       </div>
 
       <div id="userMsgs" style="left:2%;font-size:2vh;height:100%;position:relative;font-family:font5;">
-        <div v-for="message in chat.chats" :id="chat.username" :key="message" class="chat" style="margin:0;">
+        <div v-for="message in chat.chats" :id="chat.username" :key="message.msg" class="chat" style="margin:0;">
           {{ message.msg }}
         </div>
       </div>
       <div id="colorBlock" style="width:0.1%;height:110%;top:0;background:#2196f3;margin:0;position:absolute;" />
 
-      <div id="timeBlk" style="position:absolute;right:4%;font-size: 3.7vh;font-family:font3;font-weight:900;opacity:0.5;bottom:0;/* height:4vh; */">
+      <div v-if="chat.chats[0].timestring" id="timeBlk" style="position:absolute;right:4%;font-size: 3.7vh;font-family:font3;font-weight:900;opacity:0.5;bottom:0;/* height:4vh; */">
         {{ chat.chats[0].timestring }} <br>PM
       </div>
     </div>

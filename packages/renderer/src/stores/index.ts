@@ -118,7 +118,8 @@ export const useUserStore = defineStore('user', () => {
             ...msg.paramaters.usrstats.chatMsg,
             timestamp: Date.now(),
           })
-          // consola.info(chatLog)
+          // console.log('chatlog val:')
+          // console.log(chatLog.value)
         }
         // console.log(userState.value)
         if (msg.paramaters.usrstats.loggedIn && !userState.value.paramaters.usrstats.loggedIn) {
@@ -127,8 +128,8 @@ export const useUserStore = defineStore('user', () => {
         }
 
         userState.value = msg
-        consola.info('received userstats:')
-        consola.info(userState.value)
+        // consola.info('received userstats:')
+        // consola.info(userState.value)
 
         break
       default:
