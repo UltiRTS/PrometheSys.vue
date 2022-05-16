@@ -1,7 +1,6 @@
 <script>
 export default {
-  // feed those
-  // props: ['channels', 'chatLog'],
+  emits: ['btn-pressed'],
   data() {
     return {
 
@@ -17,13 +16,15 @@ export default {
 
   },
   methods: {
-
+    addGame() {
+      this.$emit('btn-pressed', 'AddGame')
+    },
   },
 }
 </script>
 
 <template>
-  <div style="filter: drop-shadow(rgba(255, 255, 255, 0.3) 128.3px 24px 123px); position: absolute; background: linear-gradient(90deg,rgba(0, 0, 0, 0.2) 4%, rgba(179,223,255, 0.3) 7%,rgba(179,223,255, 0.3) 93%, rgba(0, 0, 0, 0.2) 96%); width: 104%; height: 100%; top: 0%; left: -2%; backdrop-filter: blur(19px); mix-blend-mode: multiply;padding-left: 2%;padding-right:2%;">
+  <div style="filter: drop-shadow(rgba(255, 255, 255, 0.3) 128.3px 24px 123px); position: absolute; background: linear-gradient(90deg, rgba(0, 0, 0, 0.2) 4%, rgba(179, 223, 255, 0.3) 7%, rgba(179, 223, 255, 0.3) 93%, rgba(0, 0, 0, 0.2) 96%); width: 104%; height: 88%; top: 5%; left: -2%; backdrop-filter: blur(19px); mix-blend-mode: multiply; padding-left: 2%; padding-right: 2%;">
     <div id="dodHeader" style="position:absolute;top:6%;left:5%;width:101vh;height:10%;background:#585858;filter:drop-shadow(rgba(0,0,0,0.7) 15px 22px 23px);color:white;overflow:hidden;">
       <i class="fa fa-coffee" aria-hidden="true" style="position:absolute;font-size:13vh;left:0%;opacity:16%;top:-6%;" /><i class="fa fa-caret-right" aria-hidden="true" style="position:absolute;font-size:7vh;left:50.7%;top:21%;transform:rotate(-45deg);" /><img src="imgs/horizontalSep1.png" style="width:13%;position:absolute;left:78%;/* opacity:16%;*/top:10%;transform:rotate(180deg);height:2%;opacity:50%;"><img src="imgs/horizontalSep1.png" style="width:13%;position:absolute;left:50%;top:49%;transform:rotate(90deg);height:2%;opacity:50%;"><i class="fa fa-square" aria-hidden="true" style="position:absolute;font-size:1vh;left:51.8%;top:10%;" /><i class="fa fa-square" aria-hidden="true" style="position:absolute;font-size:1vh;left:64%;top:42%;" /><div style="position:absolute;font-size:4vh;font-family:font5;top:1%;left:18.6%;">
         the
@@ -37,7 +38,8 @@ export default {
         2029/01/13 17:00
       </div><div style="position:absolute;font-size:3vh;font-family:font6;top:35%;left:77.1%;">
         Updated
-      </div><div style="position:absolute;font-size:3vh;font-family:'font5';top:61%;left:63.8%;">
+      </div>
+      <div class="opDraft" style="position:absolute;font-size:3vh;font-family:'font5';top:61%;left:59.8%;padding-left:4vh;padding-right:0.5vh;cursor:pointer;" @click="addGame">
         Draft Proposal Now
       </div>
     </div><div id="dodContent" style="position:absolute;top: 18%;height: 76%;background: transparent;width: 92%;left: 5%;">
@@ -116,10 +118,18 @@ export default {
         <div style="display: inline;background:white;position: absolute;font-family: 'font9';top: 43%;left: 66%;width: 33%;height: 19%;overflow:hidden;opacity: 0.3;" />
       </div>
     </div>
+    <img src="imgs/horizontalSep1.png" style="width: 19.6%;position:absolute;left:4%;top:-1%;transform:rotate(0deg);height: 0.2%;opacity:30%;">
+    <img src="imgs/horizontalSep1.png" style="width: 19.6%;position:absolute;left: 77%;top: 101%;transform: rotate(180deg);height: 0.2%;opacity:30%;">
   </div>
 </template>
 
 <style scoped>
+.opDraft{
+  background:rgba(0,0,0,0);
+}
 
+.opDraft:hover{
+  background:rgba(255,255,255,0.5);
+}
 </style>
 

@@ -540,11 +540,11 @@ function loginWrapper() {
 	background-color: white;
 opacity:0;
 	mix-blend-mode: screen;
-overflow:hidden;
-	top:-2vw;
-color:white;
-	animation-fill-mode: forwards;
-	animation-name: logininputAnime;
+  overflow:hidden;
+  top:-2vw;
+  color:white;
+  animation-fill-mode: forwards;
+  animation-name: logininputAnime;
 	animation-duration: 1.5s;
 	animation-iteration-count: 1;
 	animation-delay:2.5s;
@@ -727,10 +727,10 @@ color:white;
 	 position: relative;
 }
  .edgy-link span {
-	 position: relative;
-	 z-index: 999;
+  position: relative;
+  z-index: 999;
 }
- .edgy-link::after {
+.edgy-link::after {
 	 content: "";
 	 position: absolute;
 	 width: 0;
