@@ -40,6 +40,12 @@ export const useUserStore = defineStore('user', () => {
         joinChat({
           chatName: grabberInput.value,
         })
+        break }
+
+      case 'AddGame': {
+        joinGame({
+          gameName: grabberInput.value,
+        })
         break
       }
       default: {
@@ -103,6 +109,21 @@ export const useUserStore = defineStore('user', () => {
     }))
   }
 
+  function joinGame(params: {
+    gameName: string
+  }) {
+    if (ws_open.value !== true) {
+      consola.error('ws is not open')
+      return
+    }
+    ws.send(JSON.stringify({
+      action: 'JOINGAME',
+      parameters: {
+        battleName: params.gameName,
+      },
+    }))
+  }
+
   ws.onmessage = (ev) => {
     const msg = JSON.parse(ev.data)
     if (msg.action === undefined)
@@ -121,15 +142,26 @@ export const useUserStore = defineStore('user', () => {
           // console.log('chatlog val:')
           // console.log(chatLog.value)
         }
-        // console.log(userState.value)
+        /*
+        if (msg.paramaters.usrstats.chatMsg) {
+          if (chatLog.value.length === 100)
+            chatLog.value.shift()
+
+          chatLog.value.push({
+            ...msg.paramaters.usrstats.chatMsg,
+            timestamp: Date.now(),
+          })
+          // console.log('chatlog val:')
+          // console.log(chatLog.value)
+        }
         if (msg.paramaters.usrstats.loggedIn && !userState.value.paramaters.usrstats.loggedIn) {
           router.push('postlogin') // just logged in
           joinChat({ chatName: 'global' })
-        }
+        }*/
 
         userState.value = msg
         // consola.info('received userstats:')
-        // consola.info(userState.value)
+        consola.info(userState.value)
 
         break
       default:

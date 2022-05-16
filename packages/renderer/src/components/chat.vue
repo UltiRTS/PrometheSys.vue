@@ -71,8 +71,8 @@ export default {
         lastUser = filteredChats[i].author
         lastTime = filteredChats[i].timestamp
       }
-      console.log('returning res')
-      console.log(res)
+      // console.log('returning res')
+      // console.log(res)
       return res
     },
 
