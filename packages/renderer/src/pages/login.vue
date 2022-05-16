@@ -1,12 +1,18 @@
 <script lang="ts" setup>
 import { computed } from '@vue/reactivity'
-import { onMounted, ref } from 'vue'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 import consola from 'consola'
 
 import { useUserStore } from '../stores'
 
 const uStore = useUserStore()
 const userState = computed(() => uStore.userState)
+
+const isActive = ref(true)
+
+onBeforeUnmount(() => {
+  isActive.value = false
+})
 
 onMounted(() => {
   const c = window.c
@@ -311,6 +317,9 @@ onMounted(() => {
   }
 
   function anim() {
+    if (!isActive.value)
+      return
+    console.log('nn animating')
     window.requestAnimationFrame(anim)
 
     ctx.globalCompositeOperation = 'source-over'
@@ -400,7 +409,7 @@ function loginWrapper() {
     <img src="/imgs/bg.png" style="position: absolute;width: 100%;height: 100%;left: 0%;top: 0%;filter: grayscale(100%) contrast(22%) brightness(99%);-webkit-mask-image: linear-gradient(rgb(80 80 80 / 0%), rgb(0, 0, 0));">
     <canvas id="c" ref="canvas" style="position: absolute;top: 0;left: 0;opacity: .2;pointer-events: none;" />
     <div id="stupidCanvas" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events: none;">
-      <PBubbles />
+      <PBubbles :animating="isActive.value" />
     </div>
     <div id="cover" :class="{cover:yijingqichuang}" style="width: 43%; height: 20%; top: 33%; left: 27%; position: absolute;">
       <img src="/imgs/thea_frame.png" style="position: absolute;width: 11vw;filter: drop-shadow(8px 20px 16px #000);">
