@@ -27,6 +27,7 @@
     "node": ">=14.17.0"
   },
   "dependencies": {
+    "crypto": "^1.0.1",
     "electron-store": "^8.0.1",
     "vue": "^3.2.31",
     "vue-router": "^4.0.14"

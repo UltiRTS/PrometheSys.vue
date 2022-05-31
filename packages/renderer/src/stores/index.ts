@@ -1,4 +1,5 @@
 /* eslint-disable eqeqeq */
+import { randomInt } from 'crypto'
 import { acceptHMRUpdate, defineStore } from 'pinia'
 
 import consola from 'consola'
@@ -6,7 +7,7 @@ import { ref } from 'vue'
 import router from '../router'
 
 export const useUserStore = defineStore('user', () => {
-  const ws = new WebSocket('ws://185.205.246.232:9090')
+  const ws = new WebSocket('ws://185.205.246.232:8081')
 
   const ws_open = ref<boolean>()
   const count = ref<number>()
@@ -70,9 +71,10 @@ export const useUserStore = defineStore('user', () => {
     ws.send(JSON.stringify({
       action: 'LOGIN',
       parameters: {
-        usr: params.username,
-        passwd: params.password,
+        username: params.username,
+        password: params.password,
       },
+      seq: randomInt(0, 1000000),
     }))
   }
 
@@ -139,26 +141,7 @@ export const useUserStore = defineStore('user', () => {
             ...msg.paramaters.usrstats.chatMsg,
             timestamp: Date.now(),
           })
-          // console.log('chatlog val:')
-          // console.log(chatLog.value)
         }
-        /*
-        if (msg.paramaters.usrstats.chatMsg) {
-          if (chatLog.value.length === 100)
-            chatLog.value.shift()
-
-          chatLog.value.push({
-            ...msg.paramaters.usrstats.chatMsg,
-            timestamp: Date.now(),
-          })
-          // console.log('chatlog val:')
-          // console.log(chatLog.value)
-        }
-        if (msg.paramaters.usrstats.loggedIn && !userState.value.paramaters.usrstats.loggedIn) {
-          router.push('postlogin') // just logged in
-          joinChat({ chatName: 'global' })
-        }*/
-
         userState.value = msg
         // consola.info('received userstats:')
         consola.info(userState.value)
