@@ -319,7 +319,7 @@ onMounted(() => {
   function anim() {
     if (!isActive.value)
       return
-    console.log('nn animating')
+    // console.log('nn animating')
     window.requestAnimationFrame(anim)
 
     ctx.globalCompositeOperation = 'source-over'
