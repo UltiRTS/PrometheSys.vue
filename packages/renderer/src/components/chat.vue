@@ -1,5 +1,4 @@
 <script>
-import consola from 'consola'
 import { mapActions, mapState } from 'pinia'
 import { useUserStore } from '../stores'
 export default {
@@ -21,7 +20,7 @@ export default {
         if (!res.includes(this.joinedChannels[chat]))
           res.push(this.joinedChannels[chat])
       }
-      consola.info(res)
+      console.log(res)
       return res
     },
 
@@ -133,7 +132,7 @@ export default {
     },
     // parent must provide sayChat interface
     sendMessage() {
-      consola.info(this.msg)
+      console.log(this.msg)
       this.sayChat({
         chatName: this.current_channel,
         msg: this.msg,

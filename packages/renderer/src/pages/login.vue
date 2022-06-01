@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { computed } from '@vue/reactivity'
 import { onBeforeUnmount, onMounted, ref } from 'vue'
-import consola from 'consola'
 
 import { useUserStore } from '../stores'
 
@@ -377,7 +376,7 @@ const yijingqichuang = ref('')
 
 const qichuangdachenggong = () => {
   yijingqichuang.value = 'qichuangyijingchenggong'
-  consola.log('setting var')
+  console.log('setting var')
 }
 
 function loginWrapper() {
