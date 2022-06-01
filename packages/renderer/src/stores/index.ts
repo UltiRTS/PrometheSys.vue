@@ -2,7 +2,6 @@
 import { randomInt } from 'crypto'
 import { acceptHMRUpdate, defineStore } from 'pinia'
 
-import consola from 'consola'
 import { ref } from 'vue'
 import router from '../router'
 
@@ -11,7 +10,7 @@ export const useUserStore = defineStore('user', () => {
 
   const ws_open = ref<boolean>()
   const count = ref<number>()
-  const userState = ref({ paramaters: { usrstats: { loggedIn: false } } })
+  const userState = ref({ isLoggedIn: false })
   const chatLog = ref([
     {
       author: 'Александр Карпов',
@@ -29,19 +28,21 @@ export const useUserStore = defineStore('user', () => {
 
   function pushGrabberInput(input: string) {
     if (input === 'canceling') {
-      consola.info('canceling')
+      console.log('canceling')
       return
     }
 
     grabberInput.value = input
-    consola.info('grabberInput', grabberInput.value)
+    // console.log('grabberInput' + grabberInput.value)
 
     switch (grabberTriggerAction.value) {
       case 'AddChat': {
         joinChat({
           chatName: grabberInput.value,
+          password: '',
         })
-        break }
+        break
+      }
 
       case 'AddGame': {
         joinGame({
@@ -50,7 +51,7 @@ export const useUserStore = defineStore('user', () => {
         break
       }
       default: {
-        consola.info('default trigger')
+        console.log('default trigger')
         break
       }
     }
@@ -80,18 +81,23 @@ export const useUserStore = defineStore('user', () => {
 
   function joinChat(params: {
     chatName: string
+    password: string
   }) {
     if (ws_open.value !== true) {
-      consola.error('ws is not open')
+      console.error('ws is not open')
       return
     }
 
-    ws.send(JSON.stringify({
+    const tx = JSON.stringify({
       action: 'JOINCHAT',
       parameters: {
         chatName: params.chatName,
+        password: params.password,
       },
-    }))
+      seq: randomInt(0, 1000000),
+    })
+    console.log(`tx${tx}`)
+    ws.send(tx)
   }
 
   function sayChat(params: {
@@ -99,7 +105,7 @@ export const useUserStore = defineStore('user', () => {
     msg: string
   }) {
     if (ws_open.value !== true) {
-      consola.error('ws is not open')
+      console.error('ws is not open')
       return
     }
     ws.send(JSON.stringify({
@@ -115,7 +121,7 @@ export const useUserStore = defineStore('user', () => {
     gameName: string
   }) {
     if (ws_open.value !== true) {
-      consola.error('ws is not open')
+      console.error('ws is not open')
       return
     }
     ws.send(JSON.stringify({
@@ -128,12 +134,26 @@ export const useUserStore = defineStore('user', () => {
 
   ws.onmessage = (ev) => {
     const msg = JSON.parse(ev.data)
+    console.log(`msg${msg}`)
     if (msg.action === undefined)
       return
 
+    // console.log(!msg.state.user)
+
+    // console.log(!userState.value)
+    if (msg.state.user && !userState.value.isLoggedIn) {
+      joinChat({
+        chatName: 'global',
+        password: '',
+      })
+      router.push('postlogin') // just logged in
+    }
+
     switch (msg.action) {
-      case 'stateDump':
-        if (msg.paramaters.usrstats.chatMsg) {
+      case 'NOTIFY':
+        break
+      default:
+        /* if (msg.stats.usrstats.chatMsg) {
           if (chatLog.value.length === 100)
             chatLog.value.shift()
 
@@ -141,20 +161,18 @@ export const useUserStore = defineStore('user', () => {
             ...msg.paramaters.usrstats.chatMsg,
             timestamp: Date.now(),
           })
-        }
-        userState.value = msg
-        // consola.info('received userstats:')
-        consola.info(userState.value)
-
-        break
-      default:
+        } */
+        userState.value = msg.state
+        userState.value.isLoggedIn = true
+        // console.log('received userstats:')
+        console.log(userState.value)
         break
     }
   }
 
   ws.onopen = () => {
     ws_open.value = true
-    consola.log('ws is open')
+    console.log('ws is open')
   }
 
   ws.onclose = () => {
