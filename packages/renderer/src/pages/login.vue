@@ -376,7 +376,7 @@ const yijingqichuang = ref('')
 
 const qichuangdachenggong = () => {
   yijingqichuang.value = 'qichuangyijingchenggong'
-  console.log('setting var')
+  // console.log('setting var')
 }
 
 function loginWrapper() {

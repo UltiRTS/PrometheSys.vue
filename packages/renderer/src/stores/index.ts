@@ -9,7 +9,6 @@ export const useUserStore = defineStore('user', () => {
   const ws = new WebSocket('ws://185.205.246.232:8081')
 
   const ws_open = ref<boolean>()
-  const count = ref<number>()
   const userState = ref({ isLoggedIn: false })
   const chatLog = ref([
     {
@@ -19,6 +18,8 @@ export const useUserStore = defineStore('user', () => {
       timestamp: Date.now(),
     },
   ])
+  const joinedChannels = ref<string[]>([])
+  const gameListing = ref<any[]>([])
   const grabberInput = ref('')
   const grabberTriggerAction = ref('')
 
@@ -45,11 +46,15 @@ export const useUserStore = defineStore('user', () => {
       }
 
       case 'AddGame': {
-        joinGame({
-          gameName: grabberInput.value,
-        })
+        joinGame(
+          {
+            gameName: grabberInput.value,
+            password: '',
+            mapID: '0',
+          })
         break
       }
+
       default: {
         console.log('default trigger')
         break
@@ -69,14 +74,17 @@ export const useUserStore = defineStore('user', () => {
       return
     }
 
-    ws.send(JSON.stringify({
+    const tx = JSON.stringify({
       action: 'LOGIN',
       parameters: {
         username: params.username,
         password: params.password,
       },
       seq: randomInt(0, 1000000),
-    }))
+    })
+
+    console.log(tx)
+    ws.send(tx)
   }
 
   function joinChat(params: {
@@ -96,7 +104,7 @@ export const useUserStore = defineStore('user', () => {
       },
       seq: randomInt(0, 1000000),
     })
-    console.log(`tx${tx}`)
+    console.log(tx)
     ws.send(tx)
   }
 
@@ -108,64 +116,96 @@ export const useUserStore = defineStore('user', () => {
       console.error('ws is not open')
       return
     }
-    ws.send(JSON.stringify({
+    const tx = JSON.stringify({
       action: 'SAYCHAT',
       parameters: {
         chatName: params.chatName,
-        msg: params.msg,
+        message: params.msg,
       },
-    }))
+      seq: randomInt(0, 1000000),
+    })
+    console.log(tx)
+    ws.send(tx)
   }
 
   function joinGame(params: {
     gameName: string
+    password: string
+    mapID: string
+  }) {
+    const tx = {
+      action: 'JOINGAME',
+      parameters: {
+        gameName: params.gameName,
+        password: params.password,
+        mapId: params.mapID,
+      },
+      seq: randomInt(0, 1000000),
+    }
+    wsSendServer(tx)
+  }
+
+  function wsSendServer(tx: {
+    action: string
+    parameters: any
+    seq: number
   }) {
     if (ws_open.value !== true) {
       console.error('ws is not open')
       return
     }
-    ws.send(JSON.stringify({
-      action: 'JOINGAME',
-      parameters: {
-        battleName: params.gameName,
-      },
-    }))
+    console.log(tx)
+    ws.send(JSON.stringify(tx))
   }
 
   ws.onmessage = (ev) => {
     const msg = JSON.parse(ev.data)
-    console.log(`msg${msg}`)
+    // console.log(`msg${msg}`)
     if (msg.action === undefined)
       return
 
     // console.log(!msg.state.user)
 
-    // console.log(!userState.value)
-    if (msg.state.user && !userState.value.isLoggedIn) {
+    console.log(msg)
+    if (msg.state && !userState.value.isLoggedIn) {
       joinChat({
         chatName: 'global',
         password: '',
       })
       router.push('postlogin') // just logged in
+      userState.value.isLoggedIn = true
     }
 
     switch (msg.action) {
       case 'NOTIFY':
         break
       default:
-        /* if (msg.stats.usrstats.chatMsg) {
+        if (msg.state.user.chatRooms) {
           if (chatLog.value.length === 100)
             chatLog.value.shift()
 
-          chatLog.value.push({
-            ...msg.paramaters.usrstats.chatMsg,
-            timestamp: Date.now(),
-          })
-        } */
-        userState.value = msg.state
+          // console.log(msg.state.user.chatRooms)
+          const tmpChannel = []
+          for (const chat in msg.state.user.chatRooms) {
+            tmpChannel.push(chat)
+            // console.log(joinedChannels.value)
+
+            if (msg.state.user.chatRooms[chat].lastMessage.content == '')
+              continue
+            chatLog.value.push({
+              author: msg.state.user.chatRooms[chat].lastMessage.author,
+              msg: msg.state.user.chatRooms[chat].lastMessage.content,
+              chatName: chat,
+              timestamp: msg.state.user.chatRooms[chat].lastMessage.time,
+            })
+          }
+          joinedChannels.value = tmpChannel
+        }
+        if (msg.state.games)
+          gameListing.value = msg.state.games
+
+        userState.value = msg
         userState.value.isLoggedIn = true
-        // console.log('received userstats:')
-        console.log(userState.value)
         break
     }
   }
@@ -181,11 +221,12 @@ export const useUserStore = defineStore('user', () => {
 
   return {
     ws_open,
-    count,
     userState,
     chatLog,
+    joinedChannels,
     grabberInput,
     grabberTriggerAction,
+    gameListing,
 
     sayChat,
     joinChat,
