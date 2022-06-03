@@ -1,20 +1,24 @@
 <script>
+import { mapActions, mapState } from 'pinia'
+import { useUserStore } from '../stores'
+
 export default {
   emits: ['btn-pressed'],
   data() {
     return {
-
-      isBottom: false,
-
     }
   },
   computed: {
-
+    ...mapState(useUserStore, ['gameListing']),
   },
 
   updated() {
+  },
+
+  onMounted() {
 
   },
+
   methods: {
     addGame() {
       this.$emit('btn-pressed', 'AddGame')
@@ -42,8 +46,9 @@ export default {
       <div class="opDraft" style="position:absolute;font-size:3vh;font-family:'font5';top:61%;left:59.8%;padding-left:4vh;padding-right:0.5vh;cursor:pointer;" @click="addGame">
         Draft Proposal Now
       </div>
-    </div><div id="dodContent" style="position:absolute;top: 18%;height: 76%;background: transparent;width: 92%;left: 5%;">
-      <div id="individualGameTag" style="display:inline-block;height: 9vw;width: 22vw;position:relative;filter: drop-shadow(rgba(0,0,0,0.3) 42px 33px 23px);font-size: 2vw;margin:2vw;">
+    </div>
+    <div id="dodContent" style="position:absolute;top: 18%;height: 76%;background: transparent;width: 92%;left: 5%;">
+      <div v-for="game in gameListing" :key="game" class="individualGameTag" style="display:inline-block;height: 9vw;width: 22vw;position:relative;filter: drop-shadow(rgba(0,0,0,0.3) 42px 33px 23px);font-size: 2vw;margin:2vw;">
         <div style="height: 100%;width: 2%;position:absolute;background: #ffffff24;font-size: 2vw;" />
         <div style="left: 8%; height: 100%;width: 100%;position:absolute;background: #ffffff24;font-size: 2vw;overflow:hidden;">
           <img src="imgs/dottedBg.png" style="position:absolute;top: -254%;left: -168%;width: 279%;opacity:40%;">
@@ -53,65 +58,10 @@ export default {
         </div><i class="fa fa-users" aria-hidden="true" style="position:absolute;opacity:0.5;top: 74%;left: 82%;font-size:2vw;" />
 
         <div style="color:white;position:absolute;font-family: 'font2';top: 4%;left: 16%;width: 84%;height: 29%;overflow:hidden;">
-          All Welcome wasfeg wfwfw wfeg qwfe QWFEG
+          {{ game.title }}
         </div>
         <div style="color:white;position:absolute;font-family: 'font5';top: 27%;right: 1%;width: 85%;height: 29%;overflow:hidden;text-align:right">
-          Comet Catcher
-        </div><div style="color:white;position:absolute;font-size:2vw;font-family:font1;top: 73%;left: 94%;">
-          09
-        </div><div style="background: #5c38227d;position:absolute;height:100%;width: 0.3%;top: 0%;left: 4%;" />
-        <div style="display: inline;background:white;position: absolute;font-family: 'font9';top: 43%;left: 66%;width: 33%;height: 19%;overflow:hidden;opacity: 0.3;" />
-      </div>
-      <div id="individualGameTag" style="display:inline-block;height: 9vw;width: 22vw;position:relative;filter: drop-shadow(rgba(0,0,0,0.3) 42px 33px 23px);font-size: 2vw;margin:2vw;">
-        <div style="height: 100%;width: 2%;position:absolute;background: #ffffff24;font-size: 2vw;" />
-        <div style="left: 8%; height: 100%;width: 100%;position:absolute;background: #ffffff24;font-size: 2vw;overflow:hidden;">
-          <img src="imgs/dottedBg.png" style="position:absolute;top: -254%;left: -168%;width: 279%;opacity:40%;">
-        </div>
-        <div style="left: 8%; height: 100%;width: 100%;position:absolute;background: #ffffff24;font-size: 2vw;overflow:hidden;">
-          <img src="imgs/minimapSample.png" style="position:absolute;filter: grayscale(99%);left: 0%;height:100%;opacity: 100%;-webkit-mask-image: linear-gradient(271deg,rgb(80 80 80 / 0%), rgb(74 255 74 / 100%));opacity: 0.6;">
-        </div><i class="fa fa-users" aria-hidden="true" style="position:absolute;opacity:0.5;top: 74%;left: 82%;font-size:2vw;" />
-
-        <div style="color:white;position:absolute;font-family: 'font2';top: 4%;left: 16%;width: 84%;height: 29%;overflow:hidden;">
-          All Welcome wasfeg wfwfw wfeg qwfe QWFEG
-        </div>
-        <div style="color:white;position:absolute;font-family: 'font5';top: 27%;right: 1%;width: 85%;height: 29%;overflow:hidden;text-align:right">
-          Comet Catcher
-        </div><div style="color:white;position:absolute;font-size:2vw;font-family:font1;top: 73%;left: 94%;">
-          09
-        </div><div style="background: #5c38227d;position:absolute;height:100%;width: 0.3%;top: 0%;left: 4%;" />
-        <div style="display: inline;background:white;position: absolute;font-family: 'font9';top: 43%;left: 66%;width: 33%;height: 19%;overflow:hidden;opacity: 0.3;" />
-      </div><div id="individualGameTag" style="display:inline-block;height: 9vw;width: 22vw;position:relative;filter: drop-shadow(rgba(0,0,0,0.3) 42px 33px 23px);font-size: 2vw;margin:2vw;">
-        <div style="height: 100%;width: 2%;position:absolute;background: #ffffff24;font-size: 2vw;" />
-        <div style="left: 8%; height: 100%;width: 100%;position:absolute;background: #ffffff24;font-size: 2vw;overflow:hidden;">
-          <img src="imgs/dottedBg.png" style="position:absolute;top: -254%;left: -168%;width: 279%;opacity:40%;">
-        </div>
-        <div style="left: 8%; height: 100%;width: 100%;position:absolute;background: #ffffff24;font-size: 2vw;overflow:hidden;">
-          <img src="imgs/minimapSample.png" style="position:absolute;filter: grayscale(99%);left: 0%;height:100%;opacity: 100%;-webkit-mask-image: linear-gradient(271deg,rgb(80 80 80 / 0%), rgb(74 255 74 / 100%));opacity: 0.6;">
-        </div><i class="fa fa-users" aria-hidden="true" style="position:absolute;opacity:0.5;top: 74%;left: 82%;font-size:2vw;" />
-
-        <div style="color:white;position:absolute;font-family: 'font2';top: 4%;left: 16%;width: 84%;height: 29%;overflow:hidden;">
-          All Welcome wasfeg wfwfw wfeg qwfe QWFEG
-        </div>
-        <div style="color:white;position:absolute;font-family: 'font5';top: 27%;right: 1%;width: 85%;height: 29%;overflow:hidden;text-align:right">
-          Comet Catcher
-        </div><div style="color:white;position:absolute;font-size:2vw;font-family:font1;top: 73%;left: 94%;">
-          09
-        </div><div style="background: #5c38227d;position:absolute;height:100%;width: 0.3%;top: 0%;left: 4%;" />
-        <div style="display: inline;background:white;position: absolute;font-family: 'font9';top: 43%;left: 66%;width: 33%;height: 19%;overflow:hidden;opacity: 0.3;" />
-      </div><div id="individualGameTag" style="display:inline-block;height: 9vw;width: 22vw;position:relative;filter: drop-shadow(rgba(0,0,0,0.3) 42px 33px 23px);font-size: 2vw;margin:2vw;">
-        <div style="height: 100%;width: 2%;position:absolute;background: #ffffff24;font-size: 2vw;" />
-        <div style="left: 8%; height: 100%;width: 100%;position:absolute;background: #ffffff24;font-size: 2vw;overflow:hidden;">
-          <img src="imgs/dottedBg.png" style="position:absolute;top: -254%;left: -168%;width: 279%;opacity:40%;">
-        </div>
-        <div style="left: 8%; height: 100%;width: 100%;position:absolute;background: #ffffff24;font-size: 2vw;overflow:hidden;">
-          <img src="imgs/minimapSample.png" style="position:absolute;filter: grayscale(99%);left: 0%;height:100%;opacity: 100%;-webkit-mask-image: linear-gradient(271deg,rgb(80 80 80 / 0%), rgb(74 255 74 / 100%));opacity: 0.6;">
-        </div><i class="fa fa-users" aria-hidden="true" style="position:absolute;opacity:0.5;top: 74%;left: 82%;font-size:2vw;" />
-
-        <div style="color:white;position:absolute;font-family: 'font2';top: 4%;left: 16%;width: 84%;height: 29%;overflow:hidden;">
-          All Welcome wasfeg wfwfw wfeg qwfe QWFEG
-        </div>
-        <div style="color:white;position:absolute;font-family: 'font5';top: 27%;right: 1%;width: 85%;height: 29%;overflow:hidden;text-align:right">
-          Comet Catcher
+          {{ game.mapId }}
         </div><div style="color:white;position:absolute;font-size:2vw;font-family:font1;top: 73%;left: 94%;">
           09
         </div><div style="background: #5c38227d;position:absolute;height:100%;width: 0.3%;top: 0%;left: 4%;" />

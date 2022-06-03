@@ -12,8 +12,8 @@ ipcRenderer.send('toMain', JSON.stringify({
   },
 }))
 
-const userStore = useUserStore()
-userStore.login({ username: 'test', password: 'testpassword' })
+// const userStore = useUserStore()
+// userStore.login({ username: 'test', password: 'testpassword' })
 
 onMounted(() => {
   router.push('login')
