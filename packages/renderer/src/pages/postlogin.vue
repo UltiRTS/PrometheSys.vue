@@ -75,7 +75,8 @@ export default {
       <div id="mainContent" style="transform: translateZ(0vw); position: absolute; color: white; width: 181%; height: 181%; top: -39%; left: -18%;" @click="activeWindow='default'">
         <div id="mainMask" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; background: radial-gradient(rgba(179, 223, 255, 0.58) 0%, rgba(41, 51, 52, 0.5) 73%, rgba(0, 0, 0, 0.05) 81%); backdrop-filter: blur(5px);">
         </div>
-        <dod @btn-pressed="btnPressedHandler" />
+        <!--<dod @btn-pressed="btnPressedHandler" />-->
+        <dodPregame />
       </div>
       <div id="modalMenu" :style="{opacity:shouldIlightUpModal}" style="transform: rotateY(15.6deg) translateZ(10vw) translateX(-55vw); top: 5%;width: 56%; height: 84%; position: absolute; backdrop-filter: blur(9px);" @click="activeWindow='modal'" @mouseover="mouseOn=&quot;modal&quot;" @mouseleave="mouseOn='default'">
         <Chat :chat-log="chatLog" :joined-channels="joinedChannels" @btn-pressed="btnPressedHandler" />
