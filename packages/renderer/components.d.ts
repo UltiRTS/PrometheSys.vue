@@ -7,6 +7,7 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Chat: typeof import('./src/components/chat.vue')['default']
     Dod: typeof import('./src/components/dod.vue')['default']
+    DodPregame: typeof import('./src/components/dodPregame.vue')['default']
     Gem: typeof import('./src/components/gem.vue')['default']
     InputGrabber: typeof import('./src/components/inputGrabber.vue')['default']
     PBubbles: typeof import('./src/components/PBubbles.vue')['default']
