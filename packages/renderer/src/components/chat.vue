@@ -11,6 +11,7 @@ export default {
       // channels: ['general', 'room1'],
       current_channel: 'global',
       unreadChannel: [],
+      msg: '',
     }
   },
   computed: {

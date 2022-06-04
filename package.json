@@ -29,6 +29,7 @@
   "dependencies": {
     "crypto": "^1.0.1",
     "electron-store": "^8.0.1",
+    "two.js": "^0.8.9",
     "vue": "^3.2.31",
     "vue-router": "^4.0.14"
   },
@@ -44,7 +45,7 @@
     "@vueuse/core": "^8.3.1",
     "chalk": "^4.1.2",
     "chokidar": "^3.5.3",
-    "console": "^2.15.3",
+    "consola": "^2.15.3",
     "electron": "18.2.0",
     "electron-builder": "^23.0.3",
     "eslint": "^8.14.0",

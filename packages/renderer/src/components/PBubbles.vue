@@ -1,8 +1,16 @@
 <script lang="ts" setup>
 import { isClient } from '@vueuse/core'
-import { onMounted } from 'vue'
+import { onUnmounted, onMounted, watch} from 'vue'
 import type p5 from 'p5'
+import { getActivePinia } from 'pinia'
 interface Bubble { x: number; y: number; size: number; speed: number }
+
+defineProps<{
+  active: boolean
+}>()
+
+let sketchInstance = null
+
 const sketch = (s: p5) => {
   const bubbles: Bubble[] = []// holds bubble objects
   const bubbleNum = 2// # of bubbles?
@@ -49,7 +57,7 @@ const sketch = (s: p5) => {
     s.fill('rgba(255,255,255, 0.4)')
   }
   s.draw = () => {
-    // console.log('bubbles still running!')
+    console.log('bubbles still running!')
     s.clear()
     // fill(255,0,0,127);
     bubbles.forEach((bub, index) => {
@@ -68,8 +76,17 @@ onMounted(async () => {
     return
   const { default: p5 } = await import('p5')
   // eslint-disable-next-line new-cap
-  const sketchInstance = new p5(sketch)
+  sketchInstance = new p5(sketch)
 })
+
+onUnmounted(() => {
+  console.log('deactiavted in bubble')
+  if (!isClient)
+    return
+  if (sketchInstance)
+    sketchInstance.remove()
+})
+
 </script>
 
 <template>
