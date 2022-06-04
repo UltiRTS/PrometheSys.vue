@@ -4,8 +4,10 @@ export default {
   // props: ['channels', 'chatLog'],
   data() {
     return {
-
-      isBottom: false,
+      percentages: [5, 45, 50],
+      tags: ['hello', 'test', 'test1'],
+      width: document.documentElement.clientHeight * 0.2,
+      height: document.documentElement.clientHeight * 0.2,
 
     }
   },
@@ -63,9 +65,13 @@ export default {
             </div>
             <div style="position:absolute;font-weight:900;font-size: 11vh;top: 32%;font-family: 'font3';left: 8%;color: #ffffff;">
               40%
-            </div><div style="position:absolute;font-weight:900;font-size: 4vh;top: 9%;font-family: 'font5';left: 3%;color: #000000;background: #ffffff;padding-left:1vw;padding-right:1vw;mix-blend-mode: screen;">
+            </div>
+            <div style="position:absolute;font-weight:900;font-size: 4vh;top: 9%;font-family: 'font5';left: 3%;color: #000000;background: #ffffff;padding-left:1vw;padding-right:1vw;mix-blend-mode: screen;">
               Prediction
             </div>
+          </div>
+          <div ref="dodPie" class="pieChart" style="position:absolute; top: 0%;margin:0;left:1%;width:20vh;height:20vh;">
+            <pie :percentages="percentages" :tags="tags" :width="width" :height="height" />
           </div>
         </div>
       </div><div class="dodLeftOperationPanel" style="position:absolute;bottom:32%;height:65vh;width:30vw;left:0vw;background:red;" /><div class="dodRightOperationPanel" style="position:absolute;bottom:32%;height:65vh;width:30vw;right:0vw;background:red;" /><div class="dodCenterInfoPanel" style="position:absolute;bottom:32%;height:65vh;width:38vw;left:31vw;background:red;" />

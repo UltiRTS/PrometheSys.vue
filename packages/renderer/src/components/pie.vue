@@ -15,15 +15,13 @@ const props = defineProps<{
 }>()
 
 const centrolImg = {
-  x: `${parseInt(props.width) * 0.33}px`,
-  y: `${parseInt(props.width) * 0.33}px`,
-  width: `${parseInt(props.width) * 0.33}px`,
-  height: `${parseInt(props.height) * 0.33}px`,
+  width: `${parseInt(props.width)}px`,
+  height: `${parseInt(props.height)}px`,
 }
 
 const centre = computed(() => {
-  const width = twoTag.value!.clientWidth
-  const height = twoTag.value!.clientHeight
+  const width = parseInt(props.width)
+  const height = parseInt(props.height)
   return {
     x: width / 2,
     y: height / 2,
@@ -31,8 +29,8 @@ const centre = computed(() => {
 })
 
 const radius = computed(() => {
-  const width = twoTag.value!.clientWidth
-  const height = twoTag.value!.clientHeight
+  const width = parseInt(props.width)
+  const height = parseInt(props.height)
   return Math.min(width, height) / 2
 })
 
@@ -105,15 +103,12 @@ onMounted(() => {
 
 <style>
 .pie-container {
-  margin-top: 200px;
-  width: v-bind('width');
-  height: v-bind('height');
+  width: v-bind('centrolImg.width');
+  height: v-bind('centrolImg.height');
 }
 
 .pie-container > img {
   position: absolute;
-  margin-top: v-bind('centrolImg.y');
-  margin-left: v-bind('centrolImg.x');
   width: v-bind('centrolImg.width');
   height: v-bind('centrolImg.height');
   z-index: -1;
