@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed } from '@vue/reactivity'
-import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { onBeforeUnmount, onUnmounted, onMounted, ref } from 'vue'
 
 import { useUserStore } from '../stores'
 
@@ -11,6 +11,11 @@ const isActive = ref(true)
 
 onBeforeUnmount(() => {
   isActive.value = false
+})
+
+
+onUnmounted(() => {
+  console.log('unmounted')
 })
 
 onMounted(() => {
@@ -134,8 +139,14 @@ onMounted(() => {
 
     let alpha; let beta; let len
     let cosA; let sinA; let cosB; let sinB
-    const pos = {}
-    let passedExisting; let passedBuffered
+    const pos: {x: number, y: number, z: number} = {
+      x: 0,
+      y: 0,
+      z: 0
+    }
+
+    let passedExisting; 
+    let passedBuffered
 
     while (links.length < connectionsNum && --attempt > 0) {
       alpha = Math.random() * Math.PI
@@ -180,7 +191,8 @@ onMounted(() => {
     else {
       for (var i = 0; i < links.length; ++i) {
         const pos = links[i]
-        const connection = new Connection(pos.x, pos.y, pos.z, this.size * opts.sizeMultiplier)
+        const connection =
+          new Connection(pos.x, pos.y, pos.z, this.size * opts.sizeMultiplier)
 
         this.links[i] = connection
         all.push(connection)
@@ -192,7 +204,9 @@ onMounted(() => {
   }
   Connection.prototype.step = function () {
     this.setScreen()
-    this.screen.color = (this.isEnd ? opts.endColor : opts.connectionColor).replace('light', 300 + ((tick * this.glowSpeed) % 300)).replace('alp', 4 + (1 - this.screen.z / mostDistant) * 0.8)
+    this.screen.color = (this.isEnd ? opts.endColor : opts.connectionColor)
+    .replace('light', `${300 + ((tick * this.glowSpeed) % 300)}` )
+    .replace('alp', `${4 + (1 - this.screen.z / mostDistant) * 0.8}`)
 
     for (let i = 0; i < this.links.length; ++i) {
       ctx.moveTo(this.screen.x, this.screen.y)
@@ -201,7 +215,9 @@ onMounted(() => {
   }
   Connection.rootStep = function () {
     this.setScreen()
-    this.screen.color = opts.rootColor.replace('light', 30 + ((tick * this.glowSpeed) % 30)).replace('alp', (1 - this.screen.z / mostDistant) * 0.8)
+    this.screen.color = opts.rootColor
+    .replace('light', `${30 + ((tick * this.glowSpeed) % 30)}`)
+    .replace('alp', `${(1 - this.screen.z / mostDistant) * 0.8}`)
 
     for (let i = 0; i < this.links.length; ++i) {
       ctx.moveTo(this.screen.x, this.screen.y)
@@ -244,7 +260,9 @@ onMounted(() => {
     this.screen.lastX = this.screen.x
     this.screen.lastY = this.screen.y
     this.setScreen()
-    this.screen.color = opts.dataColor.replace('light', 400 + ((tick * this.glowSpeed) % 500)).replace('alp', 0.2 + (1 - this.screen.z / mostDistant) * 0.6)
+    this.screen.color = opts.dataColor
+    .replace('light', `${400 + ((tick * this.glowSpeed) % 500)}`)
+    .replace('alp', `${0.2 + (1 - this.screen.z / mostDistant) * 0.6}`)
   }
   Data.prototype.draw = function () {
     if (this.ended)
@@ -408,7 +426,7 @@ function loginWrapper() {
     <img src="/imgs/bg.png" style="position: absolute;width: 100%;height: 100%;left: 0%;top: 0%;filter: grayscale(100%) contrast(22%) brightness(99%);-webkit-mask-image: linear-gradient(rgb(80 80 80 / 0%), rgb(0, 0, 0));">
     <canvas id="c" ref="canvas" style="position: absolute;top: 0;left: 0;opacity: .2;pointer-events: none;" />
     <div id="stupidCanvas" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events: none;">
-      <PBubbles v-if="isActive" />
+      <PBubbles :active="isActive" />
     </div>
     <div id="cover" :class="{cover:yijingqichuang}" style="width: 43%; height: 20%; top: 33%; left: 27%; position: absolute;">
       <img src="/imgs/thea_frame.png" style="position: absolute;width: 11vw;filter: drop-shadow(8px 20px 16px #000);">
@@ -521,19 +539,16 @@ function loginWrapper() {
 
 <style scoped>
 @keyframes mainContent {
-    0% {
-        opacity: 0;
-    }
-
-    30% {
-        opacity: 0;
-    }
-
-    75% {
-        opacity: 1;
-        visibility:hidden;
-    }
-
+0% {
+    opacity: 0;
+}
+30% {
+  opacity: 0;
+}
+75% {
+  opacity: 1;
+  visibility:hidden;
+}
 }
 .logininput{
 	background-color: white;
