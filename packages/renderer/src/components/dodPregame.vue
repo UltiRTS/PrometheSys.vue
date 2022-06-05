@@ -8,11 +8,15 @@ export default {
       tags: ['hello', 'test', 'test1'],
       width: document.documentElement.clientHeight * 0.2,
       height: document.documentElement.clientHeight * 0.2,
-
     }
   },
   computed: {
-
+    pieSize() {
+      return {
+        width: this.$refs.dodPie.clientWidth,
+        height: this.$refs.dodPie.clientHeight,
+      }
+    },
   },
 
   updated() {
@@ -71,7 +75,7 @@ export default {
             </div>
           </div>
           <div ref="dodPie" class="pieChart" style="position:absolute; top: 0%;margin:0;left:1%;width:20vh;height:20vh;">
-            <pie :percentages="percentages" :tags="tags" :width="width" :height="height" />
+            <pie :percentages="percentages" :tags="tags" />
           </div>
         </div>
       </div><div class="dodLeftOperationPanel" style="position:absolute;bottom:32%;height:65vh;width:30vw;left:0vw;background:red;" /><div class="dodRightOperationPanel" style="position:absolute;bottom:32%;height:65vh;width:30vw;right:0vw;background:red;" /><div class="dodCenterInfoPanel" style="position:absolute;bottom:32%;height:65vh;width:38vw;left:31vw;background:red;" />
