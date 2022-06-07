@@ -3,6 +3,7 @@ import { randomInt } from 'crypto'
 import { acceptHMRUpdate, defineStore } from 'pinia'
 
 import { ref } from 'vue'
+import { mkdirSync } from 'original-fs'
 import router from '../router'
 import type { Game, GameBrief, Notification, StateMessage } from './interfaces'
 
