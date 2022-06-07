@@ -3,7 +3,9 @@ import { randomInt } from 'crypto'
 import { acceptHMRUpdate, defineStore } from 'pinia'
 
 import { ref } from 'vue'
+import { mkdirSync } from 'original-fs'
 import router from '../router'
+import type { Game, GameBrief, Notification, StateMessage } from './interfaces'
 
 export const useUserStore = defineStore('user', () => {
   const ws = new WebSocket('ws://185.205.246.232:8081')
@@ -19,7 +21,8 @@ export const useUserStore = defineStore('user', () => {
     },
   ])
   const joinedChannels = ref<string[]>([])
-  const gameListing = ref<any[]>([])
+  const gameListing = ref<GameBrief[]>([])
+  const joinedGame = ref<Game | null>()
   const grabberInput = ref('')
   const grabberTriggerAction = ref('')
 
@@ -145,6 +148,64 @@ export const useUserStore = defineStore('user', () => {
     wsSendServer(tx)
   }
 
+  function setAIorChicken(params: {
+    gameName: string
+    AI: string
+    team: string
+    type: string
+  }) {
+    const tx = {
+      action: 'SETAI',
+      parameters: {
+        gameName: params.gameName,
+        AI: params.AI,
+        team: params.team,
+        type: params.type,
+      },
+      seq: randomInt(0, 1000000),
+    }
+
+    wsSendServer(tx)
+  }
+
+  function delAIorChicken(params: {
+    gameName: string
+    AI: string
+    team: string
+    type: string
+  }) {
+    const tx = {
+      action: 'DELAI',
+      parameters: {
+        gameName: params.gameName,
+        AI: params.AI,
+        team: params.team,
+        type: params.type,
+      },
+      seq: randomInt(0, 1000000),
+    }
+
+    wsSendServer(tx)
+  }
+
+  function setTeam(params: {
+    gameName: string
+    team: string
+    player: string
+  }) {
+    const tx = {
+      action: 'SETTEAM',
+      parameters: {
+        gameName: params.gameName,
+        team: params.team,
+        player: params.player,
+      },
+      seq: randomInt(0, 1000000),
+    }
+
+    wsSendServer(tx)
+  }
+
   function wsSendServer(tx: {
     action: string
     parameters: any
@@ -159,54 +220,43 @@ export const useUserStore = defineStore('user', () => {
   }
 
   ws.onmessage = (ev) => {
-    const msg = JSON.parse(ev.data)
+    let msg: StateMessage | Notification = JSON.parse(ev.data)
     // console.log(`msg${msg}`)
     if (msg.action === undefined)
       return
 
-    // console.log(!msg.state.user)
-
-    console.log(msg)
-    if (msg.state && !userState.value.isLoggedIn) {
-      joinChat({
-        chatName: 'global',
-        password: '',
-      })
-      router.push('postlogin') // just logged in
-      userState.value.isLoggedIn = true
+    if (msg.action === 'NOTIFY') {
+      msg = msg as Notification
     }
-
-    switch (msg.action) {
-      case 'NOTIFY':
-        break
-      default:
-        if (msg.state.user.chatRooms) {
-          if (chatLog.value.length === 100)
-            chatLog.value.shift()
-
-          // console.log(msg.state.user.chatRooms)
-          const tmpChannel = []
-          for (const chat in msg.state.user.chatRooms) {
-            tmpChannel.push(chat)
-            // console.log(joinedChannels.value)
-
-            if (msg.state.user.chatRooms[chat].lastMessage.content == '')
-              continue
-            chatLog.value.push({
-              author: msg.state.user.chatRooms[chat].lastMessage.author,
-              msg: msg.state.user.chatRooms[chat].lastMessage.content,
-              chatName: chat,
-              timestamp: msg.state.user.chatRooms[chat].lastMessage.time,
-            })
-          }
-          joinedChannels.value = tmpChannel
-        }
-        if (msg.state.games)
-          gameListing.value = msg.state.games
-
-        userState.value = msg
+    else {
+      msg = msg as StateMessage
+      if (userState.value.isLoggedIn === false) {
+        joinChat({
+          chatName: 'global',
+          password: '',
+        })
+        router.push('postlogin')
         userState.value.isLoggedIn = true
-        break
+      }
+
+      const tmpChannels = Object.keys(msg.state.user.chatRooms)
+      joinedChannels.value = tmpChannels
+      for (let i = 0; i < tmpChannels.length; i++) {
+        const lastMessage = msg.state.user.chatRooms[tmpChannels[i]].lastMessage
+        if (lastMessage.content !== '') {
+          chatLog.value.push({
+            author: lastMessage.author,
+            msg: lastMessage.content,
+            timestamp: lastMessage.time.getTime(),
+            chatName: tmpChannels[i],
+          })
+
+          while (chatLog.value.length > 100) chatLog.value.shift()
+        }
+      }
+
+      gameListing.value = msg.state.games
+      joinedGame.value = msg.state.user.game
     }
   }
 
@@ -227,12 +277,16 @@ export const useUserStore = defineStore('user', () => {
     grabberInput,
     grabberTriggerAction,
     gameListing,
+    gameIn,
 
     sayChat,
     joinChat,
     login,
     pushGrabberAction,
     pushGrabberInput,
+    setAIorChicken,
+    delAIorChicken,
+    setTeam,
   }
 })
 
