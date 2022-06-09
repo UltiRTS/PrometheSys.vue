@@ -16,7 +16,7 @@ ipcRenderer.send('toMain', JSON.stringify({
 // userStore.login({ username: 'test', password: 'testpassword' })
 
 onMounted(() => {
-  router.push('postlogin')
+  router.push('prelogin')
 })
 </script>
 

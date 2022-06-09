@@ -3,7 +3,6 @@ import { randomInt } from 'crypto'
 import { acceptHMRUpdate, defineStore } from 'pinia'
 
 import { ref } from 'vue'
-import { mkdirSync } from 'original-fs'
 import router from '../router'
 import type { Game, GameBrief, Notification, StateMessage } from './interfaces'
 
@@ -221,7 +220,7 @@ export const useUserStore = defineStore('user', () => {
 
   ws.onmessage = (ev) => {
     let msg: StateMessage | Notification = JSON.parse(ev.data)
-    // console.log(`msg${msg}`)
+    console.log({ msg })
     if (msg.action === undefined)
       return
 
@@ -277,7 +276,6 @@ export const useUserStore = defineStore('user', () => {
     grabberInput,
     grabberTriggerAction,
     gameListing,
-    gameIn,
 
     sayChat,
     joinChat,
