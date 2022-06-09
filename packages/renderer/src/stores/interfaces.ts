@@ -26,7 +26,7 @@ export interface ChatRoom {
   createAt: string
   password: string
   members: string[]
-  lastMessage: { author: string; content: string; time: Date }
+  lastMessage: { author: string; content: string; time: string }
 }
 
 export interface Confirmation {
