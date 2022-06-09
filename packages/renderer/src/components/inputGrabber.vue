@@ -15,7 +15,12 @@ const exiting = ref(false)
 
 const deactivate = () => {
   setTimeout(() => {
-    // this.activated = false
+    if (text2say.value === 'Input Await')
+      return
+
+    if (text2say.value === 'canceling')
+      return
+
     emit('input-received', text2say.value)
     exiting.value = false
     text2say.value = 'Input Await'

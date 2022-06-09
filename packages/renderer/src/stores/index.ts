@@ -16,11 +16,11 @@ export const useUserStore = defineStore('user', () => {
       author: 'Александр Карпов',
       msg: 'Привет, как дела?',
       chatName: 'global',
-      timestamp: Date.now(),
+      timestamp: String(Date.now()),
     },
   ])
-  const joinedChannels = ref<string[]>([])
-  const gameListing = ref<GameBrief[]>([])
+  const joinedChannels = ref<string[]>()
+  const gameListing = ref<GameBrief[]>()
   const joinedGame = ref<Game | null>()
   const grabberInput = ref('')
   const grabberTriggerAction = ref('')
@@ -239,21 +239,24 @@ export const useUserStore = defineStore('user', () => {
       }
 
       const tmpChannels = Object.keys(msg.state.user.chatRooms)
-      joinedChannels.value = tmpChannels
+      joinedChannels.value = tmpChannels // composes joined channel
+
       for (let i = 0; i < tmpChannels.length; i++) {
         const lastMessage = msg.state.user.chatRooms[tmpChannels[i]].lastMessage
         if (lastMessage.content !== '') {
           chatLog.value.push({
             author: lastMessage.author,
             msg: lastMessage.content,
-            timestamp: lastMessage.time.getTime(),
+            timestamp: lastMessage.time,
             chatName: tmpChannels[i],
           })
 
           while (chatLog.value.length > 100) chatLog.value.shift()
         }
-      }
+      } // composes chat msg
 
+      console.log(chatLog.value)
+      console.log(joinedChannels.value)
       gameListing.value = msg.state.games
       joinedGame.value = msg.state.user.game
     }
