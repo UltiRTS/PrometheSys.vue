@@ -57,7 +57,7 @@ const sketch = (s: p5) => {
     s.fill('rgba(255,255,255, 0.4)')
   }
   s.draw = () => {
-    console.log('bubbles still running!')
+    // console.log('bubbles still running!')
     s.clear()
     // fill(255,0,0,127);
     bubbles.forEach((bub, index) => {

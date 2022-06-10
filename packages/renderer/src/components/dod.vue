@@ -2,6 +2,8 @@
 import { mapActions, mapState } from 'pinia'
 import { useUserStore } from '../stores'
 
+const uStore = useUserStore()
+
 export default {
   emits: ['btn-pressed', 'dod-join-game'],
   data() {
@@ -25,13 +27,13 @@ export default {
       this.$emit('btn-pressed', 'AddGame')
     },
     emitJoinGameResult(roomTitle) {
-      joinResult = joinGame({
+      const joinResult = uStore.joinGame({
         gameName: roomTitle,
-        password: '',
-        mapID: '',
+        password: 'test',
+        mapID: 0,
       })
       if (!joinResult)
-        this.$emit('dodJoinGame', 'duplicate')
+        this.$emit('dod-join-game', 'duplicate')
     },
   },
 }

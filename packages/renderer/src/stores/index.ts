@@ -7,7 +7,7 @@ import router from '../router'
 import type { Game, GameBrief, Notification, StateMessage } from './interfaces'
 
 export const useUserStore = defineStore('user', () => {
-  const ws = new WebSocket('ws://185.205.246.232:8081')
+  const ws = new WebSocket('ws://127.0.0.1:8081')
 
   const ws_open = ref<boolean>()
   const userState = ref({ isLoggedIn: false })
@@ -135,7 +135,8 @@ export const useUserStore = defineStore('user', () => {
     password: string
     mapID: string
   }) {
-    if (params.gameName === joinedGame.value.title)
+    if (joinedGame.value
+      && params.gameName === joinedGame.value.title)
       return false
 
     const tx = {
@@ -293,6 +294,7 @@ export const useUserStore = defineStore('user', () => {
     setAIorChicken,
     delAIorChicken,
     setTeam,
+    joinGame,
   }
 })
 
