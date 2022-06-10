@@ -13,11 +13,12 @@ export default {
       activeWindow: 'menu',
       mouseOn: 'default',
       grabberActivated: false,
+      modalMenuContent: 'chat',
+      mainMenuContent: 'dod',
     }
   },
   computed: {
-    ...mapState(useUserStore, ['chatLog']),
-    ...mapState(useUserStore, ['joinedChannels']),
+    ...mapState(useUserStore, ['chatLog', 'joinedGame', 'joinedChannels']),
     shouldIlightUpModal() {
       if (this.activeWindow === 'modal')
         return 1
@@ -40,6 +41,17 @@ export default {
         return 0.8
     },
   },
+  watch: {
+    joinedGame(newVal, oldVal) { // watch it
+      if (newVal)
+        this.mainMenuContent = 'dodPregame'
+
+      else
+        this.mainMenuContent = 'dod'
+
+      console.log('joinedGame changed')
+    },
+  },
   mounted() {
   },
   methods: {
@@ -48,7 +60,7 @@ export default {
       this.grabberActivated = false
       this.pushGrabberInput(text2say)
     },
-    btnPressedHandler(action) {
+    inputBtnPressedHandler(action) {
       switch (action) {
         case 'AddChat':
           this.pushGrabberAction('AddChat')
@@ -60,7 +72,17 @@ export default {
           break
       }
     },
+
+    viewDod() {
+      this.mainMenuContent = 'dod'
+    },
+
+    dodGoingBack(dodComment) {
+      if (dodComment === 'duplicate')
+        this.mainMenuContent = 'dodPregame'
+    },
   },
+
 }
 </script>
 
@@ -77,12 +99,12 @@ export default {
       <div id="mainContent" style="transform: translateZ(0vw); position: absolute; color: white; width: 181%; height: 181%; top: -39%; left: -18%;" @click="activeWindow='default'">
         <div id="mainMask" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; background: radial-gradient(rgba(179, 223, 255, 0.58) 0%, rgba(41, 51, 52, 0.5) 73%, rgba(0, 0, 0, 0.05) 81%); backdrop-filter: blur(5px);">
         </div>
-        <dod @btn-pressed="btnPressedHandler" />
-        <!--<dodPregame />-->
+        <dod v-if="mainMenuContent == 'dod' " @btn-pressed="inputBtnPressedHandler" @dod-join-game="dodGoingBack" />
+        <dodPregame v-if="joinedGame && mainMenuContent == 'dodPregame'" @view-dod="viewDod" />
       </div>
       <div id="modalMenu" :style="{opacity:shouldIlightUpModal}" style="transform: rotateY(15.6deg) translateZ(10vw) translateX(-55vw); top: 5%;width: 56%; height: 84%; position: absolute; backdrop-filter: blur(9px);" @click="activeWindow='modal'" @mouseover="mouseOn=&quot;modal&quot;" @mouseleave="mouseOn='default'">
-        <Chat :chat-log="chatLog" :joined-channels="joinedChannels" @btn-pressed="btnPressedHandler" />
-        <!-- <dod-p-game-team />-->
+        <Chat v-if="modalMenuContent == 'chat' " :chat-log="chatLog" :joined-channels="joinedChannels" @btn-pressed="inputBtnPressedHandler" />
+        <dod-p-game-team v-if="modalMenuContent == 'dod-p-game-team' " />
       </div>
       <div id="rightHome" class="rightHome" :style="{opacity:shouldIlightUpMenu}" style="transform:rotateY(-15.6deg) translateZ(-147vw) translateX(209vw); width: 100%; height: 102%; position: absolute; backdrop-filter: blur(53px);top: -41%;" @click="activeWindow='menu'" @mouseover="mouseOn=&quot;menu&quot;" @mouseleave="mouseOn='default'">
         <img src="assets/horizontalSep1.png" style="position:absolute;top:-1%;height: 5px;width: 93%;opacity:0.3;">

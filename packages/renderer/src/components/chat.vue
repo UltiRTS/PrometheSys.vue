@@ -21,7 +21,7 @@ export default {
         if (!res.includes(chat))
           res.push(chat)
       }
-      console.log(res)
+      // console.log(res)
       return res
     },
 

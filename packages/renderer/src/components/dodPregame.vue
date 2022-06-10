@@ -1,7 +1,6 @@
 <script>
 export default {
-  // feed those
-  // props: ['channels', 'chatLog'],
+  emits: ['view-dod'],
   data() {
     return {
       percentages: [5, 45, 50],
@@ -23,7 +22,9 @@ export default {
 
   },
   methods: {
-
+    viewDod() {
+      this.$emit('view-dod', '')
+    },
   },
 }
 </script>
@@ -112,12 +113,10 @@ export default {
       </div>
     </div>
     <div class="dodLeftOperationPanel" style="position: absolute; bottom: 32%; height: 81vh; width: 72vh; left: 22vw; filter: drop-shadow(30px 10px 18px #000);">
-      <div
-        style="font-size: 9vh;-webkit-text-stroke-width: 0.2vh;
-    -webkit-text-stroke-color: #54545499;font-family: 'font2';text-align:right;color: #ffffffd9;"
-      >
-        Dr. <br>Kaltist
-      </div><div style="position:absolute;top: 27%;width:100%;background: #2196f3;font-family: 'font6';font-size:4vh;text-align:right;opacity: 0.8;">
+      <div style="font-size:9vh;-webkit-text-stroke-width:0.2vh;-webkit-text-stroke-color:#54545499;font-family: 'font9';text-align:right;color:#ffffffd9;top: 11%;position:absolute;right:0;">
+        Dr. Kaltist
+      </div>
+      <div style="position:absolute;top: 27%;width:100%;background: #2196f3;font-family: 'font6';font-size:4vh;text-align:right;opacity: 0.8;">
         Comet Catcher Redux
       </div><div class="mapTags" style="position: absolute; top: 37%;width: 100%;padding: 0vh;font-size: 3vh;text-align:right;font-family: 'font5';font-weight:900;opacity: 0.9;">
         <span style="background: #5c5c5c;padding: 0.8vh;margin: 2vh;color: #ffffffe0;">FLAT</span>
@@ -145,9 +144,23 @@ export default {
         </div><i class="fa fa-pencil-square-o" aria-hidden="true" style="position:absolute; left: 73%;width: 100%;height:100%;font-size: 9vh;top: 45%;opacity: 0.5;"></i>
       </div>
     </div>
-    <div class="dodRightOperationPanel" style="display:none; position: absolute; bottom: 32%; height: 65vh; width: 30vw; right: 0vw; background: red;">
-      Sanity Reduction: 233-&gt; 221
-      Possible Drops: AAA BBB CCC
+    <div class="dodRightOperationPanel" style="position:absolute;bottom:32%;height:65vh;width:30vw;right: 34vw;">
+      <div class="pGameUserOperation" style="position:absolute;height: 100%;top: 78%;left: 98%;filter:invert(1);opacity: 0.3;">
+        <img src="/public/css/fa6/svgs/solid/person-running.svg" style="position:absolute;height: 18%;top: 0%;left: 181%;">
+        <img @click="viewDod" src="/public/css/fa6/svgs/solid/eye-slash.svg" style="position:absolute;height: 13%;top: 24%;left: 29%;">
+      </div><div class="pGameUserOperation" style="position:absolute;/* height:45%; */width: 100%;top: 66%;left: 3%;mix-blend-mode:screen;">
+        <div style="font-size: 25vh;font-family: 'font5';opacity: 0.6;font-weight:900;">
+          作業
+        </div>
+        <p style="position:absolute;background:black;color:white;top: 52%;left: 10%;font-size: 4vh;font-family:font1;">
+          TEST
+        </p>
+      </div><div class="pGameUserOperationTitle" style="position:absolute;height:45%;width: 100%;top: 56%;left: 17%;mix-blend-mode:screen;">
+        <div style="width: 100%;height:1%;background:white;top: 32%;position:absolute;right:0;"></div>
+        <p style="position:absolute;background:black;color:white;top: -2%;left: 43%;font-size: 4vh;font-family: 'font2';">
+          OPERATIONS
+        </p>
+      </div>
     </div>
   </div>
 </template>
