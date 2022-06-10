@@ -3,7 +3,7 @@ import { mapActions, mapState } from 'pinia'
 import { useUserStore } from '../stores'
 
 export default {
-  emits: ['btn-pressed'],
+  emits: ['btn-pressed', 'dod-join-game'],
   data() {
     return {
     }
@@ -20,8 +20,18 @@ export default {
   },
 
   methods: {
+    ...mapActions(useUserStore, ['joinGame']),
     addGame() {
       this.$emit('btn-pressed', 'AddGame')
+    },
+    emitJoinGameResult(roomTitle) {
+      joinResult = joinGame({
+        gameName: roomTitle,
+        password: '',
+        mapID: '',
+      })
+      if (!joinResult)
+        this.$emit('dodJoinGame', 'duplicate')
     },
   },
 }
@@ -48,7 +58,7 @@ export default {
       </div>
     </div>
     <div id="dodContent" style="position:absolute;top: 18%;height: 76%;background: transparent;width: 92%;left: 5%;">
-      <div v-for="game in gameListing" :key="game" class="individualGameTag" style="display:inline-block;height: 9vw;width: 22vw;position:relative;filter: drop-shadow(rgba(0,0,0,0.3) 42px 33px 23px);font-size: 2vw;margin:2vw;">
+      <div v-for="game in gameListing" :key="game" class="individualGameTag" style="display:inline-block;height: 9vw;width: 22vw;position:relative;filter: drop-shadow(rgba(0,0,0,0.3) 42px 33px 23px);font-size: 2vw;margin:2vw;" @click="emitJoinGameResult(game.title)">
         <div style="height: 100%;width: 2%;position:absolute;background: #ffffff24;font-size: 2vw;" />
         <div style="left: 8%; height: 100%;width: 100%;position:absolute;background: #ffffff24;font-size: 2vw;overflow:hidden;">
           <img src="imgs/dottedBg.png" style="position:absolute;top: -254%;left: -168%;width: 279%;opacity:40%;">

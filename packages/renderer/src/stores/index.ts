@@ -16,7 +16,7 @@ export const useUserStore = defineStore('user', () => {
       author: 'Александр Карпов',
       msg: 'Привет, как дела?',
       chatName: 'global',
-      timestamp: String(Date.now()),
+      timestamp: Date.now(),
     },
   ])
   const joinedChannels = ref<string[]>()
@@ -131,10 +131,13 @@ export const useUserStore = defineStore('user', () => {
   }
 
   function joinGame(params: {
-    gameName: string
+    gameName: string|null|undefined
     password: string
     mapID: string
   }) {
+    if (params.gameName === joinedGame.value.title)
+      return false
+
     const tx = {
       action: 'JOINGAME',
       parameters: {
@@ -145,6 +148,7 @@ export const useUserStore = defineStore('user', () => {
       seq: randomInt(0, 1000000),
     }
     wsSendServer(tx)
+    return true
   }
 
   function setAIorChicken(params: {
@@ -255,8 +259,8 @@ export const useUserStore = defineStore('user', () => {
         }
       } // composes chat msg
 
-      console.log(chatLog.value)
-      console.log(joinedChannels.value)
+      // console.log(chatLog.value)
+      // console.log(joinedChannels.value)
       gameListing.value = msg.state.games
       joinedGame.value = msg.state.user.game
     }
@@ -279,6 +283,7 @@ export const useUserStore = defineStore('user', () => {
     grabberInput,
     grabberTriggerAction,
     gameListing,
+    joinedGame,
 
     sayChat,
     joinChat,
