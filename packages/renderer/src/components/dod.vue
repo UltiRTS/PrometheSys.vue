@@ -5,7 +5,7 @@ import { useUserStore } from '../stores'
 const uStore = useUserStore()
 
 export default {
-  emits: ['btn-pressed', 'dod-join-game'],
+  emits: ['dod-join-game'],
   data() {
     return {
     }
@@ -22,9 +22,9 @@ export default {
   },
 
   methods: {
-    ...mapActions(useUserStore, ['joinGame']),
+    ...mapActions(useUserStore, ['joinGame', 'pushGrabberAction']),
     addGame() {
-      this.$emit('btn-pressed', 'AddGame')
+      pushGrabberAction('AddGame')
     },
     emitJoinGameResult(roomTitle) {
       const joinResult = uStore.joinGame({

@@ -18,7 +18,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(useUserStore, ['chatLog', 'joinedGame', 'joinedChannels']),
+    ...mapState(useUserStore, ['chatLog', 'joinedGame', 'joinedChannels', 'grabberActivated']),
     shouldIlightUpModal() {
       if (this.activeWindow === 'modal')
         return 1
@@ -55,23 +55,7 @@ export default {
   mounted() {
   },
   methods: {
-    ...mapActions(useUserStore, ['pushGrabberInput', 'pushGrabberAction']),
-    grabberInputHandler(text2say) {
-      this.grabberActivated = false
-      this.pushGrabberInput(text2say)
-    },
-    inputBtnPressedHandler(action) {
-      switch (action) {
-        case 'AddChat':
-          this.pushGrabberAction('AddChat')
-          this.grabberActivated = true
-          break
-        case 'AddGame':
-          this.pushGrabberAction('AddGame')
-          this.grabberActivated = true
-          break
-      }
-    },
+    ...mapActions(useUserStore, []),
 
     viewDod() {
       this.mainMenuContent = 'dod'
@@ -303,7 +287,7 @@ export default {
     </div>
   </div>
   <div id="visualOverlay">
-    <InputGrabber :activated="grabberActivated" @input-received="grabberInputHandler" />
+    <InputGrabber :activated="grabberActivated" />
   </div>
 </template>
 
