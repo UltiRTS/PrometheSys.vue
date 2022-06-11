@@ -7,8 +7,8 @@ import router from '../router'
 import type { Game, GameBrief, Notification, StateMessage } from './interfaces'
 
 export const useUserStore = defineStore('user', () => {
-  const ws = new WebSocket('ws://127.0.0.1:8081')
-
+  // const ws = new WebSocket('ws://127.0.0.1:8081')
+  const ws = new WebSocket('ws://185.205.246.232:8081')
   const ws_open = ref<boolean>()
   const userState = ref({ isLoggedIn: false })
   const chatLog = ref([
@@ -22,18 +22,18 @@ export const useUserStore = defineStore('user', () => {
   const joinedChannels = ref<string[]>()
   const gameListing = ref<GameBrief[]>()
   const joinedGame = ref<Game | null>()
+
   const grabberInput = ref('')
   const grabberTriggerAction = ref('')
+  const grabberActivated = ref<boolean>()
 
   function pushGrabberAction(action: string) {
     grabberTriggerAction.value = action
+    grabberActivated.value = true
   }
 
   function pushGrabberInput(input: string) {
-    if (input === 'canceling') {
-      console.log('canceling')
-      return
-    }
+    grabberActivated.value = false
 
     grabberInput.value = input
     // console.log('grabberInput' + grabberInput.value)

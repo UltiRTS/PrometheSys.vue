@@ -3,13 +3,14 @@
 /* eslint-disable vue/html-self-closing */
 
 import { ref } from 'vue'
+import { useUserStore } from '../stores'
+
 // props: ['channels', 'chatLog'],
 defineProps<{
   activated: boolean
 }>()
 
-const emit = defineEmits(['input-received'])
-
+const uStore = useUserStore()
 const text2say = ref('Input Await')
 const exiting = ref(false)
 
@@ -21,7 +22,7 @@ const deactivate = () => {
     if (text2say.value === 'canceling')
       return
 
-    emit('input-received', text2say.value)
+    uStore.pushGrabberInput(text2say.value)
     exiting.value = false
     text2say.value = 'Input Await'
   }, 1000)
