@@ -285,6 +285,7 @@ export const useUserStore = defineStore('user', () => {
     grabberTriggerAction,
     gameListing,
     joinedGame,
+    grabberActivated,
 
     sayChat,
     joinChat,

@@ -4,7 +4,6 @@ import { useUserStore } from '../stores'
 export default {
   // feed those
   props: ['chatLog', 'joinedChannels'],
-  emits: ['btn-pressed'],
   data() {
     return {
       isBottom: false,
@@ -109,7 +108,7 @@ export default {
       this.$refs.chats.scrollTop = this.$refs.chats.scrollHeight
   },
   methods: {
-    ...mapActions(useUserStore, ['joinChat', 'sayChat']),
+    ...mapActions(useUserStore, ['joinChat', 'sayChat', 'pushGrabberAction']),
     pushMessage() {
       this.moving = this.isBottom
       this.chats.push({
@@ -138,7 +137,7 @@ export default {
       })
     },
     addChat() {
-      this.$emit('btn-pressed', 'AddChat')
+      pushGrabberAction('AddChat')
     },
   },
 }
