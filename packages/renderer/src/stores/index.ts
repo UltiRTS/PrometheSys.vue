@@ -154,6 +154,10 @@ export const useUserStore = defineStore('user', () => {
     wsSendServer(tx)
   }
 
+  function setmainMenuContent(input: string) {
+    mainMenuContent.value = input
+  }
+
   function setAIorChicken(params: {
     gameName: string
     AI: string
@@ -289,7 +293,7 @@ export const useUserStore = defineStore('user', () => {
     joinedGame,
     grabberActivated,
     mainMenuContent,
-
+    setmainMenuContent,
     sayChat,
     joinChat,
     login,

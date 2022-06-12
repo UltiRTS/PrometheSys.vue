@@ -137,7 +137,7 @@ export default {
       })
     },
     addChat() {
-      pushGrabberAction('AddChat')
+      this.pushGrabberAction('AddChat')
     },
   },
 }

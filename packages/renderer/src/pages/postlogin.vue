@@ -42,10 +42,10 @@ export default {
   watch: {
     joinedGame(newVal, oldVal) { // watch it
       if (newVal)
-        mainMenuContent.value = 'dodPregame'
+        this.setmainMenuContent('dodPregame')
 
       else
-        mainMenuContent.value = 'dod'
+        this.setmainMenuContent('dod')
 
       console.log('joinedGame changed')
     },
@@ -53,7 +53,7 @@ export default {
   mounted() {
   },
   methods: {
-    ...mapActions(useUserStore, []),
+    ...mapActions(useUserStore, ['setmainMenuContent']),
 
   },
 
