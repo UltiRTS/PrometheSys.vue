@@ -151,7 +151,7 @@ export default {
     <img src="public/imgs/thea_frame.png" style="color: white; font-size: 4vh; top: 57%; left: -6vh; position: absolute; font-family: font2; width: 34vh;">
   </div>
   <div id="chatContainer" ref="chats" style="left:3vw;position:absolute;height:85%;width:90%;overflow-x:hidden;overflow-y:auto;top:1%;padding-top:2vh;padding-bottom:2vh;color:white;" @scroll="onscroll">
-    <div v-for="chat in timeline" id="chatBlock" :key="chat.username" style="margin-bottom: 2.5%; position: relative; left: 2%;">
+    <div v-for="chat in timeline" id="chatBlock" :key="chat.username" style="margin-bottom: 2.5%; position: relative; left: 2%;padding-bottom:1%;">
       <div id="userHeading" style="left: 2%; margin: 0px 0px 4%; position: relative; font-size: 6vh; font-family: font10; color: rgb(33, 150, 243); height: 7.3vh;overflow:hidden;">
         <div style="opacity: 0.4; margin-right: 2vh; font-weight: 700;width: 16.8vw;overflow:hidden;position:relative;">
           {{ chat.username }}
@@ -166,7 +166,7 @@ export default {
           {{ message.msg }}
         </div>
       </div>
-      <div id="colorBlock" style="width:0.1%;height:110%;top:0;background:#2196f3;margin:0;position:absolute;" />
+      <div id="colorBlock" style="width:0.1%;height:100%;top:0;background:#2196f3;margin:0;position:absolute;" />
 
       <div v-if="chat.chats[0].timestring" id="timeBlk" style="position:absolute;right:4%;font-size: 3.7vh;font-family:font3;font-weight:900;opacity:0.5;bottom:0;/* height:4vh; */">
         {{ chat.chats[0].timestring }} <br>PM
