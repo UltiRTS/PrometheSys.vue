@@ -10,7 +10,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(useUserStore, ['gameListing']),
+    ...mapState(useUserStore, ['gameListing', 'joinedGame']),
   },
 
   updated() {
@@ -57,6 +57,18 @@ export default {
       </div>
     </div>
     <div id="dodContent" style="position:absolute;top: 18%;height: 76%;background: transparent;width: 92%;left: 5%;">
+      <div v-if="joinedGame" class="goBack" style="position:absolute;bottom:1%;font-size: 62vh;height: 76vh;width: 122vh;mix-blend-mode:screen;font-family: 'font9';" @click="emitJoinGameResult(joinedGame.title)">
+        <i style="position:absolute;bottom: 23%;opacity: 0.05;" class="fa fa-exchange" aria-hidden="true"></i>
+        <div style="position:absolute;font-size: 33vh;top: 28%;left: 28%;background: #4a5b66b8;color: #ffffff;opacity:0.2;font-family: 'font';">
+          SN 2
+        </div>
+
+        <div style="position:absolute;bottom: 80%;font-size: 6vh;left: 45%;color: #ffffff40;font-weight:900;">
+          Reversable Step
+        </div><div style="position:absolute;bottom: 68%;font-size: 6vh;left: 55%;color: #ffffff87;font-weight:900;">
+          AVAILABLE
+        </div>
+      </div>
       <div v-for="game in gameListing" :key="game" class="individualGameTag" style="display:inline-block;height: 9vw;width: 22vw;position:relative;filter: drop-shadow(rgba(0,0,0,0.3) 42px 33px 23px);font-size: 2vw;margin:2vw;" @click="emitJoinGameResult(game.title)">
         <div style="height: 100%;width: 2%;position:absolute;background: #ffffff24;font-size: 2vw;" />
         <div style="left: 8%; height: 100%;width: 100%;position:absolute;background: #ffffff24;font-size: 2vw;overflow:hidden;">
@@ -89,6 +101,35 @@ export default {
 
 .opDraft:hover{
   background:rgba(255,255,255,0.5);
+}
+
+.goBack{
+  background:rgba(0,0,0,0);
+  animation-fill-mode: forwards;
+  animation-name: goBack;
+  animation-duration: 0.6s;
+  animation-iteration-count: 1;
+  animation-delay: 0.4s;
+  opacity: 0;
+  animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
+}
+
+.goBack:hover{
+  background:rgba(255,255,255,0.2);
+  left:0;
+  opacity: 1;
+}
+
+@keyframes goBack {
+
+  0% {
+    opacity: 0;
+    left:-2%;
+  }
+  100% {
+    opacity: 1;
+    left:0;
+  }
 }
 </style>
 

@@ -25,8 +25,9 @@ export default {
 
   },
   methods: {
+    ...mapActions(useUserStore, ['setmainMenuContent']),
     viewDod() {
-      mainMenuContent.value = 'dod'
+      this.setmainMenuContent('dod')
     },
   },
 }
@@ -151,7 +152,8 @@ export default {
       <div class="pGameUserOperation" style="position:absolute;height: 100%;top: 78%;left: 98%;filter:invert(1);opacity: 0.3;">
         <img src="/public/css/fa6/svgs/solid/person-running.svg" style="position:absolute;height: 18%;top: 0%;left: 181%;">
         <img src="/public/css/fa6/svgs/solid/eye-slash.svg" style="position:absolute;height: 13%;top: 24%;left: 29%;" @click="viewDod">
-      </div><div class="pGameUserOperation" style="position:absolute;/* height:45%; */width: 100%;top: 66%;left: 3%;mix-blend-mode:screen;">
+      </div>
+      <div class="pGameUserOperation" style="position:absolute;width: 100%;top: 66%;left: 3%;mix-blend-mode:screen;">
         <div style="font-size: 25vh;font-family: 'font5';opacity: 0.6;font-weight:900;">
           作業
         </div>
