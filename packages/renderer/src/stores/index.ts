@@ -25,7 +25,8 @@ export const useUserStore = defineStore('user', () => {
 
   const grabberInput = ref('')
   const grabberTriggerAction = ref('')
-  const grabberActivated = ref<boolean>()
+  const mainMenuContent = ref('dod')
+  const grabberActivated = ref<boolean>(false)
 
   function pushGrabberAction(action: string) {
     grabberTriggerAction.value = action
@@ -136,8 +137,10 @@ export const useUserStore = defineStore('user', () => {
     mapID: string
   }) {
     if (joinedGame.value
-      && params.gameName === joinedGame.value.title)
-      return false
+      && params.gameName === joinedGame.value.title) {
+      mainMenuContent.value = 'dodPregame'
+      return
+    }
 
     const tx = {
       action: 'JOINGAME',
@@ -149,7 +152,6 @@ export const useUserStore = defineStore('user', () => {
       seq: randomInt(0, 1000000),
     }
     wsSendServer(tx)
-    return true
   }
 
   function setAIorChicken(params: {
@@ -286,6 +288,7 @@ export const useUserStore = defineStore('user', () => {
     gameListing,
     joinedGame,
     grabberActivated,
+    mainMenuContent,
 
     sayChat,
     joinChat,

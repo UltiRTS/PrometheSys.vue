@@ -5,7 +5,6 @@ import { useUserStore } from '../stores'
 const uStore = useUserStore()
 
 export default {
-  emits: ['dod-join-game'],
   data() {
     return {
     }
@@ -24,16 +23,14 @@ export default {
   methods: {
     ...mapActions(useUserStore, ['joinGame', 'pushGrabberAction']),
     addGame() {
-      pushGrabberAction('AddGame')
+      uStore.pushGrabberAction('AddGame')
     },
     emitJoinGameResult(roomTitle) {
-      const joinResult = uStore.joinGame({
+      uStore.joinGame({
         gameName: roomTitle,
         password: 'test',
         mapID: 0,
       })
-      if (!joinResult)
-        this.$emit('dod-join-game', 'duplicate')
     },
   },
 }
