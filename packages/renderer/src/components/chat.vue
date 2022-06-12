@@ -145,8 +145,12 @@ export default {
 
 <template>
   <div style="position:absolute;width:100%;height:100%;background:rgba(0,0,0,0.5);" />
-
-  <div id="chatContainer" ref="chats" style="left:3vw;position:absolute;height:90%;width:90%;overflow-x:hidden;overflow-y:auto;top:1%;padding-top:2vh;padding-bottom:2vh;color:white;" @scroll="onscroll">
+  <div id="chatDetail" style="color: white; font-size: 3vh; top: 22%; left: 1%; position: absolute; font-family: font2; width: 100%; height: 65vh; overflow: hidden; opacity: 0.07;">
+    <span style="color: white; font-size: 7vh; top: 58%; left: 13vh; position: absolute; font-family: font2;">{{ current_channel }}</span>
+    <span style="background:white;color: black; font-size: 4.8vh; top: 70%; left: 13vh; position: absolute; font-family: font4; font-weight: 900;">channelTopic</span>
+    <img src="public/imgs/thea_frame.png" style="color: white; font-size: 4vh; top: 57%; left: -6vh; position: absolute; font-family: font2; width: 34vh;">
+  </div>
+  <div id="chatContainer" ref="chats" style="left:3vw;position:absolute;height:85%;width:90%;overflow-x:hidden;overflow-y:auto;top:1%;padding-top:2vh;padding-bottom:2vh;color:white;" @scroll="onscroll">
     <div v-for="chat in timeline" id="chatBlock" :key="chat.username" style="margin-bottom: 2.5%; position: relative; left: 2%;">
       <div id="userHeading" style="left: 2%; margin: 0px 0px 4%; position: relative; font-size: 6vh; font-family: font10; color: rgb(33, 150, 243); height: 7.3vh;overflow:hidden;">
         <div style="opacity: 0.4; margin-right: 2vh; font-weight: 700;width: 16.8vw;overflow:hidden;position:relative;">
@@ -170,11 +174,7 @@ export default {
     </div>
   </div>
 
-  <div id="chatDetail" style="color: white; font-size: 3vh; top: 22%; left: 1%; position: absolute; font-family: font2; width: 100%; height: 65vh; overflow: hidden; opacity: 0.07;">
-    <span style="color: white; font-size: 7vh; top: 58%; left: 13vh; position: absolute; font-family: font2;">{{ current_channel }}</span>
-    <span style="background:white;color: black; font-size: 4.8vh; top: 70%; left: 13vh; position: absolute; font-family: font4; font-weight: 900;">channelTopic</span>
-    <img src="public/imgs/thea_frame.png" style="color: white; font-size: 4vh; top: 57%; left: -6vh; position: absolute; font-family: font2; width: 34vh;">
-  </div>
+
 
   <div id="typeBar" style="position: absolute; bottom: 0px; height: 7vh; background: rgb(86 86 86); color: white; width: 100%; filter: drop-shadow(rgba(0, 0, 0, 0.675) 7px 13px 6px); left: 0%;">
     <div class="send" style="position:absolute;height:100%;width: 8%;left: 1%;cursor:pointer;" @click="sendMessage">
@@ -227,7 +227,7 @@ export default {
   }
 
   .channelTag{
-    background: rgb(18, 82, 134);
+    background: rgba(18, 82, 134, 0.514);
     filter: drop-shadow(#000 9px 18px 15px);
   }
 
