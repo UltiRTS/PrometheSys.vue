@@ -1,6 +1,8 @@
 <script>
+import { mapActions, mapState } from 'pinia'
+import { useUserStore } from '../stores'
+
 export default {
-  emits: ['view-dod'],
   data() {
     return {
       percentages: [5, 45, 50],
@@ -10,6 +12,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(useUserStore, ['mainMenuContent']),
     pieSize() {
       return {
         width: this.$refs.dodPie.clientWidth,
@@ -23,7 +26,7 @@ export default {
   },
   methods: {
     viewDod() {
-      this.$emit('view-dod', '')
+      mainMenuContent.value = 'dod'
     },
   },
 }
