@@ -1,4 +1,6 @@
 <script>
+import { mapActions, mapState } from 'pinia'
+import { useUserStore } from '../stores'
 export default {
   // feed those
   // props: ['channels', 'chatLog'],
@@ -8,13 +10,14 @@ export default {
     }
   },
   computed: {
-
+    ...mapState(useUserStore, ['joinedGame']),
   },
 
   updated() {
 
   },
   methods: {
+    ...mapActions(useUserStore, ['setmainMenuContent', 'setmodalMenuContent', 'setactiveWindow']),
 
   },
 }
@@ -42,6 +45,19 @@ export default {
       </div>
     </div>
     <div class="content" style="position:absolute;height: 78%;width: 95%;top: 19%;left: 3%;filter: drop-shadow(7px 11px 18px #757575);">
+      <div v-for="player, playerName in joinedGame.players" :key="playerName" class="individualPlayerTag" style="position:relative;display:inline-block;background:#00000029;height:4vw;width:8vw;overflow:hidden;margin:1vw;">
+        <div class="deco" style="background:#2196f3;position:absolute;height:100%;right:0%;width:88%;">
+          <img src="imgs/horizontalSep3.png" style="position:absolute;width:96%;height:6%;bottom:0%;opacity:0.7;">
+        </div><div style="position:absolute;top:0%;font-size:3.7vw;left:0;color:white;font-family:font9;">
+          {{ player.team }}
+        </div><div style="position:absolute;top:0%;font-size:1.8vw;right:0%;color:#5e5e5e;font-family:font9;">
+          {{ playerName }}
+        </div><div style="position:absolute;top:39%;font-size:1.2vw;right:0%;color:white;font-family:font9;">
+          OPRT
+        </div><div style="position:absolute;top:44%;font-size:2.3vw;right:0%;color:#ffffff21;font-family:font9;">
+          OPERATION
+        </div>
+      </div>
       <div class="individualPlayerTag" style="position:relative;display:inline-block;background:#00000029;height:4vw;width:8vw;overflow:hidden;margin:1vw;">
         <div class="deco" style="background:#2196f3;position:absolute;height:100%;right:0%;width:88%;">
           <img src="imgs/horizontalSep3.png" style="position:absolute;width:96%;height:6%;bottom:0%;opacity:0.7;">
@@ -54,19 +70,8 @@ export default {
         </div><div style="position:absolute;top:44%;font-size:2.3vw;right:0%;color:#ffffff21;font-family:font9;">
           OPERATION
         </div>
-      </div><div class="individualPlayerTag" style="position:relative;display:inline-block;background:#00000029;height:4vw;width:8vw;overflow:hidden;margin:1vw;">
-        <div class="deco" style="background:#2196f3;position:absolute;height:100%;right:0%;width:88%;">
-          <img src="imgs/horizontalSep3.png" style="position:absolute;width:96%;height:6%;bottom:0%;opacity:0.7;">
-        </div><div style="position:absolute;top:0%;font-size:3.7vw;left:0;color:white;font-family:font9;">
-          A
-        </div><div style="position:absolute;top:0%;font-size:1.8vw;right:0%;color:#5e5e5e;font-family:font9;">
-          Kaltist
-        </div><div style="position:absolute;top:39%;font-size:1.2vw;right:0%;color:white;font-family:font9;">
-          OPRT
-        </div><div style="position:absolute;top:44%;font-size:2.3vw;right:0%;color:#ffffff21;font-family:font9;">
-          OPERATION
-        </div>
-      </div><div class="individualPlayerTag" style="position:relative;display:inline-block;background:#00000029;height:4vw;width:8vw;overflow:hidden;margin:1vw;">
+      </div>
+      <div class="individualPlayerTag" style="position:relative;display:inline-block;background:#00000029;height:4vw;width:8vw;overflow:hidden;margin:1vw;">
         <div class="deco" style="background:#2196f3;position:absolute;height:100%;right:0%;width:88%;">
           <img src="imgs/horizontalSep3.png" style="position:absolute;width:96%;height:6%;bottom:0%;opacity:0.7;">
         </div><div style="position:absolute;top:0%;font-size:3.7vw;left:0;color:white;font-family:font9;">

@@ -25,7 +25,9 @@ export const useUserStore = defineStore('user', () => {
 
   const grabberInput = ref('')
   const grabberTriggerAction = ref('')
+  const activeWindow = ref('menu')
   const mainMenuContent = ref('dod')
+  const modalMenuContent = ref('chat')
   const grabberActivated = ref<boolean>(false)
 
   function pushGrabberAction(action: string) {
@@ -66,6 +68,18 @@ export const useUserStore = defineStore('user', () => {
 
     // reset action to empty
     grabberTriggerAction.value = ''
+  }
+
+  function setactiveWindow(input: string) {
+    activeWindow.value = input
+  }
+
+  function setmainMenuContent(input: string) {
+    mainMenuContent.value = input
+  }
+
+  function setmodalMenuContent(input: string) {
+    modalMenuContent.value = input
   }
 
   function login(params: {
@@ -152,10 +166,6 @@ export const useUserStore = defineStore('user', () => {
       seq: randomInt(0, 1000000),
     }
     wsSendServer(tx)
-  }
-
-  function setmainMenuContent(input: string) {
-    mainMenuContent.value = input
   }
 
   function setAIorChicken(params: {
@@ -293,6 +303,10 @@ export const useUserStore = defineStore('user', () => {
     joinedGame,
     grabberActivated,
     mainMenuContent,
+    modalMenuContent,
+    activeWindow,
+    setactiveWindow,
+    setmodalMenuContent,
     setmainMenuContent,
     sayChat,
     joinChat,

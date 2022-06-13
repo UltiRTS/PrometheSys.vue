@@ -10,13 +10,12 @@ export default {
   // components: { dodPGameTeam },
   data() {
     return {
-      activeWindow: 'menu',
+
       mouseOn: 'default',
-      modalMenuContent: 'chat',
     }
   },
   computed: {
-    ...mapState(useUserStore, ['chatLog', 'joinedGame', 'joinedChannels', 'grabberActivated', 'mainMenuContent']),
+    ...mapState(useUserStore, ['chatLog', 'joinedGame', 'joinedChannels', 'grabberActivated', 'mainMenuContent', 'modalMenuContent', 'activeWindow']),
     shouldIlightUpModal() {
       if (this.activeWindow === 'modal')
         return 1
@@ -53,7 +52,20 @@ export default {
   mounted() {
   },
   methods: {
-    ...mapActions(useUserStore, ['setmainMenuContent']),
+    ...mapActions(useUserStore, ['setmainMenuContent', 'setmodalMenuContent', 'setactiveWindow']),
+
+    activateModal() {
+      this.setactiveWindow('modal')
+    },
+
+    activateMenu() {
+      this.setactiveWindow('menu')
+    },
+
+    activateDefault() {
+      this.setmodalMenuContent('chat')
+      this.setactiveWindow('default')
+    },
 
   },
 
@@ -70,17 +82,17 @@ export default {
   position: absolute;height: 100%;width: 100%;top: 0px;left: 0px;/* margin: 0px; */overflow:hidden;margin:0;"
   >
     <div id="homeUIContainer" :class="activeWindow" style="perspective: 100vw; position: absolute; height: 100%; width: 100%; display: block; left: 0px; top: 0px;">
-      <div id="mainContent" style="transform: translateZ(0vw); position: absolute; color: white; width: 181%; height: 181%; top: -39%; left: -18%;" @click="activeWindow='default'">
+      <div id="mainContent" style="transform: translateZ(0vw); position: absolute; color: white; width: 181%; height: 181%; top: -39%; left: -18%;" @click="activateDefault">
         <div id="mainMask" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; background: radial-gradient(rgba(179, 223, 255, 0.58) 0%, rgba(41, 51, 52, 0.5) 73%, rgba(0, 0, 0, 0.05) 81%); backdrop-filter: blur(5px);">
         </div>
         <dod v-if="mainMenuContent == 'dod' " />
         <dodPregame v-if="joinedGame && mainMenuContent == 'dodPregame'" />
       </div>
-      <div id="modalMenu" :style="{opacity:shouldIlightUpModal}" style="transform: rotateY(15.6deg) translateZ(10vw) translateX(-55vw); top: 5%;width: 56%; height: 84%; position: absolute; backdrop-filter: blur(9px);" @click="activeWindow='modal'" @mouseover="mouseOn=&quot;modal&quot;" @mouseleave="mouseOn='default'">
+      <div id="modalMenu" :style="{opacity:shouldIlightUpModal}" style="transform: rotateY(15.6deg) translateZ(10vw) translateX(-55vw); top: 5%;width: 56%; height: 84%; position: absolute; backdrop-filter: blur(9px);" @click="activateModal" @mouseover="mouseOn=&quot;modal&quot;" @mouseleave="mouseOn='default'">
         <Chat v-if="modalMenuContent == 'chat' " :chat-log="chatLog" :joined-channels="joinedChannels" />
         <dod-p-game-team v-if="modalMenuContent == 'dod-p-game-team' " />
       </div>
-      <div id="rightHome" class="rightHome" :style="{opacity:shouldIlightUpMenu}" style="transform:rotateY(-15.6deg) translateZ(-147vw) translateX(209vw); width: 100%; height: 102%; position: absolute; backdrop-filter: blur(53px);top: -41%;" @click="activeWindow='menu'" @mouseover="mouseOn=&quot;menu&quot;" @mouseleave="mouseOn='default'">
+      <div id="rightHome" class="rightHome" :style="{opacity:shouldIlightUpMenu}" style="transform:rotateY(-15.6deg) translateZ(-147vw) translateX(209vw); width: 100%; height: 102%; position: absolute; backdrop-filter: blur(53px);top: -41%;" @click="activateMenu" @mouseover="mouseOn=&quot;menu&quot;" @mouseleave="mouseOn='default'">
         <img src="assets/horizontalSep1.png" style="position:absolute;top:-1%;height: 5px;width: 93%;opacity:0.3;">
         <div style="position:absolute;height: 6%;width: 93%;background: rgb(202 246 255 / 5%);top: 0%;padding:2%;">
           <i class="fa fa-wifi" aria-hidden="true" style="font-size: 2vw;color: #ffffff8c;" />
