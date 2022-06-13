@@ -12,7 +12,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(useUserStore, ['mainMenuContent']),
+    ...mapState(useUserStore, ['mainMenuContent', 'modelMenuContent']),
     pieSize() {
       return {
         width: this.$refs.dodPie.clientWidth,
@@ -25,9 +25,14 @@ export default {
 
   },
   methods: {
-    ...mapActions(useUserStore, ['setmainMenuContent']),
+    ...mapActions(useUserStore, ['setmainMenuContent', 'setmodalMenuContent', 'setactiveWindow']),
     viewDod() {
       this.setmainMenuContent('dod')
+    },
+
+    viewModelTeam() {
+      this.setmodalMenuContent('dod-p-game-team')
+      this.setactiveWindow('modal')
     },
   },
 }
@@ -126,7 +131,8 @@ export default {
         <span style="background: #5c5c5c;padding: 0.8vh;margin: 2vh;color: #ffffffe0;">FLAT</span>
 
         <span style="background: #5c5c5c;padding: 0.8vh;margin: 2vh;color: #ffffffe0;">WATER</span>
-      </div><div class="teamSetUp" style="position:absolute;top: 48%;height: 12vh;width: 40%;overflow:hidden;">
+      </div>
+      <div class="teamSetUp" style="position:absolute;top: 48%;height: 12vh;width: 40%;overflow:hidden;" @click.stop="viewModelTeam">
         <div style="position:absolute; left:0;width: 0.4vw;height:100%;background:#2196f3"></div><div style="position:absolute; left: 18%;width: 100%;height:100%;font-size:4vh;font-family:font1;background: #5454549c;top: 0%;"></div>
         <div style="position:absolute; left: 24%;width: 100%;height:100%;font-size:4vh;font-family:font1;top: -2%;">
           配備
