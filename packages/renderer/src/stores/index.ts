@@ -8,7 +8,7 @@ import type { Game, GameBrief, Notification, StateMessage } from './interfaces'
 
 export const useUserStore = defineStore('user', () => {
   // const ws = new WebSocket('ws://127.0.0.1:8081')
-  const ws = new WebSocket('ws://185.205.246.232:8081')
+  const ws = new WebSocket('ws://144.126.145.172:8081')
   const ws_open = ref<boolean>()
   const userState = ref({ isLoggedIn: false })
   const chatLog = ref([
@@ -37,6 +37,10 @@ export const useUserStore = defineStore('user', () => {
 
   function pushGrabberInput(input: string) {
     grabberActivated.value = false
+    if (input === 'Input Await')
+      return
+    if (input === 'canceling')
+      return
 
     grabberInput.value = input
     // console.log('grabberInput' + grabberInput.value)
@@ -123,6 +127,19 @@ export const useUserStore = defineStore('user', () => {
     })
     console.log(tx)
     ws.send(tx)
+  }
+
+  function leaveChat(params: {
+    chatName: string
+  }) {
+    const tx = {
+      action: 'LEAVECHAT',
+      parameters: {
+        chatName: params.chatName,
+      },
+      seq: randomInt(0, 1000000),
+    }
+    wsSendServer(tx)
   }
 
   function sayChat(params: {
@@ -305,6 +322,7 @@ export const useUserStore = defineStore('user', () => {
     mainMenuContent,
     modalMenuContent,
     activeWindow,
+    leaveChat,
     setactiveWindow,
     setmodalMenuContent,
     setmainMenuContent,
