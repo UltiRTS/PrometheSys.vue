@@ -17,6 +17,8 @@ declare module '@vue/runtime-core' {
     RouterView: typeof import('vue-router')['RouterView']
     SampleComponent: typeof import('./src/components/sampleComponent.vue')['default']
     'SampleComponent copy': typeof import('./src/components/sampleComponent copy.vue')['default']
+    Vis_notif: typeof import('./src/components/vis_notif.vue')['default']
+    VisNotif: typeof import('./src/components/visNotif.vue')['default']
   }
 }
 

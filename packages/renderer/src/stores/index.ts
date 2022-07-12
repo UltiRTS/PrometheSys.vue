@@ -7,7 +7,7 @@ import router from '../router'
 import type { Game, GameBrief, Notification, StateMessage } from './interfaces'
 
 export const useUserStore = defineStore('user', () => {
-  // const ws = new WebSocket('ws://127.0.0.1:8081')
+  // network parsed var
   const ws = new WebSocket('ws://144.126.145.172:8081')
   const ws_open = ref<boolean>()
   const userState = ref({ isLoggedIn: false })
@@ -22,14 +22,24 @@ export const useUserStore = defineStore('user', () => {
   const joinedChannels = ref<string[]>()
   const gameListing = ref<GameBrief[]>()
   const joinedGame = ref<Game | null>()
+  const username = ref('')
 
+  // UI related var
   const grabberInput = ref('')
   const grabberTriggerAction = ref('')
   const activeWindow = ref('menu')
   const mainMenuContent = ref('dod')
   const modalMenuContent = ref('chat')
   const grabberActivated = ref<boolean>(false)
+  const newNotif = ref({ msg: 'aaa', title: 'bbbc' })
 
+  function pushUINewNotif(input: { title: string; msg: string }) {
+    console.log(input)
+
+    newNotif.value.title = input.title
+    newNotif.value.msg = input.msg
+    console.log(newNotif.value)
+  }
   function pushGrabberAction(action: string) {
     grabberTriggerAction.value = action
     grabberActivated.value = true
@@ -86,6 +96,7 @@ export const useUserStore = defineStore('user', () => {
     modalMenuContent.value = input
   }
 
+  // network related function
   function login(params: {
     username: string
     password: string
@@ -208,7 +219,6 @@ export const useUserStore = defineStore('user', () => {
   function delAIorChicken(params: {
     gameName: string
     AI: string
-    team: string
     type: string
   }) {
     const tx = {
@@ -216,7 +226,6 @@ export const useUserStore = defineStore('user', () => {
       parameters: {
         gameName: params.gameName,
         AI: params.AI,
-        team: params.team,
         type: params.type,
       },
       seq: randomInt(0, 1000000),
@@ -236,6 +245,36 @@ export const useUserStore = defineStore('user', () => {
         gameName: params.gameName,
         team: params.team,
         player: params.player,
+      },
+      seq: randomInt(0, 1000000),
+    }
+
+    wsSendServer(tx)
+  }
+
+  function specPlayer(params: {
+    game: string
+    player: string
+  }) {
+    const tx = {
+      action: 'SETSPEC',
+      parameters: {
+        gameName: params.game,
+        player: params.player,
+      },
+      seq: randomInt(0, 1000000),
+    }
+
+    wsSendServer(tx)
+  }
+
+  function hasMap(params: {
+    gameName: string
+  }) {
+    const tx = {
+      action: 'HASMAP',
+      parameters: {
+        gameName: params.gameName,
       },
       seq: randomInt(0, 1000000),
     }
@@ -297,6 +336,7 @@ export const useUserStore = defineStore('user', () => {
       // console.log(joinedChannels.value)
       gameListing.value = msg.state.games
       joinedGame.value = msg.state.user.game
+      username.value = msg.state.user.username
     }
   }
 
@@ -322,6 +362,11 @@ export const useUserStore = defineStore('user', () => {
     mainMenuContent,
     modalMenuContent,
     activeWindow,
+    username,
+    newNotif,
+
+    pushUINewNotif,
+    hasMap,
     leaveChat,
     setactiveWindow,
     setmodalMenuContent,
@@ -334,6 +379,7 @@ export const useUserStore = defineStore('user', () => {
     setAIorChicken,
     delAIorChicken,
     setTeam,
+    specPlayer,
     joinGame,
   }
 })
