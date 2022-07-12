@@ -16,12 +16,6 @@ const exiting = ref(false)
 
 const deactivate = () => {
   setTimeout(() => {
-    if (text2say.value === 'Input Await')
-      return
-
-    if (text2say.value === 'canceling')
-      return
-
     uStore.pushGrabberInput(text2say.value)
     exiting.value = false
     text2say.value = 'Input Await'
@@ -70,7 +64,7 @@ const enter = () => {
 <style scoped>
 .contr {
   animation-fill-mode: forwards;
-  animation: contr 0.7s;
+  animation: contr 0.3s;
   animation-iteration-count: 1;
   animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
 }
@@ -88,7 +82,7 @@ const enter = () => {
 
 .contrExit {
   animation-fill-mode: forwards;
-  animation: contrExit 0.7s;
+  animation: contrExit 0.3s;
   animation-iteration-count: 1;
   animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
   opacity: 0;
@@ -107,7 +101,7 @@ const enter = () => {
 }
 
 .bg{
-  animation: bg 1s;
+  animation: bg 0.3s;
   animation-fill-mode: forwards;
   animation-timing-function: ease-in-out;
   animation-iteration-count: 1;
@@ -125,7 +119,7 @@ const enter = () => {
 }
 
 .bgExit{
-  animation: bgExit 1s;
+  animation: bgExit 0.3s;
   animation-fill-mode: forwards;
   animation-timing-function: ease-in-out;
   animation-iteration-count: 1;
@@ -144,7 +138,7 @@ const enter = () => {
 
 .upload{
   background: #ffffffc2;
-    animation: upload 0.7s;
+    animation: upload 0.3s;
   animation-iteration-count: 1;
   animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
   animation-fill-mode: forwards;
@@ -165,7 +159,7 @@ const enter = () => {
 
 .uploadExit{
   background: #ffffffc2;
-    animation: uploadExit 0.7s;
+    animation: uploadExit 0.3s;
   animation-iteration-count: 1;
   animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
   animation-fill-mode: forwards;
@@ -183,7 +177,7 @@ const enter = () => {
 }
 .stripy1 {
   left:-100%;
-  animation: stripy1 320s;
+  animation: stripy1 120s;
   animation-fill-mode: forwards;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
@@ -191,7 +185,7 @@ const enter = () => {
 
 .stripy2 {
   left:0;
-  animation: stripy2 320s;
+  animation: stripy2 120s;
   animation-fill-mode: forwards;
   animation-timing-function: linear;
   animation-iteration-count: infinite;

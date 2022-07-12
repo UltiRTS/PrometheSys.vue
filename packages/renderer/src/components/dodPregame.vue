@@ -114,10 +114,10 @@ export default {
           </div>
         </div>
       </div>
-      <div class="dodPanelRight" style="position:absolute;right:0;color:black;font-size: 5vw;font-family:font1;top: 19%;">
-        NO INFO
-        <div style="font-size: 2vw;">
-          Instructions Await
+      <div class="dodPanelRight" style="position: absolute; right: 0px; color: black; font-size: 5vw; font-family: font1;width: 51%; height: 100%;">
+        <div class="pGameUserOperation" style="position: absolute; height: 100%; width: 9%; left: 45%;opacity: 0.3;">
+          <img src="/public/css/fa6/svgs/solid/person-running.svg" style="position:absolute;height: 18%;top: 0%;left: 181%;">
+          <img src="/public/css/fa6/svgs/solid/eye-slash.svg" style="position:absolute;height: 13%;top: 24%;left: 29%;" @click="viewDod">
         </div>
       </div>
     </div>
@@ -155,18 +155,18 @@ export default {
       </div>
     </div>
     <div class="dodRightOperationPanel" style="position:absolute;bottom:32%;height:65vh;width:30vw;right: 34vw;">
-      <div class="pGameUserOperation" style="position:absolute;height: 100%;top: 78%;left: 98%;filter:invert(1);opacity: 0.3;">
-        <img src="/public/css/fa6/svgs/solid/person-running.svg" style="position:absolute;height: 18%;top: 0%;left: 181%;">
-        <img src="/public/css/fa6/svgs/solid/eye-slash.svg" style="position:absolute;height: 13%;top: 24%;left: 29%;" @click="viewDod">
+      <div class="pGameUserOperationDecro" style="position:absolute;height:100%;top:78%;left:98%;width:40%;opacity:0.3;">
+        <div style="position:absolute;height: 24%;width: 11%;top: 12%;left: 33%;background:white;"></div><div style="position:absolute;height: 7%;width: 11%;top: -1%;left: 33%;background:white;"></div>
       </div>
-      <div class="pGameUserOperation" style="position:absolute;width: 100%;top: 66%;left: 3%;mix-blend-mode:screen;">
-        <div style="font-size: 25vh;font-family: 'font5';opacity: 0.6;font-weight:900;">
+
+      <div class="pGameUserOperation" style="position:absolute;width:100%;top:66%;left:3%;mix-blend-mode:screen;">
+        <div style="font-size:25vh;font-family:'font5';opacity: 0.3;font-weight:900;">
           作業
-        </div>
-        <p style="position:absolute;background:black;color:white;top: 52%;left: 10%;font-size: 4vh;font-family:font1;">
+        </div><p style="position:absolute;background:black;color:white;top:52%;left:10%;font-size:4vh;font-family:font1;">
           TEST
         </p>
-      </div><div class="pGameUserOperationTitle" style="position:absolute;height:45%;width: 100%;top: 56%;left: 17%;mix-blend-mode:screen;">
+      </div>
+      <div class="pGameUserOperationTitle" style="position:absolute;height:45%;width: 100%;top: 56%;left: 17%;mix-blend-mode:screen;">
         <div style="width: 100%;height:1%;background:white;top: 32%;position:absolute;right:0;"></div>
         <p style="position:absolute;background:black;color:white;top: -2%;left: 43%;font-size: 4vh;font-family: 'font2';">
           OPERATIONS

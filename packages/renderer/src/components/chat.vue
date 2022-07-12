@@ -108,7 +108,7 @@ export default {
       this.$refs.chats.scrollTop = this.$refs.chats.scrollHeight
   },
   methods: {
-    ...mapActions(useUserStore, ['joinChat', 'sayChat', 'pushGrabberAction']),
+    ...mapActions(useUserStore, ['joinChat', 'sayChat', 'pushGrabberAction', 'leaveChat']),
     pushMessage() {
       this.moving = this.isBottom
       this.chats.push({
@@ -138,6 +138,11 @@ export default {
     },
     addChat() {
       this.pushGrabberAction('AddChat')
+    },
+    closeChat(channel) {
+      this.leaveChat({
+        chatName: channel,
+      })
     },
   },
 }
@@ -191,7 +196,7 @@ export default {
       <div style="font-family: font2; right: 0px; position: absolute; width: 100%; text-align: right; height: 100%; text-transform: uppercase; color: black; opacity: 0.2; font-weight: 900; padding-right: 1vw;top: 23.3%;top:-1vh;right:-5%;">
         {{ channel }}
       </div>
-      <i class="fa fa-times-circle chatClose" aria-hidden="true" style="cursor: crosshair;position:absolute;color:white;font-size:5vh;top:30%;right:-5%;" />
+      <i class="fa fa-times-circle chatClose" aria-hidden="true" style="cursor: crosshair;position:absolute;color:white;font-size:5vh;top:30%;right:-5%;" @click="closeChat(channel)" />
       <gem v-if="unreadChannel.includes(channel)" />
     </div>
   </div>
