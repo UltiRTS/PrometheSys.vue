@@ -77,8 +77,7 @@ export default {
     <img id="bgPic" alt="background" src="imgs/replaceThisBgPlz.png" style="position: fixed; top: 0px; left: 0px; height:100%;opacity: 100%;">
     <div id="mask" style="position:absolute;top:0;left:0;width:100%;height:100%;background: radial-gradient(#00000014 13%, #000000 67%);"></div>
   </div>
-  <div
-    id="home" data-depth="2" style="perspective: 500vw; backface-visibility: hidden;
+  <div id="home" data-depth="2" style="perspective: 500vw; backface-visibility: hidden;
   position: absolute;height: 100%;width: 100%;top: 0px;left: 0px;/* margin: 0px; */overflow:hidden;margin:0;"
   >
     <div id="homeUIContainer" :class="activeWindow" style="perspective: 100vw; position: absolute; height: 100%; width: 100%; display: block; left: 0px; top: 0px;">
@@ -290,39 +289,11 @@ export default {
   </div>
   <div id="visualOverlay">
     <InputGrabber :activated="grabberActivated" />
+    <visNotif />
   </div>
 </template>
 
 <style scoped>
-
-@font-face {
-            font-family: JuneBug;
-            src: url('assets/iosevka-ss09-extralight.ttf');
-        }
-
-        @font-face {
-            font-family: JuneBug2;
-            src: url('assets/Monoid-Regular.ttf');
-        }
-
-        @font-face {
-            font-family: JuneBug3;
-            src: url('assets/Envy Code R.ttf');
-        }
-
-        body {
-            font-family: "Roboto Condensed", sans-serif;
-        }
-
-        @font-face {
-            font-family: JuneBug4;
-            src: url('assets/good_times_rg.ttf');
-        }
-
-        @font-face {
-            font-family: JuneBug5;
-            src: url('assets/URWGothic-Book.otf');
-        }
 
         .rightHome {
 
