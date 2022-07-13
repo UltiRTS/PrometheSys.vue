@@ -8,8 +8,7 @@ export default {
   // props: ['channels', 'chatLog'],
   data() {
     return {
-      msgBus: [{ Map: 'New map downloaded' }, { Campaign: '7-19 Unlocked' }],
-      styleDict: {}, // msg id as key and their class as value
+      msgBus: [{ title: 'aaa', msg: 'bbb', cssClass: 'default' }],
 
     }
   },
@@ -20,8 +19,7 @@ export default {
   watch: {
     newNotif(newVal, oldVal) { // watch it
       console.log(newVal)
-      const newDict = {}
-      newDict[newVal.title] = newVal.msg
+      const newDict = { title: newVal.title, msg: newVal.msg, cssClass: 'default' }
       this.msgBus.push(newDict)
       setTimeout(() => {
         this.preRemoveNotif(this.msgBus.length - 1)
@@ -35,7 +33,7 @@ export default {
   methods: {
     ...mapActions(useUserStore, ['pushUINewNotif']),
     preRemoveNotif(id) {
-      this.styleDict[id] = 'killNotif'
+      this.msgBus[id].cssClass = 'killNotif'
       setTimeout(() => {
         this.msgBus.splice(id, 1) // really remove
       }, 1000)
@@ -50,9 +48,9 @@ export default {
     <h1 style="color:white" @click="pushUINewNotif({title:'aaa',msg: 'vvv',})">
       pushNewNotif
     </h1>
-    <div v-for="msg in msgBus" :key="msg" style="background:white; height:8vh;width:100%;position:relative;margin-top:2vh;">
-      {{ Object.keys(msg)[0] }}
-      {{ msg[Object.keys(msg)[0]] }}
+    <div v-for="msg in msgBus" :key="msg" :class="msg.cssClass" style="background:white; height:8vh;width:100%;position:relative;margin-top:2vh;">
+      {{ msg.title }}
+      {{ msg.msg }}
     </div>
   </div>
 </template>
