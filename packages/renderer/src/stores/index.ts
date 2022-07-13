@@ -30,18 +30,20 @@ export const useUserStore = defineStore('user', () => {
   const activeWindow = ref('menu')
   const mainMenuContent = ref('dod')
   const modalMenuContent = ref('chat')
-  const grabberActivated = ref<boolean>(false)
-  const newNotif = ref({ msg: 'aaa', title: 'bbbc' })
-  const notifs = ref([{
-    msg: 'Привет, как дела?',
-    title: 'Привет',
-  }])
+  const grabberActivated = ref(false)
+  const notifs = ref<{ msg: string; title: string; expiring: boolean }[]>([])
 
-  function pushUINewNotif(input: { title: string; msg: string }) {
+  function pushUINewNotif(input: { title: string; msg: string; expiring: boolean }) {
+    input.expiring = false
     notifs.value.push(input)
+
     setTimeout(() => {
       notifs.value.shift()
-    }, 500)
+    }, 7000)
+
+    setTimeout(() => {
+      notifs.value[notifs.value.length - 1].expiring = true
+    }, 5000)
   }
   function pushGrabberAction(action: string) {
     grabberTriggerAction.value = action
@@ -366,7 +368,7 @@ export const useUserStore = defineStore('user', () => {
     modalMenuContent,
     activeWindow,
     username,
-    newNotif,
+
     notifs,
 
     pushUINewNotif,
