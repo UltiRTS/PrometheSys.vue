@@ -32,13 +32,16 @@ export const useUserStore = defineStore('user', () => {
   const modalMenuContent = ref('chat')
   const grabberActivated = ref<boolean>(false)
   const newNotif = ref({ msg: 'aaa', title: 'bbbc' })
+  const notifs = ref([{
+    msg: 'Привет, как дела?',
+    title: 'Привет',
+  }])
 
   function pushUINewNotif(input: { title: string; msg: string }) {
-    console.log(input)
-
-    newNotif.value.title = input.title
-    newNotif.value.msg = input.msg
-    console.log(newNotif.value)
+    notifs.value.push(input)
+    setTimeout(() => {
+      notifs.value.shift()
+    }, 500)
   }
   function pushGrabberAction(action: string) {
     grabberTriggerAction.value = action
@@ -364,6 +367,7 @@ export const useUserStore = defineStore('user', () => {
     activeWindow,
     username,
     newNotif,
+    notifs,
 
     pushUINewNotif,
     hasMap,
