@@ -3,6 +3,7 @@ import { acceptHMRUpdate, defineStore } from 'pinia'
 
 import * as network from './network/network'
 import * as ui from './UI/ui'
+import * as dntpService from './mapAPI/dntpService'
 
 export const useUserStore = defineStore('user', () => {
   // UI related var
@@ -70,6 +71,8 @@ export const useUserStore = defineStore('user', () => {
     setTeam,
     specPlayer,
     joinGame,
+
+    dntpService,
   }
 })
 

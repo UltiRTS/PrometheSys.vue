@@ -12,7 +12,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(useUserStore, ['mainMenuContent', 'modelMenuContent']),
+    ...mapState(useUserStore, ['mainMenuContent', 'modelMenuContent', 'ui']),
     pieSize() {
       return {
         width: this.$refs.dodPie.clientWidth,
@@ -33,6 +33,11 @@ export default {
     viewModelTeam() {
       this.setmodalMenuContent('dod-p-game-team')
       this.setactiveWindow('modal')
+    },
+
+    pickMap() {
+      this.ui.pushGrabberAction('mapPick')
+      this.ui.activateGrabber()
     },
   },
 }
@@ -124,9 +129,11 @@ export default {
       <div style="font-size:9vh;-webkit-text-stroke-width:0.2vh;-webkit-text-stroke-color:#54545499;font-family: 'font9';text-align:right;color:#ffffffd9;top: 11%;position:absolute;right:0;">
         Dr. Kaltist
       </div>
-      <div style="position:absolute;top: 27%;width:100%;background: #2196f3;font-family: 'font6';font-size:4vh;text-align:right;opacity: 0.8;">
+      <div style="position:absolute;top: 27%;width:100%;background: #2196f3;font-family: 'font6';font-size:4vh;text-align:right;opacity: 0.8;" @click="pickMap">
         Comet Catcher Redux
-      </div><div class="mapTags" style="position: absolute; top: 37%;width: 100%;padding: 0vh;font-size: 3vh;text-align:right;font-family: 'font5';font-weight:900;opacity: 0.9;">
+      </div>
+
+      <div class="mapTags" style="position: absolute; top: 37%;width: 100%;padding: 0vh;font-size: 3vh;text-align:right;font-family: 'font5';font-weight:900;opacity: 0.9;">
         <span style="background: #5c5c5c;padding: 0.8vh;margin: 2vh;color: #ffffffe0;">FLAT</span>
 
         <span style="background: #5c5c5c;padding: 0.8vh;margin: 2vh;color: #ffffffe0;">WATER</span>
