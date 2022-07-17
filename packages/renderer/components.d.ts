@@ -7,6 +7,7 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Chat: typeof import('./src/components/chat.vue')['default']
     Dod: typeof import('./src/components/dod.vue')['default']
+    DodPGameMap: typeof import('./src/components/dodPGameMap.vue')['default']
     DodPGameTeam: typeof import('./src/components/dodPGameTeam.vue')['default']
     DodPregame: typeof import('./src/components/dodPregame.vue')['default']
     Gem: typeof import('./src/components/gem.vue')['default']
@@ -16,8 +17,6 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SampleComponent: typeof import('./src/components/sampleComponent.vue')['default']
-    'SampleComponent copy': typeof import('./src/components/sampleComponent copy.vue')['default']
-    Vis_notif: typeof import('./src/components/vis_notif.vue')['default']
     VisNotif: typeof import('./src/components/visNotif.vue')['default']
   }
 }
