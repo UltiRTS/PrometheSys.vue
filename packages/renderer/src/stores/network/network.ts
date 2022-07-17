@@ -101,12 +101,6 @@ export function joinGame(params: {
   password: string
   mapID: string
 }) {
-  if (joinedGame.value
-      && params.gameName === joinedGame.value.title) {
-    mainMenuContent.value = 'dodPregame'
-    return
-  }
-
   const tx = {
     action: 'JOINGAME',
     parameters: {

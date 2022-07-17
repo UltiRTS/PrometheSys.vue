@@ -1,5 +1,5 @@
 import axios from 'axios'
-const provider = 'http://127.0.0.1'
+const provider = 'http://144.126.145.172:3000'
 
 const request = axios.create({
   baseURL: provider,

@@ -22,6 +22,11 @@ export function pushUINewNotif(input: { title: string; msg: string; class: strin
     notifs.value[notifs.value.length - 1].class = 'hold'
   }, 500)
 }
+
+export function activateGrabber() {
+  grabberActivated.value = true
+}
+
 export function pushGrabberAction(action: string) {
   grabberTriggerAction.value = action
   grabberActivated.value = true

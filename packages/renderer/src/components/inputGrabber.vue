@@ -42,6 +42,11 @@ const deactivate = () => {
         break
       }
 
+      case 'mapPick': {
+        uStore.dntpService.listMatchMap(text2say.value)
+        break
+      }
+
       default: {
         console.log('default trigger')
         break

@@ -29,6 +29,7 @@ async function createWindow() {
       preload: join(__dirname, '../preload/index.cjs'),
       nodeIntegration: true,
       contextIsolation: false,
+      webSecurity: false,
     },
   })
 
