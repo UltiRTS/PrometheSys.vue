@@ -43,7 +43,7 @@ export default {
     <div class="dodPregameBg" style="position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;background:#989ba1;">
       <img src="imgs/blueprintswblue.png" style="position:absolute;width:100%;height:100%;filter:grayscale(100%) invert(80%);opacity:0.1;"><div class="grid" style="background-size:15vh 15vh;background-image:linear-gradient(to right, grey 1px, transparent 1px),linear-gradient(to bottom, grey 1px, transparent 1px);position:absolute;width:100%;height:100%;opacity:0.5;"></div><div class="grid" style="background-size:14vh 7vh;background-image:radial-gradient(circle, #ffffff6e 1px, rgba(0, 0, 0, 0) 1px);position:absolute;width:100%;height:100%;top:7%;left:1%;"></div><div class="grid" style="background-size:7vh 7vh;background-image:radial-gradient(circle, #00000036 1px, rgba(0, 0, 0, 0) 1px);position:absolute;width:150%;height:100%;"></div>
     </div>
-    <div class="dodCenterInfoPanel" style="position: absolute; bottom: 18%; /* height: 111vh; */ width: 100vw; left: 39vw; top: 0%;filter: grayscale(100%);mix-blend-mode:screen;">
+    <div class="dodCenterInfoPanel" style="position: absolute; bottom: 18%;  width: 100vw; left: 39vw; top: 0%;filter: grayscale(100%);mix-blend-mode:screen;">
       <img src="imgs/minimapSample.png" style="-webkit-mask-image: linear-gradient(90deg, #0000ff00, green 9%, green 91%, #ff000000);width:100%;">
     </div>
     <div class="dodBtmInfoPanel" style="position: absolute; bottom: 7%; height: 15vw; width: 87%; left: 13vw; background: rgba(255, 255, 255, 0.65); transform: rotateX(0.3deg);">
@@ -73,7 +73,8 @@ export default {
             Y
           </div>
         </div>
-      </div><div class="voteSearch" style="position:absolute;bottom:15%;padding-top:3%;padding-right:1%;padding-left:1%;padding-bottom:3%;left:24.8vw;overflow:hidden;background:#545454;font-size:2vw;filter:drop-shadow(8px 8px 6px #545454);mix-blend-mode:multiply;">
+      </div>
+      <div class="voteSearch" style="position:absolute;bottom:15%;padding-top:3%;padding-right:1%;padding-left:1%;padding-bottom:3%;left:24.8vw;overflow:hidden;background:#545454;font-size:2vw;filter:drop-shadow(8px 8px 6px #545454);mix-blend-mode:multiply;">
         <i class="fa fa-search" aria-hidden="true"></i>
       </div>
       <div class="teamPrediction" style="position: absolute; bottom: 15%; width: 40%; left: 33.8vw; overflow: hidden; font-size: 2vw; filter: drop-shadow(rgb(84, 84, 84) 8px 8px 6px); height: 73%;">
@@ -97,7 +98,7 @@ export default {
             <div class="compositionTeam1" style="position:relative;width:100%;margin-bottom: 12%;">
               <div class="compositionTeam1Header" style="position:absolute;font-weight:900;font-family: 'font4';font-size: 2vw;opacity:0.5;left: -20%;">
                 <span style="color: #b5b5b5;">0</span>1
-              </div><div class="compositionTeam1Header" style="font-weight:900;font-family: 'font9';font-size: 1vw;/* opacity:0.5; */top: -4%;padding:0;margin:0;color: white;">
+              </div><div class="compositionTeam1Header" style="font-weight:900;font-family: 'font9';font-size: 1vw;top: -4%;padding:0;margin:0;color: white;">
                 TEAM A
               </div><div class="compositionTeam1Content" style="position:relative;margin:0;padding:0;height:0;top: -0.7vw;">
                 <div style="position:relative;display:inline-block;height:1vw;width:1vw;background:rgba(255,255,255,0.1);"></div><div style="position:relative;display:inline-block;height:1vw;width:1vw;background:rgba(255,255,255,0.5);"></div><div style="position:relative;display:inline-block;height:1vw;width:1vw;background:rgba(255,255,255,0.8);"></div><div style="position:relative;display:inline-block;height:1vw;width:1vw;background:rgba(255,255,255,0.2);"></div><div style="position:relative;display:inline-block;height:1vw;width:1vw;background:rgba(255,255,255,0.7);"></div><div style="position:relative;display:inline-block;height:1vw;width:1vw;background:rgba(255,255,255,0.5);"></div><div style="position:relative;display:inline-block;height:1vw;width:1vw;background:rgba(255,255,255,0.9);"></div><div style="position:relative;display:inline-block;height:1vw;width:1vw;background:rgba(255,255,255,0.5);"></div><div style="position:relative;display:inline-block;height:1vw;width:1vw;background:rgba(255,255,255,0.3);"></div><div style="position:relative;display:inline-block;height:1vw;width:1vw;background:rgba(255,255,255,0.7);"></div><div style="position:relative;display:inline-block;height:1vw;width:1vw;background:rgba(255,255,255,0.6);"></div><div style="position:relative;display:inline-block;height:1vw;width:1vw;background:rgba(255,255,255,0.4);"></div><div style="position:relative;display:inline-block;height:1vw;width:1vw;background:rgba(255,255,255,0.7);"></div><div style="position:relative;display:inline-block;height:1vw;width:1vw;background:rgba(255,255,255,0.9);"></div><div style="position:relative;display:inline-block;height:1vw;width:1vw;background:white;"></div>
@@ -105,7 +106,7 @@ export default {
             </div><div class="compositionTeam1" style="position:relative;width:100%;">
               <div class="compositionTeam1Header" style="position:absolute;font-weight:900;font-family: 'font4';font-size: 2vw;opacity:0.5;left: -20%;">
                 <span style="color: #b5b5b5;">0</span>2
-              </div><div class="compositionTeam1Header" style="font-weight:900;font-family: 'font9';font-size: 1vw;/* opacity:0.5; */top: -4%;padding:0;margin:0;color: white;">
+              </div><div class="compositionTeam1Header" style="font-weight:900;font-family: 'font9';font-size: 1vw;top: -4%;padding:0;margin:0;color: white;">
                 TEAM B
               </div><div class="compositionTeam1Content" style="position:relative;margin:0;padding:0;height:0;top: -0.7vw;">
                 <div style="position:relative;display:inline-block;height:1vw;width:1vw;background:rgba(255,255,255,0.1);"></div><div style="position:relative;display:inline-block;height:1vw;width:1vw;background:rgba(255,255,255,0.5);"></div><div style="position:relative;display:inline-block;height:1vw;width:1vw;background:rgba(255,255,255,0.8);"></div><div style="position:relative;display:inline-block;height:1vw;width:1vw;background:rgba(255,255,255,0.2);"></div><div style="position:relative;display:inline-block;height:1vw;width:1vw;background:rgba(255,255,255,0.7);"></div><div style="position:relative;display:inline-block;height:1vw;width:1vw;background:rgba(255,255,255,0.5);"></div><div style="position:relative;display:inline-block;height:1vw;width:1vw;background:rgba(255,255,255,0.9);"></div><div style="position:relative;display:inline-block;height:1vw;width:1vw;background:rgba(255,255,255,0.5);"></div><div style="position:relative;display:inline-block;height:1vw;width:1vw;background:rgba(255,255,255,0.3);"></div><div style="position:relative;display:inline-block;height:1vw;width:1vw;background:rgba(255,255,255,0.7);"></div><div style="position:relative;display:inline-block;height:1vw;width:1vw;background:rgba(255,255,255,0.6);"></div><div style="position:relative;display:inline-block;height:1vw;width:1vw;background:rgba(255,255,255,0.4);"></div><div style="position:relative;display:inline-block;height:1vw;width:1vw;background:rgba(255,255,255,0.7);"></div><div style="position:relative;display:inline-block;height:1vw;width:1vw;background:rgba(255,255,255,0.9);"></div><div style="position:relative;display:inline-block;height:1vw;width:1vw;background:white;"></div>
@@ -116,8 +117,6 @@ export default {
       </div>
       <div class="dodPanelRight" style="position: absolute; right: 0px; color: black; font-size: 5vw; font-family: font1;width: 51%; height: 100%;">
         <div class="pGameUserOperation" style="position: absolute; height: 100%; width: 9%; left: 45%;opacity: 0.3;">
-          <img src="/public/css/fa6/svgs/solid/person-running.svg" style="position:absolute;height: 18%;top: 0%;left: 181%;">
-          <img src="/public/css/fa6/svgs/solid/eye-slash.svg" style="position:absolute;height: 13%;top: 24%;left: 29%;" @click="viewDod">
         </div>
       </div>
     </div>
@@ -154,23 +153,38 @@ export default {
         </div><i class="fa fa-pencil-square-o" aria-hidden="true" style="position:absolute; left: 73%;width: 100%;height:100%;font-size: 9vh;top: 45%;opacity: 0.5;"></i>
       </div>
     </div>
-    <div class="dodRightOperationPanel" style="position:absolute;bottom:32%;height:65vh;width:30vw;right: 34vw;">
-      <div class="pGameUserOperationDecro" style="position:absolute;height:100%;top:78%;left:98%;width:40%;opacity:0.3;">
-        <div style="position:absolute;height: 24%;width: 11%;top: 12%;left: 33%;background:white;"></div><div style="position:absolute;height: 7%;width: 11%;top: -1%;left: 33%;background:white;"></div>
-      </div>
-
-      <div class="pGameUserOperation" style="position:absolute;width:100%;top:66%;left:3%;mix-blend-mode:screen;">
-        <div style="font-size:25vh;font-family:'font5';opacity: 0.3;font-weight:900;">
+    <div class="dodRightOperationPanel" style="position:absolute;bottom:32%;height:65vh;width:30vw;right:34vw;">
+      <div class="pGameUserOperation" style="position:absolute;width:100%;top:66%;left: -21%;mix-blend-mode:screen;">
+        <div style="font-size:25vh;font-family:'font5';opacity:0.3;font-weight:900;">
           作業
         </div><p style="position:absolute;background:black;color:white;top:52%;left:10%;font-size:4vh;font-family:font1;">
           TEST
         </p>
-      </div>
-      <div class="pGameUserOperationTitle" style="position:absolute;height:45%;width: 100%;top: 56%;left: 17%;mix-blend-mode:screen;">
-        <div style="width: 100%;height:1%;background:white;top: 32%;position:absolute;right:0;"></div>
-        <p style="position:absolute;background:black;color:white;top: -2%;left: 43%;font-size: 4vh;font-family: 'font2';">
+      </div><div class="pGameUserOperationTitle" style="position:absolute;height:45%;width:100%;top:56%;left:17%;mix-blend-mode:screen;">
+        <div style="width:100%;height:1%;background: #ffffff61;top:32%;position:absolute;right:0;"></div><p style="position:absolute;background:black;color:white;top:-2%;left:43%;font-size:4vh;font-family:'font2';">
           OPERATIONS
         </p>
+      </div>
+      <div class="pGameUserOperation" style="position: absolute; height: 14.1%; width: 40%; left: 77%; overflow:hidden;; background: #2196f3;top: 94.6%;filter:drop-shadow(8px 8px 6px #545454);">
+        <div style="position:absolute;font-size: 3vw;top: 28%;left: 11%;color: #ffffffc7;font-family: font2;font-weight: 100;">
+          INIT
+        </div>
+        <div style="position:absolute;font-size: 1vw;top: 11%;left: 13%;color: white;font-family: font5;font-weight:900;background: black;mix-blend-mode: screen;">
+          OPERATION
+        </div>
+        <img src="imgs/btlop1.png" style="position: absolute; height: 204%; top: -28%; left: 39%;opacity: 0.2;">
+      </div><div class="pGameUserOperation" style="position: absolute; height: 14.1%; width: 40%; left: 34%; overflow:hidden;; background: #545454;top: 94.6%;filter:drop-shadow(8px 8px 6px #545454);" @click="viewDod">
+        <div style="position:absolute;font-size: 3vw;top: 28%;left: 11%;color: #ffffffc7;font-family: font2;font-weight: 100;">
+          HALT
+        </div>
+        <div style="position:absolute;font-size: 1vw;top: 11%;left: 13%;color: white;font-family: font5;font-weight:900;background: black;mix-blend-mode: screen;">
+          OPERATION
+        </div>
+        <img src="imgs/btlop3.png" style="position: absolute; height: 204%; top: -28%; left: 39%;opacity: 0.2;">
+      </div>
+      <div class="noncanonicalOpts" style="position:absolute;top: 62%;width:100%;height:100%;right: -33%;">
+        <img src="imgs/btlop3.png" style="position:absolute;width:45%;">
+        <img src="imgs/btlop2.png" style="position:absolute;width:45%;left: 26%;"><img src="imgs/btlop1.png" style="position:absolute;width:45%;left: 52%;">
       </div>
     </div>
   </div>

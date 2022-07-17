@@ -10,7 +10,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(useUserStore, ['gameListing', 'joinedGame']),
+    ...mapState(useUserStore, ['gameListing', 'joinedGame', 'mainMenuContent']),
   },
 
   updated() {
@@ -26,6 +26,10 @@ export default {
       uStore.pushGrabberAction('AddGame')
     },
     emitJoinGameResult(roomTitle) {
+      if (joinedGame.value && roomTitle === joinedGame.value.title) {
+        this.mainMenuContent.value = 'dodPregame'
+        return
+      }
       uStore.joinGame({
         gameName: roomTitle,
         password: 'test',

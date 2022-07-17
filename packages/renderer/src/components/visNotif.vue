@@ -24,11 +24,11 @@ export default {
 </script>
 
 <template>
-  <div style="position:absolute;right:0;width:30vh;height:100%;margin:0;top:0;overflow:auto;perspective:50px;overflow-x:hidden;">
-    <h1 style="color:white" @click="pushUINewNotif({title:'aaa',msg: 'vvv',})">
+  <div style="position:absolute;right:0;width:30vh;height:100%;margin:0;top:0;overflow:auto;perspective:50px;overflow-x:hidden; pointer-events:none; ">
+    <h1 style="color:white;    pointer-events:all;" @click="pushUINewNotif({title:'aaa',msg: 'vvv',})">
       pushNewNotif
     </h1>
-    <div v-for="msg in notifs" :key="msg.title" :class="{expiring:msg.expiring,tag:true}" style="position: relative;width:100%;height: 6vh;filter: drop-shadow(20px 11px 16px #000);transform-style: preserve-3d;margin-top: 9vh;">
+    <div v-for="msg in notifs" :key="msg.title" :class="msg.class" style="    pointer-events:all;position: relative;width:100%;height: 6vh;filter: drop-shadow(20px 11px 16px #000);transform-style: preserve-3d;margin-top: 5vh;left: 3%;">
       <div style=" position:absolute;height:100%; overflow: hidden; width: 100%; background: #2196f3;">
         <div id="tagBg" style="position: absolute; left: 104%;top: -177%; height: 534%; width: 100%; transform: rotate(108deg);mix-blend-mode: screen;">
           <img src="imgs/aaaa.jpg" style="position: absolute; top: -7%; width: 423%; opacity: 1; filter: invert(1) contrast(4) grayscale(100%); "><div style="position: absolute; top: 0px; height: 229%; width: 141%; background-image: linear-gradient(to right, rgb(255 255 255) 2px, transparent -1px), linear-gradient(rgb(255 255 255) 2px, transparent -1px); background-repeat: repeat; background-size: 3px 3px;"></div>
@@ -47,7 +47,7 @@ export default {
 </template>
 
 <style scoped>
-.expiring {
+.gone {
   left: 3%;
     animation-fill-mode: forwards;
   animation-name: expiring;
@@ -69,8 +69,8 @@ export default {
     opacity:0;
   }
 }
-/*
-.tag{
+
+.init{
 animation-fill-mode: forwards;
   animation-name: tagAnim;
   animation-duration: 0.3s;
@@ -91,8 +91,8 @@ animation-fill-mode: forwards;
     left: 3%;
     opacity:1;
   }
-}*/
-.tag:hover{
+}
+.hold:hover{
       transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateY(0px);
 
   animation-fill-mode: forwards;

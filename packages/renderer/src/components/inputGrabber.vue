@@ -16,7 +16,41 @@ const exiting = ref(false)
 
 const deactivate = () => {
   setTimeout(() => {
-    uStore.pushGrabberInput(text2say.value)
+    if (text2say.value === 'Input Await')
+      return
+    if (text2say.value === 'canceling')
+      return
+
+    // console.log('grabberInput' + grabberInput.value)
+
+    switch (uStore.grabberTriggerAction) {
+      case 'AddChat': {
+        uStore.network.joinChat({
+          chatName: text2say.value,
+          password: '',
+        })
+        break
+      }
+
+      case 'AddGame': {
+        uStore.network.joinGame(
+          {
+            gameName: text2say.value,
+            password: '',
+            mapID: '0',
+          })
+        break
+      }
+
+      default: {
+        console.log('default trigger')
+        break
+      }
+    }
+
+    // reset action to empty
+    uStore.ui.clearGrabber()
+
     exiting.value = false
     text2say.value = 'Input Await'
   }, 1000)
