@@ -6,7 +6,7 @@ import * as ui from './UI/ui'
 import * as dntpService from './mapAPI/dntpService'
 
 export const useUserStore = defineStore('user', () => {
-  const lobbyDir = ref('/tmp')
+  const lobbyDir = ref('/tmp/')
   // UI related var
   const grabberTriggerAction = ui.grabberTriggerAction
   const grabberActivated = ui.grabberActivated

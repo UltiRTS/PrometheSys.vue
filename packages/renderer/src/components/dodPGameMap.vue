@@ -1,6 +1,7 @@
 <script>
 import * as path from 'path'
 import { mapActions, mapState } from 'pinia'
+import { nativeImage } from 'electron'
 import { useUserStore } from '../stores'
 
 export default {
@@ -13,15 +14,16 @@ export default {
   },
   computed: {
     ...mapState(useUserStore, ['dntpService', 'lobbyDir', 'searchMap']),
+  },
+  updated() {},
+  methods: {
     imgPath(filename) {
-      console.log(this.lobbyDir.value)
+      const img = nativeImage.createFromPath(this.lobbyDir + filename)
+      console.log(this.lobbyDir)
       console.log(filename)
-      return path.join(this.lobbyDir.value, filename)
+      return img.toDataURL()
     },
   },
-
-  updated() {},
-  methods: {},
 }
 </script>
 
