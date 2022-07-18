@@ -9,19 +9,30 @@ export default {
   // props: ['channels', 'chatLog'],
   data() {
     return {
-      isBottom: false,
+      mouseOn: 0,
+      mapSearchUrl: [],
     }
   },
   computed: {
     ...mapState(useUserStore, ['dntpService', 'lobbyDir', 'searchMap']),
+    nativePathListSearch() {
+      for (const map in this.searchMap)
+        mapSearchUrl[map] = nativeImage.createFromPath(this.lobbyDir + this.searchMap[map].filename)
+
+      return mapSearchUrl
+    },
   },
   updated() {},
   methods: {
-    imgPath(filename) {
+    imgPath(filename, who = 'deflt') {
       const img = nativeImage.createFromPath(this.lobbyDir + filename)
+      console.log(who)
       console.log(this.lobbyDir)
       console.log(filename)
       return img.toDataURL()
+    },
+    setPreviee(index) {
+      this.mouseOn = index
     },
   },
 }
@@ -36,10 +47,10 @@ export default {
       <img src="imgs/blueprintswblue.png" style="position:absolute;top: 0%;height: 100%;filter: grayscale(100%) brightness(227%);left: -52%;opacity: 0.1;">
     </div>
     <div v-if="searchMap.length>0" class="pickerMainBody" style="position:absolute;height:95%;width:91%;background:rgba(255, 255, 255, 0.22);bottom:0%;padding-left:2vw;padding-top:2vh;background-size:40px 40px;background-image: linear-gradient(to right, #80808017 1px, transparent 1px), linear-gradient(to bottom, #8080800f 1px ,transparent 1px);">
-      <div v-for="(map, mapNum) in searchMap" :key="mapNum" class="singleMapTag" style="position:relative;height:2.6vw;width:2vw;display:inline-block;margin:1vw;">
-        <img :src="imgPath(map.minimap_filename)" style="top:16%;left:13%;position:absolute;width:71%;height:71%;filter:grayscale(100%) contrast(250%);mix-blend-mode:screen;">
+      <div v-for="(map, mapNum) in searchMap" :key="mapNum" class="singleMapTag" style="position:relative;height:2.6vw;width:2vw;display:inline-block;margin:1vw;" @mouseenter="setPreviee(mapNum)">
+        <img :src="imgPath(map.minimap_filename, 'list')" style="top:16%;left:13%;position:absolute;width:71%;height:71%;filter:grayscale(100%) contrast(250%);mix-blend-mode:screen;">
         <div style="position:absolute;color:white;font-weight:900;font-size: 1.3vw;bottom: -23%;right: -24%;font-family: font5;opacity: 0.4;">
-          mapNum
+          {{ mapNum }}
         </div>
       </div>
     </div>
@@ -47,8 +58,8 @@ export default {
       <div style="position:absolute;height:100%;width:100%;overflow:hidden;opacity: 53%;">
         <img src="imgs/blueprintswblue.png" style="position:absolute;top: 0%;height: 100%;filter: grayscale(100%) brightness(227%);left: -297%;">
       </div>
-      <div style="position:absolute;top:10%;height:40%;width:100%;left:-22%;background:#585858;filter:drop-shadow(9px 10px 10px #000);">
-        <img src="imgs/minimapSample.png" style="position:absolute;top:10%;left:6%;width:82%;"><div style="position:absolute;height:7%;width:99%;top:64%;left:-1%;font-size:1vw;color:white;font-family:font1;text-align:right;">
+      <div v-if="searchMap.length>0" style="position:absolute;top:10%;height:40%;width:100%;left:-22%;background:#585858;filter:drop-shadow(9px 10px 10px rgba(0,0,0,0.8));">
+        <img :src="imgPath(searchMap[mouseOn].minimap_filename)" style="position:absolute;top:10%;left:6%;width:82%;"><div style="position:absolute;height:7%;width:99%;top:64%;left:-1%;font-size:1vw;color:white;font-family:font1;text-align:right;">
           DATABASE PRIMARY INDEX
         </div><div style="position:absolute;height:7%;width:80%;top:87%;right:12%;font-size:0.8vw;color:white;font-family:font5;">
           <i class="fa fa-exclamation-triangle" aria-hidden="true"></i><span style="margin-left:0.8vw;"> WATER</span>
@@ -92,3 +103,6 @@ export default {
 }
 </style>
 
+  function setImmediate(arg0) {
+    throw new Error('Function not implemented.')
+  }

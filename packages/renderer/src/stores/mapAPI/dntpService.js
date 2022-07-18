@@ -11,16 +11,19 @@ export async function listMatchMap(input, dir) {
 
   for (const mapItem of ret.maps) {
     const imgPath = path.join(dir, mapItem.minimap_filename)
-    if (fs.existsSync(imgPath))
-      continue
-    await download(ret.prefix + mapItem.minimap_filename, dir, mapItem.minimap_filename)
-  }
 
-  searchMap.value = ret.maps
-  console.log(searchMap.value)
+    fs.access(imgPath, (err) => {
+      if (err) {
+        downloadMap(ret.prefix + mapItem.minimap_filename, dir, mapItem.minimap_filename).then(() => {
+          searchMap.value.push(mapItem)
+        })
+      }
+      else { searchMap.value.push(mapItem) }
+    })
+  }
 }
 
-function download(dlUrl, dir, filename) {
+function downloadMap(dlUrl, dir, filename) {
   return new Promise((resolve, reject) => {
     const path = require('path')
     const { startDownload } = require('su-downloader3')
