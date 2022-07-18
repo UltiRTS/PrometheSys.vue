@@ -1,11 +1,12 @@
 /* eslint-disable eqeqeq */
 import { acceptHMRUpdate, defineStore } from 'pinia'
-
+import { ref } from 'vue'
 import * as network from './network/network'
 import * as ui from './UI/ui'
 import * as dntpService from './mapAPI/dntpService'
 
 export const useUserStore = defineStore('user', () => {
+  const lobbyDir = ref('/tmp')
   // UI related var
   const grabberTriggerAction = ui.grabberTriggerAction
   const grabberActivated = ui.grabberActivated
@@ -38,6 +39,10 @@ export const useUserStore = defineStore('user', () => {
   const gameListing = network.gameListing
   const joinedGame = network.joinedGame
   const username = network.username
+
+  // dntp service
+  const searchMap = dntpService.searchMap
+
   return {
     ui,
     grabberTriggerAction,
@@ -73,6 +78,9 @@ export const useUserStore = defineStore('user', () => {
     joinGame,
 
     dntpService,
+    searchMap,
+
+    lobbyDir,
   }
 })
 

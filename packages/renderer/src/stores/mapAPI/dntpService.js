@@ -1,7 +1,42 @@
+import { ref } from 'vue'
 import * as lib from './maplib.js'
-export async function listMatchMap(input) {
+const fs = require('fs')
+const path = require('node:path')
+
+export const searchMap = ref([])
+
+export async function listMatchMap(input, dir) {
   const ret = await lib.vague_search(input)
-  for (const mapItem of ret)
-    await download(mapItem.minimap_filename)
-  return ret
+  console.log(ret)
+
+  for (const mapItem of ret.maps) {
+    const imgPath = path.join(dir, mapItem.minimap_filename)
+    if (fs.existsSync(imgPath))
+      continue
+    await download(ret.prefix + mapItem.minimap_filename, dir, mapItem.minimap_filename)
+  }
+
+  searchMap.value = ret.maps
+  console.log(searchMap.value)
+}
+
+function download(dlUrl, dir, filename) {
+  return new Promise((resolve, reject) => {
+    const path = require('path')
+    const { startDownload } = require('su-downloader3')
+
+    const url = dlUrl
+    const savePath = path.join(dir, filename)
+    const locations = { url, savePath }
+    const options = {
+      threads: 3,
+      throttleRate: 100,
+    }
+
+    startDownload(locations, options).subscribe({
+      next: progressInfo => console.log(progressInfo),
+      error: e => reject(new Error(e)),
+      complete: () => resolve('downloaded'),
+    })
+  })
 }
