@@ -1,4 +1,8 @@
 <script>
+import * as path from 'path'
+import { mapActions, mapState } from 'pinia'
+import { useUserStore } from '../stores'
+
 export default {
   // feed those
   // props: ['channels', 'chatLog'],
@@ -7,7 +11,14 @@ export default {
       isBottom: false,
     }
   },
-  computed: {},
+  computed: {
+    ...mapState(useUserStore, ['dntpService', 'lobbyDir', 'searchMap']),
+    imgPath(filename) {
+      console.log(this.lobbyDir.value)
+      console.log(filename)
+      return path.join(this.lobbyDir.value, filename)
+    },
+  },
 
   updated() {},
   methods: {},
@@ -22,25 +33,15 @@ export default {
       <img src="imgs/thea.png" style="position:absolute;top: 63%;left: -11%;height: 60%;opacity: 9%;">
       <img src="imgs/blueprintswblue.png" style="position:absolute;top: 0%;height: 100%;filter: grayscale(100%) brightness(227%);left: -52%;opacity: 0.1;">
     </div>
-    <div class="pickerMainBody" style="position:absolute;height:95%;width:91%;background:rgba(255, 255, 255, 0.22);bottom:0%;padding-left:2vw;padding-top:2vh;background-size:40px 40px;background-image: linear-gradient(to right, #80808017 1px, transparent 1px), linear-gradient(to bottom, #8080800f 1px ,transparent 1px);">
-      <div class="singleMapTag" style="position:relative;height:2.6vw;width:2vw;display:inline-block;margin:1vw;">
-        <img src="imgs/minimapSample.png" style="top:16%;left:13%;position:absolute;width:71%;height:71%;filter:grayscale(100%) contrast(250%);mix-blend-mode:screen;">
+    <div v-if="searchMap.length>0" class="pickerMainBody" style="position:absolute;height:95%;width:91%;background:rgba(255, 255, 255, 0.22);bottom:0%;padding-left:2vw;padding-top:2vh;background-size:40px 40px;background-image: linear-gradient(to right, #80808017 1px, transparent 1px), linear-gradient(to bottom, #8080800f 1px ,transparent 1px);">
+      <div v-for="(map, mapNum) in searchMap" :key="mapNum" class="singleMapTag" style="position:relative;height:2.6vw;width:2vw;display:inline-block;margin:1vw;">
+        <img :src="imgPath(map.minimap_filename)" style="top:16%;left:13%;position:absolute;width:71%;height:71%;filter:grayscale(100%) contrast(250%);mix-blend-mode:screen;">
         <div style="position:absolute;color:white;font-weight:900;font-size: 1.3vw;bottom: -23%;right: -24%;font-family: font5;opacity: 0.4;">
-          12
-        </div>
-      </div><div class="singleMapTag" style="position:relative;height:2.6vw;width:2vw;display:inline-block;margin:1vw;">
-        <img src="imgs/minimapSample.png" style="top:16%;left:13%;position:absolute;width:71%;height:71%;filter:grayscale(100%) contrast(250%);mix-blend-mode:screen;">
-        <div style="position:absolute;color:white;font-weight:900;font-size: 1.3vw;bottom: -23%;right: -24%;font-family: font5;opacity: 0.4;">
-          12
-        </div>
-      </div><div class="singleMapTag" style="position:relative;height:2.6vw;width:2vw;display:inline-block;margin:1vw;">
-        <img src="imgs/minimapSample.png" style="top:16%;left:13%;position:absolute;width:71%;height:71%;filter:grayscale(100%) contrast(250%);mix-blend-mode:screen;">
-        <div style="position:absolute;color:white;font-weight:900;font-size: 1.3vw;bottom: -23%;right: -24%;font-family: font5;opacity: 0.4;">
-          12
+          mapNum
         </div>
       </div>
     </div>
-    <div style="position:absolute;height:100%;width:20%;background:#2196f3;right:0%;">
+    <div class="pickerRightPanel" style="position:absolute;height:100%;width:20%;background:#2196f3;right:0%;">
       <div style="position:absolute;height:100%;width:100%;overflow:hidden;opacity: 53%;">
         <img src="imgs/blueprintswblue.png" style="position:absolute;top: 0%;height: 100%;filter: grayscale(100%) brightness(227%);left: -297%;">
       </div>
@@ -67,7 +68,8 @@ export default {
           RELATED QUERIES
         </div>
       </div>
-    </div><div style="position:absolute;height:3%;width:100%;background:#2196f3;top:0%;">
+    </div>
+    <div class="pickerTopBar" style="position:absolute;height:3%;width:100%;background:#2196f3;top:0%;">
       <div class="mapSearch" style="position:absolute;height:100%;background:#34343487;width:11%;left:3%;filter:drop-shadow(11px 9px 6px #fff);">
         <div style="position:absolute;width:100%;height:10%;background:#ffffff;"></div><div style="position:absolute;width:1%;height:80%;bottom:8%;right:-3%;background:#0000005c;font-size:1.7vh;font-family:font5;"></div><div style="position:absolute;width:100%;height:10%;bottom:72%;right:-39%;color:#ffffff;font-size:1.7vh;font-family:font5;">
           SEARCH

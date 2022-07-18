@@ -16,12 +16,13 @@ const exiting = ref(false)
 
 const deactivate = () => {
   setTimeout(() => {
-    if (text2say.value === 'Input Await')
-      return
-    if (text2say.value === 'canceling')
-      return
+    if (text2say.value === 'Input Await' || text2say.value === 'canceling') {
+      uStore.ui.clearGrabber()
 
-    // console.log('grabberInput' + grabberInput.value)
+      exiting.value = false
+      text2say.value = 'Input Await'
+      return
+    }
 
     switch (uStore.grabberTriggerAction) {
       case 'AddChat': {
@@ -43,7 +44,7 @@ const deactivate = () => {
       }
 
       case 'mapPick': {
-        uStore.dntpService.listMatchMap(text2say.value)
+        uStore.dntpService.listMatchMap(text2say.value, uStore.lobbyDir)
         break
       }
 
