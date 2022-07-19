@@ -4,7 +4,7 @@ import { ref } from 'vue'
 import * as network from './network/network'
 import * as ui from './UI/ui'
 import * as dntpService from './mapAPI/dntpService'
-import { memory } from './electron-config/e-store'
+// import { memory } from './electron-config/e-store'
 
 export const useUserStore = defineStore('user', () => {
   const lobbyDir = ref('/tmp/')
@@ -43,6 +43,7 @@ export const useUserStore = defineStore('user', () => {
 
   // dntp service
   const searchMap = dntpService.searchMap
+  const ListMap = dntpService.ListMap
 
   return {
     ui,
@@ -80,10 +81,10 @@ export const useUserStore = defineStore('user', () => {
 
     dntpService,
     searchMap,
+    ListMap,
 
     lobbyDir,
 
-    memory,
   }
 })
 
