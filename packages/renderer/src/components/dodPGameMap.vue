@@ -10,19 +10,12 @@ export default {
   data() {
     return {
       mouseOn: 0,
-      mapSearchUrl: [],
       cachedImg: {},
       activeSetion: 'search',
     }
   },
   computed: {
     ...mapState(useUserStore, ['dntpService', 'lobbyDir', 'searchMap', 'memory']),
-    nativePathListSearch() {
-      for (const map in this.searchMap)
-        mapSearchUrl[map] = nativeImage.createFromPath(this.lobbyDir + this.searchMap[map].filename)
-
-      return mapSearchUrl
-    },
   },
   updated() {},
   methods: {
@@ -37,6 +30,14 @@ export default {
     },
     setPreviee(index) {
       this.mouseOn = index
+    },
+    setActivePanel(panel) {
+      activeSetion = panel
+      if (panel === 'list') {
+        dntpService.listBatchMap(0).then((ret) => {
+          dntpService.retrieveMapList(this.lobbyDir)
+        })
+      }
     },
   },
 }
@@ -89,11 +90,11 @@ export default {
         </div>
       </div>
       <div class="pickerTopBar" style="position:absolute;height:3%;width:100%;background:#2196f3;top:0%;">
-        <div class="mapSearch" style="position:absolute;height:100%;background:#34343487;width:11%;left:3%;filter:drop-shadow(11px 9px 6px #fff);">
+        <div class="mapSearch" style="position:absolute;height:100%;background:#34343487;width:11%;left:3%;filter:drop-shadow(11px 9px 6px #fff);" @click="setActivePanel('search')">
           <div style="position:absolute;width:100%;height:10%;background:#ffffff;"></div><div style="position:absolute;width:1%;height:80%;bottom:8%;right:-3%;background:#0000005c;font-size:1.7vh;font-family:font5;"></div><div style="position:absolute;width:100%;height:10%;bottom:72%;right:-39%;color:#ffffff;font-size:1.7vh;font-family:font5;">
             SEARCH
           </div>
-        </div><div class="mapList" style="position:absolute;height:100%;background:#bf000000;width:11%;left:14.4%;">
+        </div><div class="mapList" style="position:absolute;height:100%;background:#bf000000;width:11%;left:14.4%;" @click="setActivePanel('list')">
           <div style="position:absolute;width:100%;height:10%;"></div><div style="position:absolute;width:100%;height:10%;bottom:72%;right:-72%;color:#145b93;font-size:1.7vh;font-family:font5;font-weight:900;">
             LIST
           </div><div style="position:absolute;width:1%;height:80%;bottom:8%;right:-3%;background:#0000005c;font-size:1.7vh;font-family:font5;"></div>
@@ -102,8 +103,8 @@ export default {
     </div>
 
     <div v-if="activeSetion== 'list'" class="mapList">
-      <div v-if="searchMap.length>0" class="pickerMainBody" style="position: absolute; height: 95%; width: 73%; background: linear-gradient(to right, rgba(128, 128, 128, 0.09) 1px, transparent 1px) 0% 0% / 40px 40px, linear-gradient(rgba(128, 128, 128, 0.06) 1px, transparent 1px) rgba(255, 255, 255, 0.22); bottom: 0%; padding-left: 2vw; padding-top: 2vh;padding-right: 2.1vw;">
-        <div v-for="(map, mapNum) in searchMap" :key="mapNum" class="singleMapTag" style="position:relative;height:2.6vw;width:2vw;display:inline-block;margin:1vw;" @mouseenter="setPreviee(mapNum)">
+      <div v-if="dntpService.ListMap.length>0" class="pickerMainBody" style="position: absolute; height: 95%; width: 73%; background: linear-gradient(to right, rgba(128, 128, 128, 0.09) 1px, transparent 1px) 0% 0% / 40px 40px, linear-gradient(rgba(128, 128, 128, 0.06) 1px, transparent 1px) rgba(255, 255, 255, 0.22); bottom: 0%; padding-left: 2vw; padding-top: 2vh;padding-right: 2.1vw;">
+        <div v-for="(map, mapNum) in dntpService.ListMap" :key="mapNum" class="singleMapTag" style="position:relative;height:2.6vw;width:2vw;display:inline-block;margin:1vw;" @mouseenter="setPreviee(mapNum)">
           <img :src="imgPath(map.minimap_filename, 'list')" style="top:16%;left:13%;position:absolute;width:71%;height:71%;filter:grayscale(100%) contrast(250%);mix-blend-mode:screen;">
           <div style="position:absolute;color:white;font-weight:900;font-size: 1.3vw;bottom: -23%;right: -24%;font-family: font5;opacity: 0.4;">
             {{ mapNum }}
@@ -140,14 +141,16 @@ export default {
         </div>
       </div>
       <div class="pickerTopBar" style="position:absolute;height:3%;width:100%;background:#2196f3;top:0%;">
-        <div class="mapSearch" style="position:absolute;height:100%;background:#34343487;width:11%;left:3%;filter:drop-shadow(11px 9px 6px #fff);">
-          <div style="position:absolute;width:100%;height:10%;background:#ffffff;"></div><div style="position:absolute;width:1%;height:80%;bottom:8%;right:-3%;background:#0000005c;font-size:1.7vh;font-family:font5;"></div><div style="position:absolute;width:100%;height:10%;bottom:72%;right:-39%;color:#ffffff;font-size:1.7vh;font-family:font5;">
+        <div class="mapList" style="position:absolute;height:100%;background:#bf000000;width:11%;left:14.4%;" @click="setActivePanel('search')">
+          <div style="position:absolute;width:100%;height:10%;"></div><div style="position:absolute;width:100%;height:10%;bottom:72%;right:-72%;color:#145b93;font-size:1.7vh;font-family:font5;font-weight:900;">
             SEARCH
           </div>
-        </div><div class="mapList" style="position:absolute;height:100%;background:#bf000000;width:11%;left:14.4%;">
-          <div style="position:absolute;width:100%;height:10%;"></div><div style="position:absolute;width:100%;height:10%;bottom:72%;right:-72%;color:#145b93;font-size:1.7vh;font-family:font5;font-weight:900;">
+          <div style="position:absolute;width:1%;height:80%;bottom:8%;right:-3%;background:#0000005c;font-size:1.7vh;font-family:font5;"></div>
+        </div>
+        <div class="mapSearch" style="position:absolute;height:100%;background:#34343487;width:11%;left:3%;filter:drop-shadow(11px 9px 6px #fff);" @click="setActivePanel('list')">
+          <div style="position:absolute;width:100%;height:10%;background:#ffffff;"></div><div style="position:absolute;width:1%;height:80%;bottom:8%;right:-3%;background:#0000005c;font-size:1.7vh;font-family:font5;"></div><div style="position:absolute;width:100%;height:10%;bottom:72%;right:-39%;color:#ffffff;font-size:1.7vh;font-family:font5;">
             LIST
-          </div><div style="position:absolute;width:1%;height:80%;bottom:8%;right:-3%;background:#0000005c;font-size:1.7vh;font-family:font5;"></div>
+          </div>
         </div>
       </div>
     </div>
