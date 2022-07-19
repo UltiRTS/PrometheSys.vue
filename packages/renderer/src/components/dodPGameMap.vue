@@ -11,6 +11,7 @@ export default {
     return {
       mouseOn: 0,
       mapSearchUrl: [],
+      cachedImg: {},
     }
   },
   computed: {
@@ -25,11 +26,13 @@ export default {
   updated() {},
   methods: {
     imgPath(filename, who = 'deflt') {
-      const img = nativeImage.createFromPath(this.lobbyDir + filename)
-      console.log(who)
-      console.log(this.lobbyDir)
-      console.log(filename)
-      return img.toDataURL()
+      if (this.cachedImg[filename]) {
+        return this.cachedImg[filename]
+      }
+      else {
+        this.cachedImg[filename] = nativeImage.createFromPath(this.lobbyDir + filename).toDataURL()
+        return this.cachedImg[filename]
+      }
     },
     setPreviee(index) {
       this.mouseOn = index
