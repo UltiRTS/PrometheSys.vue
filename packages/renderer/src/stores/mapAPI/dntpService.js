@@ -5,12 +5,19 @@ const path = require('node:path')
 
 export const searchMap = ref([])
 
-export async function listMatchMap(input, dir) {
+export async function listMatchMap(input) {
   const ret = await lib.vague_search(input)
   console.log(ret)
+  return ret
+}
+
+export async function retrieveMap(ret, dir) {
+  fs.access(path.join(dir, '/mapPreview/'), () => {
+    fs.mkdirSync(path.join(dir, '/mapPreview/'))
+  })
 
   for (const mapItem of ret.maps) {
-    const imgPath = path.join(dir, mapItem.minimap_filename)
+    const imgPath = path.join(dir, '/mapPreview/', mapItem.minimap_filename)
 
     fs.access(imgPath, (err) => {
       if (err) {

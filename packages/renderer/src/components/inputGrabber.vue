@@ -44,7 +44,19 @@ const deactivate = () => {
       }
 
       case 'mapPick': {
-        uStore.dntpService.listMatchMap(text2say.value, uStore.lobbyDir)
+        uStore.dntpService.listMatchMap(text2say.value).then((ret) => {
+          uStore.dntpService.retrieveMap(ret, uStore.lobbyDir).then(() => {
+            if (uStore.memory.has('discoeredMaps')) {
+              const discoveredMaps: string[] = uStore.memory.get('discoeredMaps')
+
+              const finalMaps = discoveredMaps.concat(ret)
+              uStore.memory.set('discoeredMaps', finalMaps)
+            }
+            else {
+              uStore.memory.set('discoeredMaps', ret)
+            }
+          })
+        })
         break
       }
 
