@@ -27,8 +27,10 @@ export function rmLoading(id: string) {
   if (loadingQ.value.length === 0) {
     loadingClass.value = 'dying'
     setTimeout(() => {
+      if (loadingQ.value.length > 0)
+        return
       loadingClass.value = 'died'
-    }, 2000)
+    }, 400)
   }
 }
 
