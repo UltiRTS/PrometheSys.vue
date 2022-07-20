@@ -33,9 +33,8 @@ export async function retrieveMap(ret, dir) {
       searchMap.value.push(mapItem)
     }
     catch (error) {
-      await downloadMap(ret.prefix + mapItem.minimap_filename, savePath, mapItem.minimap_filename).then(() => {
-        searchMap.value.push(mapItem)
-      })
+      await downloadMap(ret.prefix + mapItem.minimap_filename, savePath, mapItem.minimap_filename)
+      searchMap.value.push(mapItem)
     }
   }
 }
@@ -65,9 +64,8 @@ export async function retrieveMapList(ret, dir) {
       ListMap.value.push(mapItem)
     }
     catch (error) {
-      await downloadMap(ret.prefix + mapItem.minimap_filename, savePath, mapItem.minimap_filename).then(() => {
-        ListMap.value.push(mapItem)
-      })
+      await downloadMap(ret.prefix + mapItem.minimap_filename, savePath, mapItem.minimap_filename)
+      ListMap.value.push(mapItem)
     }
   }
 }
