@@ -10,7 +10,7 @@ export default {
   data() {
     return {
       mouseOn: 0,
-      cachedImg: {},
+      /* cachedImg: {}, */
       activeSection: 'search',
       listPgNum: 0,
     }
@@ -28,17 +28,20 @@ export default {
       this.ui.activateGrabber()
     },
     imgPath(filename) {
-      console.log('img path:')
-      console.log(this.lobbyDir)
-      console.log(filename)
+      // console.log('img path:')
+      // console.log(this.lobbyDir)
 
+      /*
       if (this.cachedImg[filename]) {
         return this.cachedImg[filename]
       }
       else {
         this.cachedImg[filename] = nativeImage.createFromPath(path.join(this.lobbyDir, '/mapPreview/', filename)).toDataURL()
         return this.cachedImg[filename]
-      }
+      } */
+      const imgpath = `file://${path.join(this.lobbyDir, '/mapPreview/', filename)}`
+      console.log(imgpath)
+      return imgpath
     },
     setPreviee(index) {
       this.mouseOn = index
