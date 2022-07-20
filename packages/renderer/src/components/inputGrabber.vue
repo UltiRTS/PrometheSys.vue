@@ -44,8 +44,12 @@ const deactivate = () => {
       }
 
       case 'mapPick': {
+        uStore.ui.pushNewLoading('getSMap')
         uStore.dntpService.listMatchMap(text2say.value).then((ret) => {
-          uStore.dntpService.retrieveMap(ret, uStore.lobbyDir)
+          uStore.dntpService.retrieveMap(ret, uStore.lobbyDir).then(() => {
+            uStore.ui.rmLoading('getSMap')
+            uStore.ui.pushUINewNotif({ title: 'MAP', msg: 'SEARCH RESULT RETRIEVED', class: 'abc' })
+          })
         })
         break
       }
@@ -155,7 +159,7 @@ const enter = () => {
     background: #00000000;
   }
   100% {
-    backdrop-filter: blur(11px);
+    backdrop-filter: blur(5px);
     background: #0000004d;
   }
 }
@@ -169,7 +173,7 @@ const enter = () => {
 
 @keyframes bgExit {
   0% {
-    backdrop-filter: blur(11px);
+    backdrop-filter: blur(5px);
     background: #0000004d;
   }
   100% {

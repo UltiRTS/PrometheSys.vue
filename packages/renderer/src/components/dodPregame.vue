@@ -38,6 +38,10 @@ export default {
     pickMap() {
       this.ui.pushGrabberAction('mapPick')
       this.ui.activateGrabber()
+      // this.ui.setmodalMenuContent('dodPGameMap')
+      // this.ui.setactiveWindow('modal')
+      this.setmodalMenuContent('dodPGameMap')
+      this.setactiveWindow('modal')
     },
   },
 }

@@ -13,23 +13,28 @@ export async function listMatchMap(input) {
 }
 export async function retrieveMap(ret, dir) {
   searchMap.value = []
-  fs.access(path.join(dir, '/mapPreview/'), (err) => {
-    if (err)
-      fs.mkdirSync(path.join(dir, '/mapPreview/'))
 
-    for (const mapItem of ret.maps) {
-      const imgPath = path.join(dir, '/mapPreview/', mapItem.minimap_filename)
-      const savePath = path.join(dir, '/mapPreview/')
-      fs.access(imgPath, (err) => {
-        if (err) {
-          downloadMap(ret.prefix + mapItem.minimap_filename, savePath, mapItem.minimap_filename).then(() => {
-            searchMap.value.push(mapItem)
-          })
-        }
-        else { searchMap.value.push(mapItem) }
+  try {
+    await fs.promises.access(path.join(dir, '/mapPreview/'))
+    // The check succeeded
+  }
+  catch (error) {
+    fs.mkdirSync(path.join(dir, '/mapPreview/'))
+  }
+  for (const mapItem of ret.maps) {
+    const imgPath = path.join(dir, '/mapPreview/', mapItem.minimap_filename)
+    const savePath = path.join(dir, '/mapPreview/')
+
+    try {
+      await fs.promises.access(imgPath)
+      searchMap.value.push(mapItem)
+    }
+    catch (error) {
+      await downloadMap(ret.prefix + mapItem.minimap_filename, savePath, mapItem.minimap_filename).then(() => {
+        searchMap.value.push(mapItem)
       })
     }
-  })
+  }
 }
 
 export async function listBatchMap(index) {
@@ -40,23 +45,28 @@ export async function listBatchMap(index) {
 
 export async function retrieveMapList(ret, dir) {
   ListMap.value = []
-  fs.access(path.join(dir, '/mapPreview/'), (err) => {
-    if (err)
-      fs.mkdirSync(path.join(dir, '/mapPreview/'))
 
-    for (const mapItem of ret.maps) {
-      const imgPath = path.join(dir, '/mapPreview/', mapItem.minimap_filename)
-      const savePath = path.join(dir, '/mapPreview/')
-      fs.access(imgPath, (err) => {
-        if (err) {
-          downloadMap(ret.prefix + mapItem.minimap_filename, savePath, mapItem.minimap_filename).then(() => {
-            ListMap.value.push(mapItem)
-          })
-        }
-        else { ListMap.value.push(mapItem) }
+  try {
+    await fs.promises.access(path.join(dir, '/mapPreview/'))
+    // The check succeeded
+  }
+  catch (error) {
+    fs.mkdirSync(path.join(dir, '/mapPreview/'))
+  }
+  for (const mapItem of ret.maps) {
+    const imgPath = path.join(dir, '/mapPreview/', mapItem.minimap_filename)
+    const savePath = path.join(dir, '/mapPreview/')
+
+    try {
+      await fs.promises.access(imgPath)
+      ListMap.value.push(mapItem)
+    }
+    catch (error) {
+      await downloadMap(ret.prefix + mapItem.minimap_filename, savePath, mapItem.minimap_filename).then(() => {
+        ListMap.value.push(mapItem)
       })
     }
-  })
+  }
 }
 
 function downloadMap(dlUrl, dir, filename) {

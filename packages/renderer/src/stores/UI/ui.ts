@@ -6,6 +6,31 @@ export const mainMenuContent = ref('dod')
 export const modalMenuContent = ref('chat')
 export const grabberActivated = ref(false)
 export const notifs = ref<{ msg: string; title: string; class: string }[]>([])
+const loadingQ = ref<string [] >([])
+export const loadingClass = ref<string>('died')
+
+export function pushNewLoading(id: string) {
+  loadingClass.value = 'alive'
+  loadingQ.value.push(id)
+}
+
+export function rmLoading(id: string) {
+  function removeFirst(arr: string[], target: string) {
+    const idx = arr.indexOf(target)
+    if (idx > -1)
+      arr.splice(idx, 1)
+
+    return arr
+  }
+
+  loadingQ.value = removeFirst(loadingQ.value, id)
+  if (loadingQ.value.length === 0) {
+    loadingClass.value = 'dying'
+    setTimeout(() => {
+      loadingClass.value = 'died'
+    }, 2000)
+  }
+}
 
 export function pushUINewNotif(input: { title: string; msg: string; class: string }) {
   input.class = 'init'
