@@ -21,7 +21,7 @@ export default {
   updated() {},
   methods: {
     changeMap(id) {
-      this.network.setMap({ game: this.network.joinedGame.title, mapId: id })
+      this.network.setMap({ game: this.network.joinedGame.value.title, mapId: id })
     },
     pickMap() {
       this.ui.pushGrabberAction('mapPick')
