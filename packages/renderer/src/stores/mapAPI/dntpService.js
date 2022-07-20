@@ -21,6 +21,9 @@ export async function retrieveMap(ret, dir) {
   catch (error) {
     fs.mkdirSync(path.join(dir, '/mapPreview/'))
   }
+  if (ret.error)
+    return
+
   for (const mapItem of ret.maps) {
     const imgPath = path.join(dir, '/mapPreview/', mapItem.minimap_filename)
     const savePath = path.join(dir, '/mapPreview/')

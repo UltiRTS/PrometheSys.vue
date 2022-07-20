@@ -42,6 +42,7 @@ export async function getMap(id) {
 
 export async function vague_search(query) {
   try {
+    query = encodeURIComponent(query)
     const resp = await request.get(`/vague_search/${query}`)
     return resp.data
   }

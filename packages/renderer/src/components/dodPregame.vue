@@ -38,10 +38,8 @@ export default {
     pickMap() {
       this.ui.pushGrabberAction('mapPick')
       this.ui.activateGrabber()
-      // this.ui.setmodalMenuContent('dodPGameMap')
-      // this.ui.setactiveWindow('modal')
-      this.setmodalMenuContent('dodPGameMap')
-      this.setactiveWindow('modal')
+      this.ui.setmodalMenuContent('dodPGameMap')
+      this.ui.setactiveWindow('modal')
     },
   },
 }
@@ -133,7 +131,7 @@ export default {
       <div style="font-size:9vh;-webkit-text-stroke-width:0.2vh;-webkit-text-stroke-color:#54545499;font-family: 'font9';text-align:right;color:#ffffffd9;top: 11%;position:absolute;right:0;">
         Dr. Kaltist
       </div>
-      <div style="position:absolute;top: 27%;width:100%;background: #2196f3;font-family: 'font6';font-size:4vh;text-align:right;opacity: 0.8;" @click="pickMap">
+      <div style="position:absolute;top: 27%;width:100%;background: #2196f3;font-family: 'font6';font-size:4vh;text-align:right;opacity: 0.8;" @click.stop="pickMap">
         Comet Catcher Redux
       </div>
 
