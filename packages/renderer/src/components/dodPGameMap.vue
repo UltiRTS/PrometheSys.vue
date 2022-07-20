@@ -16,10 +16,17 @@ export default {
     }
   },
   computed: {
-    ...mapState(useUserStore, ['dntpService', 'lobbyDir', 'searchMap', 'ListMap']),
+    ...mapState(useUserStore, ['dntpService', 'lobbyDir', 'searchMap', 'ListMap', 'ui', 'network']),
   },
   updated() {},
   methods: {
+    changeMap(id) {
+      this.network.setMap({ game: this.network.joinedGame.title, mapId: id })
+    },
+    pickMap() {
+      this.ui.pushGrabberAction('mapPick')
+      this.ui.activateGrabber()
+    },
     imgPath(filename) {
       console.log('img path:')
       console.log(this.lobbyDir)
@@ -39,8 +46,12 @@ export default {
     setActivePanel(panel) {
       this.activeSection = panel
       if (panel === 'list') {
+        this.ui.pushNewLoading('getMap')
         this.dntpService.listBatchMap(this.listPgNum).then((ret) => {
-          this.dntpService.retrieveMapList(ret, this.lobbyDir)
+          this.dntpService.retrieveMapList(ret, this.lobbyDir).then(() => {
+            this.ui.rmLoading('getMap')
+            this.ui.pushUINewNotif({ title: 'MAP', msg: 'SEARCH RESULT RETRIEVED' })
+          })
         })
       }
     },
@@ -49,8 +60,12 @@ export default {
         this.listPgNum++
       else
         this.listPgNum--
+      this.ui.pushNewLoading('getMap')
       this.dntpService.listBatchMap(this.listPgNum).then((ret) => {
-        this.dntpService.retrieveMapList(ret, this.lobbyDir)
+        this.dntpService.retrieveMapList(ret, this.lobbyDir).then(() => {
+          this.ui.rmLoading('getMap')
+          this.ui.pushUINewNotif({ title: 'MAP', msg: 'LIST RETRIEVED' })
+        })
       })
     },
   },
@@ -68,7 +83,7 @@ export default {
     <div class="pickerTopBar" style="position:absolute;height:3%;width:100%;background:#2196f3;top:0%;">
       <div class="mapSearch" :class="{activeTopBar: activeSection== 'search'}" style="position:relative;display:inline-block;height:100%;padding-left:1vw;width:10vh;" @click="setActivePanel('search')">
         <div :class="{activeTopBarDecro: activeSection== 'search'}" style="position:absolute;width:10vh;height:10%;"></div>
-        <div :class="{activeTopBarText: activeSection== 'search'}" style="position:absolute;width:100%;height:10%;bottom:72%;right:-39%;font-size:1.7vh;font-family:font5;">
+        <div :class="{activeTopBarText: activeSection== 'search'}" style="position:absolute;width:100%;height:10%;bottom:72%;right:-39%;font-size:1.7vh;font-family:font5;" @click="pickMap">
           SEARCH
         </div>
       </div>
@@ -82,8 +97,8 @@ export default {
       <div style="position:relative;display:inline-block;width:0.15%;height:80%;bottom:8%;background:#0000005c;font-size:1.7vh;font-family:font5;margin-left:0.5vh;margin-right:0.5vh;"></div>
     </div>
     <div v-if="activeSection== 'search'" class="mapSearch">
-      <div v-if="searchMap.length>0" class="pickerMainBody" style="position: absolute; height: 95%; width: 73%; background: linear-gradient(to right, rgba(128, 128, 128, 0.09) 1px, transparent 1px) 0% 0% / 40px 40px, linear-gradient(rgba(128, 128, 128, 0.06) 1px, transparent 1px) rgba(255, 255, 255, 0.22); bottom: 0%; padding-left: 2vw; padding-top: 2vh;padding-right: 2.1vw;">
-        <div v-for="(map, mapNum) in searchMap" :key="mapNum" class="singleMapTag" style="position:relative;height:2.6vw;width:2vw;display:inline-block;margin:1vw;" @mouseenter="setPreviee(mapNum)">
+      <div v-if="searchMap.length>0" class="pickerMainBody" style="position: absolute; height: 95%; width: 73%; background: linear-gradient(to right, rgba(128, 128, 128, 0.09) 1px, transparent 1px) 0% 0% / 40px 40px, linear-gradient(rgba(128, 128, 128, 0.06) 1px, transparent 1px) rgba(255, 255, 255, 0.22); bottom: 0%; padding-left: 2vw; padding-top: 2vh;padding-right: 2.1vw;overflow:auto;">
+        <div v-for="(map, mapNum) in searchMap" :key="mapNum" class="singleMapTag" style="position:relative;height:2.6vw;width:2vw;display:inline-block;margin:1vw;" @mouseenter="setPreviee(mapNum)" @click="changeMap(map.id)">
           <img :src="imgPath(map.minimap_filename, 'list')" style="top:16%;left:13%;position:absolute;width:71%;height:71%;filter:grayscale(100%) contrast(250%);mix-blend-mode:screen;">
           <div style="position:absolute;color:white;font-weight:900;font-size: 1.3vw;bottom: -23%;right: -24%;font-family: font5;opacity: 0.4;">
             {{ mapNum }}
@@ -95,13 +110,14 @@ export default {
           <img src="imgs/blueprintswblue.png" style="position:absolute;top: 0%;height: 100%;filter: grayscale(100%) brightness(227%);left: -297%;">
         </div>
         <div v-if="searchMap.length>0" style="position:absolute;top:5%;height:20vw;width:100%;left:-22%;background:#585858;filter:drop-shadow(9px 10px 10px rgba(0,0,0,0.8));">
-          <img :src="imgPath(searchMap[mouseOn].minimap_filename)" style="position:absolute;top:10%;left:6%;width:82%;"><div style="position:absolute;height:7%;width:99%;top:64%;left:-1%;font-size:1vw;color:white;font-family:font1;text-align:right;">
+          <img v-if="searchMap[mouseOn]" :src="imgPath(searchMap[mouseOn].minimap_filename)" style="position:absolute;top:10%;left:6%;width:82%;"><div style="position:absolute;height:7%;width:99%;top:64%;left:-1%;font-size:1vw;color:white;font-family:font1;text-align:right;">
             DATABASE PRIMARY INDEX
           </div><div style="position:absolute;height:7%;width:80%;top:87%;right:12%;font-size:0.8vw;color:white;font-family:font5;">
             <i class="fa fa-exclamation-triangle" aria-hidden="true"></i><span style="margin-left:0.8vw;"> WATER</span>
           </div><div style="position:absolute;height:7%;width:80%;top:93%;right:12%;font-size:0.8vw;color:white;font-family:font5;">
             <i class="fa fa-exclamation-triangle" aria-hidden="true"></i><span style="margin-left:0.8vw;"> ASYMMETRICAL</span>
-          </div><div style="position:absolute;height:7%;width:99%;top:77%;left:6%;background:#9b9b9b;text-align:right;padding-top:1%;font-family:font5;color:white;padding-right:0.2vw;filter:drop-shadow(9px 10px 28px #9b9b9b);font-size:0.9vw;overflow:hidden;">
+          </div>
+          <div v-if="searchMap[mouseOn]" style="position:absolute;height:7%;width:99%;top:77%;left:6%;background:#9b9b9b;text-align:right;padding-top:1%;font-family:font5;color:white;padding-right:0.2vw;filter:drop-shadow(9px 10px 28px #9b9b9b);font-size:0.9vw;overflow:hidden;">
             {{ searchMap[mouseOn].map_name }}
           </div>
         </div>
@@ -122,8 +138,8 @@ export default {
     </div>
 
     <div v-if="activeSection== 'list'" class="mapList">
-      <div v-if="ListMap.length>0" class="pickerMainBody" style="position: absolute; height: 95%; width: 73%; background: linear-gradient(to right, rgba(128, 128, 128, 0.09) 1px, transparent 1px) 0% 0% / 40px 40px, linear-gradient(rgba(128, 128, 128, 0.06) 1px, transparent 1px) rgba(255, 255, 255, 0.22); bottom: 0%; padding-left: 2vw; padding-top: 2vh;padding-right: 2.1vw;">
-        <div v-for="(map, mapNum) in ListMap" :key="mapNum" class="singleMapTag" style="position:relative;height:2.6vw;width:2vw;display:inline-block;margin:1vw;" @mouseenter="setPreviee(mapNum)">
+      <div v-if="ListMap.length>0" class="pickerMainBody" style="position: absolute; height: 95%; width: 73%; background: linear-gradient(to right, rgba(128, 128, 128, 0.09) 1px, transparent 1px) 0% 0% / 40px 40px, linear-gradient(rgba(128, 128, 128, 0.06) 1px, transparent 1px) rgba(255, 255, 255, 0.22); bottom: 0%; padding-left: 2vw; padding-top: 2vh;padding-right: 2.1vw;overflow:auto;">
+        <div v-for="(map, mapNum) in ListMap" :key="mapNum" class="singleMapTag" style="position:relative;height:2.6vw;width:2vw;display:inline-block;margin:1vw;" @mouseenter="setPreviee(mapNum)" @click="changeMap(map.id)">
           <img :src="imgPath(map.minimap_filename, 'list')" style="top:16%;left:13%;position:absolute;width:71%;height:71%;filter:grayscale(100%) contrast(250%);mix-blend-mode:screen;">
           <div style="position:absolute;color:white;font-weight:900;font-size: 1.3vw;bottom: -23%;right: -24%;font-family: font5;opacity: 0.4;">
             {{ mapNum }}
@@ -135,13 +151,13 @@ export default {
           <img src="imgs/blueprintswblue.png" style="position:absolute;top: 0%;height: 100%;filter: grayscale(100%) brightness(227%);left: -297%;">
         </div>
         <div v-if="ListMap.length>0" style="position:absolute;top:5%;height:20vw;width:100%;left:-22%;background:#585858;filter:drop-shadow(9px 10px 10px rgba(0,0,0,0.8));">
-          <img :src="imgPath(ListMap[mouseOn].minimap_filename)" style="position:absolute;top:10%;left:6%;width:82%;"><div style="position:absolute;height:7%;width:99%;top:64%;left:-1%;font-size:1vw;color:white;font-family:font1;text-align:right;">
+          <img v-if="ListMap[mouseOn]" :src="imgPath(ListMap[mouseOn].minimap_filename)" style="position:absolute;top:10%;left:6%;width:82%;"><div style="position:absolute;height:7%;width:99%;top:64%;left:-1%;font-size:1vw;color:white;font-family:font1;text-align:right;">
             DATABASE PRIMARY INDEX
           </div><div style="position:absolute;height:7%;width:80%;top:87%;right:12%;font-size:0.8vw;color:white;font-family:font5;">
             <i class="fa fa-exclamation-triangle" aria-hidden="true"></i><span style="margin-left:0.8vw;"> WATER</span>
           </div><div style="position:absolute;height:7%;width:80%;top:93%;right:12%;font-size:0.8vw;color:white;font-family:font5;">
             <i class="fa fa-exclamation-triangle" aria-hidden="true"></i><span style="margin-left:0.8vw;"> ASYMMETRICAL</span>
-          </div><div style="position:absolute;height:7%;width:99%;top:77%;left:6%;background:#9b9b9b;text-align:right;padding-top:1%;font-family:font5;color:white;padding-right:0.2vw;filter:drop-shadow(9px 10px 28px #9b9b9b);font-size:0.9vw;overflow:hidden;">
+          </div><div v-if="ListMap[mouseOn]" style="position:absolute;height:7%;width:99%;top:77%;left:6%;background:#9b9b9b;text-align:right;padding-top:1%;font-family:font5;color:white;padding-right:0.2vw;filter:drop-shadow(9px 10px 28px #9b9b9b);font-size:0.9vw;overflow:hidden;">
             {{ ListMap[mouseOn].map_name }}
           </div>
         </div>

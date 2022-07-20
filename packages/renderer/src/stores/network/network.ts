@@ -76,6 +76,20 @@ export function leaveChat(params: {
   wsSendServer(tx)
 }
 
+export function setMap(params: { game: string
+  mapId: number
+}) {
+  const tx = {
+    action: 'SETMAP',
+    parameters: {
+      gameName: params.game,
+      mapId: params.mapId,
+    },
+    seq: randomInt(0, 10000000),
+  }
+  wsSendServer(tx)
+}
+
 export function sayChat(params: {
   chatName: string
   msg: string

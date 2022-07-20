@@ -87,12 +87,12 @@ export default {
         <dod v-if="mainMenuContent == 'dod' " />
         <dodPregame v-if="joinedGame && mainMenuContent == 'dodPregame'" />
       </div>
-      <div id="modalMenu" :style="{opacity:shouldIlightUpModal}" style="transform: rotateY(15.6deg) translateZ(10vw) translateX(-55vw); top: 5%;width: 56%; height: 84%; position: absolute; backdrop-filter: blur(9px);" @click="activateModal" @mouseover="mouseOn=&quot;modal&quot;" @mouseleave="mouseOn='default'">
-        <Chat v-if="false/*modalMenuContent == 'chat' */" :chat-log="chatLog" :joined-channels="joinedChannels" />
-        <dod-p-game-team v-if="false /*modalMenuContent == 'dod-p-game-team'*/" />
-        <dod-p-game-map v-if="true" />
+      <div id="modalMenu" :style="{opacity:shouldIlightUpModal}" style="transform: rotateY(15.6deg) translateZ(10vw) translateX(-55vw); top: 5%;width: 56%; height: 84%; position: absolute; backdrop-filter: blur(5px);" @click="activateModal" @mouseover="mouseOn=&quot;modal&quot;" @mouseleave="mouseOn='default'">
+        <Chat v-if="modalMenuContent == 'chat' " :chat-log="chatLog" :joined-channels="joinedChannels" />
+        <dod-p-game-team v-if="modalMenuContent == 'dod-p-game-team'" />
+        <dod-p-game-map v-if="modalMenuContent == 'dodPGameMap'" />
       </div>
-      <div id="rightHome" class="rightHome" :style="{opacity:shouldIlightUpMenu}" style="transform:rotateY(-15.6deg) translateZ(-147vw) translateX(209vw); width: 100%; height: 102%; position: absolute; backdrop-filter: blur(53px);top: -41%;" @click="activateMenu" @mouseover="mouseOn=&quot;menu&quot;" @mouseleave="mouseOn='default'">
+      <div id="rightHome" class="rightHome" :style="{opacity:shouldIlightUpMenu}" style="transform:rotateY(-15.6deg) translateZ(-147vw) translateX(209vw); width: 100%; height: 102%; position: absolute; backdrop-filter: blur(5px);top: -41%;" @click="activateMenu" @mouseover="mouseOn=&quot;menu&quot;" @mouseleave="mouseOn='default'">
         <img src="assets/horizontalSep1.png" style="position:absolute;top:-1%;height: 5px;width: 93%;opacity:0.3;">
         <div style="position:absolute;height: 6%;width: 93%;background: rgb(202 246 255 / 5%);top: 0%;padding:2%;">
           <i class="fa fa-wifi" aria-hidden="true" style="font-size: 2vw;color: #ffffff8c;" />
@@ -291,6 +291,7 @@ export default {
   <div id="visualOverlay">
     <InputGrabber :activated="grabberActivated" />
     <visNotif />
+    <visLoading />
   </div>
 </template>
 
