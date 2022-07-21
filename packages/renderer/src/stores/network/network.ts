@@ -1,14 +1,15 @@
 import { randomInt } from 'crypto'
 import { ref } from 'vue'
+import { pushNewLoading, pushUINewNotif, rmLoading } from '../UI/ui'
 import router from '../../router'
 import * as dntp from '../mapAPI/dntpService'
-
 import type { Game, GameBrief, Notification, StateMessage } from './interfaces'
 
 const ws = new WebSocket('ws://144.126.145.172:8081')
 const ws_open = ref<boolean>()
 let wdir: string
 let submittedMap: number
+const mapsBeingDownloaded: number[] = []
 export const userState = ref({ isLoggedIn: false })
 export const chatLog = ref([
   {
@@ -277,21 +278,35 @@ ws.onmessage = (ev) => {
     gameListing.value = msg.state.games
     joinedGame.value = msg.state.user.game
     username.value = msg.state.user.username
-    if (joinedGame.value) {
-      const mapBeingDownloaded = joinedGame.value.mapId
-      dntp.getMapActualFile(joinedGame.value.mapId, wdir).then(() => {
-        if (submittedMap !== mapBeingDownloaded) {
+    // const mapBeingDownloaded = joinedGame.value.mapId
+    if (!joinedGame.value)
+      return
+    const mapBeingDownloaded = joinedGame.value.mapId
+    if (mapsBeingDownloaded.includes(mapBeingDownloaded))
+      return
+
+    mapsBeingDownloaded.push(mapBeingDownloaded)
+
+    pushNewLoading('loadingMiniMap')
+    pushUINewNotif({ title: 'INTL', msg: 'Operation Intl Updated', class: 'aaa' })
+    dntp.getMiniMapfromID(mapBeingDownloaded, wdir).then((filename) => {
+      minimapFileName.value = filename
+      rmLoading('loadingMiniMap')
+      dntp.getMapActualFile(mapBeingDownloaded, wdir).then(() => {
+        const index = mapsBeingDownloaded.indexOf(mapBeingDownloaded)
+        if (index > -1) { // only splice array when item is found
+          mapsBeingDownloaded.splice(index, 1) // 2nd parameter means remove one item only
+        }
+
+        if (submittedMap !== mapBeingDownloaded) { // gota submit again if I havent submitted
           hasMap({
             mapId: mapBeingDownloaded,
           })
           submittedMap = mapBeingDownloaded
+          pushUINewNotif({ title: 'MAP', msg: 'New Map Retrieved', class: 'aaa' })
         }
       })
-
-      dntp.getMiniMapfromID(mapBeingDownloaded, wdir).then((filename) => {
-        minimapFileName.value = filename
-      })
-    }
+    })
   }
 }
 
