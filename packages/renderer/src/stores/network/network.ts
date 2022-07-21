@@ -253,7 +253,10 @@ ws.onmessage = (ev) => {
         chatName: 'global',
         password: '',
       })
-      router.push('postlogin')
+      setTimeout(() => {
+        router.push('postlogin')
+      }, 5000)
+
       userState.value.isLoggedIn = true
     }
 

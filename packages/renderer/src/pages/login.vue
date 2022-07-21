@@ -1,18 +1,16 @@
 <script lang="ts" setup>
 import { computed } from '@vue/reactivity'
-import { onBeforeUnmount, onUnmounted, onMounted, ref } from 'vue'
+import { onBeforeUnmount, onMounted, onUnmounted, ref } from 'vue'
 
 import { useUserStore } from '../stores'
 
 const uStore = useUserStore()
 const userState = computed(() => uStore.userState)
-
 const isActive = ref(true)
 
 onBeforeUnmount(() => {
   isActive.value = false
 })
-
 
 onUnmounted(() => {
   console.log('unmounted')
@@ -139,13 +137,13 @@ onMounted(() => {
 
     let alpha; let beta; let len
     let cosA; let sinA; let cosB; let sinB
-    const pos: {x: number, y: number, z: number} = {
+    const pos: { x: number; y: number; z: number } = {
       x: 0,
       y: 0,
-      z: 0
+      z: 0,
     }
 
-    let passedExisting; 
+    let passedExisting
     let passedBuffered
 
     while (links.length < connectionsNum && --attempt > 0) {
@@ -191,8 +189,8 @@ onMounted(() => {
     else {
       for (var i = 0; i < links.length; ++i) {
         const pos = links[i]
-        const connection =
-          new Connection(pos.x, pos.y, pos.z, this.size * opts.sizeMultiplier)
+        const connection
+          = new Connection(pos.x, pos.y, pos.z, this.size * opts.sizeMultiplier)
 
         this.links[i] = connection
         all.push(connection)
@@ -205,8 +203,8 @@ onMounted(() => {
   Connection.prototype.step = function () {
     this.setScreen()
     this.screen.color = (this.isEnd ? opts.endColor : opts.connectionColor)
-    .replace('light', `${300 + ((tick * this.glowSpeed) % 300)}` )
-    .replace('alp', `${4 + (1 - this.screen.z / mostDistant) * 0.8}`)
+      .replace('light', `${300 + ((tick * this.glowSpeed) % 300)}`)
+      .replace('alp', `${4 + (1 - this.screen.z / mostDistant) * 0.8}`)
 
     for (let i = 0; i < this.links.length; ++i) {
       ctx.moveTo(this.screen.x, this.screen.y)
@@ -216,8 +214,8 @@ onMounted(() => {
   Connection.rootStep = function () {
     this.setScreen()
     this.screen.color = opts.rootColor
-    .replace('light', `${30 + ((tick * this.glowSpeed) % 30)}`)
-    .replace('alp', `${(1 - this.screen.z / mostDistant) * 0.8}`)
+      .replace('light', `${30 + ((tick * this.glowSpeed) % 30)}`)
+      .replace('alp', `${(1 - this.screen.z / mostDistant) * 0.8}`)
 
     for (let i = 0; i < this.links.length; ++i) {
       ctx.moveTo(this.screen.x, this.screen.y)
@@ -261,8 +259,8 @@ onMounted(() => {
     this.screen.lastY = this.screen.y
     this.setScreen()
     this.screen.color = opts.dataColor
-    .replace('light', `${400 + ((tick * this.glowSpeed) % 500)}`)
-    .replace('alp', `${0.2 + (1 - this.screen.z / mostDistant) * 0.6}`)
+      .replace('light', `${400 + ((tick * this.glowSpeed) % 500)}`)
+      .replace('alp', `${0.2 + (1 - this.screen.z / mostDistant) * 0.6}`)
   }
   Data.prototype.draw = function () {
     if (this.ended)
@@ -409,24 +407,17 @@ function loginWrapper() {
 </script>
 
 <template>
-  <div style="display:none;">
-    <div>{{ userState }}</div>
-
-    <div>{{ username }}</div>
-    <div>{{ password }}</div>
-    <input v-model="username" type="text">
-    <input v-model="password" type="password">
-    <button @click="login({username, password})">
-      Login
-    </button>
-  </div>
-  <div style="position:absolute;width:100%;height:100%;top:0%;left:0%;background: #000;margin:0;" />
+  <div class="blackFadeIn" style="position:absolute;width:100%;height:100%;top:0%;left:0%;background: #000;margin:0;" />
   <div id="mainContent" class="mainContent" style=" position:absolute;height:100%;width:100%;overflow:hidden;margin:0;top:0%;left:0%">
     <div style="position:absolute;width:100%;height:100%;top:0%;left:0%;background: #95928a;" />
     <img src="/imgs/bg.png" style="position: absolute;width: 100%;height: 100%;left: 0%;top: 0%;filter: grayscale(100%) contrast(22%) brightness(99%);-webkit-mask-image: linear-gradient(rgb(80 80 80 / 0%), rgb(0, 0, 0));">
     <canvas id="c" ref="canvas" style="position: absolute;top: 0;left: 0;opacity: .2;pointer-events: none;" />
     <div id="stupidCanvas" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events: none;">
       <PBubbles :active="isActive" />
+    </div>
+    <div v-if="yijingqichuang" id="spotlight" style="position: absolute; height: 100%; width: 100%; top: 0%; left: 0%;">
+      <div class="leftSpotLight" style="position: absolute; width: 50%; height: 164%;  left: 0%;top: -60%;"></div>
+      <div class="rightSpotLight" style="position: absolute; width: 50%; height: 164%;right: 0%;top: -60%;"></div>
     </div>
     <div id="cover" :class="{cover:yijingqichuang}" style="width: 43%; height: 20%; top: 33%; left: 27%; position: absolute;">
       <img src="/imgs/thea_frame.png" style="position: absolute;width: 11vw;filter: drop-shadow(8px 20px 16px #000);">
@@ -467,7 +458,7 @@ function loginWrapper() {
           </div>
           <div id="underlinePRTS" class="" style="background:white;position:absolute;width:100%;height:2px;top:90%;" />
         </div>
-        <div id="logininput" class="logininput" style="position:absolute;height:5.5vw;top:45%;filter: drop-shadow(10px 10px 2px rgba(255,255,255,0.5));left:45%;background:rgb(177 170 160 / 78%);width:20%;overflow:hidden;">
+        <div id="logininput" :class="{logininput:!userState.isLoggedIn,logininputOut:userState.isLoggedIn}" style="position:absolute;height:5.5vw;top:45%;filter: drop-shadow(10px 10px 2px rgba(255,255,255,0.5));left:45%;background:rgb(177 170 160 / 78%);width:20%;overflow:hidden;">
           <img src="/imgs/thea.png" style="position:absolute;width: 48%;top: 31%;right: 1%;filter: invert(0.1);opacity:0.1">
           <p style="cursor: default;top:1.2vw;position:absolute;left:1.2vw;font-size:1.5vw;background-color:black;color:white;margin:0;padding:0;filter: drop-shadow(4px 5px 2px rgba(0,0,0,0.5));">
             Dr.&nbsp;
@@ -499,32 +490,29 @@ function loginWrapper() {
           </div>
         </div>
 
-        <div
-          id="welcomeMsg"
-          style="position:absolute;left:48%;height:6vw;top:45%;color:white;width:100%;overflow:hidden;display:none; " class="welcomeMsg"
-        >
-          <div id="welcomeHeading" class="" style="font-size:6vw;display:none;top:-2vw;">
+        <div v-if="userState.isLoggedIn" id="welcomeMsg" style="position:absolute;left:48%;height:6vw;top:45%;color:white;width:100%;overflow:hidden; " class="welcomeMsg">
+          <div id="welcomeHeading" class="welcomeHeading" style="font-size:6vw;top:-2vw;">
             歓迎
           </div>
 
-          <div id="welcomeUser" class="" style="font-size:3vw;position:absolute;display:none;">
-            <span style="font-size:3vw;font-weight:900;opacity:0.4">Dr. &nbsp;</span>
+          <div id="welcomeUser" class="welcomeUser" style="font-size:3vw;position:absolute;">
+            <span style="font-size:3vw;font-weight:900;opacity:0.4">Dr.&nbsp;{{ username }}</span>
           </div>
 
-          <div id="welcomeSubline1" style="font-size:0.5vw;position: absolute; top: 3vw;display:none;">
+          <div id="welcomeSubline1" class="welcomeSubline1" style="font-size:0.5vw;position: absolute; top: 3vw;">
             UDEV/URANDOM System Entropy: 100%
           </div>
-          <div id="welcomeSubline2" style="font-size:0.5vw;position: absolute; top: 3.5vw;display:none;">
+          <div id="welcomeSubline2" class="welcomeSubline2" style="font-size:0.5vw;position: absolute; top: 3.5vw;">
             INIT.RC Neural Connectivity: 100%
           </div>
-          <div id="welcomeSubline3" style="font-size:0.5vw;position: absolute; top: 4vw;display:none;">
+          <div id="welcomeSubline3" class="welcomeSubline3" style="font-size:0.5vw;position: absolute; top: 4vw;">
             PAM
             Authenticating
           </div>
-          <div id="welcomeSubline4" style="font-size:0.5vw;position: absolute; top: 4.5vw;display:none;">
+          <div id="welcomeSubline4" class="welcomeSubline4" style="font-size:0.5vw;position: absolute; top: 4.5vw;">
             Authority: 42
           </div>
-          <div id="welcomeSubline5" style="font-size:0.5vw;position: absolute; top: 5vw;display:none;">
+          <div id="welcomeSubline5" class="welcomeSubline5" style="font-size:0.5vw;position: absolute; top: 5vw;">
             Neural
             UART Logging In
           </div>
@@ -538,6 +526,167 @@ function loginWrapper() {
 </template>
 
 <style scoped>
+.logininputOut{
+	background-color: white;
+opacity:0;
+	mix-blend-mode: screen;
+overflow:hidden;
+	top:-2vw;
+color:white;
+	animation-fill-mode: forwards;
+	animation-name: logininputGoneAnime;
+	animation-duration: 0.7s;
+	animation-iteration-count: 1;
+	animation-delay:0s;
+	animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
+	width:22vw;left:45%;opacity:1;
+}
+
+@keyframes logininputGoneAnime {
+
+	0%   {width:22vw;left:45%;opacity:1;}
+
+	100%   {width:0.1vw;left:45%;opacity:1;}
+}
+
+.welcomeSubline1{
+  opacity:0;
+  font-family:font5;
+  animation-fill-mode: forwards;
+  animation-name: welcomeSubline;
+  animation-duration: 0.3s;
+  animation-iteration-count: 1;
+  animation-delay:4.0s;
+}
+.welcomeSubline2
+{
+  opacity:0;
+  font-family:font5;
+  animation-fill-mode: forwards;
+  animation-name: welcomeSubline;
+  animation-duration: 0.3s;
+  animation-iteration-count: 1;
+  animation-delay:4.1s;}
+.welcomeSubline3
+{opacity:0;
+font-family:font5;
+  animation-fill-mode: forwards;
+  animation-name: welcomeSubline;
+  animation-duration: 0.3s;
+  animation-iteration-count: 1;
+  animation-delay:4.3s;}
+.welcomeSubline4
+{opacity:0;
+font-family:font5;
+  animation-fill-mode: forwards;
+  animation-name: welcomeSubline;
+  animation-duration: 0.3s;
+  animation-iteration-count: 1;
+  animation-delay:4.4s;}
+.welcomeSubline5
+{
+  opacity:0;
+  font-family:font5;
+    animation-fill-mode: forwards;
+  animation-name: welcomeSubline;
+  animation-duration: 0.3s;
+  animation-iteration-count: 1;
+  animation-delay:4.6s;}
+  @keyframes welcomeSubline {
+  0%   {opacity:1;}
+  20%   {opacity:1;}
+  21%   {opacity:0;}
+  40%   {opacity:0;}
+  41%   {opacity:1;}
+  60%   {opacity:1;}
+  61%   {opacity:0;}
+  80%   {opacity:0;}
+  81%   {opacity:1;}
+  100%   {opacity:1;}
+}
+
+.welcomeHeading{
+  left:0%;
+  opacity:0;
+  position:absolute;
+  color:white;
+  animation-fill-mode: forwards;
+  animation-name: welcomeHeading;
+  animation-duration: 2.5s;
+  animation-iteration-count: 1;
+  animation-delay:0.8s;
+  animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
+
+}
+
+@keyframes welcomeHeading {
+  0%   {left:10%;opacity:0;}
+  30%   {left:0%;opacity:0.4;}
+  60%   {left:0%;opacity:0.4;}
+  100%   {left:-20%;opacity:0;}
+}
+
+.welcomeUser{
+  top:7vw;
+  opacity:0;
+  position:absolute;
+  color:white;
+  animation-fill-mode: forwards;
+  animation-name: welcomeUserAnime;
+  animation-duration: 0.3s;
+  animation-iteration-count: 1;
+  animation-delay:3.3s;
+  animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
+
+}
+
+@keyframes welcomeUserAnime {
+  0%   {top:7vw;opacity:0;}
+  100%   {top:0vw;opacity:1;}
+}
+
+.leftSpotLight{
+   opacity:0;
+  animation-fill-mode: forwards;
+  animation-name: leftSpotLight;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-delay:0s;
+    /*animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);*/
+}
+
+@keyframes leftSpotLight {
+0% {
+    opacity: 0;
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0), rgb(0, 0, 0), black);
+}
+100% {
+  opacity: 1;
+  background-image: linear-gradient(305deg, rgba(0, 0, 0, 0), rgb(0, 0, 0), black);
+}
+}
+
+.rightSpotLight{
+   opacity:0;
+  animation-fill-mode: forwards;
+  animation-name: rightSpotLight;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-delay:0s;
+    /*animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);*/
+}
+
+@keyframes rightSpotLight {
+0% {
+    opacity: 0;
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0), rgb(0, 0, 0), black);
+}
+100% {
+  opacity: 1;
+  background-image: linear-gradient(55deg, rgba(0, 0, 0, 0), rgb(0, 0, 0), black);
+}
+}
+
 @keyframes mainContent {
 0% {
     opacity: 0;
@@ -551,33 +700,33 @@ function loginWrapper() {
 }
 }
 .logininput{
-	background-color: white;
-opacity:0;
-	mix-blend-mode: screen;
+    background-color: white;
+  opacity:0;
+    mix-blend-mode: screen;
   overflow:hidden;
   top:-2vw;
   color:white;
   animation-fill-mode: forwards;
   animation-name: logininputAnime;
-	animation-duration: 1.5s;
-	animation-iteration-count: 1;
-	animation-delay:2.5s;
-	animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
-	width:1vw;
+    animation-duration: 1.5s;
+    animation-iteration-count: 1;
+    animation-delay:2.5s;
+    animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
+    width:1vw;
 }
 
 @keyframes logininputAnime {
-	0%   {left:80%;width:0.2vw;opacity:0;}
-	30% {opacity:0;}
-	50% {left:45%;width:0.2vw;opacity:1;}
-	51% {left:45%;width:0.2vw;opacity:0;}
-	60% {left:45%;width:0.2vw;opacity:0;}
-	61% {left:45%;width:0.2vw;opacity:1;}
-	70% {left:45%;width:0.2vw;opacity:1;}
-	71% {left:45%;width:0.2vw;opacity:0;}
-	80% {left:45%;width:0.2vw;opacity:0;}
-	81% {left:45%;width:0.2vw;opacity:1;}
-	100%   {width:22vw;left:45%;opacity:1;}
+    0%   {left:80%;width:0.2vw;opacity:0;}
+    30% {opacity:0;}
+    50% {left:45%;width:0.2vw;opacity:1;}
+    51% {left:45%;width:0.2vw;opacity:0;}
+    60% {left:45%;width:0.2vw;opacity:0;}
+    61% {left:45%;width:0.2vw;opacity:1;}
+    70% {left:45%;width:0.2vw;opacity:1;}
+    71% {left:45%;width:0.2vw;opacity:0;}
+    80% {left:45%;width:0.2vw;opacity:0;}
+    81% {left:45%;width:0.2vw;opacity:1;}
+    100%   {width:22vw;left:45%;opacity:1;}
 }
 /* The element to apply the animation to */
 .mainContent {
@@ -738,42 +887,42 @@ opacity:0;
  }
 
 .edgy-link {
-	 position: relative;
+     position: relative;
 }
  .edgy-link span {
   position: relative;
   z-index: 999;
 }
 .edgy-link::after {
-	 content: "";
-	 position: absolute;
-	 width: 0;
-	 height: 100%;
-	 background: rgba(255, 255, 255, .5);
-	 top: 0;
-	 left: 0;
-	 transition: all 0.55s ease;
+     content: "";
+     position: absolute;
+     width: 0;
+     height: 100%;
+     background: rgba(255, 255, 255, .5);
+     top: 0;
+     left: 0;
+     transition: all 0.55s ease;
 }
  .edgy-link::before {
-	 content: "";
-	 position: absolute;
-	 width: 0;
-	 height: 100%;
-	 background: rgba(255, 255, 255, 1);
-	 top: 0;
-	 left: 0;
-	 transition: all 0.35s ease;
+     content: "";
+     position: absolute;
+     width: 0;
+     height: 100%;
+     background: rgba(255, 255, 255, 1);
+     top: 0;
+     left: 0;
+     transition: all 0.35s ease;
 }
  .edgy-link:hover span {
-	 color: #001d3c;
+     color: #001d3c;
 }
  .edgy-link:hover::after {
-	 width: 100%;
-	 transition: all 0.35s ease;
+     width: 100%;
+     transition: all 0.35s ease;
 }
  .edgy-link:hover::before {
-	 width: 100%;
-	 transition: all 0.55s ease;
+     width: 100%;
+     transition: all 0.55s ease;
 }
 
  .button-block {
