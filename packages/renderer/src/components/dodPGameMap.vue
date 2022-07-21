@@ -170,7 +170,7 @@ export default {
           </div>
           <div v-if="listPgNum-1>=0" style="position:absolute;font-family:font1;color:#ffffff59;top:2%;right:3%;font-size:2.1vw;" @click="listMapNextPage(false)">
             {{ listPgNum-1 }}
-          </div><div style="position:absolute;font-weight:900;font-size:9vw;font-family:font9;color:white;top:-23%;right:13%;">
+          </div><div style="position:absolute;font-weight:900;font-size:8vw;font-family:font9;color:white;top:-17%;right:20%;">
             {{ listPgNum }}
           </div>
           <div style="position:absolute;font-family:font1;color:white;top:13%;right:3%;font-size:2.1vw;&quot;" @click="listMapNextPage(true)">

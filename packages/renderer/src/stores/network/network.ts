@@ -1,11 +1,14 @@
 import { randomInt } from 'crypto'
 import { ref } from 'vue'
 import router from '../../router'
+import * as dntp from '../mapAPI/dntpService'
 
 import type { Game, GameBrief, Notification, StateMessage } from './interfaces'
 
 const ws = new WebSocket('ws://144.126.145.172:8081')
 const ws_open = ref<boolean>()
+let wdir: string
+let submittedMap: number
 export const userState = ref({ isLoggedIn: false })
 export const chatLog = ref([
   {
@@ -200,12 +203,12 @@ export function specPlayer(params: {
 }
 
 export function hasMap(params: {
-  gameName: string
+  mapId: number
 }) {
   const tx = {
     action: 'HASMAP',
     parameters: {
-      gameName: params.gameName,
+      mapId: params.mapId,
     },
     seq: randomInt(0, 1000000),
   }
@@ -226,6 +229,10 @@ export function wsSendServer(tx: {
   ws.send(JSON.stringify(tx))
 }
 
+export function setWDir(input: string) {
+  wdir = input
+}
+
 ws.onmessage = (ev) => {
   let msg: StateMessage | Notification = JSON.parse(ev.data)
   console.log({ msg })
@@ -237,6 +244,8 @@ ws.onmessage = (ev) => {
   }
   else {
     msg = msg as StateMessage
+
+    // login section
     if (userState.value.isLoggedIn === false) {
       joinChat({
         chatName: 'global',
@@ -246,6 +255,7 @@ ws.onmessage = (ev) => {
       userState.value.isLoggedIn = true
     }
 
+    // chat section
     const tmpChannels = Object.keys(msg.state.user.chatRooms)
     joinedChannels.value = tmpChannels // composes joined channel
 
@@ -261,13 +271,22 @@ ws.onmessage = (ev) => {
 
         while (chatLog.value.length > 100) chatLog.value.shift()
       }
-    } // composes chat msg
+    }
 
-    // console.log(chatLog.value)
-    // console.log(joinedChannels.value)
     gameListing.value = msg.state.games
     joinedGame.value = msg.state.user.game
     username.value = msg.state.user.username
+    if (joinedGame.value) {
+      const mapBeingDownloaded = joinedGame.value.mapId
+      dntp.getMapActualFile(joinedGame.value.mapId, wdir).then(() => {
+        if (submittedMap !== mapBeingDownloaded) {
+          hasMap({
+            mapId: mapBeingDownloaded,
+          })
+          submittedMap = mapBeingDownloaded
+        }
+      })
+    }
   }
 }
 
