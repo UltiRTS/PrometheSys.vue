@@ -3,14 +3,19 @@ import * as lib from './maplib.js'
 const fs = require('fs')
 const path = require('node:path')
 
+const md5File = require('md5-file')
+
+/* Async usage */
+
 export const searchMap = ref([])
 export const ListMap = ref([])
-
+// this returns batch for searching
 export async function listMatchMap(input) {
   const ret = await lib.vague_search(input)
-  console.log(ret)
+  // console.log(ret)
   return ret
 }
+// this downloads maps for searching
 export async function retrieveMap(ret, dir) {
   searchMap.value = []
 
@@ -38,13 +43,13 @@ export async function retrieveMap(ret, dir) {
     }
   }
 }
-
+// this returns batch for listing
 export async function listBatchMap(index) {
   const ret = await lib.getMapListByBatch(index)
-  console.log(ret)
+  // console.log(ret)
   return ret
 }
-
+// this downloads maps for listing
 export async function retrieveMapList(ret, dir) {
   ListMap.value = []
 
@@ -69,9 +74,10 @@ export async function retrieveMapList(ret, dir) {
     }
   }
 }
-
+// downloads the map file
 export async function getMapActualFile(id, dir) {
   const mapsPath = path.join(dir, '/springwritable/maps')
+  let mapHash = ''
   let redlNeeded = false
   try {
     await fs.promises.access(mapsPath)
@@ -91,9 +97,38 @@ export async function getMapActualFile(id, dir) {
   }
   if (!ret.map.map_filename)
     return
-
+  if (!redlNeeded) {
+    mapHash = await md5File(path.join(mapsPath, ret.map.map_filename))
+    if (mapHash !== ret.map.map_hash)
+      redlNeeded = true
+  }
   if (ret.success && redlNeeded)
     await downloadMap(ret.prefix + ret.map.map_filename, mapsPath, ret.map.map_filename)
+}
+
+export async function getMiniMapfromID(id, lobbyDir) {
+  const ret = await lib.getMap(id)
+  console.log(ret)
+  if (!ret.map)
+    return
+  const minimapfilename = ret.map.minimap_filename
+  const dlUrl = ret.prefix + minimapfilename
+  const dir = path.join(lobbyDir, 'mapPreview')
+  try {
+    await fs.promises.access(path.join(lobbyDir, '/mapPreview/'))
+    // The check succeeded
+  }
+  catch (error) {
+    fs.mkdirSync(path.join(lobbyDir, '/mapPreview/'))
+  }
+  try {
+    await fs.promises.access(path.join(dir, 'minimapfilename'))
+  }
+  catch (error) {
+    await downloadMap(dlUrl, dir, minimapfilename)
+  }
+  console.log(minimapfilename)
+  return minimapfilename
 }
 
 function downloadMap(dlUrl, dir, filename) {
@@ -101,8 +136,8 @@ function downloadMap(dlUrl, dir, filename) {
     const { startDownload } = require('su-downloader3')
 
     const url = dlUrl
-    console.log(dir)
-    console.log(filename)
+    // console.log(dir)
+    // console.log(filename)
     const savePath = path.join(dir, filename)
     const locations = { url, savePath }
     const options = {
@@ -111,7 +146,7 @@ function downloadMap(dlUrl, dir, filename) {
     }
 
     startDownload(locations, options).subscribe({
-      next: progressInfo => console.log(progressInfo),
+      // next: progressInfo => console.log(progressInfo),
       error: e => reject(new Error(e)),
       complete: () => resolve('downloaded'),
     })

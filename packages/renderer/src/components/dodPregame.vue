@@ -1,4 +1,6 @@
 <script>
+import * as path from 'path'
+
 import { mapActions, mapState } from 'pinia'
 import { useUserStore } from '../stores'
 
@@ -12,12 +14,20 @@ export default {
     }
   },
   computed: {
-    ...mapState(useUserStore, ['mainMenuContent', 'modelMenuContent', 'ui']),
+    ...mapState(useUserStore, ['mainMenuContent', 'modelMenuContent', 'ui', 'network', 'lobbyDir']),
     pieSize() {
       return {
         width: this.$refs.dodPie.clientWidth,
         height: this.$refs.dodPie.clientHeight,
       }
+    },
+    minimapBlowUp() {
+      console.log(this.network.minimapFileName.value)
+      if (this.network.minimapFileName.value === '' || !this.network.minimapFileName.value)
+        return 'imgs/minimapSample.png'
+      console.log(`file://${path.join(this.lobbyDir, '/mapPreview/', this.network.minimapFileName.value)}`)
+      filePath = `file://${path.join(this.lobbyDir, '/mapPreview/', this.network.minimapFileName.value)}`
+      return filePath
     },
   },
 
@@ -51,7 +61,7 @@ export default {
       <img src="imgs/blueprintswblue.png" style="position:absolute;width:100%;height:100%;filter:grayscale(100%) invert(80%);opacity:0.1;"><div class="grid" style="background-size:15vh 15vh;background-image:linear-gradient(to right, grey 1px, transparent 1px),linear-gradient(to bottom, grey 1px, transparent 1px);position:absolute;width:100%;height:100%;opacity:0.5;"></div><div class="grid" style="background-size:14vh 7vh;background-image:radial-gradient(circle, #ffffff6e 1px, rgba(0, 0, 0, 0) 1px);position:absolute;width:100%;height:100%;top:7%;left:1%;"></div><div class="grid" style="background-size:7vh 7vh;background-image:radial-gradient(circle, #00000036 1px, rgba(0, 0, 0, 0) 1px);position:absolute;width:150%;height:100%;"></div>
     </div>
     <div class="dodCenterInfoPanel" style="position: absolute; bottom: 18%;  width: 100vw; left: 39vw; top: 0%;filter: grayscale(100%);mix-blend-mode:screen;">
-      <img src="imgs/minimapSample.png" style="-webkit-mask-image: linear-gradient(90deg, #0000ff00, green 9%, green 91%, #ff000000);width:100%;">
+      <img :src="minimapBlowUp" style="-webkit-mask-image: linear-gradient(90deg, #0000ff00, green 9%, green 91%, #ff000000);width:100%;">
     </div>
     <div class="dodBtmInfoPanel" style="position: absolute; bottom: 7%; height: 15vw; width: 87%; left: 13vw; background: rgba(255, 255, 255, 0.65); transform: rotateX(0.3deg);">
       <div class="dodBtmInfoPanelDecro" style="position:absolute;bottom:9%;height:25vh;width:0.25%;left:-0.25%;background:#2196f3;"></div><div class="dodBtmInfoPanelDecro" style="position:absolute;bottom:9%;height:25vh;width:0.25%;left:100%;background:#2196f3;"></div><div class="vote" style="position:absolute;bottom:9%;height:25vh;width:20.2vw;left:0.8vw;overflow:hidden;color:#000000a8;font-family:'font4';">

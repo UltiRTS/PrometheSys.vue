@@ -22,6 +22,7 @@ export const joinedChannels = ref<string[]>()
 export const gameListing = ref<GameBrief[]>()
 export const joinedGame = ref<Game | null>()
 export const username = ref('')
+export const minimapFileName = ref('')
 
 export function login(params: {
   username: string
@@ -285,6 +286,10 @@ ws.onmessage = (ev) => {
           })
           submittedMap = mapBeingDownloaded
         }
+      })
+
+      dntp.getMiniMapfromID(mapBeingDownloaded, wdir).then((filename) => {
+        minimapFileName.value = filename
       })
     }
   }

@@ -40,7 +40,7 @@ export default {
         return this.cachedImg[filename]
       } */
       const imgpath = `file://${path.join(this.lobbyDir, '/mapPreview/', filename)}`
-      console.log(imgpath)
+      // console.log(imgpath)
       return imgpath
     },
     setPreviee(index) {
