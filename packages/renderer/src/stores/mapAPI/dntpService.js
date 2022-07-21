@@ -70,12 +70,39 @@ export async function retrieveMapList(ret, dir) {
   }
 }
 
+export async function getMapActualFile(id, dir) {
+  const mapsPath = path.join(dir, '/springwritable/maps')
+  let redlNeeded = false
+  try {
+    await fs.promises.access(mapsPath)
+    // The check succeeded
+  }
+  catch (error) {
+    await fs.promises.mkdir(mapsPath, { recursive: true })
+  }
+  const ret = await lib.getMap(id)
+
+  try {
+    await fs.promises.access(path.join(mapsPath, ret.map.map_filename))
+    // The check succeeded
+  }
+  catch (error) {
+    redlNeeded = true
+  }
+  if (!ret.map.map_filename)
+    return
+
+  if (ret.success && redlNeeded)
+    await downloadMap(ret.prefix + ret.map.map_filename, mapsPath, ret.map.map_filename)
+}
+
 function downloadMap(dlUrl, dir, filename) {
   return new Promise((resolve, reject) => {
-    const path = require('path')
     const { startDownload } = require('su-downloader3')
 
     const url = dlUrl
+    console.log(dir)
+    console.log(filename)
     const savePath = path.join(dir, filename)
     const locations = { url, savePath }
     const options = {
@@ -90,3 +117,4 @@ function downloadMap(dlUrl, dir, filename) {
     })
   })
 }
+

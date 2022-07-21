@@ -4,10 +4,8 @@ import { ref } from 'vue'
 import * as network from './network/network'
 import * as ui from './UI/ui'
 import * as dntpService from './mapAPI/dntpService'
-// import { memory } from './electron-config/e-store'
-
 export const useUserStore = defineStore('user', () => {
-  const lobbyDir = ref('/tmp/')
+  const lobbyDir = ref('/tmp')
   // UI related var
   const grabberTriggerAction = ui.grabberTriggerAction
   const grabberActivated = ui.grabberActivated
@@ -34,6 +32,7 @@ export const useUserStore = defineStore('user', () => {
   const specPlayer = network.specPlayer
   const joinGame = network.joinGame
   const delAIorChicken = network.delAIorChicken
+  network.setWDir(lobbyDir.value)
   const userState = network.userState
   const chatLog = network.chatLog
   const joinedChannels = network.joinedChannels
