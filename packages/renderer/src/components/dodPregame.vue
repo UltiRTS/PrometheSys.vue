@@ -26,7 +26,7 @@ export default {
       if (this.network.minimapFileName.value === '' || !this.network.minimapFileName.value)
         return 'imgs/minimapSample.png'
       console.log(`file://${path.join(this.lobbyDir, '/mapPreview/', this.network.minimapFileName.value)}`)
-      filePath = `file://${path.join(this.lobbyDir, '/mapPreview/', this.network.minimapFileName.value)}`
+      const filePath = `file://${path.join(this.lobbyDir, '/mapPreview/', this.network.minimapFileName.value)}`
       return filePath
     },
   },
