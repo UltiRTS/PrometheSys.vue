@@ -15,6 +15,7 @@ specifiers:
   electron-builder: ^23.0.3
   electron-store: ^8.0.1
   eslint: ^8.14.0
+  md5-file: ^5.0.0
   p5: ^1.4.1
   pinia: ^2.0.13
   pnpm: ^6.32.19
@@ -37,6 +38,7 @@ dependencies:
   axios: 0.27.2
   crypto: 1.0.1
   electron-store: 8.0.1
+  md5-file: 5.0.0
   su-downloader3: 1.1.1
   two: 1.0.1
   two.js: 0.8.9
@@ -3765,7 +3767,7 @@ packages:
     dev: true
 
   /core-util-is/1.0.2:
-    resolution: {integrity: sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=}
+    resolution: {integrity: sha512-3lqz5YjWTYnW6dlDa5TLaTCcShfar1e40rmcJVwCBJC6mWlFuj0eCHIElmG1g5kyuJ/GD+8Wn4FFCcz4gJPfaQ==}
     requiresBuild: true
 
   /core-util-is/1.0.3:
@@ -7047,6 +7049,12 @@ packages:
       escape-string-regexp: 4.0.0
     dev: true
     optional: true
+
+  /md5-file/5.0.0:
+    resolution: {integrity: sha512-xbEFXCYVWrSx/gEKS1VPlg84h/4L20znVIulKw6kMfmBUAZNAnF00eczz9ICMl+/hjQGo5KSXRxbL/47X3rmMw==}
+    engines: {node: '>=10.13.0'}
+    hasBin: true
+    dev: false
 
   /mdast-util-from-markdown/0.8.5:
     resolution: {integrity: sha512-2hkTXtYYnr+NubD/g6KGBS/0mFmBcifAsI0yIWRiRo0PjVs6SSOSOdtzbp6kSGnShDN6G5aWZpKQ2lWRy27mWQ==}
