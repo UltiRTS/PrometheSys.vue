@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/adjacent-overload-signatures */
 import { randomInt } from 'crypto'
 import { ref } from 'vue'
 import { pushNewLoading, pushUINewNotif, rmLoading } from '../UI/ui'
 import router from '../../router'
 import * as dntp from '../mapAPI/dntpService'
+import * as engineMgr from '../engineManager/engine'
 import type { Game, GameBrief, Notification, StateMessage } from './interfaces'
 
 const ws = new WebSocket('ws://144.126.145.172:8081')
@@ -10,7 +12,6 @@ const ws_open = ref<boolean>()
 let wdir: string
 let submittedMap: number
 const mapsBeingDownloaded: number[] = []
-export const userState = ref({ isLoggedIn: false })
 export const chatLog = ref([
   {
     author: 'Александр Карпов',
@@ -218,6 +219,17 @@ export function hasMap(params: {
   wsSendServer(tx)
 }
 
+export function startGame() {
+  const tx = {
+    action: 'STARTGAME',
+    parameters: {
+    },
+    seq: randomInt(0, 1000000),
+  }
+
+  wsSendServer(tx)
+}
+
 export function wsSendServer(tx: {
   action: string
   parameters: any
@@ -248,71 +260,98 @@ ws.onmessage = (ev) => {
     msg = msg as StateMessage
 
     // login section
-    if (userState.value.isLoggedIn === false) {
-      joinChat({
-        chatName: 'global',
-        password: '',
-      })
-      setTimeout(() => {
-        router.push('postlogin')
-      }, 5000)
-
-      userState.value.isLoggedIn = true
-    }
+    writeLoginStats()
 
     // chat section
-    const tmpChannels = Object.keys(msg.state.user.chatRooms)
-    joinedChannels.value = tmpChannels // composes joined channel
-
-    for (let i = 0; i < tmpChannels.length; i++) {
-      const lastMessage = msg.state.user.chatRooms[tmpChannels[i]].lastMessage
-      if (lastMessage.content !== '') {
-        chatLog.value.push({
-          author: lastMessage.author,
-          msg: lastMessage.content,
-          timestamp: lastMessage.time,
-          chatName: tmpChannels[i],
-        })
-
-        while (chatLog.value.length > 100) chatLog.value.shift()
-      }
-    }
+    writeChatStats(msg)
 
     gameListing.value = msg.state.games
     joinedGame.value = msg.state.user.game
     username.value = msg.state.user.username
     // const mapBeingDownloaded = joinedGame.value.mapId
-    if (!joinedGame.value)
-      return
-    const mapBeingDownloaded = joinedGame.value.mapId
-    if (mapsBeingDownloaded.includes(mapBeingDownloaded))
-      return
-
-    mapsBeingDownloaded.push(mapBeingDownloaded)
-
-    pushNewLoading('loadingMiniMap')
-    pushUINewNotif({ title: 'INTL', msg: 'Operation Intl Updated', class: 'aaa' })
-    dntp.getMiniMapfromID(mapBeingDownloaded, wdir).then((filename) => {
-      minimapFileName.value = filename
-      rmLoading('loadingMiniMap')
-      dntp.getMapActualFile(mapBeingDownloaded, wdir).then(() => {
-        const index = mapsBeingDownloaded.indexOf(mapBeingDownloaded)
-        if (index > -1) { // only splice array when item is found
-          mapsBeingDownloaded.splice(index, 1) // 2nd parameter means remove one item only
-        }
-
-        if (submittedMap !== mapBeingDownloaded) { // gota submit again if I havent submitted
-          hasMap({
-            mapId: mapBeingDownloaded,
-          })
-          submittedMap = mapBeingDownloaded
-          pushUINewNotif({ title: 'MAP', msg: 'New Map Retrieved', class: 'aaa' })
-        }
-      })
-    })
+    writeMapStats()
+    writeStartGameStats()
   }
 }
 
+export const userState = ref({ isLoggedIn: false })
+
+function writeLoginStats() {
+  if (userState.value.isLoggedIn === false) {
+    joinChat({
+      chatName: 'global',
+      password: '',
+    })
+    setTimeout(() => {
+      router.push('postlogin')
+    }, 5000)
+
+    userState.value.isLoggedIn = true
+  }
+}
+
+function writeChatStats(msg: StateMessage) {
+  const tmpChannels = Object.keys(msg.state.user.chatRooms)
+  joinedChannels.value = tmpChannels // composes joined channel
+
+  for (let i = 0; i < tmpChannels.length; i++) {
+    const lastMessage = msg.state.user.chatRooms[tmpChannels[i]].lastMessage
+    if (lastMessage.content !== '') {
+      chatLog.value.push({
+        author: lastMessage.author,
+        msg: lastMessage.content,
+        timestamp: lastMessage.time,
+        chatName: tmpChannels[i],
+      })
+
+      while (chatLog.value.length > 100) chatLog.value.shift()
+    }
+  }
+}
+
+function writeMapStats() {
+  if (!joinedGame.value)
+    return
+  const mapBeingDownloaded = joinedGame.value.mapId
+  if (mapsBeingDownloaded.includes(mapBeingDownloaded))
+    return
+
+  mapsBeingDownloaded.push(mapBeingDownloaded)
+
+  pushNewLoading('loadingMiniMap')
+  pushUINewNotif({ title: 'INTL', msg: 'Operation Intl Updated', class: 'aaa' })
+  dntp.getMiniMapfromID(mapBeingDownloaded, wdir).then((filename) => {
+    minimapFileName.value = filename
+    rmLoading('loadingMiniMap')
+    dntp.getMapActualFile(mapBeingDownloaded, wdir).then(() => {
+      const index = mapsBeingDownloaded.indexOf(mapBeingDownloaded)
+      if (index > -1) { // only splice array when item is found
+        mapsBeingDownloaded.splice(index, 1) // 2nd parameter means remove one item only
+      }
+
+      if (submittedMap !== mapBeingDownloaded) { // gota submit again if I havent submitted
+        hasMap({
+          mapId: mapBeingDownloaded,
+        })
+        submittedMap = mapBeingDownloaded
+        pushUINewNotif({ title: 'MAP', msg: 'New Map Retrieved', class: 'aaa' })
+      }
+    })
+  })
+}
+function writeStartGameStats() {
+  console.log(joinedGame.value)
+  if (!joinedGame.value)
+    return
+  if (joinedGame.value.isStarted) {
+    engineMgr.configureToLaunch({
+      host: joinedGame.value.responsibleAutohost,
+      port: joinedGame.value.autohostPort,
+      permittedUsername: username.value,
+      token: joinedGame.value.engineToken,
+    })
+  }
+}
 ws.onopen = () => {
   ws_open.value = true
   console.log('ws is open')

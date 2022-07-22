@@ -5,8 +5,6 @@ const path = require('node:path')
 
 const md5File = require('md5-file')
 
-/* Async usage */
-
 export const searchMap = ref([])
 export const ListMap = ref([])
 // this returns batch for searching
