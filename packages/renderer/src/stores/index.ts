@@ -4,6 +4,7 @@ import { ref } from 'vue'
 import * as network from './network/network'
 import * as ui from './UI/ui'
 import * as dntpService from './mapAPI/dntpService'
+import * as engineMgr from './engineManager/engine'
 export const useUserStore = defineStore('user', () => {
   const lobbyDir = ref('/tmp')
   // UI related var
@@ -44,6 +45,9 @@ export const useUserStore = defineStore('user', () => {
   const searchMap = dntpService.searchMap
   const ListMap = dntpService.ListMap
 
+  // engineMgr
+  engineMgr.setWDir(lobbyDir.value)
+
   return {
     ui,
     grabberTriggerAction,
@@ -83,7 +87,7 @@ export const useUserStore = defineStore('user', () => {
     ListMap,
 
     lobbyDir,
-
+    engineMgr,
   }
 })
 

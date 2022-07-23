@@ -13,6 +13,7 @@ export interface Game {
   isStarted: boolean
   responsibleAutohost: string
   aiHosters: string[]
+  autohostPort: number
 }
 
 export interface GameBrief {
