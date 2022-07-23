@@ -26,15 +26,16 @@ export default {
       uStore.pushGrabberAction('AddGame')
     },
     emitJoinGameResult(roomTitle) {
-      if (joinedGame.value && roomTitle === joinedGame.value.title) {
-        this.mainMenuContent.value = 'dodPregame'
+      if (!joinedGame.value) {
+        uStore.joinGame({
+          gameName: roomTitle,
+          password: 'test',
+          mapID: 0,
+        })
         return
       }
-      uStore.joinGame({
-        gameName: roomTitle,
-        password: 'test',
-        mapID: 0,
-      })
+      if (roomTitle === joinedGame.value.title)
+        this.mainMenuContent.value = 'dodPregame'
     },
   },
 }
