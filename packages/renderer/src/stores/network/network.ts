@@ -345,7 +345,7 @@ function writeStartGameStats() {
     return
   if (joinedGame.value.isStarted) {
     engineMgr.configureToLaunch({
-      host: joinedGame.value.responsibleAutohost,
+      host: joinedGame.value.responsibleAutohost.slice(7),
       port: joinedGame.value.autohostPort,
       permittedUsername: username.value,
       token: joinedGame.value.engineToken,

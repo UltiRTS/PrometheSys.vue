@@ -51,6 +51,10 @@ export default {
       this.ui.setmodalMenuContent('dodPGameMap')
       this.ui.setactiveWindow('modal')
     },
+    startGame() {
+      console.log('trying to start game')
+      this.network.startGame()
+    },
   },
 }
 </script>
@@ -184,7 +188,7 @@ export default {
           OPERATIONS
         </p>
       </div>
-      <div class="pGameUserOperation" style="position: absolute; height: 14.1%; width: 40%; left: 77%; overflow:hidden;; background: #2196f3;top: 94.6%;filter:drop-shadow(8px 8px 6px #545454);">
+      <div class="pGameUserOperation" style="position: absolute; height: 14.1%; width: 40%; left: 77%; overflow:hidden;; background: #2196f3;top: 94.6%;filter:drop-shadow(8px 8px 6px #545454);" @click="startGame">
         <div style="position:absolute;font-size: 3vw;top: 28%;left: 11%;color: #ffffffc7;font-family: font2;font-weight: 100;">
           INIT
         </div>
@@ -192,7 +196,8 @@ export default {
           OPERATION
         </div>
         <img src="imgs/btlop1.png" style="position: absolute; height: 204%; top: -28%; left: 39%;opacity: 0.2;">
-      </div><div class="pGameUserOperation" style="position: absolute; height: 14.1%; width: 40%; left: 34%; overflow:hidden;; background: #545454;top: 94.6%;filter:drop-shadow(8px 8px 6px #545454);" @click="viewDod">
+      </div>
+      <div class="pGameUserOperation" style="position: absolute; height: 14.1%; width: 40%; left: 34%; overflow:hidden;; background: #545454;top: 94.6%;filter:drop-shadow(8px 8px 6px #545454);" @click="viewDod">
         <div style="position:absolute;font-size: 3vw;top: 28%;left: 11%;color: #ffffffc7;font-family: font2;font-weight: 100;">
           HALT
         </div>
@@ -201,7 +206,7 @@ export default {
         </div>
         <img src="imgs/btlop3.png" style="position: absolute; height: 204%; top: -28%; left: 39%;opacity: 0.2;">
       </div>
-      <div class="noncanonicalOpts" style="position:absolute;top: 62%;width:100%;height:100%;right: -33%;">
+      <div class="noncanonicalOpts" style="position:absolute;top: 62%;width:100%;right: -33%;">
         <img src="imgs/btlop3.png" style="position:absolute;width:45%;">
         <img src="imgs/btlop2.png" style="position:absolute;width:45%;left: 26%;"><img src="imgs/btlop1.png" style="position:absolute;width:45%;left: 52%;">
       </div>

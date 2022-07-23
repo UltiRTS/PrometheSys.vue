@@ -18,18 +18,19 @@ export function isEngineRunning() {
 
 export function configureToLaunch(params = {
   host: '127.0.0.1',
-  port: '8080',
+  port: 8080,
   permittedUsername: 'test',
   token: '',
 }) {
-  const writeLine = `[GAME]
-    {
+  const writeLine = '\[GAME\]\{' + `
+
         HostIP=${params.host};
         HostPort=${params.port};       // (optional) default is 8452    
         MyPlayerName=${params.permittedUsername};
         MyPasswd=${params.token};
         IsHost=0;           // tell the engine this is a client
-    }`
+    
+    ` + '\}'
   const scriptPath = path.join(wdir, 'springwritable', 'script.txt')
   fsPromises.writeFile(scriptPath, writeLine).then(
     () => {
