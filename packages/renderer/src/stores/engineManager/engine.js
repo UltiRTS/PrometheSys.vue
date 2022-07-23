@@ -1,5 +1,6 @@
 let enginesRunning = 0
-const fsPromises = require('fs').promises
+// const fsPromises = require('fs').promises
+const fs = require('fs')
 let engine = ''
 let wdir = ''
 const path = require('node:path')
@@ -22,7 +23,7 @@ export function configureToLaunch(params = {
   permittedUsername: 'test',
   token: '',
 }) {
-  const writeLine = '\[GAME\]\{' + `
+  const writeLine = '[GAME]{' + `
 
         HostIP=${params.host};
         HostPort=${params.port};       // (optional) default is 8452    
@@ -30,13 +31,17 @@ export function configureToLaunch(params = {
         MyPasswd=${params.token};
         IsHost=0;           // tell the engine this is a client
     
-    ` + '\}'
+    ` + '}'
+  console.log(writeLine)
   const scriptPath = path.join(wdir, 'springwritable', 'script.txt')
-  fsPromises.writeFile(scriptPath, writeLine).then(
-    () => {
-      launchEngine()
-    },
-  )
+  fs.writeFile(scriptPath, writeLine, () => {
+    launchEngine()
+  })
+  // fsPromises.writeFile(scriptPath, writeLine).then(
+  //   () => {
+  //     launchEngine()
+  //   },
+  // )
 }
 
 function launchEngine() {
