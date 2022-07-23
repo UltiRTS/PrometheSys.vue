@@ -26,7 +26,7 @@ export default {
       uStore.pushGrabberAction('AddGame')
     },
     emitJoinGameResult(roomTitle) {
-      if (!joinedGame.value) {
+      if (!joinedGame) {
         uStore.joinGame({
           gameName: roomTitle,
           password: 'test',
