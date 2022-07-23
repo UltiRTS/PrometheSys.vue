@@ -49,7 +49,7 @@ function launchEngine() {
   const exec = require('child_process').exec
 
   let result = ''
-  const engineCmdLine = `${engine} -config ${path.join(wdir, 'springwritable', 'script.txt')} -write-dir ${path.join(wdir, 'springwritable')}`
+  const engineCmdLine = `${engine} -write-dir ${path.join(wdir, 'springwritable')} ${path.join(wdir, 'springwritable', 'script.txt')}`
 
   const child = exec(engineCmdLine)
 

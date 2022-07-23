@@ -18,7 +18,7 @@ specifiers:
   md5-file: ^5.0.0
   p5: ^1.4.1
   pinia: ^2.0.13
-  pnpm: ^6.32.19
+  pnpm: ^6.33.1
   sass: ^1.51.0
   su-downloader3: ^1.1.1
   two: ^1.0.1
@@ -59,7 +59,7 @@ devDependencies:
   eslint: 8.14.0
   p5: 1.4.1
   pinia: 2.0.13_typescript@4.6.3+vue@3.2.33
-  pnpm: 6.32.19
+  pnpm: 6.33.1
   sass: 1.51.0
   typescript: 4.6.3
   unocss: 0.33.2_vite@2.9.5
@@ -7883,8 +7883,8 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /pnpm/6.32.19:
-    resolution: {integrity: sha512-IY+62k/caP5GsMQm5YcOJ03XDkze68aBiiXrlwqMUAYFhSstLETlenIC73AukJyUd7o4Y18HcV2gfQYCKb0PEA==}
+  /pnpm/6.33.1:
+    resolution: {integrity: sha512-A19nDMOesyc5AjgXbtNk5ILRvwd51OPEn3RDfJgw/YwtNBTHeZmHCftz4b8Ri3rsqANhH04V5kiqyERpYohBxA==}
     engines: {node: '>=12.17'}
     hasBin: true
     dev: true
