@@ -10,7 +10,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(useUserStore, ['gameListing', 'joinedGame', 'mainMenuContent']),
+    ...mapState(useUserStore, ['gameListing', 'joinedGame', 'ui']),
   },
 
   updated() {
@@ -26,7 +26,8 @@ export default {
       uStore.pushGrabberAction('AddGame')
     },
     emitJoinGameResult(roomTitle) {
-      if (!joinedGame) {
+      if (!this.joinedGame) {
+        console.log(this.joinedGame)
         uStore.joinGame({
           gameName: roomTitle,
           password: 'test',
@@ -34,8 +35,8 @@ export default {
         })
         return
       }
-      if (roomTitle === joinedGame.value.title)
-        this.mainMenuContent.value = 'dodPregame'
+      if (roomTitle === this.joinedGame.title)
+        this.ui.setmainMenuContent('dodPregame')
     },
   },
 }
