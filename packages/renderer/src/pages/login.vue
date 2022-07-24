@@ -554,7 +554,7 @@ color:white;
   font-family:font5;
   animation-fill-mode: forwards;
   animation-name: welcomeSubline;
-  animation-duration: 0.3s;
+  animation-duration: 0.2s;
   animation-iteration-count: 1;
   animation-delay:4.0s;
 }
@@ -564,7 +564,7 @@ color:white;
   font-family:font5;
   animation-fill-mode: forwards;
   animation-name: welcomeSubline;
-  animation-duration: 0.3s;
+  animation-duration: 0.2s;
   animation-iteration-count: 1;
   animation-delay:4.1s;}
 .welcomeSubline3
@@ -572,26 +572,26 @@ color:white;
 font-family:font5;
   animation-fill-mode: forwards;
   animation-name: welcomeSubline;
-  animation-duration: 0.3s;
+  animation-duration: 0.2s;
   animation-iteration-count: 1;
-  animation-delay:4.3s;}
+  animation-delay:4.4s;}
 .welcomeSubline4
 {opacity:0;
 font-family:font5;
   animation-fill-mode: forwards;
   animation-name: welcomeSubline;
-  animation-duration: 0.3s;
+  animation-duration: 0.2s;
   animation-iteration-count: 1;
-  animation-delay:4.4s;}
+  animation-delay:4.5s;}
 .welcomeSubline5
 {
   opacity:0;
   font-family:font5;
     animation-fill-mode: forwards;
   animation-name: welcomeSubline;
-  animation-duration: 0.3s;
+  animation-duration: 0.2s;
   animation-iteration-count: 1;
-  animation-delay:4.6s;}
+  animation-delay:4.8s;}
   @keyframes welcomeSubline {
   0%   {opacity:1;}
   20%   {opacity:1;}
@@ -661,7 +661,7 @@ font-family:font5;
     background-image: linear-gradient(0deg, rgba(0, 0, 0, 0), rgb(0, 0, 0), black);
 }
 100% {
-  opacity: 1;
+  opacity: 0.5;
   background-image: linear-gradient(305deg, rgba(0, 0, 0, 0), rgb(0, 0, 0), black);
 }
 }
@@ -682,7 +682,7 @@ font-family:font5;
     background-image: linear-gradient(0deg, rgba(0, 0, 0, 0), rgb(0, 0, 0), black);
 }
 100% {
-  opacity: 1;
+  opacity: 0.5;
   background-image: linear-gradient(55deg, rgba(0, 0, 0, 0), rgb(0, 0, 0), black);
 }
 }
