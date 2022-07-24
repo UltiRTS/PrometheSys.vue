@@ -40,6 +40,10 @@ export default {
       this.setmainMenuContent('dod')
     },
 
+    exitGame(){
+      this.network.leaveGame()
+    },
+
     viewModelTeam() {
       this.setmodalMenuContent('dod-p-game-team')
       this.setactiveWindow('modal')
@@ -177,7 +181,7 @@ export default {
       </div>
     </div>
     <div class="dodRightOperationPanel" style="position:absolute;bottom:32%;height:65vh;width:30vw;right:34vw;">
-      <div class="pGameUserOperation" style="position:absolute;width:100%;top:66%;left: -21%;mix-blend-mode:screen;">
+      <div class="pGameUserOperationTtl" style="position:absolute;width:100%;top:66%;left: -21%;mix-blend-mode:screen;">
         <div style="font-size:25vh;font-family:'font5';opacity:0.3;font-weight:900;">
           作業
         </div><p style="position:absolute;background:black;color:white;top:52%;left:10%;font-size:4vh;font-family:font1;">
@@ -188,7 +192,7 @@ export default {
           OPERATIONS
         </p>
       </div>
-      <div class="pGameUserOperation" style="position: absolute; height: 14.1%; width: 40%; left: 77%; overflow:hidden;; background: #2196f3;top: 94.6%;filter:drop-shadow(8px 8px 6px #545454);" @click="startGame">
+      <div class="pGameUserOperation" style="position: absolute; height: 14.1%; width: 40%; left: 77%; overflow:hidden; background: #2196f3;top: 94.6%;filter:drop-shadow(8px 8px 6px #545454);" @click="startGame">
         <div style="position:absolute;font-size: 3vw;top: 28%;left: 11%;color: #ffffffc7;font-family: font2;font-weight: 100;">
           INIT
         </div>
@@ -197,24 +201,31 @@ export default {
         </div>
         <img src="imgs/btlop1.png" style="position: absolute; height: 204%; top: -28%; left: 39%;opacity: 0.2;">
       </div>
-      <div class="pGameUserOperation" style="position: absolute; height: 14.1%; width: 40%; left: 34%; overflow:hidden;; background: #545454;top: 94.6%;filter:drop-shadow(8px 8px 6px #545454);" @click="viewDod">
+      <div class="pGameUserOperation" style="position: absolute; height: 14.1%; width: 40%; left: 34%; overflow:hidden;; background: #545454;top: 94.6%;filter:drop-shadow(8px 8px 6px #545454);" >
         <div style="position:absolute;font-size: 3vw;top: 28%;left: 11%;color: #ffffffc7;font-family: font2;font-weight: 100;">
           HALT
         </div>
         <div style="position:absolute;font-size: 1vw;top: 11%;left: 13%;color: white;font-family: font5;font-weight:900;background: black;mix-blend-mode: screen;">
           OPERATION
         </div>
-        <img src="imgs/btlop3.png" style="position: absolute; height: 204%; top: -28%; left: 39%;opacity: 0.2;">
+        <img src="imgs/btlop3.png" style="position: absolute; height: 204%; top: -28%; left: 39%;opacity: 0.2;" @click="exitGame">
       </div>
       <div class="noncanonicalOpts" style="position:absolute;top: 62%;width:100%;right: -33%;">
         <img src="imgs/btlop3.png" style="position:absolute;width:45%;">
-        <img src="imgs/btlop2.png" style="position:absolute;width:45%;left: 26%;"><img src="imgs/btlop1.png" style="position:absolute;width:45%;left: 52%;">
+        <img src="imgs/btlop2.png" style="position:absolute;width:45%;left: 26%;" @click="viewDod">
+        <img src="imgs/btlop1.png" style="position:absolute;width:45%;left: 52%;">
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+.pGameUserOperation:hover{
+  opacity:1;
+}
 
+.pGameUserOperation{
+ opacity:0.8;
+}
 </style>
 

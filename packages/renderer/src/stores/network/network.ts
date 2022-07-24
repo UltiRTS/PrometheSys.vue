@@ -133,6 +133,17 @@ export function joinGame(params: {
   wsSendServer(tx)
 }
 
+export function leaveGame(){
+  
+    const tx = {
+      action: 'LEAVEGAME',
+      parameters: {
+      },
+      seq: randomInt(0, 1000000),
+    }
+    wsSendServer(tx)
+}
+
 export function setAIorChicken(params: {
   gameName: string
   AI: string
