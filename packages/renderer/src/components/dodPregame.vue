@@ -14,7 +14,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(useUserStore, ['mainMenuContent', 'modelMenuContent', 'ui', 'network', 'lobbyDir']),
+    ...mapState(useUserStore, ['mainMenuContent', 'modelMenuContent', 'ui', 'network', 'lobbyDir', 'dntpService']),
     pieSize() {
       return {
         width: this.$refs.dodPie.clientWidth,
@@ -29,6 +29,16 @@ export default {
       const filePath = `file://${path.join(this.lobbyDir, '/mapPreview/', this.network.minimapFileName.value)}`
       return filePath
     },
+    mapID2Name() {
+      const id = this.network.joinedGame.value.mapId
+      console.log(this.network.joinedGame)
+      console.log(this.dntpService.id2NameCache)
+      if(this.dntpService.id2NameCache[id] === undefined)
+      {
+        return '-/-'
+      }
+      return this.dntpService.id2NameCache[id]
+    }
   },
 
   updated() {
@@ -150,7 +160,7 @@ export default {
         Dr. Kaltist
       </div>
       <div style="position:absolute;top: 27%;width:100%;background: #2196f3;font-family: 'font6';font-size:4vh;text-align:right;opacity: 0.8;" @click.stop="pickMap">
-        Comet Catcher Redux
+        {{mapID2Name}}
       </div>
 
       <div class="mapTags" style="position: absolute; top: 37%;width: 100%;padding: 0vh;font-size: 3vh;text-align:right;font-family: 'font5';font-weight:900;opacity: 0.9;">

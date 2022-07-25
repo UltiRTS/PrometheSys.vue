@@ -7,6 +7,8 @@ const md5File = require('md5-file')
 
 export const searchMap = ref([])
 export const ListMap = ref([])
+export const id2NameCache = ref({})
+
 // this returns batch for searching
 export async function listMatchMap(input) {
   const ret = await lib.vague_search(input)
@@ -112,6 +114,7 @@ export async function getMiniMapfromID(id, lobbyDir) {
   const minimapfilename = ret.map.minimap_filename
   const dlUrl = ret.prefix + minimapfilename
   const dir = path.join(lobbyDir, 'mapPreview')
+  id2NameCache[id] = ret.map.map_name
   try {
     await fs.promises.access(path.join(lobbyDir, '/mapPreview/'))
     // The check succeeded
