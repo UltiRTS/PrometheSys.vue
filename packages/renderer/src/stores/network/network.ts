@@ -280,7 +280,7 @@ ws.onmessage = (ev) => {
     
     username.value = msg.state.user.username
     // const mapBeingDownloaded = joinedGame.value.mapId
-    writeMapStats()
+    writeMapStats(msg)
     writeStartGameStats(msg)
     joinedGame.value = msg.state.user.game
   }
@@ -321,10 +321,10 @@ function writeChatStats(msg: StateMessage) {
   }
 }
 
-function writeMapStats() {
-  if (!joinedGame.value)
+function writeMapStats(msg: StateMessage) {
+  if (!msg.state.user.game)
     return
-  const mapBeingDownloaded = joinedGame.value.mapId
+  const mapBeingDownloaded = msg.state.user.game.mapId
   if (mapsBeingDownloaded.includes(mapBeingDownloaded))
     return
 
@@ -359,10 +359,10 @@ function writeStartGameStats(msg: StateMessage) {
     return
   if (msg.state.user.game.isStarted && !joinedGame.value.isStarted) {
     engineMgr.configureToLaunch({
-      host: joinedGame.value.responsibleAutohost.slice(7),
-      port: joinedGame.value.autohostPort,
+      host: msg.state.user.game.responsibleAutohost.slice(7),
+      port: msg.state.user.game.autohostPort,
       permittedUsername: username.value,
-      token: joinedGame.value.engineToken,
+      token: msg.state.user.game.engineToken,
     })
   }
 }
