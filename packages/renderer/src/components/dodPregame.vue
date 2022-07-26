@@ -33,11 +33,11 @@ export default {
       const id = this.network.joinedGame.value.mapId
       console.log(this.network.joinedGame)
       console.log(this.dntpService.id2NameCache)
-      if(this.dntpService.id2NameCache[id] === undefined)
+      if(this.dntpService.id2NameCache.value[id] === undefined)
       {
         return '-/-'
       }
-      return this.dntpService.id2NameCache[id]
+      return this.dntpService.id2NameCache.value[id]
     }
   },
 
@@ -157,7 +157,7 @@ export default {
     </div>
     <div class="dodLeftOperationPanel" style="position: absolute; bottom: 32%; height: 81vh; width: 72vh; left: 22vw; filter: drop-shadow(30px 10px 18px #000);">
       <div style="font-size:9vh;-webkit-text-stroke-width:0.2vh;-webkit-text-stroke-color:#54545499;font-family: 'font9';text-align:right;color:#ffffffd9;top: 11%;position:absolute;right:0;">
-        Dr. Kaltist
+        Dr. {{network.username}}
       </div>
       <div style="position:absolute;top: 27%;width:100%;background: #2196f3;font-family: 'font6';font-size:4vh;text-align:right;opacity: 0.8;" @click.stop="pickMap">
         {{mapID2Name}}
