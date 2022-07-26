@@ -277,11 +277,12 @@ ws.onmessage = (ev) => {
     writeChatStats(msg)
 
     gameListing.value = msg.state.games
-    joinedGame.value = msg.state.user.game
+    
     username.value = msg.state.user.username
     // const mapBeingDownloaded = joinedGame.value.mapId
     writeMapStats()
-    writeStartGameStats()
+    writeStartGameStats(msg)
+    joinedGame.value = msg.state.user.game
   }
 }
 
@@ -350,11 +351,13 @@ function writeMapStats() {
     })
   })
 }
-function writeStartGameStats() {
-  console.log(joinedGame.value)
+function writeStartGameStats(msg: StateMessage) {
+  //console.log(joinedGame.value)
+  if (!msg.state.user.game)
+    return
   if (!joinedGame.value)
     return
-  if (joinedGame.value.isStarted) {
+  if (msg.state.user.game.isStarted && !joinedGame.value.isStarted) {
     engineMgr.configureToLaunch({
       host: joinedGame.value.responsibleAutohost.slice(7),
       port: joinedGame.value.autohostPort,

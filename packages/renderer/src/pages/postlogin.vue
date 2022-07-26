@@ -40,7 +40,7 @@ export default {
   },
   watch: {
     joinedGame(newVal, oldVal) { // watch it
-      if (newVal)
+      if (newVal != null)
         this.setmainMenuContent('dodPregame')
 
       else
