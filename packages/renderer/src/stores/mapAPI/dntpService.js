@@ -114,7 +114,7 @@ export async function getMiniMapfromID(id, lobbyDir) {
   const minimapfilename = ret.map.minimap_filename
   const dlUrl = ret.prefix + minimapfilename
   const dir = path.join(lobbyDir, 'mapPreview')
-  id2NameCache[id] = ret.map.map_name
+  id2NameCache.value[id] = ret.map.map_name
   try {
     await fs.promises.access(path.join(lobbyDir, '/mapPreview/'))
     // The check succeeded
