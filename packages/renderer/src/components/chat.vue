@@ -100,7 +100,7 @@ export default {
   watch: {
     chatLog: { // watch it
       handler(newVal, oldVal) {
-        this.unreadChannel.push(this.newVal.slice(-1).chatName)
+        this.unreadChannel.push(newVal.slice(-1).chatName)
       },
       deep: true,
     },

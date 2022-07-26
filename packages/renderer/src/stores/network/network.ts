@@ -12,6 +12,7 @@ const ws_open = ref<boolean>()
 let wdir: string
 let submittedMap: number
 const mapsBeingDownloaded: number[] = []
+let lastGame: Game | null
 export const chatLog = ref([
   {
     author: 'Александр Карпов',
@@ -275,14 +276,14 @@ ws.onmessage = (ev) => {
 
     // chat section
     writeChatStats(msg)
-
+    joinedGame.value = msg.state.user.game
     gameListing.value = msg.state.games
     
     username.value = msg.state.user.username
     // const mapBeingDownloaded = joinedGame.value.mapId
     writeMapStats(msg)
     writeStartGameStats(msg)
-    joinedGame.value = msg.state.user.game
+    lastGame = joinedGame.value
   }
 }
 
@@ -355,9 +356,9 @@ function writeStartGameStats(msg: StateMessage) {
   //console.log(joinedGame.value)
   if (!msg.state.user.game)
     return
-  if (!joinedGame.value)
+  if (!lastGame)
     return
-  if (msg.state.user.game.isStarted && !joinedGame.value.isStarted) {
+  if (msg.state.user.game.isStarted && !lastGame.isStarted) {
     engineMgr.configureToLaunch({
       host: msg.state.user.game.responsibleAutohost.slice(7),
       port: msg.state.user.game.autohostPort,
