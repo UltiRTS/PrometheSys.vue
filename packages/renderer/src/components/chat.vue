@@ -98,8 +98,11 @@ export default {
     },
   },
   watch: {
-    chatLog(newVal, oldVal) { // watch it
-      this.unreadChannel.push(this.newVal.slice(-1).chatName)
+    chatLog: { // watch it
+      handler(newVal, oldVal) {
+        this.unreadChannel.push(this.newVal.slice(-1).chatName)
+      },
+      deep: true,
     },
   },
 
