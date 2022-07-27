@@ -150,7 +150,7 @@ export default {
         <div class="deco" style="background:#2196f3;position:absolute;height:100%;right:0%;width:88%;">
           <img src="imgs/horizontalSep3.png" style="position:absolute;width:96%;height:6%;bottom:0%;opacity:0.7;">
         </div>
-        <div style="position:absolute;top:0%;font-size:3.7vw;left:0;color:white;font-family:font9;" @click="chTeam(true, playerName, player)" @contextmenu="chTeam(false, playerName, player)">
+        <div style="position:absolute;top:0%;font-size:3.7vw;left:0;color:white;font-family:font9;" @click="chTeam(true, playerName, player.team)" @contextmenu="chTeam(false, playerName, player.team)">
           {{ player.team }}
         </div><div style="position:absolute;top:0%;font-size:1.8vw;right:0%;color:#5e5e5e;font-family:font9;">
           {{ playerName }}
