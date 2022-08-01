@@ -8,7 +8,7 @@ import * as engineMgr from '../engineManager/engine'
 import type { Game, GameBrief, Notification, StateMessage } from './interfaces'
 
 const ws = new WebSocket('ws://144.126.145.172:8081')
-const ws_open = ref<boolean>()
+export const ws_open = ref<boolean>()
 let wdir: string
 let submittedMap: number
 const mapsBeingDownloaded: number[] = []
@@ -134,15 +134,15 @@ export function joinGame(params: {
   wsSendServer(tx)
 }
 
-export function leaveGame(){
-  
-    const tx = {
-      action: 'LEAVEGAME',
-      parameters: {
-      },
-      seq: randomInt(0, 1000000),
-    }
-    wsSendServer(tx)
+export function leaveGame() {
+  submittedMap = -1
+  const tx = {
+    action: 'LEAVEGAME',
+    parameters: {
+    },
+    seq: randomInt(0, 1000000),
+  }
+  wsSendServer(tx)
 }
 
 export function setAIorChicken(params: {
@@ -278,7 +278,7 @@ ws.onmessage = (ev) => {
     writeChatStats(msg)
     joinedGame.value = msg.state.user.game
     gameListing.value = msg.state.games
-    
+
     username.value = msg.state.user.username
     // const mapBeingDownloaded = joinedGame.value.mapId
     writeMapStats(msg)
@@ -297,7 +297,7 @@ function writeLoginStats() {
     })
     setTimeout(() => {
       router.push('postlogin')
-    }, 5000)
+    }, 7000)
 
     userState.value.isLoggedIn = true
   }
@@ -353,7 +353,7 @@ function writeMapStats(msg: StateMessage) {
   })
 }
 function writeStartGameStats(msg: StateMessage) {
-  //console.log(joinedGame.value)
+  // console.log(joinedGame.value)
   if (!msg.state.user.game)
     return
   if (!lastGame)

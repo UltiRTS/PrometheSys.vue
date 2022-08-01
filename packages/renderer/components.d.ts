@@ -6,6 +6,7 @@ import '@vue/runtime-core'
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Chat: typeof import('./src/components/chat.vue')['default']
+    Confirmation: typeof import('./src/components/confirmation.vue')['default']
     Dod: typeof import('./src/components/dod.vue')['default']
     DodPGameMap: typeof import('./src/components/dodPGameMap.vue')['default']
     DodPGameTeam: typeof import('./src/components/dodPGameTeam.vue')['default']
