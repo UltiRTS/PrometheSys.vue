@@ -499,22 +499,40 @@ function loginWrapper() {
             <span style="font-size:3vw;font-weight:900;opacity:0.4">Dr.&nbsp;{{ username }}</span>
           </div>
 
-          <div id="welcomeSubline1" class="welcomeSubline1" style="font-size:0.5vw;position: absolute; top: 3vw;">
-            UDEV/URANDOM System Entropy: 100%
+          <div id="welcomeSubline1" class="welcomeSubline1" style="font-size:0.5vw;position: absolute; top: 3vw; height:0.4vw;width:0.4vw;">
+            <div class="welcomeSublineBar1" style="margin-left:200%;position:absolute;top:0;left:0;height:100%; background:rgba(255,255,255,1)">
+            </div>
+            <div class="welcomeSublineTxt1" style="position:absolute; color:white; font-size:0.5vw;font-family:font5;width:4000%;margin:0;top:-40%;left:300%;opacity:0;">
+              Releasing neural transmitters
+            </div>
           </div>
-          <div id="welcomeSubline2" class="welcomeSubline2" style="font-size:0.5vw;position: absolute; top: 3.5vw;">
-            INIT.RC Neural Connectivity: 100%
+          <div id="welcomeSubline2" class="welcomeSubline2" style="font-size:0.5vw;position: absolute; top: 3.5vw; height:0.4vw;width:0.4vw;">
+            <div class="welcomeSublineBar2" style="margin-left:200%;position:absolute;top:0;left:0;height:100%; background:rgba(255,255,255,1)">
+            </div>
+            <div class="welcomeSublineTxt2" style="position:absolute; color:white; font-size:0.5vw;font-family:font5;width:4000%;margin:0;top:-40%;left:300%;opacity:0;">
+              Connecting to the neuralnetwork
+            </div>
           </div>
-          <div id="welcomeSubline3" class="welcomeSubline3" style="font-size:0.5vw;position: absolute; top: 4vw;">
-            PAM
-            Authenticating
+          <div id="welcomeSubline3" class="welcomeSubline3" style="font-size:0.5vw;position: absolute; top: 4vw; height:0.4vw;width:0.4vw;">
+            <div class="welcomeSublineBar3" style="margin-left:200%;position:absolute;top:0;left:0;height:100%; background:rgba(255,255,255,1)">
+            </div>
+                        <div class="welcomeSublineTxt3" style="position:absolute; color:white; font-size:0.5vw;font-family:font5;width:4000%;margin:0;top:-40%;left:300%;opacity:0;">
+              Polling databse
+            </div>
           </div>
-          <div id="welcomeSubline4" class="welcomeSubline4" style="font-size:0.5vw;position: absolute; top: 4.5vw;">
-            Authority: 42
+          <div id="welcomeSubline4" class="welcomeSubline4" style="font-size:0.5vw;position: absolute; top: 4.5vw; height:0.4vw;width:0.4vw;">
+            <div class="welcomeSublineBar4" style="margin-left:200%;position:absolute;top:0;left:0;height:100%; background:rgba(255,255,255,1)">
+            </div>
+                        <div class="welcomeSublineTxt4" style="position:absolute; color:white; font-size:0.5vw;font-family:font5;width:4000%;margin:0;top:-40%;left:300%;opacity:0;">
+              Connecting through /dev/neuralTTY0
+            </div>
           </div>
-          <div id="welcomeSubline5" class="welcomeSubline5" style="font-size:0.5vw;position: absolute; top: 5vw;">
-            Neural
-            UART Logging In
+          <div id="welcomeSubline5" class="welcomeSubline5" style="font-size:0.5vw;position: absolute; top: 5vw; height:0.4vw;width:0.4vw;">
+            <div class="welcomeSublineBar5" style="margin-left:200%;position:absolute;top:0;left:0;height:100%; background:rgba(255,255,255,1)">
+            </div>
+                        <div class="welcomeSublineTxt5" style="position:absolute; color:white; font-size:0.5vw;font-family:font5;width:4000%;margin:0;top:-40%;left:300%;opacity:0;">
+              Welcome
+            </div>
           </div>
         </div>
       </div>
@@ -549,60 +567,170 @@ color:white;
 	100%   {width:0.1vw;left:45%;opacity:1;}
 }
 
+.welcomeSublineBar1{
+  animation-fill-mode: forwards;
+  animation-name: welcomeSublineBar;
+  animation-duration: 3.5s;
+  animation-iteration-count: 1;
+  animation-delay:4.0s;
+  animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
+}
+
+.welcomeSublineBar2{
+  animation-fill-mode: forwards;
+  animation-name: welcomeSublineBar;
+  animation-duration: 3.5s;
+  animation-iteration-count: 1;
+  animation-delay:4.1s;
+  animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
+}
+
+.welcomeSublineBar3{
+  animation-fill-mode: forwards;
+  animation-name: welcomeSublineBar;
+  animation-duration: 3.5s;
+  animation-iteration-count: 1;
+  animation-delay:4.4s;
+  animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
+}
+
+.welcomeSublineBar4{
+  animation-fill-mode: forwards;
+  animation-name: welcomeSublineBar;
+  animation-duration: 3.5s;
+  animation-iteration-count: 1;
+  animation-delay:4.5s;
+  animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
+}
+
+.welcomeSublineBar5{
+  animation-fill-mode: forwards;
+  animation-name: welcomeSublineBar;
+  animation-duration: 3.5s;
+  animation-iteration-count: 1;
+  animation-delay:4.8s;
+  animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
+}
+
+  @keyframes welcomeSublineBar {
+  0%   {opacity:0; left:0%;right:2000%;}
+  15.9% {opacity:1;}
+  16% {opacity:0;}
+  17% {opacity:0;}
+  17.1% {opacity:1;}
+  20%   {opacity:1;left:0%;right:-2500%;}
+  40%   {opacity:1;left:0%;right:-2500%;}
+  70%   {opacity:0;left:2500%;right:-2500;}
+}
+
+
+
+.welcomeSublineTxt1{
+  animation-fill-mode: forwards;
+  animation-name: welcomeSublineTxt;
+  animation-duration: 2.2s;
+  animation-iteration-count: 1;
+  animation-delay:4.0s;
+}
+
+.welcomeSublineTxt2{
+  animation-fill-mode: forwards;
+  animation-name: welcomeSublineTxt;
+  animation-duration: 2.2s;
+  animation-iteration-count: 1;
+  animation-delay:4.1s;
+}
+
+.welcomeSublineTxt3{
+  animation-fill-mode: forwards;
+  animation-name: welcomeSublineTxt;
+  animation-duration: 2.2s;
+  animation-iteration-count: 1;
+  animation-delay:4.4s;
+}
+
+.welcomeSublineTxt4{
+  animation-fill-mode: forwards;
+  animation-name: welcomeSublineTxt;
+  animation-duration: 2.2s;
+  animation-iteration-count: 1;
+  animation-delay:4.5s;
+}
+
+.welcomeSublineTxt5{
+  animation-fill-mode: forwards;
+  animation-name: welcomeSublineTxt;
+  animation-duration: 2.2s;
+  animation-iteration-count: 1;
+  animation-delay:4.8s;
+}
+
+  @keyframes welcomeSublineTxt {
+  0%   {opacity:0;}
+  50% {opacity:0;}
+  51% {opacity:1;}
+  100% {opacity:1;}
+}
 .welcomeSubline1{
-  opacity:0;
   font-family:font5;
   animation-fill-mode: forwards;
   animation-name: welcomeSubline;
   animation-duration: 0.2s;
   animation-iteration-count: 1;
   animation-delay:4.0s;
+  background:rgba(255,255,255,0);
 }
 .welcomeSubline2
 {
-  opacity:0;
   font-family:font5;
   animation-fill-mode: forwards;
   animation-name: welcomeSubline;
   animation-duration: 0.2s;
   animation-iteration-count: 1;
-  animation-delay:4.1s;}
+  animation-delay:4.1s;
+  background:rgba(255,255,255,0);
+  }
 .welcomeSubline3
-{opacity:0;
+{
 font-family:font5;
   animation-fill-mode: forwards;
   animation-name: welcomeSubline;
   animation-duration: 0.2s;
   animation-iteration-count: 1;
-  animation-delay:4.4s;}
+  animation-delay:4.4s;
+  background:rgba(255,255,255,0);
+  }
 .welcomeSubline4
-{opacity:0;
+{
 font-family:font5;
   animation-fill-mode: forwards;
   animation-name: welcomeSubline;
   animation-duration: 0.2s;
   animation-iteration-count: 1;
-  animation-delay:4.5s;}
+  animation-delay:4.5s;
+  background:rgba(255,255,255,0);
+  }
 .welcomeSubline5
 {
-  opacity:0;
   font-family:font5;
     animation-fill-mode: forwards;
   animation-name: welcomeSubline;
   animation-duration: 0.2s;
   animation-iteration-count: 1;
-  animation-delay:4.8s;}
+  animation-delay:4.8s;
+  background:rgba(255,255,255,0);
+  }
   @keyframes welcomeSubline {
-  0%   {opacity:1;}
-  20%   {opacity:1;}
-  21%   {opacity:0;}
-  40%   {opacity:0;}
-  41%   {opacity:1;}
-  60%   {opacity:1;}
-  61%   {opacity:0;}
-  80%   {opacity:0;}
-  81%   {opacity:1;}
-  100%   {opacity:1;}
+  0%   {background:rgba(255,255,255,0.5);}
+  20%   {background:rgba(255,255,255,0.5);}
+  21%   {background:rgba(255,255,255,0);}
+  40%   {background:rgba(255,255,255,0);}
+  41%   {background:rgba(255,255,255,0.5);}
+  60%   {background:rgba(255,255,255,0.5);}
+  61%   {background:rgba(255,255,255,0);}
+  80%   {background:rgba(255,255,255,0);}
+  81%   {background:rgba(255,255,255,0.5);}
+  100%   {background:rgba(255,255,255,0.5);}
 }
 
 .welcomeHeading{
@@ -633,7 +761,7 @@ font-family:font5;
   color:white;
   animation-fill-mode: forwards;
   animation-name: welcomeUserAnime;
-  animation-duration: 0.3s;
+  animation-duration: 0.7s;
   animation-iteration-count: 1;
   animation-delay:3.3s;
   animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
@@ -642,7 +770,7 @@ font-family:font5;
 
 @keyframes welcomeUserAnime {
   0%   {top:7vw;opacity:0;}
-  100%   {top:0vw;opacity:1;}
+  100%   {top:-0.6vw;opacity:1;}
 }
 
 .leftSpotLight{
