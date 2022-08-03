@@ -99,9 +99,9 @@ const enter = () => {
         Upload Text
       </div>
       <div style="position:absolute;color: white;font-weight:900;font-size: 3vh;font-family: 'font10';top: 0%;left: 60%;overflow:hidden;height:100%;width: 100%;">
-        <img src="public/imgs/thea.png" style="  /* filter: invert(100%); */height: 76vh;top: -46%;/* left: 54%; */position:absolute;opacity: 7%;/* width: 8vh; */">
+        <img src="/imgs/thea.png" style="  /* filter: invert(100%); */height: 76vh;top: -46%;/* left: 54%; */position:absolute;opacity: 7%;/* width: 8vh; */">
       </div>
-      <img src="public/imgs/upArrow.png" style="  filter: invert(100%);height: 12vh;top: 30%;left: 45%;position:absolute;opacity: 16%;width: 8vh;">
+      <img src="/imgs/upArrow.png" style="  filter: invert(100%);height: 12vh;top: 30%;left: 45%;position:absolute;opacity: 16%;width: 8vh;">
 
       <textarea v-model="text2say" style="position: absolute; color: #ffffffad; width: 41.6%; height: 45%; padding: 0px; border-width: 0px; background: #ffffff00; resize: none; outline: none; right: 54.4%; margin: 0px; top: 52%;overflow:auto;font-family: 'font6';text-align:right" @click.stop />
     </div>
