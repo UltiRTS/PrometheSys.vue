@@ -94,8 +94,8 @@ export default {
     <div class="pickerBG" style="position:absolute;height:100%;width:100%;overflow:hidden;  background-size: 36px 40px;
   background-image: radial-gradient(circle, rgb(0 0 0) 1px, rgba(0, 0, 0, 0) 2px);"
     >
-      <img src="imgs/thea.png" style="position:absolute;top: 63%;left: -11%;height: 60%;opacity: 9%;">
-      <img src="imgs/blueprintswblue.png" style="position:absolute;top: 0%;height: 100%;filter: grayscale(100%) brightness(227%);left: -52%;opacity: 0.1;">
+      <img src="/imgs/thea.png" style="position:absolute;top: 63%;left: -11%;height: 60%;opacity: 9%;">
+      <img src="/imgs/blueprintswblue.png" style="position:absolute;top: 0%;height: 100%;filter: grayscale(100%) brightness(227%);left: -52%;opacity: 0.1;">
     </div>
     <div class="pickerTopBar" style="position:absolute;height:3%;width:100%;background:#2196f3;top:0%;">
       <div class="mapSearch" :class="{activeTopBar: activeSection== 'search'}" style="position:relative;display:inline-block;height:100%;padding-left:1vw;width:10vh;" @click="setActivePanel('search')">
@@ -124,7 +124,7 @@ export default {
       </div>
       <div class="pickerRightPanel" style="position:absolute;height:100%;width:20%;background:#2196f3;right:0%;">
         <div style="position:absolute;height:100%;width:100%;overflow:hidden;opacity: 53%;">
-          <img src="imgs/blueprintswblue.png" style="position:absolute;top: 0%;height: 100%;filter: grayscale(100%) brightness(227%);left: -297%;">
+          <img src="/imgs/blueprintswblue.png" style="position:absolute;top: 0%;height: 100%;filter: grayscale(100%) brightness(227%);left: -297%;">
         </div>
         <div v-if="searchMap.length>0" style="position:absolute;top:5%;height:20vw;width:100%;left:-22%;background:#585858;filter:drop-shadow(9px 10px 10px rgba(0,0,0,0.8));">
           <img v-if="searchMap[mouseOn]" :src="imgPath(searchMap[mouseOn].minimap_filename)" style="position:absolute;top:10%;left:6%;width:82%;"><div style="position:absolute;height:7%;width:99%;top:64%;left:-1%;font-size:1vw;color:white;font-family:font1;text-align:right;">
@@ -165,7 +165,7 @@ export default {
       </div>
       <div class="pickerRightPanel" style="position:absolute;height:100%;width:20%;background:#2196f3;right:0%;">
         <div style="position:absolute;height:100%;width:100%;overflow:hidden;opacity: 53%;">
-          <img src="imgs/blueprintswblue.png" style="position:absolute;top: 0%;height: 100%;filter: grayscale(100%) brightness(227%);left: -297%;">
+          <img src="/imgs/blueprintswblue.png" style="position:absolute;top: 0%;height: 100%;filter: grayscale(100%) brightness(227%);left: -297%;">
         </div>
         <div v-if="ListMap.length>0" style="position:absolute;top:5%;height:20vw;width:100%;left:-22%;background:#585858;filter:drop-shadow(9px 10px 10px rgba(0,0,0,0.8));">
           <img v-if="ListMap[mouseOn]" :src="imgPath(ListMap[mouseOn].minimap_filename)" style="position:absolute;top:10%;left:6%;width:82%;"><div style="position:absolute;height:7%;width:99%;top:64%;left:-1%;font-size:1vw;color:white;font-family:font1;text-align:right;">

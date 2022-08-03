@@ -156,7 +156,7 @@ export default {
   <div id="chatDetail" style="color: white; font-size: 3vh; top: 22%; left: 1%; position: absolute; font-family: font2; width: 100%; height: 65vh; overflow: hidden; opacity: 0.07;">
     <span style="color: white; font-size: 7vh; top: 58%; left: 13vh; position: absolute; font-family: font2;">{{ current_channel }}</span>
     <span style="background:white;color: black; font-size: 4.8vh; top: 70%; left: 13vh; position: absolute; font-family: font4; font-weight: 900;">channelTopic</span>
-    <img src="public/imgs/thea_frame.png" style="color: white; font-size: 4vh; top: 57%; left: -6vh; position: absolute; font-family: font2; width: 34vh;">
+    <img src="/imgs/thea_frame.png" style="color: white; font-size: 4vh; top: 57%; left: -6vh; position: absolute; font-family: font2; width: 34vh;">
   </div>
   <div id="chatContainer" ref="chats" style="left:3vw;position:absolute;height:85%;width:90%;overflow-x:hidden;overflow-y:auto;top:1%;padding-top:2vh;padding-bottom:2vh;color:white;" @scroll="onscroll">
     <div v-for="chat in timeline" id="chatBlock" :key="chat.username" style="margin-bottom: 2.5%; position: relative; left: 2%;padding-bottom:1%;">

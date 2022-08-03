@@ -74,7 +74,7 @@ export default {
 
 <template>
   <div id="bg" style="top: 0%; position: fixed; width: 100%; height: 100%; background: black;left:0;">
-    <img id="bgPic" alt="background" src="imgs/replaceThisBgPlz.png" style="position: fixed; top: 0px; left: 0px; height:100%;opacity: 100%;">
+    <img id="bgPic" alt="background" src="/imgs/replaceThisBgPlz.png" style="position: fixed; top: 0px; left: 0px; height:100%;opacity: 100%;">
     <div id="mask" style="position:absolute;top:0;left:0;width:100%;height:100%;background: radial-gradient(#00000014 13%, #000000 67%);"></div>
   </div>
   <div id="home" data-depth="2" style="perspective: 500vw; backface-visibility: hidden;
@@ -93,7 +93,7 @@ export default {
         <dod-p-game-map v-if="modalMenuContent == 'dodPGameMap'" />
       </div>
       <div id="rightHome" class="rightHome" :style="{opacity:shouldIlightUpMenu}" style="transform:rotateY(-15.6deg) translateZ(-147vw) translateX(209vw); width: 100%; height: 102%; position: absolute; backdrop-filter: blur(5px);top: -41%;" @click="activateMenu" @mouseover="mouseOn=&quot;menu&quot;" @mouseleave="mouseOn='default'">
-        <img src="assets/horizontalSep1.png" style="position:absolute;top:-1%;height: 5px;width: 93%;opacity:0.3;">
+        <img src="/imgs/horizontalSep1.png" style="position:absolute;top:-1%;height: 5px;width: 93%;opacity:0.3;">
         <div style="position:absolute;height: 6%;width: 93%;background: rgb(202 246 255 / 5%);top: 0%;padding:2%;">
           <i class="fa fa-wifi" aria-hidden="true" style="font-size: 2vw;color: #ffffff8c;" />
           <span id="sysStatusPing" style="font-size: 2vw;color: #ffffff8c;margin-left: 2%;">100ms</span>
@@ -234,7 +234,7 @@ export default {
             </p>
             <i class="fa fa-book" aria-hidden="true" style="position:absolute;/* font-weight:900; */font-size: 10vw;color: #ffffff0d;left: 52%;top: 26%;" />
           </div>
-          <img src="assets/separator.png" style="position:absolute;left: 43%;height:100%;width:4px;opacity: 50%;">
+          <img src="/imgs/separator.png" style="position:absolute;left: 43%;height:100%;width:4px;opacity: 50%;">
 
           <div style="position:absolute;width: 41%;height:100%;left: 51%;overflow:hidden;">
             <p style="position:absolute;top: 39%;font-size: 3vw;font-weight:900;color: #ffffffad;filter: drop-shadow(8px 6px 6px rgba(255,255,255,0.5));">
@@ -284,7 +284,7 @@ export default {
           <i class="fa fa-globe" aria-hidden="true" style="position:absolute;/* font-weight:900; */font-size: 10vw;color: #0000000d;left: 36%;top: 16%;" />
         </div>
 
-        <img src="assets/horizontalSep2.png" style="position:absolute;top: 101%;height: 5px;width: 93%;opacity:0.3;">
+        <img src="/imgs/horizontalSep2.png" style="position:absolute;top: 101%;height: 5px;width: 93%;opacity:0.3;">
       </div>
     </div>
   </div>

@@ -148,7 +148,7 @@ export default {
     <div class="content" style="position: absolute; height: 78%; width: 80%; top: 19%; left: 3%; filter: drop-shadow(rgb(117, 117, 117) 7px 11px 18px); overflow: auto;padding-right: 12%;">
       <div v-for="player, playerName in normalPlayers" :key="playerName" class="individualPlayerTag" style="position:relative;display:inline-block;background:#00000029;height:4vw;width:8vw;overflow:hidden;margin:1vw;">
         <div class="deco" style="background:#2196f3;position:absolute;height:100%;right:0%;width:88%;">
-          <img src="imgs/horizontalSep3.png" style="position:absolute;width:96%;height:6%;bottom:0%;opacity:0.7;">
+          <img src="/imgs/horizontalSep3.png" style="position:absolute;width:96%;height:6%;bottom:0%;opacity:0.7;">
         </div>
         <div style="position:absolute;top:0%;font-size:3.7vw;left:0;color:white;font-family:font9;" @click="chTeam(true, playerName, player.team)" @contextmenu="chTeam(false, playerName, player.team)">
           {{ player.team }}
@@ -171,7 +171,7 @@ export default {
       </div>
       <div v-for="player, playerName in spectators" :key="playerName" class="individualSpecTag" style="position:relative;display:inline-block;background:#00000029;height:4vw;width:8vw;overflow:hidden;margin:1vw;">
         <div class="deco" style="background: #939393;position:absolute;height:100%;right:0%;width:88%;">
-          <img src="imgs/horizontalSep3.png" style="position:absolute;width:96%;height:6%;bottom:0%;opacity:0.7;">
+          <img src="/imgs/horizontalSep3.png" style="position:absolute;width:96%;height:6%;bottom:0%;opacity:0.7;">
         </div><div style="position:absolute;top:0%;font-size:3.7vw;left:0;color:white;font-family:font9;">
           A
         </div><div style="position:absolute;top:0%;font-size:1.8vw;right:0%;color:#5e5e5e;font-family:font9;">
@@ -191,9 +191,9 @@ export default {
       </div>
       <div v-for="player, playerName in noMapPlayers" :key="playerName" class="individualPlayerTagUnready" style="position:relative;display:inline-block;background:#00000029;height:4vw;width:8vw;overflow:hidden;margin:1vw;">
         <div class="deco" style="background: #ff4b39;position:absolute;height:100%;right:0%;width:88%;">
-          <img src="imgs/horizontalSep3.png" style="position:absolute;width:96%;height:6%;bottom:0%;opacity:0.7;">
+          <img src="/imgs/horizontalSep3.png" style="position:absolute;width:96%;height:6%;bottom:0%;opacity:0.7;">
         </div>
-        <img src="imgs/file-import-solid.svg" style="position:absolute;top: 20%;font-size: 3.7vw;left: -8%;color:white;font-family:font9;height: 83%;filter: invert(0%);opacity: 11%;">
+        <img src="/imgs/file-import-solid.svg" style="position:absolute;top: 20%;font-size: 3.7vw;left: -8%;color:white;font-family:font9;height: 83%;filter: invert(0%);opacity: 11%;">
         <div style="position:absolute;top:0%;font-size:1.8vw;right:0%;color:#5e5e5e;font-family:font9;">
           {{ playerName }}
         </div><div style="position:absolute;top:39%;font-size:1.2vw;right:0%;color:white;font-family:font9;">
@@ -204,8 +204,8 @@ export default {
       </div>
 
       <div v-for="player, playerName in joinedGame.ais" :key="playerName" class="individualPlayerTag" style="position: relative; display: inline-block; background: rgba(0, 0, 0, 0.16); height: 4vw; width: 8vw; overflow: hidden; margin: 1vw;">
-        <img src="imgs/blueprintswblue.png" style="position:absolute;width:96%;height: 100%;bottom: 0%;opacity: 1;filter: invert(0%) grayscale(0.3) hue-rotate(29deg);left: 55%;;left: -68%;/* mix-blend-mode:multiply; */"><div class="deco" style="background:#2196f3;position:absolute;height:100%;right:0%;width:88%;">
-          <img src="imgs/horizontalSep3.png" style="position:absolute;width:96%;height:6%;bottom:0%;opacity:0.7;">
+        <img src="/imgs/blueprintswblue.png" style="position:absolute;width:96%;height: 100%;bottom: 0%;opacity: 1;filter: invert(0%) grayscale(0.3) hue-rotate(29deg);left: 55%;;left: -68%;/* mix-blend-mode:multiply; */"><div class="deco" style="background:#2196f3;position:absolute;height:100%;right:0%;width:88%;">
+          <img src="/imgs/horizontalSep3.png" style="position:absolute;width:96%;height:6%;bottom:0%;opacity:0.7;">
         </div><div style="position:absolute;top:0%;font-size:3.7vw;left:0;color:white;font-family:font9;" @click="chAI(true, playerName, player.team)" @contextmenu="chAI(false, playerName, player.team)">
           {{ player.team }}
         </div><div style="position:absolute;top:0%;font-size:1.8vw;right:0%;color:#5e5e5e;font-family:font9;">
@@ -225,8 +225,8 @@ export default {
       </div>
 
       <div v-for="player, playerName in joinedGame.chickens" :key="playerName" class="individualPlayerTag" style="position: relative; display: inline-block; background: rgba(0, 0, 0, 0.16); height: 4vw; width: 8vw; overflow: hidden; margin: 1vw;">
-        <img src="imgs/blueprintswblue.png" style="position:absolute;width:96%;height: 100%;bottom: 0%;opacity: 1;filter: invert(0%) grayscale(0.3) hue-rotate(29deg);left: 55%;;left: -68%;/* mix-blend-mode:multiply; */"><div class="deco" style="background:#2196f3;position:absolute;height:100%;right:0%;width:88%;">
-          <img src="imgs/horizontalSep3.png" style="position:absolute;width:96%;height:6%;bottom:0%;opacity:0.7;">
+        <img src="/imgs/blueprintswblue.png" style="position:absolute;width:96%;height: 100%;bottom: 0%;opacity: 1;filter: invert(0%) grayscale(0.3) hue-rotate(29deg);left: 55%;;left: -68%;/* mix-blend-mode:multiply; */"><div class="deco" style="background:#2196f3;position:absolute;height:100%;right:0%;width:88%;">
+          <img src="/imgs/horizontalSep3.png" style="position:absolute;width:96%;height:6%;bottom:0%;opacity:0.7;">
         </div>
         <div style="position:absolute;top:0%;font-size:3.7vw;left:0;color:white;font-family:font9;" @click="chChicken(true, playerName, player.team)" @contextmenu="chChicken(false, playerName, player.team)">
           {{ player.team }}
