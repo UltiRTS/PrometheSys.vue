@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { isClient } from '@vueuse/core'
-import { onUnmounted, onMounted, watch} from 'vue'
+import { onMounted, onUnmounted, watch } from 'vue'
 import type p5 from 'p5'
 import { getActivePinia } from 'pinia'
 interface Bubble { x: number; y: number; size: number; speed: number }
@@ -9,7 +9,7 @@ defineProps<{
   active: boolean
 }>()
 
-let sketchInstance = null
+let sketchInstance: null | p5 = null
 
 const sketch = (s: p5) => {
   const bubbles: Bubble[] = []// holds bubble objects
@@ -41,7 +41,7 @@ const sketch = (s: p5) => {
   s.setup = () => {
     const canvas = s.createCanvas(window.innerWidth, window.innerHeight)
     canvas.parent('stupidCanvas')
-    canvas.canvas.id = 'p5-bubbles'
+    // canvas.canvas.id = 'p5-bubbles'
     s.noStroke()
     // frameRate(10);
     // make random bubble objects {x,y,size,speed}
@@ -58,7 +58,7 @@ const sketch = (s: p5) => {
   }
   s.draw = () => {
     // console.log('bubbles still running!')
-    s.clear()
+    s.clear(0, 0, 0, 0)
     // fill(255,0,0,127);
     bubbles.forEach((bub, index) => {
       moveBubbles(bub)
