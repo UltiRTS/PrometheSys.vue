@@ -630,12 +630,12 @@ color:white;
 }*/
 
   @keyframes welcomeSublineBar {
-  0%   {opacity:1;}
-  24% {opacity:1;}
+  0%   {opacity:0.1;}
+  24% {opacity:0.1;}
   25%   {opacity:0;}
   50% {opacity:0;}
-    51%   {opacity:1;}
-  76% {opacity:1;}
+    51%   {opacity:0.1;}
+  76% {opacity:0.1;}
     77%   {opacity:0;}
   100% {opacity:0;}
 }
