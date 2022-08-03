@@ -570,48 +570,54 @@ color:white;
 .welcomeSublineBar1{
   animation-fill-mode: forwards;
   animation-name: welcomeSublineBar;
-  animation-duration: 3.5s;
+  animation-duration: 0.5s;
   animation-iteration-count: 1;
   animation-delay:4.0s;
-  animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
+  left:0%;right:-2500%;
+  opacity:0;
 }
 
 .welcomeSublineBar2{
   animation-fill-mode: forwards;
   animation-name: welcomeSublineBar;
-  animation-duration: 3.5s;
+  animation-duration: 0.5s;
   animation-iteration-count: 1;
   animation-delay:4.1s;
-  animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
+  left:0%;right:-2500%;
+  opacity:0;
 }
 
 .welcomeSublineBar3{
   animation-fill-mode: forwards;
   animation-name: welcomeSublineBar;
-  animation-duration: 3.5s;
+  animation-duration: 0.5s;
   animation-iteration-count: 1;
   animation-delay:4.4s;
-  animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
+  left:0%;right:-2500%;
+  opacity:0;
 }
 
 .welcomeSublineBar4{
   animation-fill-mode: forwards;
   animation-name: welcomeSublineBar;
-  animation-duration: 3.5s;
+  animation-duration: 0.5s;
   animation-iteration-count: 1;
   animation-delay:4.5s;
-  animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
+  left:0%;right:-2500%;
+  opacity:0;
 }
 
 .welcomeSublineBar5{
   animation-fill-mode: forwards;
   animation-name: welcomeSublineBar;
-  animation-duration: 3.5s;
+  animation-duration: 0.5s;
   animation-iteration-count: 1;
   animation-delay:4.8s;
-  animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
+  left:0%;right:-2500%;
+  opacity:0;
 }
 
+/*
   @keyframes welcomeSublineBar {
   0%   {opacity:0; left:0%;right:2000%;}
   15.9% {opacity:1;}
@@ -620,9 +626,19 @@ color:white;
   17.1% {opacity:1;}
   20%   {opacity:1;left:0%;right:-2500%;}
   40%   {opacity:1;left:0%;right:-2500%;}
-  70%   {opacity:0;left:2500%;right:-2500;}
-}
+  70%   {opacity:0;left:2500%;right:-2500%;}
+}*/
 
+  @keyframes welcomeSublineBar {
+  0%   {opacity:1;}
+  24% {opacity:1;}
+  25%   {opacity:0;}
+  50% {opacity:0;}
+    51%   {opacity:1;}
+  76% {opacity:1;}
+    77%   {opacity:0;}
+  100% {opacity:0;}
+}
 
 
 .welcomeSublineTxt1{
@@ -730,7 +746,8 @@ font-family:font5;
   61%   {background:rgba(255,255,255,0);}
   80%   {background:rgba(255,255,255,0);}
   81%   {background:rgba(255,255,255,0.5);}
-  100%   {background:rgba(255,255,255,0.5);}
+  99%   {background:rgba(255,255,255,0.5);}
+  100%   {background:rgba(255,255,255,0);}
 }
 
 .welcomeHeading{
