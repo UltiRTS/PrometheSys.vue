@@ -112,7 +112,7 @@ onMounted(() => {
     }
   }
 
-  function Connection(x, y, z, size) {
+  function Connection(x: number, y: number, z: number, size: number) {
     this.x = x
     this.y = y
     this.z = z
@@ -463,9 +463,9 @@ function loginWrapper() {
           <p style="cursor: default;top:1.2vw;position:absolute;left:1.2vw;font-size:1.5vw;background-color:black;color:white;margin:0;padding:0;filter: drop-shadow(4px 5px 2px rgba(0,0,0,0.5));">
             Dr.&nbsp;
           </p>
-          <input id="usr" v-model="username" style="cursor: text;top:1.2vw;position:absolute;left:3.5vw;font-size:1.5vw; display: inline;border:none;outline:none;width:18vw;background: transparent;color:black;" type="text" placeholder="Name" name="uname" required="">
+          <input id="usr" v-model="username" style="cursor: text;top:1.2vw;position:absolute;left:3.5vw;font-size:1.5vw; display: inline;border:none;outline:none;width:18vw;background: transparent;color:black;" type="text" placeholder="Name" name="uname" required>
 
-          <input id="passwd" v-model="password" style="font-size:1.5vw;margin:0;cursor: text;top:3.2vw;position:absolute;left:1.2vw;border:none;outline:none;background: transparent;" type="password" placeholder="Password" name="psw" required="">
+          <input id="passwd" v-model="password" style="font-size:1.5vw;margin:0;cursor: text;top:3.2vw;position:absolute;left:1.2vw;border:none;outline:none;background: transparent;" type="password" placeholder="Password" name="psw" required>
 
           <p
             id="loginInputStatus" class="connect"
@@ -545,26 +545,24 @@ function loginWrapper() {
 
 <style scoped>
 .logininputOut{
-	background-color: white;
-opacity:0;
-	mix-blend-mode: screen;
-overflow:hidden;
-	top:-2vw;
-color:white;
-	animation-fill-mode: forwards;
-	animation-name: logininputGoneAnime;
-	animation-duration: 0.7s;
-	animation-iteration-count: 1;
-	animation-delay:0s;
-	animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
-	width:22vw;left:45%;opacity:1;
+  background-color: white;
+  opacity:0;
+  mix-blend-mode: screen;
+  overflow:hidden;
+  top:-2vw;
+  color:white;
+  animation-fill-mode: forwards;
+  animation-name: logininputGoneAnime;
+  animation-duration: 0.7s;
+  animation-iteration-count: 1;
+  animation-delay:0s;
+  animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
+  width:22vw;left:45%;opacity:1;
 }
 
 @keyframes logininputGoneAnime {
-
-	0%   {width:22vw;left:45%;opacity:1;}
-
-	100%   {width:0.1vw;left:45%;opacity:1;}
+  0%   {width:22vw;left:45%;opacity:1;}
+  100%   {width:0.1vw;left:45%;opacity:1;}
 }
 
 .welcomeSublineBar1{
@@ -639,7 +637,6 @@ color:white;
     77%   {opacity:0;}
   100% {opacity:0;}
 }
-
 
 .welcomeSublineTxt1{
   animation-fill-mode: forwards;
