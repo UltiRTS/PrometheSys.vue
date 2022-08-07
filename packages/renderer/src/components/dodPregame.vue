@@ -33,20 +33,11 @@ export default {
       const id = this.network.joinedGame.value.mapId
       console.log(this.network.joinedGame)
       console.log(this.dntpService.id2NameCache)
-<<<<<<< HEAD
       if (this.dntpService.id2NameCache.value[id] === undefined)
         return '-/-'
 
       return this.dntpService.id2NameCache.value[id]
     },
-=======
-      if(this.dntpService.id2NameCache.value[id] === undefined)
-      {
-        return '-/-'
-      }
-      return this.dntpService.id2NameCache.value[id]
-    }
->>>>>>> cd1989be1c1da76bbee876b8a7205d9458e2b5f1
   },
 
   updated() {
@@ -58,11 +49,7 @@ export default {
       this.setmainMenuContent('dod')
     },
 
-<<<<<<< HEAD
     exitGame() {
-=======
-    exitGame(){
->>>>>>> cd1989be1c1da76bbee876b8a7205d9458e2b5f1
       this.network.leaveGame()
     },
 
@@ -90,11 +77,7 @@ export default {
     <div class="dodPregameBg" style="position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;background:#989ba1;">
       <img src="/imgs/blueprintswblue.png" style="position:absolute;width:100%;height:100%;filter:grayscale(100%) invert(80%);opacity:0.1;"><div class="grid" style="background-size:15vh 15vh;background-image:linear-gradient(to right, grey 1px, transparent 1px),linear-gradient(to bottom, grey 1px, transparent 1px);position:absolute;width:100%;height:100%;opacity:0.5;"></div><div class="grid" style="background-size:14vh 7vh;background-image:radial-gradient(circle, #ffffff6e 1px, rgba(0, 0, 0, 0) 1px);position:absolute;width:100%;height:100%;top:7%;left:1%;"></div><div class="grid" style="background-size:7vh 7vh;background-image:radial-gradient(circle, #00000036 1px, rgba(0, 0, 0, 0) 1px);position:absolute;width:150%;height:100%;"></div>
     </div>
-<<<<<<< HEAD
     <div class="dodCenterInfoPanel" style="position: absolute; bottom: 0%;  width: 90%; left: 5%; top: 0%;filter: grayscale(100%);mix-blend-mode:screen;">
-=======
-    <div class="dodCenterInfoPanel" style="position: absolute; bottom: 18%;  width: 100vw; left: 39vw; top: 0%;filter: grayscale(100%);mix-blend-mode:screen;">
->>>>>>> cd1989be1c1da76bbee876b8a7205d9458e2b5f1
       <img :src="minimapBlowUp" style="-webkit-mask-image: linear-gradient(90deg, #0000ff00, green 9%, green 91%, #ff000000);width:100%;">
     </div>
     <div class="dodBtmInfoPanel" style="position: absolute; bottom: 7%; height: 15vw; width: 87%; left: 13vw; background: rgba(255, 255, 255, 0.65); transform: rotateX(0.3deg);">
@@ -173,17 +156,10 @@ export default {
     </div>
     <div class="dodLeftOperationPanel" style="position: absolute; bottom: 32%; height: 81vh; width: 72vh; left: 22vw; filter: drop-shadow(30px 10px 18px #000);">
       <div style="font-size:9vh;-webkit-text-stroke-width:0.2vh;-webkit-text-stroke-color:#54545499;font-family: 'font9';text-align:right;color:#ffffffd9;top: 11%;position:absolute;right:0;">
-<<<<<<< HEAD
         Dr. {{ network.username }}
       </div>
       <div style="position:absolute;top: 27%;width:100%;background: #2196f3;font-family: 'font6';font-size:4vh;text-align:right;opacity: 0.8;" @click.stop="pickMap">
         {{ mapID2Name }}
-=======
-        Dr. {{network.username}}
-      </div>
-      <div style="position:absolute;top: 27%;width:100%;background: #2196f3;font-family: 'font6';font-size:4vh;text-align:right;opacity: 0.8;" @click.stop="pickMap">
-        {{mapID2Name}}
->>>>>>> cd1989be1c1da76bbee876b8a7205d9458e2b5f1
       </div>
 
       <div class="mapTags" style="position: absolute; top: 37%;width: 100%;padding: 0vh;font-size: 3vh;text-align:right;font-family: 'font5';font-weight:900;opacity: 0.9;">
@@ -234,11 +210,7 @@ export default {
         </div>
         <img src="/imgs/btlop1.png" style="position: absolute; height: 204%; top: -28%; left: 39%;opacity: 0.2;">
       </div>
-<<<<<<< HEAD
       <div class="pGameUserOperation" style="position: absolute; height: 14.1%; width: 40%; left: 34%; overflow:hidden;; background: #545454;top: 94.6%;filter:drop-shadow(8px 8px 6px #545454);">
-=======
-      <div class="pGameUserOperation" style="position: absolute; height: 14.1%; width: 40%; left: 34%; overflow:hidden;; background: #545454;top: 94.6%;filter:drop-shadow(8px 8px 6px #545454);" >
->>>>>>> cd1989be1c1da76bbee876b8a7205d9458e2b5f1
         <div style="position:absolute;font-size: 3vw;top: 28%;left: 11%;color: #ffffffc7;font-family: font2;font-weight: 100;">
           HALT
         </div>
