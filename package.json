@@ -15,7 +15,7 @@
   "repository": "https://github.com/UltiRTS/PrometheSys.vue",
   "main": "dist/main/index.cjs",
   "scripts": {
-    "prebuild": "vue-tsc --noEmit --p packages/renderer/tsconfig.json && node scripts/build.mjs",
+    "prebuild": "vue-tsc --noEmit --p packages/renderer/tsconfig.json && node scripts/build.mjs && sh scripts/merge_css.sh",
     "build": "electron-builder",
     "build:linux": "node scripts/build.js && electron-builder --linux",
     "build:mac": "node scripts/build.js && electron-builder --mac",
