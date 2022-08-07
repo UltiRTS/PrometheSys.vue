@@ -1252,7 +1252,11 @@ button::before {
 button::after {
   content: "";
   display: inline-block;
+<<<<<<< HEAD
   /*float: left;*/
+=======
+  float: left;
+>>>>>>> cd1989be1c1da76bbee876b8a7205d9458e2b5f1
   width: 15px;
   height: 15px;
   margin: 2.5px 10px 2.5px 0;

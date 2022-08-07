@@ -4,11 +4,17 @@
 
 import { mapActions, mapState } from 'pinia'
 import { useUserStore } from '../stores'
+<<<<<<< HEAD
 import visConfirmation from '../components/visConfirmation.vue'
 // import dodPGameTeam from '../components/dodPGameTeam.vue'
 
 export default {
   components: { visConfirmation },
+=======
+// import dodPGameTeam from '../components/dodPGameTeam.vue'
+
+export default {
+>>>>>>> cd1989be1c1da76bbee876b8a7205d9458e2b5f1
   // components: { dodPGameTeam },
   data() {
     return {
@@ -294,7 +300,10 @@ export default {
     <InputGrabber :activated="grabberActivated" />
     <visNotif />
     <visLoading />
+<<<<<<< HEAD
      <visConfirmation />
+=======
+>>>>>>> cd1989be1c1da76bbee876b8a7205d9458e2b5f1
   </div>
 </template>
 
