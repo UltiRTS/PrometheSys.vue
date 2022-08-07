@@ -50,7 +50,7 @@ export default {
       this.activeSection = panel
       if (panel === 'list') {
         this.ui.pushNewLoading('getMap')
-        try{
+        try {
           this.dntpService.listBatchMap(this.listPgNum).then((ret) => {
             this.dntpService.retrieveMapList(ret, this.lobbyDir).then(() => {
               this.ui.rmLoading('getMap')
@@ -58,11 +58,10 @@ export default {
             })
           })
         }
-        catch(error){
+        catch (error) {
           console.log(error)
           this.ui.rmLoading('getMap')
         }
-
       }
     },
     listMapNextPage(isNextPage) {
@@ -70,20 +69,19 @@ export default {
         this.listPgNum++
       else
         this.listPgNum--
-      try{
+      try {
         this.ui.pushNewLoading('getMap')
-      this.dntpService.listBatchMap(this.listPgNum).then((ret) => {
-        this.dntpService.retrieveMapList(ret, this.lobbyDir).then(() => {
-          this.ui.rmLoading('getMap')
-          this.ui.pushUINewNotif({ title: 'MAP', msg: 'LIST RETRIEVED' })
+        this.dntpService.listBatchMap(this.listPgNum).then((ret) => {
+          this.dntpService.retrieveMapList(ret, this.lobbyDir).then(() => {
+            this.ui.rmLoading('getMap')
+            this.ui.pushUINewNotif({ title: 'MAP', msg: 'LIST RETRIEVED' })
+          })
         })
-      })
       }
-      catch(error){
+      catch (error) {
         console.log(error)
         this.ui.rmLoading('getMap')
       }
-      
     },
   },
 }

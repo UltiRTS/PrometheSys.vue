@@ -8,6 +8,7 @@ export const grabberActivated = ref(false)
 export const notifs = ref<{ msg: string; title: string; class: string }[]>([])
 const loadingQ = ref<string [] >([])
 export const loadingClass = ref<string>('died')
+export const confirms = ref<{ title: string; msg: string; rej: any;cnfrm: any }[]>([])
 
 export function pushNewLoading(id: string) {
   loadingClass.value = 'alive'
@@ -74,4 +75,10 @@ export function setmainMenuContent(input: string) {
 
 export function setmodalMenuContent(input: string) {
   modalMenuContent.value = input
+}
+
+export function pushConfirm(title: string, message: string) {
+  return new Promise((resolve, reject) => {
+    confirms.value.push({ title, msg: message, rej: reject, cnfrm: resolve })
+  })
 }

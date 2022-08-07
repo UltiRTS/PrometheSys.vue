@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/adjacent-overload-signatures */
 import { randomInt } from 'crypto'
 import { ref } from 'vue'
-import { pushNewLoading, pushUINewNotif, rmLoading } from '../UI/ui'
+import { pushConfirm, pushNewLoading, pushUINewNotif, rmLoading } from '../UI/ui'
 import router from '../../router'
 import * as dntp from '../mapAPI/dntpService'
 import * as engineMgr from '../engineManager/engine'
@@ -25,6 +25,7 @@ export const joinedChannels = ref<string[]>()
 export const gameListing = ref<GameBrief[]>()
 export const joinedGame = ref<Game | null>()
 export const username = ref('')
+const password = ref('')
 export const minimapFileName = ref('')
 
 export function login(params: {
@@ -36,38 +37,33 @@ export function login(params: {
     return
   }
 
-  const tx = JSON.stringify({
+  const tx = {
     action: 'LOGIN',
     parameters: {
       username: params.username,
       password: params.password,
     },
     seq: randomInt(0, 1000000),
-  })
+  }
+  username.value = params.username
 
-  console.log(tx)
-  ws.send(tx)
+  password.value = params.password
+  wsSendServer(tx)
 }
 
 export function joinChat(params: {
   chatName: string
   password: string
 }) {
-  if (ws_open.value !== true) {
-    console.error('ws is not open')
-    return
-  }
-
-  const tx = JSON.stringify({
+  const tx = {
     action: 'JOINCHAT',
     parameters: {
       chatName: params.chatName,
       password: params.password,
     },
     seq: randomInt(0, 1000000),
-  })
-  console.log(tx)
-  ws.send(tx)
+  }
+  wsSendServer(tx)
 }
 
 export function leaveChat(params: {
@@ -101,20 +97,15 @@ export function sayChat(params: {
   chatName: string
   msg: string
 }) {
-  if (ws_open.value !== true) {
-    console.error('ws is not open')
-    return
-  }
-  const tx = JSON.stringify({
+  const tx = {
     action: 'SAYCHAT',
     parameters: {
       chatName: params.chatName,
       message: params.msg,
     },
     seq: randomInt(0, 1000000),
-  })
-  console.log(tx)
-  ws.send(tx)
+  }
+  wsSendServer(tx)
 }
 
 export function joinGame(params: {
@@ -249,6 +240,13 @@ export function wsSendServer(tx: {
 }) {
   if (ws_open.value !== true) {
     console.error('ws is not open')
+    pushConfirm('NEURAL CONNECTION LOST', 'CONFIRM RECONNECTION').then(() => {
+      login({ username: username.value, password: password.value })
+    },
+    () => {
+      console.log('logged out')
+      pushUINewNotif({ title: 'IDENT', msg: 'NEURAL CONNECTION DESTROYED', class: 'aaa' })
+    })
     return
   }
   console.log(tx)

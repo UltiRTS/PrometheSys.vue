@@ -1252,7 +1252,7 @@ button::before {
 button::after {
   content: "";
   display: inline-block;
-  float: left;
+  /*float: left;*/
   width: 15px;
   height: 15px;
   margin: 2.5px 10px 2.5px 0;

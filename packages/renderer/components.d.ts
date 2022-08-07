@@ -18,6 +18,7 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SampleComponent: typeof import('./src/components/sampleComponent.vue')['default']
+    VisConfirmation: typeof import('./src/components/visConfirmation.vue')['default']
     VisLoading: typeof import('./src/components/visLoading.vue')['default']
     VisNotif: typeof import('./src/components/visNotif.vue')['default']
   }
