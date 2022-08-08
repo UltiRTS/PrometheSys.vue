@@ -12,8 +12,8 @@ export default {
   computed: {
     ...mapState(useUserStore, ['ui']),
     getLastConfirm() {
-      if (this.ui.confirms.values !== undefined)
-        return this.ui.confirms.values[0]
+      if (this.ui.confirms.value.length > 0)
+        return this.ui.confirms.value[0]
       return false
     },
   },
@@ -23,13 +23,13 @@ export default {
   },
   methods: {
     acceptConfirm() {
-      this.ui.confirms[0].cnfrm()
-      this.ui.confirms.shift()
+      this.ui.confirms.value[0].cnfrm()
+      this.ui.confirms.value.shift()
     },
 
     rejectConfirm() {
-      this.ui.confirms[0].rej()
-      this.ui.confirms.shift()
+      this.ui.confirms.value[0].rej()
+      this.ui.confirms.value.shift()
     },
 
   },

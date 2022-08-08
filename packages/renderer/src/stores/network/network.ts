@@ -7,7 +7,7 @@ import * as dntp from '../mapAPI/dntpService'
 import * as engineMgr from '../engineManager/engine'
 import type { Game, GameBrief, Notification, StateMessage } from './interfaces'
 
-const ws = new WebSocket('ws://144.126.145.172:8081')
+let ws: WebSocket
 export const ws_open = ref<boolean>()
 let wdir: string
 let submittedMap: number
@@ -27,6 +27,56 @@ export const joinedGame = ref<Game | null>()
 export const username = ref('')
 const password = ref('')
 export const minimapFileName = ref('')
+initNetWork()
+export function initNetWork() {
+  ws = new WebSocket('ws://144.126.145.172:8081')
+  ws.onmessage = (ev) => {
+    let msg: StateMessage | Notification = JSON.parse(ev.data)
+    console.log({ msg })
+    if (msg.action === undefined)
+      return
+
+    if (msg.action === 'NOTIFY') {
+      msg = msg as Notification
+    }
+    else {
+      msg = msg as StateMessage
+
+      // login section
+      writeLoginStats()
+
+      // chat section
+      writeChatStats(msg)
+      joinedGame.value = msg.state.user.game
+      gameListing.value = msg.state.games
+
+      username.value = msg.state.user.username
+      // const mapBeingDownloaded = joinedGame.value.mapId
+      writeMapStats(msg)
+      writeStartGameStats(msg)
+      lastGame = joinedGame.value
+    }
+  }
+
+  ws.onopen = () => {
+    ws_open.value = true
+    console.log('ws is open')
+  }
+
+  ws.onclose = () => {
+    ws_open.value = false
+    initNetWork()
+    pushConfirm('NEURAL CONNECTION LOST', 'CONFIRM RECONNECTION').then(() => {
+      login({ username: username.value, password: password.value })
+    },
+    () => {
+      console.log('logged out')
+      ws.close()
+      pushUINewNotif({ title: 'IDENT', msg: 'NEURAL CONNECTION DESTROYED', class: 'aaa' })
+    })
+  }
+  window.ws = ws
+}
 
 export function login(params: {
   username: string
@@ -240,13 +290,6 @@ export function wsSendServer(tx: {
 }) {
   if (ws_open.value !== true) {
     console.error('ws is not open')
-    pushConfirm('NEURAL CONNECTION LOST', 'CONFIRM RECONNECTION').then(() => {
-      login({ username: username.value, password: password.value })
-    },
-    () => {
-      console.log('logged out')
-      pushUINewNotif({ title: 'IDENT', msg: 'NEURAL CONNECTION DESTROYED', class: 'aaa' })
-    })
     return
   }
   console.log(tx)
@@ -255,34 +298,6 @@ export function wsSendServer(tx: {
 
 export function setWDir(input: string) {
   wdir = input
-}
-
-ws.onmessage = (ev) => {
-  let msg: StateMessage | Notification = JSON.parse(ev.data)
-  console.log({ msg })
-  if (msg.action === undefined)
-    return
-
-  if (msg.action === 'NOTIFY') {
-    msg = msg as Notification
-  }
-  else {
-    msg = msg as StateMessage
-
-    // login section
-    writeLoginStats()
-
-    // chat section
-    writeChatStats(msg)
-    joinedGame.value = msg.state.user.game
-    gameListing.value = msg.state.games
-
-    username.value = msg.state.user.username
-    // const mapBeingDownloaded = joinedGame.value.mapId
-    writeMapStats(msg)
-    writeStartGameStats(msg)
-    lastGame = joinedGame.value
-  }
 }
 
 export const userState = ref({ isLoggedIn: false })
@@ -365,11 +380,4 @@ function writeStartGameStats(msg: StateMessage) {
     })
   }
 }
-ws.onopen = () => {
-  ws_open.value = true
-  console.log('ws is open')
-}
 
-ws.onclose = () => {
-  ws_open.value = false
-}
