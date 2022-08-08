@@ -63,3 +63,8 @@ export interface Notification {
   seq: number
   message: string
 }
+
+export interface PING {
+  action: string
+  parameters: {}
+}

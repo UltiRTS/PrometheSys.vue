@@ -46,7 +46,7 @@ export default {
       else
         this.setmainMenuContent('dod')
 
-      console.log('joinedGame changed')
+      // console.log('joinedGame changed')
     },
   },
   mounted() {

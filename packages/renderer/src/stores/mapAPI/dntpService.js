@@ -108,7 +108,7 @@ export async function getMapActualFile(id, dir) {
 
 export async function getMiniMapfromID(id, lobbyDir) {
   const ret = await lib.getMap(id)
-  console.log(ret)
+  // console.log(ret)
   if (!ret.map)
     return
   const minimapfilename = ret.map.minimap_filename
@@ -128,7 +128,7 @@ export async function getMiniMapfromID(id, lobbyDir) {
   catch (error) {
     await downloadMap(dlUrl, dir, minimapfilename)
   }
-  console.log(minimapfilename)
+  // console.log(minimapfilename)
   return minimapfilename
 }
 

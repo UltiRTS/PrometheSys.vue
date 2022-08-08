@@ -62,9 +62,9 @@ onMounted(() => {
   const centre = { x: two.width / 2, y: two.height / 2 }
   const tagsPositions = tagsPosition(radius, centre)
 
-  console.log(`twoTag: ${twoTag.value.clientWidth}, ${twoTag.value.clientHeight}`)
-  console.log(`two- width: ${two.width}, height: ${two.height}`)
-  console.log(`center ${centre.x}, ${centre.y}`)
+  // console.log(`twoTag: ${twoTag.value.clientWidth}, ${twoTag.value.clientHeight}`)
+  // console.log(`two- width: ${two.width}, height: ${two.height}`)
+  // console.log(`center ${centre.x}, ${centre.y}`)
 
   for (const angle of anglePairs.value) {
     const [start, end] = angle

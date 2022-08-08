@@ -5,14 +5,17 @@ import { pushConfirm, pushNewLoading, pushUINewNotif, rmLoading } from '../UI/ui
 import router from '../../router'
 import * as dntp from '../mapAPI/dntpService'
 import * as engineMgr from '../engineManager/engine'
-import type { Game, GameBrief, Notification, StateMessage } from './interfaces'
+import type { Game, GameBrief, Notification, PING, StateMessage } from './interfaces'
 
 let ws: WebSocket
-export const ws_open = ref<boolean>()
+const ws_open = ref<boolean>()
 let wdir: string
 let submittedMap: number
 const mapsBeingDownloaded: number[] = []
 let lastGame: Game | null
+let clientHP: number
+const hpChecker: any[] = []
+
 export const chatLog = ref([
   {
     author: 'Александр Карпов',
@@ -27,47 +30,63 @@ export const joinedGame = ref<Game | null>()
 export const username = ref('')
 const password = ref('')
 export const minimapFileName = ref('')
+
 initNetWork()
-export function initNetWork() {
+
+export function initNetWork(isRe = false) {
+  clientHP = 3
   ws = new WebSocket('ws://144.126.145.172:8081')
   ws.onmessage = (ev) => {
-    let msg: StateMessage | Notification = JSON.parse(ev.data)
-    console.log({ msg })
+    let msg: StateMessage | Notification | PING = JSON.parse(ev.data)
     if (msg.action === undefined)
       return
 
+    if (msg.action === 'PING') {
+      msg = msg as PING
+      ws.send(JSON.stringify({
+        action: 'PONG',
+        parameters: {},
+      }))
+      clientHP = 3
+      // console.log('received ping')
+      return
+    }
+    console.log({ msg })
+
     if (msg.action === 'NOTIFY') {
       msg = msg as Notification
+      return
     }
-    else {
-      msg = msg as StateMessage
 
-      // login section
-      writeLoginStats()
+    msg = msg as StateMessage
 
-      // chat section
-      writeChatStats(msg)
-      joinedGame.value = msg.state.user.game
-      gameListing.value = msg.state.games
+    // login section
+    writeLoginStats()
 
-      username.value = msg.state.user.username
-      // const mapBeingDownloaded = joinedGame.value.mapId
-      writeMapStats(msg)
-      writeStartGameStats(msg)
-      lastGame = joinedGame.value
-    }
+    // chat section
+    writeChatStats(msg)
+    joinedGame.value = msg.state.user.game
+    gameListing.value = msg.state.games
+
+    username.value = msg.state.user.username
+    // const mapBeingDownloaded = joinedGame.value.mapId
+    writeMapStats(msg)
+    writeStartGameStats(msg)
+    lastGame = joinedGame.value
   }
 
   ws.onopen = () => {
     ws_open.value = true
     console.log('ws is open')
+    if (isRe)
+      login({ username: username.value, password: password.value })
   }
 
   ws.onclose = () => {
+    console.log('server closed connection')
     ws_open.value = false
-
     pushConfirm('NEURAL CONNECTION LOST', 'CONFIRM RECONNECTION').then(() => {
-      reInitNetWork()
+      initNetWork(true)
     },
     () => {
       console.log('logged out')
@@ -75,56 +94,18 @@ export function initNetWork() {
       pushUINewNotif({ title: 'IDENT', msg: 'NEURAL CONNECTION DESTROYED', class: 'aaa' })
     })
   }
-  window.ws = ws
-}
 
-export function reInitNetWork() {
-  ws = new WebSocket('ws://144.126.145.172:8081')
-  ws.onmessage = (ev) => {
-    let msg: StateMessage | Notification = JSON.parse(ev.data)
-    console.log({ msg })
-    if (msg.action === undefined)
-      return
-
-    if (msg.action === 'NOTIFY') {
-      msg = msg as Notification
-    }
-    else {
-      msg = msg as StateMessage
-
-      // login section
-      writeLoginStats()
-
-      // chat section
-      writeChatStats(msg)
-      joinedGame.value = msg.state.user.game
-      gameListing.value = msg.state.games
-
-      username.value = msg.state.user.username
-      // const mapBeingDownloaded = joinedGame.value.mapId
-      writeMapStats(msg)
-      writeStartGameStats(msg)
-      lastGame = joinedGame.value
-    }
-  }
-
-  ws.onopen = () => {
-    ws_open.value = true
-    console.log('ws is open')
-    login({ username: username.value, password: password.value })
-  }
-
-  ws.onclose = () => {
-    ws_open.value = false
-    pushConfirm('NEURAL CONNECTION LOST', 'CONFIRM RECONNECTION').then(() => {
-      reInitNetWork()
-    },
-    () => {
-      console.log('logged out')
+  hpChecker.push(setInterval(() => {
+    if (clientHP <= 0) {
       ws.close()
-      pushUINewNotif({ title: 'IDENT', msg: 'NEURAL CONNECTION DESTROYED', class: 'aaa' })
-    })
-  }
+      clearInterval(hpChecker[0])
+      hpChecker.shift()
+      console.log('closing network')
+    }
+
+    clientHP--
+  }, 3000))
+
   window.ws = ws
 }
 
@@ -133,7 +114,7 @@ export function login(params: {
   password: string
 }) {
   if (ws_open.value !== true) {
-    window.console.log('ws is not open')
+    window.console.log('ws not opened')
     return
   }
 

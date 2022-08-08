@@ -22,17 +22,17 @@ export default {
       }
     },
     minimapBlowUp() {
-      console.log(this.network.minimapFileName.value)
+      // console.log(this.network.minimapFileName.value)
       if (this.network.minimapFileName.value === '' || !this.network.minimapFileName.value)
         return '/imgs/minimapSample.png'
-      console.log(`file://${path.join(this.lobbyDir, '/mapPreview/', this.network.minimapFileName.value)}`)
+      // console.log(`file://${path.join(this.lobbyDir, '/mapPreview/', this.network.minimapFileName.value)}`)
       const filePath = `file://${path.join(this.lobbyDir, '/mapPreview/', this.network.minimapFileName.value)}`
       return filePath
     },
     mapID2Name() {
       const id = this.network.joinedGame.value.mapId
-      console.log(this.network.joinedGame)
-      console.log(this.dntpService.id2NameCache)
+      // console.log(this.network.joinedGame)
+      // console.log(this.dntpService.id2NameCache)
       if (this.dntpService.id2NameCache.value[id] === undefined)
         return '-/-'
 
@@ -196,10 +196,17 @@ export default {
         </div><p style="position:absolute;background:black;color:white;top:52%;left:10%;font-size:4vh;font-family:font1;">
           TEST
         </p>
-      </div><div class="pGameUserOperationTitle" style="position:absolute;height:45%;width:100%;top:56%;left:17%;mix-blend-mode:screen;">
-        <div style="width:100%;height:1%;background: #ffffff61;top:32%;position:absolute;right:0;"></div><p style="position:absolute;background:black;color:white;top:-2%;left:43%;font-size:4vh;font-family:'font2';">
+      </div>
+      <div class="pGameUserOperationTitle" style="position:absolute;height:45%;width:100%;top:56%;left:17%;mix-blend-mode:screen;">
+        <div style="width:100%;height:1%;background: #ffffff61;top:32%;position:absolute;right:0;"></div>
+        <p style="position:absolute;background:black;color:white;top:-2%;left:43%;font-size:4vh;font-family:'font2';">
           OPERATIONS
         </p>
+      </div>
+      <div class="noncanonicalOpts" style="position:absolute;top: 62%;width:100%;right: -33%;">
+        <img src="/imgs/btlop3.png" style="position:absolute;width:45%;">
+        <img src="/imgs/btlop2.png" style="position:absolute;width:45%;left: 26%;" @click="viewDod">
+        <img src="/imgs/btlop1.png" style="position:absolute;width:45%;left: 52%;">
       </div>
       <div class="pGameUserOperation" style="position: absolute; height: 14.1%; width: 40%; left: 77%; overflow:hidden; background: #2196f3;top: 94.6%;filter:drop-shadow(8px 8px 6px #545454);" @click="startGame">
         <div style="position:absolute;font-size: 3vw;top: 28%;left: 11%;color: #ffffffc7;font-family: font2;font-weight: 100;">
@@ -210,19 +217,14 @@ export default {
         </div>
         <img src="/imgs/btlop1.png" style="position: absolute; height: 204%; top: -28%; left: 39%;opacity: 0.2;">
       </div>
-      <div class="pGameUserOperation" style="position: absolute; height: 14.1%; width: 40%; left: 34%; overflow:hidden;; background: #545454;top: 94.6%;filter:drop-shadow(8px 8px 6px #545454);">
+      <div class="pGameUserOperation" style="position: absolute; height: 14.1%; width: 40%; left: 34%; overflow:hidden;; background: #545454;top: 94.6%;filter:drop-shadow(8px 8px 6px #545454);" @click="exitGame">
         <div style="position:absolute;font-size: 3vw;top: 28%;left: 11%;color: #ffffffc7;font-family: font2;font-weight: 100;">
           HALT
         </div>
         <div style="position:absolute;font-size: 1vw;top: 11%;left: 13%;color: white;font-family: font5;font-weight:900;background: black;mix-blend-mode: screen;">
           OPERATION
         </div>
-        <img src="/imgs/btlop3.png" style="position: absolute; height: 204%; top: -28%; left: 39%;opacity: 0.2;" @click="exitGame">
-      </div>
-      <div class="noncanonicalOpts" style="position:absolute;top: 62%;width:100%;right: -33%;">
-        <img src="/imgs/btlop3.png" style="position:absolute;width:45%;">
-        <img src="/imgs/btlop2.png" style="position:absolute;width:45%;left: 26%;" @click="viewDod">
-        <img src="/imgs/btlop1.png" style="position:absolute;width:45%;left: 52%;">
+        <img src="/imgs/btlop3.png" style="position: absolute; height: 204%; top: -28%; left: 39%;opacity: 0.2;">
       </div>
     </div>
   </div>
