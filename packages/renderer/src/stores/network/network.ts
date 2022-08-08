@@ -65,9 +65,59 @@ export function initNetWork() {
 
   ws.onclose = () => {
     ws_open.value = false
-    initNetWork()
+
     pushConfirm('NEURAL CONNECTION LOST', 'CONFIRM RECONNECTION').then(() => {
-      login({ username: username.value, password: password.value })
+      reInitNetWork()
+    },
+    () => {
+      console.log('logged out')
+      ws.close()
+      pushUINewNotif({ title: 'IDENT', msg: 'NEURAL CONNECTION DESTROYED', class: 'aaa' })
+    })
+  }
+  window.ws = ws
+}
+
+export function reInitNetWork() {
+  ws = new WebSocket('ws://144.126.145.172:8081')
+  ws.onmessage = (ev) => {
+    let msg: StateMessage | Notification = JSON.parse(ev.data)
+    console.log({ msg })
+    if (msg.action === undefined)
+      return
+
+    if (msg.action === 'NOTIFY') {
+      msg = msg as Notification
+    }
+    else {
+      msg = msg as StateMessage
+
+      // login section
+      writeLoginStats()
+
+      // chat section
+      writeChatStats(msg)
+      joinedGame.value = msg.state.user.game
+      gameListing.value = msg.state.games
+
+      username.value = msg.state.user.username
+      // const mapBeingDownloaded = joinedGame.value.mapId
+      writeMapStats(msg)
+      writeStartGameStats(msg)
+      lastGame = joinedGame.value
+    }
+  }
+
+  ws.onopen = () => {
+    ws_open.value = true
+    console.log('ws is open')
+    login({ username: username.value, password: password.value })
+  }
+
+  ws.onclose = () => {
+    ws_open.value = false
+    pushConfirm('NEURAL CONNECTION LOST', 'CONFIRM RECONNECTION').then(() => {
+      reInitNetWork()
     },
     () => {
       console.log('logged out')
