@@ -28,6 +28,8 @@ export const joinedChannels = ref<string[]>()
 export const gameListing = ref<GameBrief[]>()
 export const joinedGame = ref<Game | null>()
 export const username = ref('')
+export const userState = ref({ isLoggedIn: false })
+
 const password = ref('')
 export const minimapFileName = ref('')
 
@@ -85,6 +87,7 @@ export function initNetWork(isRe = false) {
   ws.onclose = () => {
     console.log('server closed connection')
     ws_open.value = false
+    userState.value.isLoggedIn = false
     pushConfirm('NEURAL CONNECTION LOST', 'CONFIRM RECONNECTION').then(() => {
       initNetWork(true)
     },
@@ -330,8 +333,6 @@ export function wsSendServer(tx: {
 export function setWDir(input: string) {
   wdir = input
 }
-
-export const userState = ref({ isLoggedIn: false })
 
 function writeLoginStats() {
   if (userState.value.isLoggedIn === false) {
