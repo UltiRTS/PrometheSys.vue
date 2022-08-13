@@ -108,8 +108,6 @@ export function initNetWork(isRe = false) {
 
     clientHP--
   }, 3000))
-
-  window.ws = ws
 }
 
 export function login(params: {

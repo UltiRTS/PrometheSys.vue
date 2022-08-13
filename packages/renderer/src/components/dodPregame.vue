@@ -250,14 +250,14 @@ export default {
         </div>
       </div><div class="rejoin" style="position:absolute;top:26%;height:40%;background:#767676;left:39%;width:22%;filter:drop-shadow(23px 16px 10px rgba(0,0,0,0.5));" data-v-0516f4a8="">
         <div style="position:absolute;top:0%;height:100%;background:#767676;left:0%;width:29%;filter:drop-shadow(9px 6px 10px rgba(255,255,255,0.5));overflow:hidden;" data-v-0516f4a8="">
-          <img src="imgs/merge.svg" style="transform:rotate(90deg);filter:invert(100%);height:16vh;opacity:0.2;top:-22%;position:absolute;" data-v-0516f4a8=""><div style="top:24%;font-size:3.1vh;font-family:font5;overflow:hidden;right:0%;position:absolute;font-weight:900;color:#ffffffe6;" data-v-0516f4a8="">
+          <img src="/imgs/merge.svg" style="transform:rotate(90deg);filter:invert(100%);height:16vh;opacity:0.2;top:-22%;position:absolute;" data-v-0516f4a8=""><div style="top:24%;font-size:3.1vh;font-family:font5;overflow:hidden;right:0%;position:absolute;font-weight:900;color:#ffffffe6;" data-v-0516f4a8="">
             JOIN<br data-v-0516f4a8=""> OPERATION
           </div>
         </div><div style="position:absolute;top:0%;height:100%;left:30%;width:70%;overflow:hidden;" data-v-0516f4a8="">
           <div style="position:absolute;top:13%;width:8vh;height:8vh;overflow:hidden;left:82%;" data-v-0516f4a8="">
             <div style="top:13%;font-size:4vh;font-family:font5;overflow:hidden;right:33.6%;position:absolute;font-weight:900;color:#ffffffe6;" data-v-0516f4a8="">
               A
-            </div><img class="spinningIcon" src="imgs/rotat.png" style="position:absolute;height:99%;left:0%;top:0%;" data-v-0516f4a8="">
+            </div><img class="spinningIcon" src="/imgs/rotat.png" style="position:absolute;height:99%;left:0%;top:0%;" data-v-0516f4a8="">
           </div><div style="top: 17%;font-size: 2.3vh;font-family:font5;overflow:hidden;right:23.8%;position:absolute;font-weight:900;color:#ffffffe6;" data-v-0516f4a8="">
             OPERATION IN PROGRESS
           </div><div style="top: 50%;font-size:1.3vw;font-family:font5;overflow:hidden;position:absolute;font-weight:900;color:#ffffffe6;background:#707070;width:65%;height:3.8%;left:9%;" data-v-0516f4a8=""></div><div style="top: 64%;font-size:1.6vh;font-family:font9;overflow:hidden;right:24%;position:absolute;font-weight:900;color:#ffffffe6;" data-v-0516f4a8="">
