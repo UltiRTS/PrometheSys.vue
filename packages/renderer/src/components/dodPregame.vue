@@ -68,6 +68,9 @@ export default {
       console.log('trying to start game')
       this.network.startGame()
     },
+    miJoin() {
+      this.network.midJoin()
+    },
   },
 }
 </script>
@@ -249,7 +252,7 @@ export default {
           </div>
         </div>
       </div><div class="rejoin" style="position:absolute;top:26%;height:40%;background:#767676;left:39%;width:22%;filter:drop-shadow(23px 16px 10px rgba(0,0,0,0.5));" data-v-0516f4a8="">
-        <div style="position:absolute;top:0%;height:100%;background:#767676;left:0%;width:29%;filter:drop-shadow(9px 6px 10px rgba(255,255,255,0.5));overflow:hidden;" data-v-0516f4a8="">
+        <div style="position:absolute;top:0%;height:100%;background:#767676;left:0%;width:29%;filter:drop-shadow(9px 6px 10px rgba(255,255,255,0.5));overflow:hidden;" @click="miJoin">
           <img src="/imgs/merge.svg" style="transform:rotate(90deg);filter:invert(100%);height:16vh;opacity:0.2;top:-22%;position:absolute;" data-v-0516f4a8=""><div style="top:24%;font-size:3.1vh;font-family:font5;overflow:hidden;right:0%;position:absolute;font-weight:900;color:#ffffffe6;" data-v-0516f4a8="">
             JOIN<br data-v-0516f4a8=""> OPERATION
           </div>

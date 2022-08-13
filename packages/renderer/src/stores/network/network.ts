@@ -13,6 +13,7 @@ let wdir: string
 let submittedMap: number
 const mapsBeingDownloaded: number[] = []
 let lastGame: Game | null
+let midJoining = false
 let clientHP: number
 const hpChecker: any[] = []
 
@@ -315,6 +316,17 @@ export function startGame() {
   wsSendServer(tx)
 }
 
+export function midJoin() {
+  const tx = {
+    action: 'MIDJOIN',
+    parameters: {
+    },
+    seq: randomInt(0, 1000000),
+  }
+  midJoining = true
+  wsSendServer(tx)
+}
+
 export function wsSendServer(tx: {
   action: string
   parameters: any
@@ -401,13 +413,15 @@ function writeStartGameStats(msg: StateMessage) {
     return
   if (!lastGame)
     return
-  if (msg.state.user.game.isStarted && !lastGame.isStarted) {
+  if (msg.state.user.game.isStarted && (!lastGame.isStarted || midJoining)) {
     engineMgr.configureToLaunch({
-      host: msg.state.user.game.responsibleAutohost.slice(7),
+      /* host: msg.state.user.game.responsibleAutohost.slice(7), */
+      host: msg.state.user.game.responsibleAutohost,
       port: msg.state.user.game.autohostPort,
       permittedUsername: username.value,
       token: msg.state.user.game.engineToken,
     })
+    midJoining = false
   }
 }
 
