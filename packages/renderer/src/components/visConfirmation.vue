@@ -71,7 +71,7 @@ export default {
           DENY
         </div><div style="position:absolute;top:-21%;right:21%;color:#ffffffb5;font-size:10vh;font-family:font10;font-weight:900;">
           拒絶
-        </div><img src=" imgs/rej.png" style="position:absolute;top:12%;height:8vh;filter:contrast(56);right:3%;opacity:100%;image-rendering:pixelated;">
+        </div><img src="/imgs/rej.png" style="position:absolute;top:12%;height:8vh;filter:contrast(56);right:3%;opacity:100%;image-rendering:pixelated;">
       </div>
       <div :class="{confirmCheck:getLastConfirm.acceAvail, confirmCheckDis:!getLastConfirm.acceAvail}" style="position:absolute;top:32%;right:-2%;width:35%;height:42%;background:#2196f3;overflow:hidden;" @click="acceptConfirm">
         <div style="position:absolute;top:3%;left:-2%;color:#ffffff3b;font-size:4vh;font-family:font10;font-weight:900;">
@@ -80,7 +80,7 @@ export default {
           CONFIRM
         </div><div style="position:absolute;top:-21%;left:21%;color:#f1f9ff;font-size:10vh;font-family:font10;font-weight:900;">
           確認
-        </div><img src="imgs/affir.png" style="position:absolute;top:13%;height:8vh;left:3%;">
+        </div><img src="/imgs/affir.png" style="position:absolute;top:13%;height:8vh;left:3%;">
       </div>
     </div>
   </div>
