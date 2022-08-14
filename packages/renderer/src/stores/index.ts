@@ -6,7 +6,9 @@ import * as ui from './UI/ui'
 import * as dntpService from './mapAPI/dntpService'
 import * as engineMgr from './engineManager/engine'
 export const useUserStore = defineStore('user', () => {
-  const lobbyDir = ref('/tmp')
+  // const lobbyDir = ref('/tmp')
+  const lobbyDir = ref(process.env.lobbydir || '/tmp')
+  const isLinux = ref(process.platform != 'win32')
   // UI related var
   const grabberTriggerAction = ui.grabberTriggerAction
   const grabberActivated = ui.grabberActivated
@@ -46,6 +48,7 @@ export const useUserStore = defineStore('user', () => {
   const ListMap = dntpService.ListMap
 
   // engineMgr
+  engineMgr.setPlatform(isLinux)
   engineMgr.setWDir(lobbyDir.value)
 
   return {
@@ -87,6 +90,7 @@ export const useUserStore = defineStore('user', () => {
     ListMap,
 
     lobbyDir,
+    isLinux,
     engineMgr,
   }
 })

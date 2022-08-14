@@ -3,11 +3,19 @@ let enginesRunning = 0
 const fs = require('fs')
 let engine = ''
 let wdir = ''
+let isLinux = true
 const path = require('node:path')
 
 export function setWDir(pa) {
   wdir = pa
-  engine = path.join(pa, 'engine/spring')
+  if (isLinux)
+    engine = path.join(pa, 'engine/spring')
+  else
+    engine = path.join(pa, 'engine/spring.exe')
+}
+
+export function setPlatform(Linux) {
+  isLinux = Linux
 }
 
 export function isEngineRunning() {
