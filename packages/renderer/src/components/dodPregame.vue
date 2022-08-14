@@ -232,7 +232,7 @@ export default {
         </div>
       </div>
     </div>
-    <div v-if="joinedGame.isStarted" class="btlInProgrs" style="position:absolute;width:100%;left:0%;height:15%;bottom:7%;" data-v-0516f4a8="">
+    <div v-if="joinedGame.isStarted" class="btlInProgrs" style="position:absolute;width:100%;left:0%;height:15%;bottom:7%; overflow:hidden">
       <div class="bg" style="position:absolute;top:0%;width:100%;height:100%;background:#484848e6;backdrop-filter:blur(4px);" data-v-0516f4a8="">
         <div class="stripy1" style="position:absolute;top:25%;width:100%;overflow:hidden;height:42%;left:100%;" data-v-0516f4a8="">
           <div style="position:absolute;width:100%;height:100%;background:repeating-linear-gradient(56deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0) 27px, rgba(255, 255, 255, 1) 27px, rgb(255 255 255) 50px);opacity:0.8;left:0%;" data-v-0516f4a8=""></div>

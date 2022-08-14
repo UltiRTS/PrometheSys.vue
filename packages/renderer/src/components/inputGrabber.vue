@@ -65,7 +65,7 @@ const deactivate = () => {
 
     exiting.value = false
     text2say.value = 'Input Await'
-  }, 1000)
+  }, 300)
 }
 
 const cancel = () => {

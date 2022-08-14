@@ -13,7 +13,6 @@ let wdir: string
 let submittedMap: number
 const mapsBeingDownloaded: number[] = []
 let lastGame: Game | null
-let midJoining = false
 let clientHP: number
 const hpChecker: any[] = []
 
@@ -58,6 +57,7 @@ export function initNetWork(isRe = false) {
 
     if (msg.action === 'NOTIFY') {
       msg = msg as Notification
+      pushConfirm(msg.action, msg.message, true, false).then()
       return
     }
 
@@ -76,6 +76,7 @@ export function initNetWork(isRe = false) {
     writeMapStats(msg)
     writeStartGameStats(msg)
     lastGame = joinedGame.value
+    writeMIDGameStats(msg)
   }
 
   ws.onopen = () => {
@@ -89,7 +90,7 @@ export function initNetWork(isRe = false) {
     console.log('server closed connection')
     ws_open.value = false
     userState.value.isLoggedIn = false
-    pushConfirm('NEURAL CONNECTION LOST', 'CONFIRM RECONNECTION').then(() => {
+    pushConfirm('NEURAL CONNECTION LOST', 'RECONNECTION CONFIRM').then(() => {
       initNetWork(true)
     },
     () => {
@@ -323,7 +324,6 @@ export function midJoin() {
     },
     seq: randomInt(0, 1000000),
   }
-  midJoining = true
   wsSendServer(tx)
 }
 
@@ -387,7 +387,7 @@ function writeMapStats(msg: StateMessage) {
   mapsBeingDownloaded.push(mapBeingDownloaded)
 
   pushNewLoading('loadingMiniMap')
-  pushUINewNotif({ title: 'INTL', msg: 'Operation Intl Updated', class: 'aaa' })
+  // pushUINewNotif({ title: 'INTL', msg: 'Operation Intl Updated', class: 'aaa' })
   dntp.getMiniMapfromID(mapBeingDownloaded, wdir).then((filename) => {
     minimapFileName.value = filename
     rmLoading('loadingMiniMap')
@@ -413,7 +413,7 @@ function writeStartGameStats(msg: StateMessage) {
     return
   if (!lastGame)
     return
-  if (msg.state.user.game.isStarted && (!lastGame.isStarted || midJoining)) {
+  if (msg.state.user.game.isStarted && (!lastGame.isStarted)) {
     engineMgr.configureToLaunch({
       /* host: msg.state.user.game.responsibleAutohost.slice(7), */
       host: msg.state.user.game.responsibleAutohost,
@@ -421,7 +421,20 @@ function writeStartGameStats(msg: StateMessage) {
       permittedUsername: username.value,
       token: msg.state.user.game.engineToken,
     })
-    midJoining = false
   }
 }
 
+function writeMIDGameStats(msg: StateMessage) {
+  // console.log(joinedGame.value)
+  if (!msg.state.user.game)
+    return
+  if (msg.action === 'MIDJOINED') {
+    engineMgr.configureToLaunch({
+      /* host: msg.state.user.game.responsibleAutohost.slice(7), */
+      host: msg.state.user.game.responsibleAutohost,
+      port: msg.state.user.game.autohostPort,
+      permittedUsername: username.value,
+      token: msg.state.user.game.engineToken,
+    })
+  }
+}

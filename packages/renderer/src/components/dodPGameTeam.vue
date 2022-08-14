@@ -59,7 +59,7 @@ export default {
     },
 
     toggleSpec(player) {
-      this.specPlayer({ gameName: this.joinedGame.title, player })
+      this.specPlayer({ game: this.joinedGame.title, player })
     },
 
     addAI() {
@@ -146,7 +146,7 @@ export default {
       </div>
     </div>
     <div class="content" style="position: absolute; height: 78%; width: 80%; top: 19%; left: 3%; filter: drop-shadow(rgb(117, 117, 117) 7px 11px 18px); overflow: auto;padding-right: 12%;">
-      <div v-for="player, playerName in normalPlayers" :key="playerName" class="individualPlayerTag" style="position:relative;display:inline-block;background:#00000029;height:4vw;width:8vw;overflow:hidden;margin:1vw;">
+      <div v-for="player, playerName in normalPlayers" :key="playerName" class="individualPlayerTag tagAnime" style="position:relative;display:inline-block;background:#00000029;height:4vw;width:8vw;overflow:hidden;margin:1vw;">
         <div class="deco" style="background:#2196f3;position:absolute;height:100%;right:0%;width:88%;">
           <img src="/imgs/horizontalSep3.png" style="position:absolute;width:96%;height:6%;bottom:0%;opacity:0.7;">
         </div>
@@ -169,7 +169,7 @@ export default {
           OPERATION
         </div>
       </div>
-      <div v-for="player, playerName in spectators" :key="playerName" class="individualSpecTag" style="position:relative;display:inline-block;background:#00000029;height:4vw;width:8vw;overflow:hidden;margin:1vw;">
+      <div v-for="player, playerName in spectators" :key="playerName" class="individualSpecTag tagAnime" style="position:relative;display:inline-block;background:#00000029;height:4vw;width:8vw;overflow:hidden;margin:1vw;">
         <div class="deco" style="background: #939393;position:absolute;height:100%;right:0%;width:88%;">
           <img src="/imgs/horizontalSep3.png" style="position:absolute;width:96%;height:6%;bottom:0%;opacity:0.7;">
         </div><div style="position:absolute;top:0%;font-size:3.7vw;left:0;color:white;font-family:font9;">
@@ -189,7 +189,7 @@ export default {
           SPECTATOR
         </div>
       </div>
-      <div v-for="player, playerName in noMapPlayers" :key="playerName" class="individualPlayerTagUnready" style="position:relative;display:inline-block;background:#00000029;height:4vw;width:8vw;overflow:hidden;margin:1vw;">
+      <div v-for="player, playerName in noMapPlayers" :key="playerName" class="individualPlayerTagUnready tagAnime" style="position:relative;display:inline-block;background:#00000029;height:4vw;width:8vw;overflow:hidden;margin:1vw;">
         <div class="deco" style="background: #ff4b39;position:absolute;height:100%;right:0%;width:88%;">
           <img src="/imgs/horizontalSep3.png" style="position:absolute;width:96%;height:6%;bottom:0%;opacity:0.7;">
         </div>
@@ -203,7 +203,7 @@ export default {
         </div>
       </div>
 
-      <div v-for="player, playerName in joinedGame.ais" :key="playerName" class="individualPlayerTag" style="position: relative; display: inline-block; background: rgba(0, 0, 0, 0.16); height: 4vw; width: 8vw; overflow: hidden; margin: 1vw;">
+      <div v-for="player, playerName in joinedGame.ais" :key="playerName" class="individualPlayerTag tagAnime" style="position: relative; display: inline-block; background: rgba(0, 0, 0, 0.16); height: 4vw; width: 8vw; overflow: hidden; margin: 1vw;">
         <img src="/imgs/blueprintswblue.png" style="position:absolute;width:96%;height: 100%;bottom: 0%;opacity: 1;filter: invert(0%) grayscale(0.3) hue-rotate(29deg);left: 55%;;left: -68%;/* mix-blend-mode:multiply; */"><div class="deco" style="background:#2196f3;position:absolute;height:100%;right:0%;width:88%;">
           <img src="/imgs/horizontalSep3.png" style="position:absolute;width:96%;height:6%;bottom:0%;opacity:0.7;">
         </div><div style="position:absolute;top:0%;font-size:3.7vw;left:0;color:white;font-family:font9;" @click="chAI(true, playerName, player.team)" @contextmenu="chAI(false, playerName, player.team)">
@@ -224,7 +224,7 @@ export default {
         </div>
       </div>
 
-      <div v-for="player, playerName in joinedGame.chickens" :key="playerName" class="individualPlayerTag" style="position: relative; display: inline-block; background: rgba(0, 0, 0, 0.16); height: 4vw; width: 8vw; overflow: hidden; margin: 1vw;">
+      <div v-for="player, playerName in joinedGame.chickens" :key="playerName" class="individualPlayerTag tagAnime" style="position: relative; display: inline-block; background: rgba(0, 0, 0, 0.16); height: 4vw; width: 8vw; overflow: hidden; margin: 1vw;">
         <img src="/imgs/blueprintswblue.png" style="position:absolute;width:96%;height: 100%;bottom: 0%;opacity: 1;filter: invert(0%) grayscale(0.3) hue-rotate(29deg);left: 55%;;left: -68%;/* mix-blend-mode:multiply; */"><div class="deco" style="background:#2196f3;position:absolute;height:100%;right:0%;width:88%;">
           <img src="/imgs/horizontalSep3.png" style="position:absolute;width:96%;height:6%;bottom:0%;opacity:0.7;">
         </div>
@@ -270,6 +270,29 @@ export default {
 </template>
 
 <style scoped>
+.tagAnime{
+  animation-fill-mode: forwards;
+  animation-name: tagAnime;
+  animation-duration: 0.6s;
+  animation-iteration-count: 1;
+  animation-delay: 0s;
+  opacity: 0;
+  animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
+}
+
+@keyframes tagAnime {
+
+  0% {
+    left:-5%;
+    opacity: 0;
+  }
+
+  100% {
+    left:0%;
+    opacity: 1;
+  }
+}
+
 .typographSpec{
   animation-fill-mode: forwards;
   animation-name: typographSpec;

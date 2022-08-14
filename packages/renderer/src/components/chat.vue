@@ -138,6 +138,7 @@ export default {
         chatName: this.current_channel,
         msg: this.msg,
       })
+      this.msg = ''
     },
     addChat() {
       this.pushGrabberAction('AddChat')
