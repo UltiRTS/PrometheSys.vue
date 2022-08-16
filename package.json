@@ -17,9 +17,9 @@
   "scripts": {
     "prebuild": "vue-tsc --noEmit --p packages/renderer/tsconfig.json && node scripts/build.mjs && sh scripts/merge_css.sh",
     "build": "electron-builder",
-    "build:linux": "node scripts/build.js && electron-builder --linux",
-    "build:mac": "node scripts/build.js && electron-builder --mac",
-    "build:win": "node scripts/build.js && electron-builder --win",
+    "build:linux": "node scripts/build.mjs && electron-builder --linux",
+    "build:mac": "node scripts/build.mjs && electron-builder --mac",
+    "build:win": "node scripts/build.mjs && electron-builder --win",
     "dev": "node scripts/watch.mjs",
     "lint": "eslint ."
   },
@@ -27,6 +27,7 @@
     "node": ">=14.17.0"
   },
   "dependencies": {
+    "@babylonjs/core": "^5.19.0",
     "axios": "^0.27.2",
     "crypto": "^1.0.1",
     "electron-store": "^8.0.1",
