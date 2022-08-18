@@ -173,9 +173,9 @@ export default {
         <div class="deco" style="background: #939393;position:absolute;height:100%;right:0%;width:88%;">
           <img src="/imgs/horizontalSep3.png" style="position:absolute;width:96%;height:6%;bottom:0%;opacity:0.7;">
         </div><div style="position:absolute;top:0%;font-size:3.7vw;left:0;color:white;font-family:font9;">
-          A
+          {{ player.team }}
         </div><div style="position:absolute;top:0%;font-size:1.8vw;right:0%;color:#5e5e5e;font-family:font9;">
-          SpecUsr
+          {{ playerName }}
         </div><div style="position:absolute;top:39%;font-size:1.2vw;right:0%;color:white;font-family:font9;">
           SPEC
         </div>
@@ -247,8 +247,8 @@ export default {
       </div>
     </div>
 
-    <div v-if="joinedGame.hoster == username" class="deploymentOp" style="position: absolute; width: 15%; height: 11.4vw; top: 19%; right: 9%; opacity: 0.5; text-align: right;font-size: 0.9vw;font-family: 'font9';">
-      <div class="deploymentTxt" style="position: absolute; height: 100%; left: 5%; width: 89%;">
+    <div v-if="joinedGame.hoster == username" class="deploymentOp" style="position: absolute; width: 15%; height: 11.4vw; top: 19%; right: 6%; opacity: 0.5; text-align: right;font-size: 0.9vw;font-family: 'font9';">
+      <div class="deploymentTxt" style="position: absolute; height: 100%; right:0; width: 89%;">
         <span @click="addAI">ADD AI</span>
 
         <div style="background:black;height: 0.6vw;width: 0.6vw;position:relative;display: inline-block; margin-left: 0.4vw;"></div>
@@ -258,9 +258,9 @@ export default {
       </div>
     </div>
 
-    <div v-if="joinedGame.hoster != username" class="deploymentOp" style="position: absolute; width: 15%; height: 11.4vw; top: 19%; right: 9%; opacity: 0.5; text-align: right;font-size: 0.9vw;font-family: 'font9';">
-      <div class="deploymentTxt" style="position: absolute; height: 100%; left: 5%; width: 89%;">
-        <span>DATABASE READ ONLY</span>
+    <div v-if="joinedGame.hoster != username" class="deploymentOp" style="position: absolute; width: 15%; height: 11.4vw; top: 19%; right: 6%; opacity: 0.5; text-align: right;font-size: 0.9vw;font-family: 'font9';">
+      <div class="deploymentTxt" style="position: absolute; height: 100%; right:0; width: 200%;">
+        <span style="">DATABASE READ ONLY</span>
 
         <div style="background:black;height: 0.6vw;width: 0.6vw;position:relative;display: inline-block; margin-left: 0.4vw;"></div>
         <br>

@@ -10,20 +10,14 @@ import type { Game, GameBrief, Notification, PING, StateMessage } from './interf
 let ws: WebSocket
 const ws_open = ref<boolean>()
 let wdir: string
-let submittedMap: number
 const mapsBeingDownloaded: number[] = []
 let lastGame: Game | null
-let clientHP: number
 const hpChecker: any[] = []
 
-export const chatLog = ref([
-  {
-    author: 'Александр Карпов',
-    msg: 'Привет, как дела?',
-    chatName: 'global',
-    timestamp: Date.now(),
-  },
-])
+export const clientHP = ref(3)
+
+export const chatLog = ref<{ author: string;msg: string;chatName: string;timestamp: number }[]>([])
+
 export const joinedChannels = ref<string[]>()
 export const gameListing = ref<GameBrief[]>()
 export const joinedGame = ref<Game | null>()
@@ -36,7 +30,7 @@ export const minimapFileName = ref('')
 initNetWork()
 
 export function initNetWork(isRe = false) {
-  clientHP = 3
+  clientHP.value = 3
   ws = new WebSocket('ws://144.126.145.172:8081')
   ws.onmessage = (ev) => {
     let msg: StateMessage | Notification | PING = JSON.parse(ev.data)
@@ -49,7 +43,7 @@ export function initNetWork(isRe = false) {
         action: 'PONG',
         parameters: {},
       }))
-      clientHP = 3
+      clientHP.value = 3
       // console.log('received ping')
       return
     }
@@ -101,14 +95,14 @@ export function initNetWork(isRe = false) {
   }
 
   hpChecker.push(setInterval(() => {
-    if (clientHP <= 0) {
+    if (clientHP.value <= 0) {
       ws.close()
       clearInterval(hpChecker[0])
       hpChecker.shift()
       console.log('closing network')
     }
 
-    clientHP--
+    clientHP.value--
   }, 3000))
 }
 
@@ -210,7 +204,6 @@ export function joinGame(params: {
 }
 
 export function leaveGame() {
-  submittedMap = -1
   const tx = {
     action: 'LEAVEGAME',
     parameters: {
@@ -397,11 +390,10 @@ function writeMapStats(msg: StateMessage) {
         mapsBeingDownloaded.splice(index, 1) // 2nd parameter means remove one item only
       }
 
-      if (submittedMap !== mapBeingDownloaded) { // gota submit again if I havent submitted
+      if (msg.action === 'JOINGAME' || msg.action === 'SETMAP') { // gota submit again if I havent submitted
         hasMap({
           mapId: mapBeingDownloaded,
         })
-        submittedMap = mapBeingDownloaded
         pushUINewNotif({ title: 'MAP', msg: 'New Map Retrieved', class: 'aaa' })
       }
     })

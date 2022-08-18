@@ -15,7 +15,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(useUserStore, ['chatLog', 'joinedGame', 'joinedChannels', 'grabberActivated', 'mainMenuContent', 'modalMenuContent', 'activeWindow']),
+    ...mapState(useUserStore, ['chatLog', 'joinedGame', 'joinedChannels', 'grabberActivated', 'mainMenuContent', 'modalMenuContent', 'activeWindow', 'network']),
     shouldIlightUpModal() {
       if (this.activeWindow === 'modal')
         return 1
@@ -96,13 +96,15 @@ export default {
         <img src="/imgs/horizontalSep1.png" style="position:absolute;top:-1%;height: 5px;width: 93%;opacity:0.3;">
         <div style="position:absolute;height: 6%;width: 93%;background: rgb(202 246 255 / 5%);top: 0%;padding:2%;">
           <i class="fa fa-wifi" aria-hidden="true" style="font-size: 2vw;color: #ffffff8c;" />
-          <span id="sysStatusPing" style="font-size: 2vw;color: #ffffff8c;margin-left: 2%;">100ms</span>
+          <div id="sysStatusPing" style="font-size: 2vw;color: #ffffff8c;margin-left: 2%;width:5vw;position:relative;display:inline-block;">
+            {{ parseInt(parseInt(network.clientHP.value)/3*100) }}%
+          </div>
           <i class="fa fa-sitemap" aria-hidden="true" style="font-size: 2vw;color: #ffffff8c;margin-left: 5%;" />
           <span id="sysStatusInt" style="font-size: 2vw;color: #ffffff8c;margin:1%;">All Systems Online</span>
           <i class="fa fa-clock-o" aria-hidden="true" style="font-size: 2vw;color: #ffffff8c;margin-left: 5%;" />
-          <span style="font-size: 2vw;color: #ffffff8c;margin:1%;">2024/09/28 22:15</span>
+          <span style="font-size: 2vw;color: #ffffff8c;margin:1%;">{{ new Date().toJSON() }}</span>
           <i class="fa fa-id-card-o" aria-hidden="true" style="font-size: 2vw;color: #ffffff8c;margin-left: 5%;" />
-          <span id="sysStatusUsr" style="font-size: 2vw;color: #ffffff8c;margin:1%;">Dr. Kal'tist</span>
+          <span id="sysStatusUsr" style="font-size: 2vw;color: #ffffff8c;margin:1%;">Dr. {{ network.username.value }}</span>
         </div>
 
         <div style="overflow:hidden;top:11%;position:absolute;height:100%;width:100%;">

@@ -133,7 +133,7 @@ export default {
     },
     // parent must provide sayChat interface
     sendMessage() {
-      console.log(this.msg)
+      // console.log(this.msg)
       this.sayChat({
         chatName: this.current_channel,
         msg: this.msg,
