@@ -12,6 +12,7 @@ declare module '@vue/runtime-core' {
     DodPGameTeam: typeof import('./src/components/dodPGameTeam.vue')['default']
     DodPregame: typeof import('./src/components/dodPregame.vue')['default']
     Gem: typeof import('./src/components/gem.vue')['default']
+    Home: typeof import('./src/components/home.vue')['default']
     InputGrabber: typeof import('./src/components/inputGrabber.vue')['default']
     PBubbles: typeof import('./src/components/PBubbles.vue')['default']
     Pie: typeof import('./src/components/pie.vue')['default']

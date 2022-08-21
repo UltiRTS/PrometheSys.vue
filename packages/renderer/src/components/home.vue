@@ -26,8 +26,9 @@ export default defineComponent({
       scene.clearColor = new Color4(1, 1, 1, 1)
       scene.ambientColor = Color3.White()
 
-      this.cam = new ArcRotateCamera('Camera', 3.868476102612409, 0.31730543427941743, 33.1220, new Vector3(3.868476102612409, 0.31730543427941743, 255.24346977179576), scene)
-      // scene.activeCamera = this.cam
+      const cam = new ArcRotateCamera('Camera', 3.868476102612409, 0.31730543427941743, 33.1220, new Vector3(3.868476102612409, 0.31730543427941743, 255.24346977179576), scene)
+      this.cam = cam
+      scene.activeCamera = scene.cameras[1]
       scene.activeCamera?.attachControl(canvas, false)
 
       engine.runRenderLoop(() => {
@@ -37,16 +38,27 @@ export default defineComponent({
       window.addEventListener('resize', () => {
         engine.resize()
       })
+      function rotateCam(timestamp: number) {
+        if (scene.activeCamera)
+          cam.alpha = timestamp * 0.0001
+        requestAnimationFrame(rotateCam) // call requestAnimationFrame again to animate next frame
+      }
+      requestAnimationFrame(rotateCam)
     })
+    /* setInterval(() => {
+      if (this.cam)
+        this.cam.alpha += 0.1
+      console.log(this.cam.alpha)
+    }, 40) */
   },
   methods: {
     moveCam() {
       if (this.cam) {
         // this.cam?.position = new Vector3(3.868476102612409, 0.31730543427941743, 33.1220)
-        this.cam.target.x = 126.9098447689291
-        this.cam.target.y = 1.0644704090000594
-        this.cam.target.z = 255.24346977179576
-
+        // this.cam.target.x = 126.9098447689291
+        // this.cam.target.y = 1.0644704090000594
+        // this.cam.target.z = 255.24346977179576
+        console.log('moving')
         this.cam.alpha = 3.868476102612409
         this.cam.beta = 0.31730543427941743
         // // scene.activeCamera._currentTarget.x=126.9098447689291
@@ -63,8 +75,10 @@ export default defineComponent({
 })
 </script>
 <template>
-  <div>
-    <h3>BabylonOne</h3>
-    <canvas class="babylon"></canvas>
+  <div style="position:absolute; top:0; height:100%;width:100%;left:0%;">
+    <canvas class="babylon" style="position:absolute; top:25%; height:50%;width:50%;left:25%;transform: scale(2);"></canvas>
+    <div style="position:absolute;font-size:9vh;" @click="moveCam">
+      MOVE CAM
+    </div>
   </div>
 </template>

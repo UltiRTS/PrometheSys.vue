@@ -15,7 +15,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(useUserStore, ['chatLog', 'joinedGame', 'joinedChannels', 'grabberActivated', 'mainMenuContent', 'modalMenuContent', 'activeWindow', 'network']),
+    ...mapState(useUserStore, ['chatLog', 'joinedGame', 'joinedChannels', 'grabberActivated', 'mainMenuContent', 'modalMenuContent', 'activeWindow', 'network', 'ui']),
     shouldIlightUpModal() {
       if (this.activeWindow === 'modal')
         return 1
@@ -86,6 +86,7 @@ export default {
         </div>
         <dod v-if="mainMenuContent == 'dod' " />
         <dodPregame v-if="joinedGame && mainMenuContent == 'dodPregame'" />
+        <home v-if="mainMenuContent == 'home' " />
       </div>
       <div id="modalMenu" :style="{opacity:shouldIlightUpModal}" style="transform: rotateY(15.6deg) translateZ(10vw) translateX(-55vw); top: 5%;width: 56%; height: 84%; position: absolute; backdrop-filter: blur(5px);" @click="activateModal" @mouseover="mouseOn=&quot;modal&quot;" @mouseleave="mouseOn='default'">
         <Chat v-if="modalMenuContent == 'chat' " :chat-log="chatLog" :joined-channels="joinedChannels" />
@@ -115,7 +116,7 @@ export default {
           <div id="" class="ttblock3" style="position:absolute;width:25%;left:87.5%;        transform: skew(20deg);height:100%;" />
         </div>
 
-        <div class="sanity rightHomeMainBtns" style="top:11%;position:absolute;height:25%;width:45%;background: rgb(177 182 183);">
+        <div class="sanity rightHomeMainBtns" style="top:11%;position:absolute;height:25%;width:45%;background: rgb(177 182 183);" @click="ui.setmainMenuContent('home')">
           <div style="position:absolute;width: 50.1%;/* height:80%; */left: 11%;font-size: 10vw;overflow:hidden;height:100%;">
             <p style="position:absolute;width: 93.7%;background: #00000045;color: #ffffff96;font-size:2vw;bottom: 20%;padding-top: 5%;padding-bottom: 5%;text-align:right;padding-right: 4%;filter: drop-shadow(8px 6px 6px rgba(50,50,50,0.9));">
               SANITY

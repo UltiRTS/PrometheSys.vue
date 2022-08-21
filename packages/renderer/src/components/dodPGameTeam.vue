@@ -117,7 +117,7 @@ export default {
 </script>
 
 <template>
-  <div data-v-6fa0e716="" style="position: absolute; height: 100%; width: 100%;">
+  <div v-if="joinedGame" style="position: absolute; height: 100%; width: 100%;">
     <div class="bg" style="position:absolute;height:100%;width:100%;filter: drop-shadow(7px 11px 18px #fff);background: #f6ffff61; ">
       <div style="position:absolute;width: 37%;left: 1%;background:white;top: 6%;padding-left:4%;font-family: 'font4';mix-blend-mode:screen;opacity: 0.2;font-size: 1.3vw;">
         SECTION PROFILE
