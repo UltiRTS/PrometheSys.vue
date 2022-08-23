@@ -3,17 +3,17 @@ import { mapActions, mapState } from 'pinia'
 import { useUserStore } from '../stores'
 export default {
   // feed those
-  props: ['chatLog', 'joinedChannels'],
   data() {
     return {
       isBottom: false,
       // channels: ['general', 'room1'],
       current_channel: 'global',
-      unreadChannel: [],
       msg: '',
     }
   },
   computed: {
+    ...mapState(useUserStore, ['network', 'chatLog', 'joinedChannels', 'ui']),
+
     channels() {
       const res = []
       for (const chat of this.joinedChannels) {
@@ -70,8 +70,20 @@ export default {
         lastUser = filteredChats[i].author
         lastTime = filteredChats[i].timestamp
       }
-      // console.log('returning res')
-      // console.log(res)
+      console.log('before rm')
+      console.log(this.network.unreadChannel.value)
+
+      // this prevents the marking the current chat as unread by removing it from unread if the user is watching modal and
+      // the modal is a chat
+      if (this.ui.activeWindow.value === 'modal' && this.ui.modalMenuContent.value === 'chat')
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        this.network.unreadChannel.value = removeItem(this.network.unreadChannel.value, this.current_channel)
+      function removeItem(array, item) {
+        return array.filter(i => i !== item)
+      }
+      console.log('after rm')
+      console.log(this.network.unreadChannel.value)
+
       return res
     },
 
@@ -97,14 +109,6 @@ export default {
       return res
     },
   },
-  watch: {
-    chatLog: { // watch it
-      handler(newVal, oldVal) {
-        this.unreadChannel.push(newVal.slice(-1).chatName)
-      },
-      deep: true,
-    },
-  },
 
   updated() {
     if (this.isBottom)
@@ -112,13 +116,7 @@ export default {
   },
   methods: {
     ...mapActions(useUserStore, ['joinChat', 'sayChat', 'pushGrabberAction', 'leaveChat']),
-    pushMessage() {
-      this.moving = this.isBottom
-      this.chats.push({
-        username: 'pushUser',
-        message: 'pushed',
-      })
-    },
+
     onscroll(ev) {
       const elem = ev.target
       if (elem.scrollHeight - elem.scrollTop === elem.clientHeight)
@@ -128,8 +126,6 @@ export default {
     },
     onChangeChannel(ev) {
       this.current_channel = ev
-      // remove this channel from this.updatedChat
-      // this.lastUpdatedChannels = this.lastUpdatedChannels.filter(chat => chat.chatName !== ev)
     },
     // parent must provide sayChat interface
     sendMessage() {
@@ -171,7 +167,7 @@ export default {
       </div>
 
       <div id="userMsgs" style="left:2%;font-size:2vh;height:100%;position:relative;font-family:font5;">
-        <div v-for="message in chat.chats" :id="chat.username" :key="message.msg" class="chat" style="margin:0;">
+        <div v-for="(message, index) in chat.chats" :id="chat.username" :key="index" class="chat" style="margin:0;">
           {{ message.msg }}
         </div>
       </div>
@@ -193,15 +189,19 @@ export default {
   </div>
 
   <div id="channelContainer" style="position: absolute; right: 3%; font-size: 4vh; top: -4%; width: 10vw; height: 100%;">
-    <div v-for="channel in channels" :key="channel" :class="{channelTag:current_channel!=channel, channelTagActivated:current_channel==channel}" style="position: relative; margin-bottom: 4vh; text-align: right; /* padding: 3vh; */ border-top-right-radius: 1vh; overflow: hidden; width: 134%; cursor: pointer;height: 5vh;" @click="onChangeChannel(channel)">
-      <div style="position: absolute; color: white; font-size: 2vh; font-family: font6; text-align: right; left: 0px; width: 87%;top: 53%;">
-        {{ lastMsg[channel].msg }}
+    <div v-for="channel in channels" :key="channel" class="channelOutter" :class="{channelTag:current_channel!=channel, channelTagActivated:current_channel==channel}" style="position: relative; margin-bottom: 4vh; width: 134%; cursor: pointer;height: 5vh;">
+      <div style="text-align: right;border-top-right-radius: 1vh; overflow: hidden;position:absolute;top:0;height:100%;width:100%; " @click="onChangeChannel(channel)">
+        <div style="position: absolute; color: white; font-size: 2vh; font-family: font6; text-align: right; left: 0px; width: 87%;top: 53%;">
+          {{ lastMsg[channel].msg }}
+        </div>
+        <div style="font-family: font2; right: 0px; position: absolute; width: 100%; text-align: right; height: 100%; text-transform: uppercase; color: black; opacity: 0.2; font-weight: 900; padding-right: 1vw;top: 23.3%;top:-1vh;right:-5%;">
+          {{ channel }}
+        </div>
+        <i class="fa fa-times-circle chatClose" aria-hidden="true" style="cursor: crosshair;position:absolute;color:white;font-size:5vh;top:30%;right:-5%;" @click="closeChat(channel)" />
       </div>
-      <div style="font-family: font2; right: 0px; position: absolute; width: 100%; text-align: right; height: 100%; text-transform: uppercase; color: black; opacity: 0.2; font-weight: 900; padding-right: 1vw;top: 23.3%;top:-1vh;right:-5%;">
-        {{ channel }}
+      <div style="position:absolute;right:0;">
+        <gem v-if="network.unreadChannel.value.includes(channel)" />
       </div>
-      <i class="fa fa-times-circle chatClose" aria-hidden="true" style="cursor: crosshair;position:absolute;color:white;font-size:5vh;top:30%;right:-5%;" @click="closeChat(channel)" />
-      <gem v-if="unreadChannel.includes(channel)" />
     </div>
   </div>
 

@@ -15,7 +15,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(useUserStore, ['chatLog', 'joinedGame', 'joinedChannels', 'grabberActivated', 'mainMenuContent', 'modalMenuContent', 'activeWindow', 'network', 'ui']),
+    ...mapState(useUserStore, ['joinedGame', 'grabberActivated', 'mainMenuContent', 'modalMenuContent', 'activeWindow', 'network', 'ui']),
     shouldIlightUpModal() {
       if (this.activeWindow === 'modal')
         return 1
@@ -89,7 +89,7 @@ export default {
         <home v-if="mainMenuContent == 'home' " />
       </div>
       <div id="modalMenu" :style="{opacity:shouldIlightUpModal}" style="transform: rotateY(15.6deg) translateZ(10vw) translateX(-55vw); top: 5%;width: 56%; height: 84%; position: absolute; backdrop-filter: blur(5px);" @click="activateModal" @mouseover="mouseOn=&quot;modal&quot;" @mouseleave="mouseOn='default'">
-        <Chat v-if="modalMenuContent == 'chat' " :chat-log="chatLog" :joined-channels="joinedChannels" />
+        <Chat v-if="modalMenuContent == 'chat' " />
         <dod-p-game-team v-if="modalMenuContent == 'dod-p-game-team'" />
         <dod-p-game-map v-if="modalMenuContent == 'dodPGameMap'" />
       </div>

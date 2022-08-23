@@ -15,10 +15,6 @@ let lastGame: Game | null
 const hpChecker: any[] = []
 
 export const clientHP = ref(3)
-
-export const chatLog = ref<{ author: string;msg: string;chatName: string;timestamp: number }[]>([])
-
-export const joinedChannels = ref<string[]>()
 export const gameListing = ref<GameBrief[]>()
 export const joinedGame = ref<Game | null>()
 export const username = ref('')
@@ -351,6 +347,10 @@ function writeLoginStats() {
   }
 }
 
+export const chatLog = ref<{ author: string;msg: string;chatName: string;timestamp: number }[]>([])
+export const joinedChannels = ref<string[]>()
+export const unreadChannel = ref<string[]>([])
+
 function writeChatStats(msg: StateMessage) {
   const tmpChannels = Object.keys(msg.state.user.chatRooms)
   joinedChannels.value = tmpChannels // composes joined channel
@@ -364,7 +364,7 @@ function writeChatStats(msg: StateMessage) {
         timestamp: lastMessage.time,
         chatName: tmpChannels[i],
       })
-
+      unreadChannel.value.push(tmpChannels[i])
       while (chatLog.value.length > 100) chatLog.value.shift()
     }
   }
