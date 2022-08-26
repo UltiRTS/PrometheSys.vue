@@ -306,6 +306,17 @@ export function startGame() {
   wsSendServer(tx)
 }
 
+export function killGame() {
+  const tx = {
+    action: 'KILLENGINE',
+    parameters: {
+    },
+    seq: randomInt(0, 1000000),
+  }
+
+  wsSendServer(tx)
+}
+
 export function midJoin() {
   const tx = {
     action: 'MIDJOIN',
@@ -348,23 +359,24 @@ function writeLoginStats() {
 }
 
 export const chatLog = ref<{ author: string;msg: string;chatName: string;timestamp: number }[]>([])
-export const joinedChannels = ref<string[]>()
+export const joinedChannels = ref<string[]>([])
 export const unreadChannel = ref<string[]>([])
 
 function writeChatStats(msg: StateMessage) {
-  const tmpChannels = Object.keys(msg.state.user.chatRooms)
-  joinedChannels.value = tmpChannels // composes joined channel
+  // const tmpChannels = Object.keys(msg.state.user.chatRooms)
+  // joinedChannels.value = tmpChannels // composes joined channel
 
-  for (let i = 0; i < tmpChannels.length; i++) {
-    const lastMessage = msg.state.user.chatRooms[tmpChannels[i]].lastMessage
+  for (const channel in msg.state.user.chatRooms) {
+    joinedChannels.value.push(channel)
+    const lastMessage = msg.state.user.chatRooms[channel].lastMessage
     if (lastMessage.content !== '') {
       chatLog.value.push({
         author: lastMessage.author,
         msg: lastMessage.content,
-        timestamp: lastMessage.time,
-        chatName: tmpChannels[i],
+        timestamp: Date.now(),
+        chatName: channel,
       })
-      unreadChannel.value.push(tmpChannels[i])
+      unreadChannel.value.push(channel)
       while (chatLog.value.length > 100) chatLog.value.shift()
     }
   }

@@ -49,6 +49,10 @@ export default {
       this.setmainMenuContent('dod')
     },
 
+    killGame() {
+      this.network.killGame()
+    },
+
     exitGame() {
       this.network.leaveGame()
     },
@@ -207,10 +211,10 @@ export default {
             OPERATIONS
           </p>
         </div>
-        <div class="noncanonicalOpts" style="position:absolute;top: 62%;width:100%;right: -33%;">
-          <img src="/imgs/btlop3.png" style="position:absolute;width:45%;">
-          <img src="/imgs/btlop2.png" style="position:absolute;width:45%;left: 26%;" @click="viewDod">
-          <img src="/imgs/btlop1.png" style="position:absolute;width:45%;left: 52%;">
+        <div class="noncanonicalOpts" style="position: absolute; top: 62%; width: 100%; right: -33%;height:40%;filter: drop-shadow(15px 20px 8px rgba(0,0,0,0.5));">
+          <!--<img src="/imgs/btlop3.png" style="position:absolute;width:45%;">-->
+          <img src="/imgs/btlop2.png" style="position: absolute; width: 45%; left: 26%;">
+          <img src="/imgs/btlop4.png" style="position: absolute; width: 28.1%; left: 61%;top: 16.7%;">
         </div>
         <div class="pGameUserOperation" style="position: absolute; height: 14.1%; width: 40%; left: 77%; overflow:hidden; background: #2196f3;top: 94.6%;filter:drop-shadow(8px 8px 6px #545454);" @click="startGame">
           <div style="position:absolute;font-size: 3vw;top: 28%;left: 11%;color: #ffffffc7;font-family: font2;font-weight: 100;">

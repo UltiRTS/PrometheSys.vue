@@ -30,8 +30,7 @@ export default {
       if (filteredChats.length === 0)
         return res
 
-      let lastUser
-      lastUser = ''
+      let lastUser = ''
 
       // time in ms
       let lastTime, curTime, timeStampShown, cur
@@ -40,9 +39,22 @@ export default {
         curTime = filteredChats[i].timestamp
         // console.log('curTime:'+curTime)
         // duration between two messages greater than 2min
-        if ((curTime - lastTime) > 1000 * 60 * 2) {
+        if ((curTime - lastTime) > 1000 * 30) {
           lastTime = curTime
-          timeStampShown = new Date(lastTime).toISOString().slice(11, -8)
+
+          const date = new Date(lastTime)
+          // Hours part from the timestamp
+          let hours = date.getHours()
+          // Minutes part from the timestamp
+          const minutes = String(date.getMinutes()).padStart(2, '0');
+
+          let AMorPM = 'AM'
+          if (hours > 12) {
+            hours = hours - 12
+            AMorPM = 'PM'
+          }
+
+          timeStampShown = `    <div  style='position: absolute; right: 10%; font-size: 5.7vh; font-family: font5; font-weight: 900; opacity: 0.2; top: -20%;'>${AMorPM}</div><div  style='position: absolute; right: 14%; top: 12%;font-size: 7.4vh; font-family: font5; font-weight: 900; opacity: 0.6;margin:0;'>${hours}:${minutes}</div>`
         }
         else {
           timeStampShown = null
@@ -70,8 +82,6 @@ export default {
         lastUser = filteredChats[i].author
         lastTime = filteredChats[i].timestamp
       }
-      console.log('before rm')
-      console.log(this.network.unreadChannel.value)
 
       // this prevents the marking the current chat as unread by removing it from unread if the user is watching modal and
       // the modal is a chat
@@ -81,8 +91,6 @@ export default {
       function removeItem(array, item) {
         return array.filter(i => i !== item)
       }
-      console.log('after rm')
-      console.log(this.network.unreadChannel.value)
 
       return res
     },
@@ -173,8 +181,7 @@ export default {
       </div>
       <div id="colorBlock" style="width:0.1%;height:100%;top:0;background:#2196f3;margin:0;position:absolute;" />
 
-      <div v-if="chat.chats[0].timestring" id="timeBlk" style="position:absolute;right:4%;font-size: 3.7vh;font-family:font3;font-weight:900;opacity:0.5;bottom:0;/* height:4vh; */">
-        {{ chat.chats[0].timestring }} <br>PM
+      <div v-if="chat.chats[0].timestring" id="timeBlk" style="position: absolute; right: 0%; bottom: 0px;height: 14vh;width:20%;" v-html="chat.chats[0].timestring">
       </div>
     </div>
   </div>
