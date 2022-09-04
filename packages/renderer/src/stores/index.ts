@@ -36,6 +36,7 @@ export const useUserStore = defineStore('user', () => {
   const joinGame = network.joinGame
   const delAIorChicken = network.delAIorChicken
   network.setWDir(lobbyDir.value)
+  const confirmations = network.confirmations
   const userState = network.userState
   const chatLog = network.chatLog
   const joinedChannels = network.joinedChannels
@@ -73,6 +74,7 @@ export const useUserStore = defineStore('user', () => {
     gameListing,
     joinedGame,
     username,
+    confirmations,
 
     hasMap,
     leaveChat,

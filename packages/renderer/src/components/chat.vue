@@ -46,7 +46,7 @@ export default {
           // Hours part from the timestamp
           let hours = date.getHours()
           // Minutes part from the timestamp
-          const minutes = String(date.getMinutes()).padStart(2, '0');
+          const minutes = String(date.getMinutes()).padStart(2, '0')
 
           let AMorPM = 'AM'
           if (hours > 12) {

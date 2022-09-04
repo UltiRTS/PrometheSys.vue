@@ -31,9 +31,11 @@ export interface ChatRoom {
 }
 
 export interface Confirmation {
+  id: number
   text: string
-  payload: string
-  claimed: string
+  type: string
+  payload: any
+  claimed: boolean
 }
 
 export interface User {

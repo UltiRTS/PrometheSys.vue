@@ -5,7 +5,7 @@ import { pushConfirm, pushNewLoading, pushUINewNotif, rmLoading } from '../UI/ui
 import router from '../../router'
 import * as dntp from '../mapAPI/dntpService'
 import * as engineMgr from '../engineManager/engine'
-import type { Game, GameBrief, Notification, PING, StateMessage } from './interfaces'
+import type { Confirmation, Game, GameBrief, Notification, PING, StateMessage } from './interfaces'
 
 let ws: WebSocket
 const ws_open = ref<boolean>()
@@ -19,6 +19,7 @@ export const gameListing = ref<GameBrief[]>()
 export const joinedGame = ref<Game | null>()
 export const username = ref('')
 export const userState = ref({ isLoggedIn: false })
+export const confirmations = ref<Confirmation[]>()
 
 const password = ref('')
 export const minimapFileName = ref('')
@@ -62,6 +63,9 @@ export function initNetWork(isRe = false) {
     gameListing.value = msg.state.games
 
     username.value = msg.state.user.username
+    // confirmations:
+    confirmations.value = msg.state.user.confirmations
+    // console.log(confirmations.value)
     // const mapBeingDownloaded = joinedGame.value.mapId
     writeMapStats(msg)
     writeStartGameStats(msg)
