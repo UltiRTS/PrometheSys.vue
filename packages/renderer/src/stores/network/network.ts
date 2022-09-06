@@ -171,6 +171,23 @@ export function setMap(params: { game: string
   wsSendServer(tx)
 }
 
+export function confirmEmail(params: { confirmationId: number
+  type: string
+  agree: boolean
+
+}) {
+  const tx = {
+    action: 'CLAIMCONFIRM',
+    parameters: {
+      confirmationId: params.confirmationId,
+      type: params.type,
+      agree: params.agree,
+    },
+    seq: randomInt(0, 10000000),
+  }
+  wsSendServer(tx)
+}
+
 export function sayChat(params: {
   chatName: string
   msg: string
