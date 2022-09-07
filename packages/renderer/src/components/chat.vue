@@ -173,7 +173,7 @@ export default {
           Thea Pharmaceuticals Inc.
         </div>
       </div>
-
+      <!--<userCard />-->
       <div id="userMsgs" style="left:2%;font-size:2vh;height:100%;position:relative;font-family:font5;">
         <div v-for="(message, index) in chat.chats" :id="chat.username" :key="index" class="chat" style="margin:0;">
           {{ message.msg }}

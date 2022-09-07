@@ -127,7 +127,8 @@ export default {
           <div v-if="cardInfo.type === 'friend'" class="frdReq">
             <div style="position:absolute;font-family:font5;font-weight:900;top:0%;right:-1%;font-size:29vh;color:#daa70e4f;">
               REQUEST
-            </div><div class="usrOptionalInfo" style="position:absolute;top:19%;left:21%;height:29%;width:53%;background:#ffffff7a;filter:drop-shadow(9px 13px 0px rgba(255,255,255,0.3));">
+            </div>
+            <div class="usrOptionalInfo" style="position:absolute;top:19%;left:21%;height:29%;width:53%;background:#ffffff7a;filter:drop-shadow(9px 13px 0px rgba(255,255,255,0.3));">
               <div style="position:absolute;top:0;left:0;height:19%;background:black;color:white;width:100%;overflow:hidden;">
                 <div style="font-weight:900;position:absolute;font-size:7vh;font-family:font5;color:#ffffff38;top:-21%;right:4%;">
                   {{ JSON.parse(cardInfo.payload).targetVal }}
@@ -158,7 +159,8 @@ export default {
                   <img src="/imgs/barC.png" style="position:absolute;width:163%;top:-2%;left:-12%;opacity:0.6;filter:invert(0%);">
                 </div>
               </div>
-            </div><div class="usrAvt">
+            </div>
+            <div class="usrAvt">
               <img src="/imgs/avtSample.png" style="position:absolute;top:10%;width:28vh;height:28vh;left:10%;filter:drop-shadow(9px 13px 6.5px rgba(0,0,0,0.4));">
             </div>
             <div class="usrIngameInfo" style="position:absolute;top:0;left:-43px;width:100%;height:100%;">
