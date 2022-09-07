@@ -8,6 +8,7 @@ import * as engineMgr from './engineManager/engine'
 export const useUserStore = defineStore('user', () => {
   // const lobbyDir = ref('/tmp')
   const lobbyDir = ref(process.env.lobbydir || '/tmp')
+  console.log(`using ${lobbyDir.value}`)
   const isLinux = ref(process.platform != 'win32')
   // UI related var
   const grabberTriggerAction = ui.grabberTriggerAction
