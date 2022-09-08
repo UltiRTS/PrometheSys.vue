@@ -5,13 +5,10 @@ import * as network from './network/network'
 import * as ui from './UI/ui'
 import * as dntpService from './mapAPI/dntpService'
 import * as engineMgr from './engineManager/engine'
-export const useUserStore = defineStore('user', () => {
-  console.log(process.env)
 
-  setInterval(() => {
-    console.log(process.env.lobbydir)
-  }, 100)
-  const lobbyDir = ref(process.env.lobbydir || '/tmp')
+export const useUserStore = defineStore('user', () => {
+  // eslint-disable-next-line dot-notation
+  const lobbyDir = ref(process.env['lobbydir'] || '/tmp')
   console.log(`using ${lobbyDir.value}`)
 
   const isLinux = ref(process.platform != 'win32')
