@@ -105,7 +105,104 @@ export function initNetWork(isRe = false) {
     clientHP.value--
   }, 3000))
 }
+function writeLoginStats() {
+  if (userState.value.isLoggedIn === false) {
+    joinChat({
+      chatName: 'global',
+      password: '',
+    })
+    setTimeout(() => {
+      router.push('postlogin')
+    }, 7000)
 
+    userState.value.isLoggedIn = true
+  }
+}
+
+export const chatLog = ref<{ author: string;msg: string;chatName: string;timestamp: number }[]>([])
+export const joinedChannels = ref<string[]>([])
+export const unreadChannel = ref<string[]>([])
+
+function writeChatStats(msg: StateMessage) {
+  // const tmpChannels = Object.keys(msg.state.user.chatRooms)
+  // joinedChannels.value = tmpChannels // composes joined channel
+
+  for (const channel in msg.state.user.chatRooms) {
+    joinedChannels.value.push(channel)
+    const lastMessage = msg.state.user.chatRooms[channel].lastMessage
+    if (lastMessage.content !== '') {
+      chatLog.value.push({
+        author: lastMessage.author,
+        msg: lastMessage.content,
+        timestamp: Date.now(),
+        chatName: channel,
+      })
+      unreadChannel.value.push(channel)
+      while (chatLog.value.length > 100) chatLog.value.shift()
+    }
+  }
+}
+
+function writeMapStats(msg: StateMessage) {
+  if (!msg.state.user.game)
+    return
+  const mapBeingDownloaded = msg.state.user.game.mapId
+  if (mapsBeingDownloaded.includes(mapBeingDownloaded))
+    return
+
+  mapsBeingDownloaded.push(mapBeingDownloaded)
+
+  pushNewLoading('loadingMiniMap')
+  // pushUINewNotif({ title: 'INTL', msg: 'Operation Intl Updated', class: 'aaa' })
+  dntp.getMiniMapfromID(mapBeingDownloaded, wdir).then((filename) => {
+    minimapFileName.value = filename
+    rmLoading('loadingMiniMap')
+    dntp.getMapActualFile(mapBeingDownloaded, wdir).then(() => {
+      const index = mapsBeingDownloaded.indexOf(mapBeingDownloaded)
+      if (index > -1) { // only splice array when item is found
+        mapsBeingDownloaded.splice(index, 1) // 2nd parameter means remove one item only
+      }
+
+      if (msg.action === 'JOINGAME' || msg.action === 'SETMAP') { // gota submit again if I havent submitted
+        hasMap({
+          mapId: mapBeingDownloaded,
+        })
+        pushUINewNotif({ title: 'MAP', msg: 'New Map Retrieved', class: 'aaa' })
+      }
+    })
+  })
+}
+function writeStartGameStats(msg: StateMessage) {
+  // console.log(joinedGame.value)
+  if (!msg.state.user.game)
+    return
+  if (!lastGame)
+    return
+  if (msg.state.user.game.isStarted && (!lastGame.isStarted)) {
+    engineMgr.configureToLaunch({
+      /* host: msg.state.user.game.responsibleAutohost.slice(7), */
+      host: msg.state.user.game.responsibleAutohost,
+      port: msg.state.user.game.autohostPort,
+      permittedUsername: username.value,
+      token: msg.state.user.game.engineToken,
+    })
+  }
+}
+
+function writeMIDGameStats(msg: StateMessage) {
+  // console.log(joinedGame.value)
+  if (!msg.state.user.game)
+    return
+  if (msg.action === 'MIDJOINED') {
+    engineMgr.configureToLaunch({
+      /* host: msg.state.user.game.responsibleAutohost.slice(7), */
+      host: msg.state.user.game.responsibleAutohost,
+      port: msg.state.user.game.autohostPort,
+      permittedUsername: username.value,
+      token: msg.state.user.game.engineToken,
+    })
+  }
+}
 export function login(params: {
   username: string
   password: string
@@ -316,6 +413,33 @@ export function hasMap(params: {
   wsSendServer(tx)
 }
 
+export function addFriend(params: {
+  friendName: string
+}) {
+  const tx = {
+    action: 'ADDFRIEND',
+    parameters: {
+      friendName: params.friendName,
+    },
+    seq: randomInt(0, 1000000),
+  }
+  pushUINewNotif({ title: 'FRND', msg: 'Friend Request Sent', class: 'aaa' })
+  wsSendServer(tx)
+}
+
+export function setMod(params: {
+  mod: string
+}) {
+  const tx = {
+    action: 'SETMOD',
+    parameters: {
+      mod: params.mod,
+    },
+    seq: randomInt(0, 1000000),
+  }
+  wsSendServer(tx)
+}
+
 export function startGame() {
   const tx = {
     action: 'STARTGAME',
@@ -365,101 +489,4 @@ export function setWDir(input: string) {
   wdir = input
 }
 
-function writeLoginStats() {
-  if (userState.value.isLoggedIn === false) {
-    joinChat({
-      chatName: 'global',
-      password: '',
-    })
-    setTimeout(() => {
-      router.push('postlogin')
-    }, 7000)
 
-    userState.value.isLoggedIn = true
-  }
-}
-
-export const chatLog = ref<{ author: string;msg: string;chatName: string;timestamp: number }[]>([])
-export const joinedChannels = ref<string[]>([])
-export const unreadChannel = ref<string[]>([])
-
-function writeChatStats(msg: StateMessage) {
-  // const tmpChannels = Object.keys(msg.state.user.chatRooms)
-  // joinedChannels.value = tmpChannels // composes joined channel
-
-  for (const channel in msg.state.user.chatRooms) {
-    joinedChannels.value.push(channel)
-    const lastMessage = msg.state.user.chatRooms[channel].lastMessage
-    if (lastMessage.content !== '') {
-      chatLog.value.push({
-        author: lastMessage.author,
-        msg: lastMessage.content,
-        timestamp: Date.now(),
-        chatName: channel,
-      })
-      unreadChannel.value.push(channel)
-      while (chatLog.value.length > 100) chatLog.value.shift()
-    }
-  }
-}
-
-function writeMapStats(msg: StateMessage) {
-  if (!msg.state.user.game)
-    return
-  const mapBeingDownloaded = msg.state.user.game.mapId
-  if (mapsBeingDownloaded.includes(mapBeingDownloaded))
-    return
-
-  mapsBeingDownloaded.push(mapBeingDownloaded)
-
-  pushNewLoading('loadingMiniMap')
-  // pushUINewNotif({ title: 'INTL', msg: 'Operation Intl Updated', class: 'aaa' })
-  dntp.getMiniMapfromID(mapBeingDownloaded, wdir).then((filename) => {
-    minimapFileName.value = filename
-    rmLoading('loadingMiniMap')
-    dntp.getMapActualFile(mapBeingDownloaded, wdir).then(() => {
-      const index = mapsBeingDownloaded.indexOf(mapBeingDownloaded)
-      if (index > -1) { // only splice array when item is found
-        mapsBeingDownloaded.splice(index, 1) // 2nd parameter means remove one item only
-      }
-
-      if (msg.action === 'JOINGAME' || msg.action === 'SETMAP') { // gota submit again if I havent submitted
-        hasMap({
-          mapId: mapBeingDownloaded,
-        })
-        pushUINewNotif({ title: 'MAP', msg: 'New Map Retrieved', class: 'aaa' })
-      }
-    })
-  })
-}
-function writeStartGameStats(msg: StateMessage) {
-  // console.log(joinedGame.value)
-  if (!msg.state.user.game)
-    return
-  if (!lastGame)
-    return
-  if (msg.state.user.game.isStarted && (!lastGame.isStarted)) {
-    engineMgr.configureToLaunch({
-      /* host: msg.state.user.game.responsibleAutohost.slice(7), */
-      host: msg.state.user.game.responsibleAutohost,
-      port: msg.state.user.game.autohostPort,
-      permittedUsername: username.value,
-      token: msg.state.user.game.engineToken,
-    })
-  }
-}
-
-function writeMIDGameStats(msg: StateMessage) {
-  // console.log(joinedGame.value)
-  if (!msg.state.user.game)
-    return
-  if (msg.action === 'MIDJOINED') {
-    engineMgr.configureToLaunch({
-      /* host: msg.state.user.game.responsibleAutohost.slice(7), */
-      host: msg.state.user.game.responsibleAutohost,
-      port: msg.state.user.game.autohostPort,
-      permittedUsername: username.value,
-      token: msg.state.user.game.engineToken,
-    })
-  }
-}

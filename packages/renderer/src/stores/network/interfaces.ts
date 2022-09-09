@@ -14,6 +14,7 @@ export interface Game {
   responsibleAutohost: string
   aiHosters: string[]
   autohostPort: number
+  mod: string
 }
 
 export interface GameBrief {

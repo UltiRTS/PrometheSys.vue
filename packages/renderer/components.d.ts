@@ -6,9 +6,12 @@ import '@vue/runtime-core'
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Chat: typeof import('./src/components/chat.vue')['default']
+    CorpEmoji: typeof import('./src/components/corpEmoji.vue')['default']
     Dod: typeof import('./src/components/dod.vue')['default']
     DodPGameMap: typeof import('./src/components/dodPGameMap.vue')['default']
+    DodPGameMutator: typeof import('./src/components/dodPGameMutator.vue')['default']
     DodPGameTeam: typeof import('./src/components/dodPGameTeam.vue')['default']
+    'DodPGameTeam copy': typeof import('./src/components/dodPGameTeam copy.vue')['default']
     DodPregame: typeof import('./src/components/dodPregame.vue')['default']
     Gem: typeof import('./src/components/gem.vue')['default']
     Home: typeof import('./src/components/home.vue')['default']
@@ -18,6 +21,7 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SampleComponent: typeof import('./src/components/sampleComponent.vue')['default']
+    'SampleComponent copy': typeof import('./src/components/sampleComponent copy.vue')['default']
     SysEmail: typeof import('./src/components/sysEmail.vue')['default']
     UserCard: typeof import('./src/components/userCard.vue')['default']
     VisConfirmation: typeof import('./src/components/visConfirmation.vue')['default']

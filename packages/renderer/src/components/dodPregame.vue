@@ -38,6 +38,18 @@ export default {
 
       return this.dntpService.id2NameCache.value[id]
     },
+    pickedMod() {
+      switch (this.network.joinedGame.value.mod) {
+        case 'mod.sdd':
+          return 'TYPE I'
+        case 'arena.sdd':
+          return 'TYPE II'
+        case 'unitlevelupsv61.sdd':
+          return 'TYPE III'
+        default:
+          return 'TYPE I'
+      }
+    },
   },
 
   updated() {
@@ -59,6 +71,11 @@ export default {
 
     viewModelTeam() {
       this.setmodalMenuContent('dod-p-game-team')
+      this.setactiveWindow('modal')
+    },
+
+    viewModelMut() {
+      this.setmodalMenuContent('dodPGameMutator')
       this.setactiveWindow('modal')
     },
 
@@ -162,39 +179,33 @@ export default {
           </div>
         </div>
       </div>
-      <div class="dodLeftOperationPanel" style="position: absolute; bottom: 32%; height: 81vh; width: 72vh; left: 22vw; filter: drop-shadow(30px 10px 18px #000);">
-        <div style="font-size:9vh;-webkit-text-stroke-width:0.2vh;-webkit-text-stroke-color:#54545499;font-family: 'font9';text-align:right;color:#ffffffd9;top: 11%;position:absolute;right:0;">
+      <div class="dodLeftOperationPanel" data-v-0516f4a8="" style="position: absolute; bottom: 32%; height: 81vh; width: 72vh; left: 22vw; ">
+        <div data-v-0516f4a8="" style="font-size: 9vh; -webkit-text-stroke: 0.2vh rgba(84, 84, 84, 0.6); font-family: font9; text-align: right; color: rgba(255, 255, 255, 0.85); top: 11%; position: absolute; right: 0px;">
           Dr. {{ network.username }}
-        </div>
-        <div style="position:absolute;top: 27%;width:100%;background: #2196f3;font-family: 'font6';font-size:4vh;text-align:right;opacity: 0.8;" @click.stop="pickMap">
+        </div><div data-v-0516f4a8="" style="position: absolute; top: 25%; width: 69%; background: rgb(33, 150, 243); font-family: font5; font-size: 4vh; text-align: right; filter: drop-shadow(rgba(33, 150, 243,0.4) 12px 15px 2.8px);padding-right: 1.9%;padding-top: 2%;" @click.stop="pickMap">
           {{ mapID2Name }}
-        </div>
-
-        <div class="mapTags" style="position: absolute; top: 37%;width: 100%;padding: 0vh;font-size: 3vh;text-align:right;font-family: 'font5';font-weight:900;opacity: 0.9;">
-          <span style="background: #5c5c5c;padding: 0.8vh;margin: 2vh;color: #ffffffe0;">FLAT</span>
-
-          <span style="background: #5c5c5c;padding: 0.8vh;margin: 2vh;color: #ffffffe0;">WATER</span>
-        </div>
-        <div class="teamSetUp" style="position:absolute;top: 48%;height: 12vh;width: 40%;overflow:hidden;" @click.stop="viewModelTeam">
-          <div style="position:absolute; left:0;width: 0.4vw;height:100%;background:#2196f3"></div><div style="position:absolute; left: 18%;width: 100%;height:100%;font-size:4vh;font-family:font1;background: #5454549c;top: 0%;"></div>
-          <div style="position:absolute; left: 24%;width: 100%;height:100%;font-size:4vh;font-family:font1;top: -2%;">
+        </div><div data-v-0516f4a8="" style="position: absolute; top: 25%; width: 28.8%; background: rgb(255 255 255); font-family: font5; font-size: 4vh; text-align: right; filter: drop-shadow(rgba(255, 255, 255,0.5) 12px 15px 2.8px);right:0;color:black;mix-blend-mode:screen;padding-top: 2%;padding-right: 0.5%;" @click.stop="viewModelMut">
+          {{ pickedMod }}
+        </div><div class="mapTags" data-v-0516f4a8="" style="position: absolute; top: 37%; width: 100%; padding: 0vh; font-size: 3vh; text-align: right; font-family: font10; font-weight: 900; opacity: 0.9;filter: drop-shadow(rgb(0, 0, 0) 30px 10px 18px);">
+          <span data-v-0516f4a8="" style="background: rgb(92, 92, 92); padding: 0.8vh; margin: 2vh; color: rgba(255, 255, 255, 0.88);">FLAT</span><span data-v-0516f4a8="" style="background: rgb(92, 92, 92); padding: 0.8vh; margin: 2vh; color: rgba(255, 255, 255, 0.88);">WATER</span>
+        </div><div style="position:absolute;left:0;width:0.4vw;height: 15%;background:#2196f3;filter: drop-shadow(rgba(33, 150, 243,0.5) 12px 15px 2.8px);top: 48%;" data-v-0516f4a8=""></div>
+        <div class="teamSetUp" data-v-0516f4a8="" style="position: absolute; top: 48%; height: 12vh; width: 40%; overflow: hidden;filter: drop-shadow(rgba(0, 0,0, 0.4) 30px 10px 18px);left: -3%;" @click.stop="viewModelTeam">
+          <div style="position:absolute;left:18%;width:100%;height:100%;font-size:4vh;font-family:font1;background: #545454d9;top:0%;" data-v-0516f4a8=""></div><div style="position:absolute;left:24%;width:100%;height:100%;font-size:4vh;font-family:font1;top:-2%;" data-v-0516f4a8="">
             配備
-          </div><div style="position:absolute; left: 24%;width: 100%;height:100%;font-size:4vh;font-family: 'font2';top: 37%;">
+          </div><div style="position:absolute;left:24%;width:100%;height:100%;font-size:4vh;font-family: 'font1';top: 62%;" data-v-0516f4a8="">
             35/35
-          </div><div style="position:absolute; left: 24%;width: 100%;height:100%;font-size: 2vh;font-family: 'font6';font-weight:900;opacity:0.5;top: 75%;">
+          </div><div style="position:absolute;left:24%;width:100%;height:100%;font-size:2vh;font-family: 'font10';font-weight:900;opacity:0.5;top: 45%;" data-v-0516f4a8="">
             Deployments
-          </div><i class="fa fa-pencil-square-o" aria-hidden="true" style="position:absolute; left: 73%;width: 100%;height:100%;font-size: 9vh;top: 45%;opacity: 0.5;"></i>
+          </div><i class="fa fa-pencil-square-o" aria-hidden="true" style="position:absolute;left:73%;width:100%;height:100%;font-size:9vh;top:45%;opacity:0.5;" data-v-0516f4a8=""></i>
         </div>
-
-        <div class="teamSetUp" style="position:absolute;top: 48%;height: 12vh;width: 40%;overflow:hidden;left: 46%;">
-          <div style="position:absolute; left: 17%;width: 100%;height:100%;font-size:4vh;font-family:font1;background: #5454549c;top: 0%;"></div>
-          <div style="position:absolute; left: 24%;width: 100%;height:100%;font-size:4vh;font-family:font1;top: -2%;">
-            フレンズ
-          </div><div style="position:absolute; left: 24%;width: 100%;height:100%;font-size:4vh;font-family: 'font2';top: 37%;">
-            35/35
-          </div><div style="position:absolute; left: 24%;width: 100%;height:100%;font-size: 2vh;font-family: 'font6';font-weight:900;opacity:0.5;top: 75%;">
-            friends
-          </div><i class="fa fa-pencil-square-o" aria-hidden="true" style="position:absolute; left: 73%;width: 100%;height:100%;font-size: 9vh;top: 45%;opacity: 0.5;"></i>
+        <div class="mutatorSetUp" data-v-0516f4a8="" style="position: absolute; top: 48%; height: 12vh; width: 40%; overflow: hidden; left: 39%;filter: drop-shadow(rgba(0, 0,0, 0.4) 30px 10px 18px);" @click.stop="viewModelMut">
+          <div style="position:absolute;left:17%;width:100%;height:100%;font-size:4vh;font-family:font1;background: #545454d9;top:0%;" data-v-0516f4a8=""></div><div style="position:absolute;left:24%;width:100%;height:100%;font-size:4vh;font-family:font1;top:-2%;" data-v-0516f4a8="">
+            指揮系統
+          </div><div style="position:absolute;left:24%;width:100%;height:100%;font-size:4vh;font-family: 'font1';top: 62%;" data-v-0516f4a8="">
+            4/4
+          </div><div style="position:absolute;left:24%;width:100%;height:100%;font-size:2vh;font-family: 'font10';font-weight:900;opacity:0.5;top: 45%;" data-v-0516f4a8="">
+            CMD SYS
+          </div><i class="fa fa-pencil-square-o" aria-hidden="true" style="position:absolute;left:73%;width:100%;height:100%;font-size:9vh;top:45%;opacity:0.5;" data-v-0516f4a8=""></i>
         </div>
       </div>
       <div class="dodRightOperationPanel" style="position:absolute;bottom:32%;height:65vh;width:30vw;right:34vw;">
