@@ -80,7 +80,7 @@ export default {
       <div class="tag1" style=" position:absolute;top:2vh;height:78vh;background:#5a5a5a8f;backdrop-filter:blur(9px);width:13vw;overflow:hidden;filter:drop-shadow(rgb(0, 0, 0) 9px -13px 0.4vh);" @mouseenter="makefocus(1)" @mouseleave="makefocus(0)" @click="setMod(1)">
         <div class="tagOpacity" style="position:absolute;top:0;left:0;height:100%;width:100%;">
           <img src="/imgs/01warlord_bg.jpeg" style="position:absolute;top:-29%;height:100%;-webkit-mask-image:linear-gradient(307deg,rgb(0 255 220 / 0%) 54%, rgb(255 0 0));left:-181%;">
-          <img class="lokOn" src="imgs/lockon.png" style="position:absolute;top:9%;width:7vw;filter:drop-shadow(7px 13px 8px rgba(200,200,200,0.8));"><img src="imgs/thea.png" style="position:absolute;top:81%;width:12vw;left:-10%;opacity:0.1;">
+          <img class="lokOn" src="/imgs/lockon.png" style="position:absolute;top:9%;width:7vw;filter:drop-shadow(7px 13px 8px rgba(200,200,200,0.8));"><img src="/imgs/thea.png" style="position:absolute;top:81%;width:12vw;left:-10%;opacity:0.1;">
           <div class="numberPop" style="position:absolute;left:3%;font-size:4vw;color:white;font-family:font9;filter:drop-shadow(7px 13px 8px rgba(200,200,200,0.8));">
             01
           </div>
@@ -106,7 +106,7 @@ export default {
       <div class="tag2" style=" position:absolute;top:3%;height:93%;background:#5a5a5a8f;backdrop-filter:blur(9px);width:23%;overflow:hidden;filter:drop-shadow(rgb(0, 0, 0) 9px -13px 0.4vh);" @mouseenter="makefocus(2)" @mouseleave="makefocus(0)" @click="setMod(2)">
         <div class="tagOpacity" style="position:absolute;top:0;left:0;height:100%;width:100%;">
           <img src="/imgs/01warlord_bg.jpeg" style="position:absolute;top:-34%;height:100%;-webkit-mask-image:linear-gradient(307deg,rgb(0 255 220 / 0%) 54%, rgb(255 0 0));left:-129%;">
-          <img class="lokOn" src="imgs/lockon.png" style="position:absolute;top:9%;width:7vw;filter:drop-shadow(7px 13px 8px rgba(200,200,200,0.8));"><img src="imgs/thea.png" style="position:absolute;top:81%;width:12vw;left:-10%;opacity:0.1;">
+          <img class="lokOn" src="/imgs/lockon.png" style="position:absolute;top:9%;width:7vw;filter:drop-shadow(7px 13px 8px rgba(200,200,200,0.8));"><img src="/imgs/thea.png" style="position:absolute;top:81%;width:12vw;left:-10%;opacity:0.1;">
           <div class="numberPop" style="position:absolute;left:3%;font-size:4vw;color:white;font-family:font9;filter:drop-shadow(7px 13px 8px rgba(200,200,200,0.8));">
             02
           </div>
@@ -128,7 +128,7 @@ export default {
       <div class="tag3" style=" position:absolute;top:3%;height:93%;background:#5a5a5a8f;backdrop-filter:blur(9px);width:23%;overflow:hidden;filter:drop-shadow(rgb(0, 0, 0) 9px -13px 0.4vh);" @mouseenter="makefocus(3)" @mouseleave="makefocus(0)" @click="setMod(3)">
         <div class="tagOpacity" style="position:absolute;top:0;left:0;height:100%;width:100%;">
           <img src="/imgs/01warlord_bg.jpeg" style="position:absolute;top:-34%;height:100%;-webkit-mask-image:linear-gradient(307deg,rgb(0 255 220 / 0%) 54%, rgb(255 0 0));left:-129%;">
-          <img class="lokOn" src="imgs/lockon.png" style="position:absolute;top:9%;width:7vw;filter:drop-shadow(7px 13px 8px rgba(200,200,200,0.8));"><img src="imgs/thea.png" style="position:absolute;top:81%;width:12vw;left:-10%;opacity:0.1;">
+          <img class="lokOn" src="/imgs/lockon.png" style="position:absolute;top:9%;width:7vw;filter:drop-shadow(7px 13px 8px rgba(200,200,200,0.8));"><img src="/imgs/thea.png" style="position:absolute;top:81%;width:12vw;left:-10%;opacity:0.1;">
           <div class="numberPop" style="position:absolute;left:3%;font-size:4vw;color:white;font-family:font9;filter:drop-shadow(7px 13px 8px rgba(200,200,200,0.8));">
             03
           </div>
