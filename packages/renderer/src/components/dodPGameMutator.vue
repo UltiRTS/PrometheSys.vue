@@ -19,7 +19,7 @@ export default {
             return 1
           case 'arena.sdd':
             return 2
-          case 'unitlevelupsv61.sdd':
+          case 'unitlevelup.sdd':
             return 3
           default:
             return 3
@@ -44,7 +44,7 @@ export default {
           this.network.setMod({ mod: 'arena.sdd' })
           return
         case 3:
-          this.network.setMod({ mod: 'unitlevelupsv61.sdd' })
+          this.network.setMod({ mod: 'unitlevelup.sdd' })
           return
         default:
           this.network.setMod({ mod: 'mod.sdd' })
