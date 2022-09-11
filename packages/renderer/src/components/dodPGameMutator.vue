@@ -59,10 +59,14 @@ export default {
 </script>
 
 <template>
-  <div data-v-6fa0e716="" style="position: absolute; height: 100%; width: 100%; background: rgb(33, 150, 243); top: 0%; left: 0px; overflow: hidden; filter: drop-shadow(rgba(0, 0, 0, 0.5) 21px 27px 2.4vh); perspective: 20vh;">
+  <div v-if="network.joinedGame" style="position: absolute; height: 100%; width: 100%; background: rgb(33, 150, 243); top: 0%; left: 0px; overflow: hidden; filter: drop-shadow(rgba(0, 0, 0, 0.5) 21px 27px 2.4vh); perspective: 20vh;">
     <img src="/imgs/bg.png" style="position:absolute;top:-163%;left:-299%;height:368%;filter:grayscale(100%) invert(0%) contrast(424%) brightness(1);mix-blend-mode:multiply;"><div id="opDefBg" style="position:absolute;top:0;left:0;height:100%;width:100%;transform:rotateY(-1deg) translateZ(5vw) translateX(0vw);">
-      <img src="/imgs/grid.png" style="position:absolute;top:-41vh;left:-8%;height:184%;filter:drop-shadow(-16px 13px 2px #fff) sepia(100%) saturate(100) hue-rotate(121deg);transform:rotate(335deg);opacity:0.5;"><div style="position:absolute;border-radius:50%;background:white;top:-126%;left:30%;height:46vh;width:80%;filter:drop-shadow(rgb(255, 255, 255) 0vh 96vh 24vh);"></div><img src="/imgs/thea_auth.png" style="position:absolute;top:12vh;left:17%;height:36%;filter:invert(0%) contrast(506%) hue-rotate(53deg) brightness(0.8) drop-shadow(rgb(0, 0, 0) -10px 8px 0.4vh);transform:rotate(-26deg);"><div style="position:absolute;top:26%;left:48%;color:white;filter:drop-shadow(rgb(0, 0, 0) -13px 8px 0.4vh);font-size:10vh;transform:rotate(-26deg);background:-webkit-linear-gradient(246deg, rgb(237 237 237) -14%, rgb(221 221 221) 22%, rgb(108 108 108) 100%);-webkit-text-fill-color:transparent;-webkit-background-clip:text;width:85%;font-weight:100;font-family:font5;">
-        OPERATIONAL<br> DEFNITION
+      <img src="/imgs/grid.png" style="position:absolute;top:-41vh;left:-8%;height:184%;filter:drop-shadow(-16px 13px 2px #fff) sepia(100%) saturate(100) hue-rotate(121deg);transform:rotate(335deg);opacity:0.5;"><div style="position:absolute;border-radius:50%;background:white;top:-126%;left:30%;height:46vh;width:80%;filter:drop-shadow(rgb(255, 255, 255) 0vh 96vh 24vh);"></div><img src="/imgs/thea_auth.png" style="position:absolute;top:12vh;left:17%;height:36%;filter:invert(0%) contrast(506%) hue-rotate(53deg) brightness(0.8) drop-shadow(rgb(0, 0, 0) -10px 8px 0.4vh);transform:rotate(-26deg);">
+
+      <div style="width:100%;position: absolute; top: 42%; right: 20%; color: white; filter: drop-shadow(rgb(0, 0, 0) -13px 8px 0.4vh); font-size: 10vh; transform: rotate(-26deg); background: -webkit-linear-gradient(246deg, rgb(237 237 237) -14%, rgb(221 221 221) 22%, rgb(108 108 108) 100%);  -webkit-background-clip: text;-webkit-text-fill-color: transparent; width: 85%; font-weight: 100; font-family: font5; text-align: right;">
+        <div style="font-family:font4;">
+          {{ focusedTag }}
+        </div> OPERATIONAL<br> DEFNITION
       </div>
     </div>
     <div class="optionCard" style="position:absolute;top:0;left:0;width:100%;height:100%;">

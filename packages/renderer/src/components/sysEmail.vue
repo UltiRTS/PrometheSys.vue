@@ -1,7 +1,9 @@
 <script>
 import { mapActions, mapState } from 'pinia'
 import { useUserStore } from '../stores'
+import corpEmoji from './corpEmoji.vue'
 export default {
+  components: { corpEmoji },
   // feed those
   // props: ['channels', 'chatLog'],
   data() {
@@ -188,6 +190,7 @@ export default {
             </div>
           </div>
         </div>
+        <corpEmoji v-if="confirmations.lengt<=0" :corpEmoji="['questionMark','good']" />
       </div>
     </div>
   </div>
