@@ -14,21 +14,16 @@ export default {
   computed: {
     ...mapState(useUserStore, ['confirmations', 'network', 'ui']),
     cardInfo() {
-      if (this.isReloaded)
-        return this.confirmations[0]
-      return this.confirmations[1]
+      // if (this.isReloaded)
+      return this.confirmations[0]
+      // return this.confirmations[1]
     },
-  },
 
-  updated() {
-
-  },
-  methods: {
     getPosiData(index) {
       console.log(`showing index${index}`)
       if (index <= 9 && this.isReloaded)
         return `positionData${index}`
-      else if (index > 0 && index <= 10 && !this.isReloaded)
+      else if (index <= 10 && !this.isReloaded)
         return `positionData${index - 1}`
       return 'overflew'
     },
@@ -40,6 +35,13 @@ export default {
           return 'SYSTEM'
       }
     },
+  },
+
+  updated() {
+
+  },
+  methods: {
+
     confirmFCard() {
       let confID
       if (this.isReloaded)
@@ -98,10 +100,14 @@ export default {
     </div>
     <div class="email3dSpace" style="position:absolute;top:0%;height:100%;left:-6%;width:40%;perspective:36vh;">
       <div v-if="confirmations.length>0" class="card3dStack" style="position:absolute;height:52%;left:0%;width:125%;transform:translateY(96vh) translateX(12vh) rotateY(-1deg) rotateX(0deg);transform-style:preserve-3d;">
-        <div v-for="(confirmation, index) in confirmations" :key="index" class="individualEmailCard" :class="getPosiData(index)" style="position:absolute;backdrop-filter:blur(3.6px);top:40%;left:40%;height:30%;width:19%;transition: transform 0.5s, filter 0.5s; transition-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);">
+        <div v-for="(confirmation, index) in confirmations" :key="index" :class="[{individualEmailCardDepletion:!isReloaded}, getPosiData(index)] " style="position:absolute;backdrop-filter:blur(3.6px);top:40%;left:40%;height:30%;width:19%;">
+          <div style="position:absolute;top:-5%;right:-50%;color:black;">
+            FILE No. {{ index }}
+          </div>
           <div class="cardBg" style="position:absolute;width:100%;height:100%;overflow:hidden;opacity:0.6;">
             <div style="position:absolute;height:100%;width:101%;background-image:linear-gradient(214deg, #fffdffc7 -2%, #b3ac9c 50%,#fffdffc7 123%);"></div><img src="/imgs/miniWhiteBtn.png" style="position:absolute;width:70%;mix-blend-mode:multiply;opacity:0.4;"><img src="/imgs/thea.png" style="position:absolute;width:84%;top:38%;left:-11%;opacity:0.2;">
-          </div><div style="position:absolute;font-size:4vh;color:white;font-family:font1;top:8%;height:40%;width:100%;text-align:right;">
+          </div>
+          <div style="position:absolute;font-size:4vh;color:white;font-family:font1;top:8%;height:40%;width:100%;text-align:right;">
             <div style="position:absolute;height:37%;width:69%;background-image:linear-gradient(90deg, transparent, #00000040);top:39%;right:3%;opacity:0.6;"></div><div style="position:absolute;font-size:4vh;color:white;font-family:font5;top:32%;right:0;padding-right:3%; text-transform: uppercase;">
               {{ confirmation.type }}
             </div><div style="position:absolute;font-size:1.5vh;font-family:font5;top:105%;right:28%;padding-right:3%;background:white;color:black;mix-blend-mode:screen;padding-left:4vh;filter:drop-shadow(7.3px 6px 4px rgba(255,255,255,0.5));">
@@ -124,7 +130,7 @@ export default {
     <div class="emailDetailContent" style="position:absolute;top:0%;right:0%;height:100%;width:63%;perspective:36vh;">
       <div style="position:absolute;height:73%;right:6%;width:209vh;transform:rotateY(-1deg);top:11%;">
         <div class="emailBtmBg" style="position:absolute;top:-2%;right:1%;height:100%;width:83%;background:#00000042;"></div>
-        <div v-if="confirmations.length>0" style="position:absolute;top:0;height:100%;right:0;width:100%;background:#fffbf094;overflow:hidden;backdrop-filter:blur(9px);filter:drop-shadow(9px 13px 0px rgba(255,255,255,0.5));">
+        <div v-if="confirmations.length>0 && isReloaded" style="position:absolute;top:0;height:100%;right:0;width:100%;background:#fffbf094;overflow:hidden;backdrop-filter:blur(9px);filter:drop-shadow(9px 13px 0px rgba(255,255,255,0.5));">
           <img src="/imgs/hexabg.jpg" style="position:absolute;filter:grayscale(99%);right:0%;height:96%;opacity:0.1;-webkit-mask-image:linear-gradient(87deg,rgb(0 255 220 / 0%) 49%, rgb(255 0 0));">
           <div v-if="cardInfo.type === 'friend'" class="frdReq">
             <div style="position:absolute;font-family:font5;font-weight:900;top:0%;right:-1%;font-size:29vh;color:#daa70e4f;">
@@ -190,13 +196,25 @@ export default {
             </div>
           </div>
         </div>
-        <corpEmoji v-if="confirmations.lengt<=0" :corpEmoji="['questionMark','good']" />
+        <div v-if="confirmations.length<=0 || !isReloaded" style="position: absolute; top: 30%; left: 29%; height: 100%; width: 100%;">
+          <corpEmoji :emoji-seq="['questionMark','good']" />
+          <div style="position: absolute; height: 100%; width: 100%; top: 0%; left: 18%; font-family: font5; font-size: 2vw;">
+            WELL DONE <div data-v-b484bd42="" style="position: absolute; left: -8%; font-family: font2; padding-top: 2%; padding-left: 5.6%; font-size: 2vh; background: white; color: rgb(176, 173, 171); overflow: hidden; filter: drop-shadow(rgba(255, 255, 255, 0.5) 7.3px 6px 4px); top: 4%;">
+              INSTRUCTIONS AWAIT <img src="/imgs/thea.png" data-v-b484bd42="" style="position: absolute; height: 147%; filter: invert(100%); opacity: 0.1; left: 3%; top: 12%;">
+            </div><div data-v-b484bd42="" style="position: absolute; top: 10%; font-family: font0; font-size: 1.8vh; left: -1.5%; font-weight: 900;">
+              THEA, Inc, All Rights Reserved
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+.individualEmailCardDepletion{
+  transition: transform 0.5s, filter 0.5s; transition-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
+}
 
   .positionData0{
     transform:translateZ(12vh) translateY(-17vh) translateX(-28vh) rotateY(-1deg);filter:drop-shadow(7.3px 6px 4px rgba(100,100,100,0.5));
