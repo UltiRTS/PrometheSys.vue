@@ -94,7 +94,7 @@ export default {
   }
 
   100% {
-    top: 30%;left: 68%;
+    top: 30%;left: 64%;
   }
 }
 

@@ -19,11 +19,17 @@ export default {
       // return this.confirmations[1]
     },
 
+  },
+
+  updated() {
+
+  },
+  methods: {
     getPosiData(index) {
-      console.log(`showing index${index}`)
+      // console.log(`aaaaaaaaaaaaaaaa${String(index)}`)
       if (index <= 9 && this.isReloaded)
         return `positionData${index}`
-      else if (index <= 10 && !this.isReloaded)
+      else if (index > 0 && index <= 10 && !this.isReloaded)
         return `positionData${index - 1}`
       return 'overflew'
     },
@@ -35,26 +41,17 @@ export default {
           return 'SYSTEM'
       }
     },
-  },
-
-  updated() {
-
-  },
-  methods: {
-
     confirmFCard() {
-      let confID
-      if (this.isReloaded)
-        confID = 0
-      else
-        confID = 1
+      const confID = 0
+
       this.ui.pushConfirm('INCOMING REQUEST', 'FRIEND CONFIRM').then(() => {
+        this.isReloaded = false
         const params = {
           confirmationId: this.confirmations[confID].id,
           type: this.confirmations[confID].type,
           agree: true,
         }
-        this.isReloaded = false
+
         setTimeout(() => {
           this.network.confirmEmail(params)
           this.isReloaded = true
@@ -62,12 +59,12 @@ export default {
         this.ui.pushUINewNotif({ title: 'FRND', msg: 'Accepted Friend', class: 'aaa' })
       },
       () => {
+        this.isReloaded = false
         const params = {
           confirmationId: this.confirmations[confID].id,
           type: this.confirmations[confID].type,
           agree: false,
         }
-        this.isReloaded = false
         setTimeout(() => {
           this.network.confirmEmail(params)
           this.isReloaded = true
@@ -100,9 +97,9 @@ export default {
     </div>
     <div class="email3dSpace" style="position:absolute;top:0%;height:100%;left:-6%;width:40%;perspective:36vh;">
       <div v-if="confirmations.length>0" class="card3dStack" style="position:absolute;height:52%;left:0%;width:125%;transform:translateY(96vh) translateX(12vh) rotateY(-1deg) rotateX(0deg);transform-style:preserve-3d;">
-        <div v-for="(confirmation, index) in confirmations" :key="index" :class="[{individualEmailCardDepletion:!isReloaded}, getPosiData(index)] " style="position:absolute;backdrop-filter:blur(3.6px);top:40%;left:40%;height:30%;width:19%;">
+        <div v-for="(confirmation, index) in confirmations" :key="index" :class="[{individualEmailCardDepletion:!isReloaded}, getPosiData(index)]" style="position:absolute;backdrop-filter:blur(3.6px);top:40%;left:40%;height:30%;width:19%;">
           <div style="position:absolute;top:-5%;right:-50%;color:black;">
-            FILE No. {{ index }}
+            {{ index }}
           </div>
           <div class="cardBg" style="position:absolute;width:100%;height:100%;overflow:hidden;opacity:0.6;">
             <div style="position:absolute;height:100%;width:101%;background-image:linear-gradient(214deg, #fffdffc7 -2%, #b3ac9c 50%,#fffdffc7 123%);"></div><img src="/imgs/miniWhiteBtn.png" style="position:absolute;width:70%;mix-blend-mode:multiply;opacity:0.4;"><img src="/imgs/thea.png" style="position:absolute;width:84%;top:38%;left:-11%;opacity:0.2;">
@@ -198,11 +195,16 @@ export default {
         </div>
         <div v-if="confirmations.length<=0 || !isReloaded" style="position: absolute; top: 30%; left: 29%; height: 100%; width: 100%;">
           <corpEmoji :emoji-seq="['questionMark','good']" />
-          <div style="position: absolute; height: 100%; width: 100%; top: 0%; left: 18%; font-family: font5; font-size: 2vw;">
-            WELL DONE <div data-v-b484bd42="" style="position: absolute; left: -8%; font-family: font2; padding-top: 2%; padding-left: 5.6%; font-size: 2vh; background: white; color: rgb(176, 173, 171); overflow: hidden; filter: drop-shadow(rgba(255, 255, 255, 0.5) 7.3px 6px 4px); top: 4%;">
+          <div data-v-b484bd42="" style="position: absolute; height: 100%; width: 100%; top: -32%; left: -11%; font-family: font5; font-size: 2vw;overflow:hidden;">
+            <div style="font-family: font2;top: 39%;left: 32%;font-size: 23vh;transform:rotate(90deg);position:absolute;color: #6464640d;">
+              THEA, INC
+            </div><div class="emoLabel" style="position: absolute;  font-family: font2; padding-top: 2%; padding-left: 5.6%; font-size: 2vh; background: white; color: rgb(176, 173, 171); overflow: hidden; filter: drop-shadow(rgba(255, 255, 255, 0.5) 7.3px 6px 4px); top: 39%;">
               INSTRUCTIONS AWAIT <img src="/imgs/thea.png" data-v-b484bd42="" style="position: absolute; height: 147%; filter: invert(100%); opacity: 0.1; left: 3%; top: 12%;">
-            </div><div data-v-b484bd42="" style="position: absolute; top: 10%; font-family: font0; font-size: 1.8vh; left: -1.5%; font-weight: 900;">
-              THEA, Inc, All Rights Reserved
+            </div><div data-v-b484bd42="" style="position: absolute; top: 45%; font-family: font3; font-size: 1.8vh; left: 29%; font-weight: 900;color: #ffffffa8;">
+              SOFTWARE REVISION: 8db1a24
+            </div>
+            <div class="emoLabel2" style="position: absolute; top: 35.8%; font-size:3.75vh; ">
+              WELL DONE
             </div>
           </div>
         </div>
@@ -212,6 +214,44 @@ export default {
 </template>
 
 <style scoped>
+.emoLabel {
+  animation: emoLabel 0.4s;
+  animation-fill-mode: forwards;
+  animation-iteration-count:1;
+animation-delay: 3.7s;
+  animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
+opacity:0;
+}
+
+@keyframes emoLabel {
+    0% {
+        left:15%; opacity:0;
+  }
+
+  100% {
+    left: 22%;opacity:1;
+  }
+}
+
+.emoLabel2 {
+  animation: emoLabel2 0.4s;
+  animation-fill-mode: forwards;
+  animation-iteration-count:1;
+animation-delay: 3.7s;
+  animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
+opacity:0;
+}
+
+@keyframes emoLabel2 {
+    0% {
+        left: 28.2%; opacity:0;
+  }
+
+  100% {
+    left: 30.2%;opacity:1;
+  }
+}
+
 .individualEmailCardDepletion{
   transition: transform 0.5s, filter 0.5s; transition-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
 }
