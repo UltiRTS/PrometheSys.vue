@@ -488,5 +488,3 @@ export function wsSendServer(tx: {
 export function setWDir(input: string) {
   wdir = input
 }
-
-

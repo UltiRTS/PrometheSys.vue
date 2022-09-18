@@ -13,7 +13,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(useUserStore, ['network', 'chatLog', 'joinedChannels', 'ui']),
+    ...mapState(useUserStore, ['network', 'chatLog', 'joinedChannels', 'ui', 'userapi']),
 
     channels() {
       const res = []
@@ -184,7 +184,7 @@ export default {
 
       <div v-if="chat.chats[0].timestring" id="timeBlk" style="position: absolute; right: 0%; bottom: 0px;height: 14vh;width:20%;" v-html="chat.chats[0].timestring">
       </div>
-      <userCard v-if="current_username == chat.username" :username="chat.username" @mouseleave="current_username = ''" />
+      <userCard v-if="current_username == chat.username" :username="chat.username" @mouseleave="current_username = '';userapi.resetUserInfo();" />
     </div>
   </div>
 

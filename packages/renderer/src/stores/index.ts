@@ -4,6 +4,8 @@ import { ref } from 'vue'
 import * as network from './network/network'
 import * as ui from './UI/ui'
 import * as dntpService from './mapAPI/dntpService'
+import * as userapi from './userapi/userapi'
+
 import * as engineMgr from './engineManager/engine'
 
 export const useUserStore = defineStore('user', () => {
@@ -93,6 +95,7 @@ export const useUserStore = defineStore('user', () => {
     dntpService,
     searchMap,
     ListMap,
+    userapi,
 
     lobbyDir,
     isLinux,
