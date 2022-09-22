@@ -57,7 +57,11 @@ function launchEngine() {
   const exec = require('child_process').exec
 
   let result = ''
-  const engineCmdLine = `${engine} -write-dir ${path.join(wdir, 'springwritable')} ${path.join(wdir, 'springwritable', 'script.txt')}`
+  let engineCmdLine
+  if (isLinux)
+    engineCmdLine = `${engine} -write-dir ${path.join(wdir, 'springwritable')} ${path.join(wdir, 'springwritable', 'script.txt')}`
+  else
+    engineCmdLine = `start \"\" \"${engine}\" \"${path.join(wdir, 'springwritable', 'script.txt')}\" --write-dir \"${path.join(wdir, 'springwritable')}\"`
 
   const child = exec(engineCmdLine)
 

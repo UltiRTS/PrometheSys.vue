@@ -144,7 +144,6 @@ width:0;
 display:none;
 }
 
-
 .levelAnime{
   animation: levelAnime 0.6s;
   animation-fill-mode: forwards;

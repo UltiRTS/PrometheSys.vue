@@ -19,7 +19,7 @@
     "build": "electron-builder",
     "build:linux": "node scripts/build.mjs && electron-builder --linux",
     "build:mac": "node scripts/build.mjs && electron-builder --mac",
-    "build:win": "node scripts/build.mjs && electron-builder --win",
+    "build:win": "node scripts/build.mjs &&sh scripts/merge_css.sh&& electron-builder --win",
     "dev": "node scripts/watch.mjs",
     "lint": "eslint ."
   },
