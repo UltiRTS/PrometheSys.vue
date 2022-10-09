@@ -1,3 +1,4 @@
+import * as musicPlayer from '../musicPlayer/musicPlayer'
 let enginesRunning = 0
 // const fsPromises = require('fs').promises
 const fs = require('fs')
@@ -77,9 +78,12 @@ function launchEngine() {
 
 function engineClosed() {
   enginesRunning--
+  if (!isEngineRunning())
+    musicPlayer.resumeSound()
 }
 
 function engineLaunched() {
+  musicPlayer.stopSound()
   enginesRunning++
 }
 

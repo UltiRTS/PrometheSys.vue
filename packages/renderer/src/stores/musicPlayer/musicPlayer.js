@@ -5,11 +5,17 @@ let userVol = 100
 let sourceIntro
 let sourceLoop
 let audioDelay
+let soundFile
+let isLoop
 
 export function setVol(uvl) {
   userVol = uvl
 }
 export async function playSound(file, loop) {
+  if (file === soundFile)
+    return
+  soundFile = file
+  isLoop = loop
   console.log(`playing${file}`)
   if (!isMusicPlaying) {
     audioCtx = new AudioContext()
@@ -93,11 +99,11 @@ export function stopSound() {
     if (dt >= 1000) {
       isMusicPlaying = false
       try {
-        sourceIntro.disconnect(global.selfState.promethesys.audio.contextGain)
+        sourceIntro.disconnect(contextGain)
       }
       catch { }
       try {
-        sourceLoop.disconnect(global.selfState.promethesys.audio.audioDelay)
+        sourceLoop.disconnect(audioDelay)
       }
       catch { }
     }
@@ -112,3 +118,6 @@ export function stopSound() {
   window.requestAnimationFrame(dialDown)
 }
 
+export function resumeSound() {
+  playSound(soundFile, isLoop)
+}
