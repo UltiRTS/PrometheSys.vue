@@ -527,7 +527,8 @@ const yijingqichuang = ref('')
 
 const qichuangdachenggong = () => {
   yijingqichuang.value = 'qichuangyijingchenggong'
-  // console.log('setting var')
+  uStore.soundPlayer.playNotif('acknowledge.wav')
+  uStore.musicPlayer.playSound('title.wav', true)
 }
 
 function loginWrapper() {

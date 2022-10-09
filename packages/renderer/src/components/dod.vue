@@ -10,14 +10,14 @@ export default {
     }
   },
   computed: {
-    ...mapState(useUserStore, ['gameListing', 'joinedGame', 'ui']),
+    ...mapState(useUserStore, ['gameListing', 'joinedGame', 'ui', 'musicPlayer']),
   },
 
   updated() {
   },
 
-  onMounted() {
-
+  mounted() {
+    this.musicPlayer.playSound('kaz.wav', true)
   },
 
   methods: {

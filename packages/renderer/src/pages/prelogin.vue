@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useUserStore } from '../stores'
 
 import router from '../router'
 
@@ -7,8 +8,8 @@ setTimeout(() => {
   router.push('login')
 }, 9000)
 
-const username = ref('')
-const password = ref('')
+const uStore = useUserStore()
+uStore.musicPlayer.playSound('bbl.wav', true)
 </script>
 
 <template>

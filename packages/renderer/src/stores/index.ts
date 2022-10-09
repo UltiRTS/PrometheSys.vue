@@ -3,6 +3,7 @@ import { acceptHMRUpdate, defineStore } from 'pinia'
 import { ref } from 'vue'
 import * as network from './network/network'
 import * as musicPlayer from './musicPlayer/musicPlayer'
+import * as soundPlayer from './soundPlayer/soundPlayer'
 
 import * as ui from './UI/ui'
 import * as dntpService from './mapAPI/dntpService'
@@ -103,9 +104,10 @@ export const useUserStore = defineStore('user', () => {
     isLinux,
     engineMgr,
     musicPlayer,
+    soundPlayer,
   }
 })
- musicPlayer.playSound('scene.babylon', true)
+// musicPlayer.playSound('scene.babylon', true)
 if (import.meta.hot)
   import.meta.hot.accept(acceptHMRUpdate(useUserStore, import.meta.hot))
 

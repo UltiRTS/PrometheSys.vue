@@ -6,6 +6,9 @@ declare interface DataReturn {
   engine: Engine | null
   scene: Scene | null
   cam: ArcRotateCamera | null
+  camAngle: number
+  isExiting: boolean
+  camRadius: number
 }
 export default defineComponent({
   name: 'BabylonOne',
@@ -14,8 +17,13 @@ export default defineComponent({
       engine: null,
       scene: null,
       cam: null,
+      camAngle: 0,
+      isExiting: false,
+      camRadius: 10,
     }
     return res
+  },
+  computed: {
   },
   mounted() { // lifecycle hook
     const canvas = document.querySelector('canvas')
@@ -38,12 +46,23 @@ export default defineComponent({
       window.addEventListener('resize', () => {
         engine.resize()
       })
+      let t0 = performance.now()
+      // eslint-disable-next-line @typescript-eslint/no-this-alias
+      const parent = this
       function rotateCam(timestamp: number) {
+        parent.camAngle = cam.beta * 45
+        parent.camRadius = -20 * cam.radius
+        const dt = timestamp - t0
+        t0 = timestamp
         if (scene.activeCamera)
-          cam.alpha = timestamp * 0.0001
-        requestAnimationFrame(rotateCam) // call requestAnimationFrame again to animate next frame
+          cam.alpha = cam.alpha + dt * 0.0001
+        if (!parent.isExiting)
+          requestAnimationFrame(rotateCam) // call requestAnimationFrame again to animate next frame
       }
       requestAnimationFrame(rotateCam)
+      this.cam.target.x = 126.9098447689291
+      this.cam.target.y = 1.0644704090000594
+      this.cam.target.z = 255.24346977179576
     })
     /* setInterval(() => {
       if (this.cam)
@@ -51,13 +70,18 @@ export default defineComponent({
       console.log(this.cam.alpha)
     }, 40) */
   },
+  beforeUnmount() {
+    if (this.scene)
+      this.scene.dispose()
+    this.isExiting = true
+  },
   methods: {
     moveCam() {
       if (this.cam) {
         // this.cam?.position = new Vector3(3.868476102612409, 0.31730543427941743, 33.1220)
-        // this.cam.target.x = 126.9098447689291
-        // this.cam.target.y = 1.0644704090000594
-        // this.cam.target.z = 255.24346977179576
+        this.cam.target.x = 126.9098447689291
+        this.cam.target.y = 1.0644704090000594
+        this.cam.target.z = 255.24346977179576
         console.log('moving')
         this.cam.alpha = 3.868476102612409
         this.cam.beta = 0.31730543427941743
@@ -71,14 +95,24 @@ export default defineComponent({
         // this.cam?.setTarget(new Vector3(126.9098447689291, 1.0644704090000594, 255.24346977179576))
       }
     },
+    /*
+    camAngle() {
+      if (this.cam)
+        return this.cam.beta
+      else
+        return 0
+    }, */
   },
 })
 </script>
 <template>
   <div style="position:absolute; top:0; height:100%;width:100%;left:0%;">
     <canvas class="babylon" style="position:absolute; top:25%; height:50%;width:50%;left:25%;transform: scale(2);"></canvas>
-    <div style="position:absolute;font-size:9vh;" @click="moveCam">
-      MOVE CAM
+    <div v-if="cam" id="ui3dSpace" style="position:absolute;top:0%;width:40%;height:100%;left: 27%;perspective: 100vh;font-size:9vh;pointer-events: none;">
+      <div :style="{ position: 'absolute', background: 'black', 'transform-style': 'preserve-3d',transform: 'rotateX('+camAngle+'deg) translateZ('+camRadius+'vh)', }">
+        MOVE CAM
+        {{ cam.beta }}
+      </div>
     </div>
   </div>
 </template>
