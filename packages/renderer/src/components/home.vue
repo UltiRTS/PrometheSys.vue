@@ -51,7 +51,7 @@ export default defineComponent({
       const parent = this
       function rotateCam(timestamp: number) {
         parent.camAngle = cam.beta * 45
-        parent.camRadius = -20 * cam.radius
+        parent.camRadius = -10 * cam.radius + 300
         const dt = timestamp - t0
         t0 = timestamp
         if (scene.activeCamera)

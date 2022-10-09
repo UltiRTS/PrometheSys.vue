@@ -183,7 +183,7 @@ export default {
       <div class="dodLeftOperationPanel" data-v-0516f4a8="" style="position: absolute; bottom: 32%; height: 81vh; width: 72vh; left: 22vw; ">
         <div data-v-0516f4a8="" style="font-size: 9vh; -webkit-text-stroke: 0.2vh rgba(84, 84, 84, 0.6); font-family: font9; text-align: right; color: rgba(255, 255, 255, 0.85); top: 11%; position: absolute; right: 0px;">
           Dr. {{ network.username }}
-        </div><div data-v-0516f4a8="" style="position: absolute; top: 25%; width: 69%; background: rgb(33, 150, 243); font-family: font5; font-size: 4vh; text-align: right; filter: drop-shadow(rgba(33, 150, 243,0.4) 12px 15px 2.8px);padding-right: 1.9%;padding-top: 2%;" @click.stop="pickMap">
+        </div><div data-v-0516f4a8="" style="position: absolute; top: 25%; width: 69%; background: rgb(33, 150, 243); font-family: font5; font-size: 4vh; text-align: right; filter: drop-shadow(rgba(33, 150, 243,0.4) 12px 15px 2.8px);padding-right: 1.9%;padding-top: 2%;height:5.5vh;overflow:hidden;" @click.stop="pickMap">
           {{ mapID2Name }}
         </div><div data-v-0516f4a8="" style="position: absolute; top: 25%; width: 28.8%; background: rgb(255 255 255); font-family: font5; font-size: 4vh; text-align: right; filter: drop-shadow(rgba(255, 255, 255,0.5) 12px 15px 2.8px);right:0;color:black;mix-blend-mode:screen;padding-top: 2%;padding-right: 0.5%;" @click.stop="viewModelMut">
           {{ pickedMod }}

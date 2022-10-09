@@ -78,8 +78,10 @@ function launchEngine() {
 
 function engineClosed() {
   enginesRunning--
-  if (!isEngineRunning())
+  if (!isEngineRunning()) {
     musicPlayer.resumeSound()
+    console.log('resuming music')
+  }
 }
 
 function engineLaunched() {

@@ -12,7 +12,7 @@ export function setVol(uvl) {
   userVol = uvl
 }
 export async function playSound(file, loop) {
-  if (file === soundFile)
+  if (file === soundFile && isMusicPlaying) // if requesting to play the same music that is playing
     return
   soundFile = file
   isLoop = loop
