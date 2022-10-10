@@ -1,7 +1,9 @@
 <script lang="ts">
+import { mapActions, mapState } from 'pinia'
 import { defineComponent } from 'vue'
 import type { Scene } from '@babylonjs/core'
 import { ArcRotateCamera, Color3, Color4, DataReader, Engine, SceneLoader, Vector3 } from '@babylonjs/core'
+import { useUserStore } from '../stores'
 declare interface DataReturn {
   engine: Engine | null
   scene: Scene | null
@@ -24,6 +26,7 @@ export default defineComponent({
     return res
   },
   computed: {
+    ...mapState(useUserStore, ['joinedGame', 'grabberActivated', 'mainMenuContent', 'modalMenuContent', 'activeWindow', 'network', 'ui']),
   },
   mounted() { // lifecycle hook
     const canvas = document.querySelector('canvas')
@@ -50,8 +53,14 @@ export default defineComponent({
       // eslint-disable-next-line @typescript-eslint/no-this-alias
       const parent = this
       function rotateCam(timestamp: number) {
-        parent.camAngle = cam.beta * 45
-        parent.camRadius = -10 * cam.radius + 300
+        if (cam.radius > 11)
+          cam.radius = 11
+        if (cam.radius < 2)
+          cam.radius = 2
+        if (cam.beta > 1.04)
+          cam.beta = 1.04
+        parent.camAngle = cam.beta * 5
+        parent.camRadius = -cam.radius + 10
         const dt = timestamp - t0
         t0 = timestamp
         if (scene.activeCamera)
@@ -108,10 +117,35 @@ export default defineComponent({
 <template>
   <div style="position:absolute; top:0; height:100%;width:100%;left:0%;">
     <canvas class="babylon" style="position:absolute; top:25%; height:50%;width:50%;left:25%;transform: scale(2);"></canvas>
-    <div v-if="cam" id="ui3dSpace" style="position:absolute;top:0%;width:40%;height:100%;left: 27%;perspective: 100vh;font-size:9vh;pointer-events: none;">
-      <div :style="{ position: 'absolute', background: 'black', 'transform-style': 'preserve-3d',transform: 'rotateX('+camAngle+'deg) translateZ('+camRadius+'vh)', }">
-        MOVE CAM
-        {{ cam.beta }}
+    <div v-if="cam" id="ui3dSpace" style="position:absolute;top:0%;width:40%;height:100%;left: 27%;perspective: 10vh;font-size:9vh;pointer-events: none;">
+      <div :style="{ position: 'absolute', background: '#00000014', 'transform-style': 'preserve-3d',transform: 'rotateX('+camAngle+'deg) translateZ('+camRadius+'vh)', 'filter': 'drop-shadow(18vh 6vh 18px rgba(50,50,50,0.5))','height':'100%','width':'100%,'}">
+        <div class="updateHeader">
+          <div style="position: absolute; font-size: 16.5vh; top: 7vh; font-family: font10; width: 109vh; font-weight: 900; color: #000000; left: 59.4vh;">
+            2
+          </div><div style="position: absolute; font-size: 7vh; top: 9vh; font-family: font10; width: 109vh; font-weight: 900; color: #0000006e; left: -0.6vh;">
+            INCOMING DATA:
+          </div><div style="position: absolute; font-size: 7vh; top: 11vh; font-family: font10; width: 109vh; /* font-weight: 900; */ color: #0000006e; left: 72.4vh;">
+            hours ago
+          </div><div style="position: absolute; font-size: 3.4vh; top: 9vh; font-family: font10; width: 109vh; /* font-weight: 900; */ color: #000000; left: 79.1vh;">
+            3 days
+          </div><div style="position: absolute; font-size: 3.4vh; top: 19vh; font-family: font10; width: 109vh; /* font-weight: 900; */ color: #000000; left: 75.1vh;">
+            5 minutes
+          </div><div style="position: absolute; font-size: 2.5vh; top: 19vh; font-family: font2; letter-spacing: 2.3vh; width: 176vh; color: black;">
+            LATEST UPDATES
+          </div>
+        </div>
+        <div class="contentTitle">
+        </div>
+        <div class="content"></div>
+        <div class="contentMenu" style=" font-family: font5;pointer-events: auto; ">
+          <div style="position: absolute; font-size: 3vh; top: 85vh;width: 32vh; /* font-weight: 900; */ color: #ffffffd4; left: -0.6vh;background: #5a5a5a;text-align:right;padding-top: 4vh;padding-right: 1vh;" @click.stop="ui.setmainMenuContent('dod')">
+            DOCTOR'S DESK
+          </div><div style="position: absolute; font-size: 3vh; top: 73vh; width: 32vh; /* font-weight: 900; */ color: #ffffffd4; left: -0.6vh;background: #5a5a5a;text-align:right;padding-top: 4vh;padding-right: 1vh;">
+            RECALL
+          </div><div style="position: absolute; font-size: 3vh; top: 61vh;width: 32vh; /* font-weight: 900; */ color: #ffffffd4; left: -0.6vh;background: #5a5a5a;text-align:right;padding-top: 4vh;padding-right: 1vh;">
+            IVORY TOWER
+          </div>
+        </div>
       </div>
     </div>
   </div>
