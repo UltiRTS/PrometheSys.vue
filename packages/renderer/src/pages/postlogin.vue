@@ -86,7 +86,7 @@ export default {
         </div>
         <dod v-if="mainMenuContent == 'dod' " />
         <dodPregame v-if="joinedGame && mainMenuContent == 'dodPregame'" />
-        <home v-if="mainMenuContent == 'home' " />
+        <home :visible="mainMenuContent == 'home' " />
         <sys-email v-if="mainMenuContent == 'email' " />
       </div>
       <div id="modalMenu" :style="{opacity:shouldIlightUpModal}" style="transform: rotateY(15.6deg) translateZ(10vw) translateX(-55vw); top: 5%;width: 56%; height: 84%; position: absolute; backdrop-filter: blur(5px);" @click="activateModal" @mouseover="mouseOn=&quot;modal&quot;" @mouseleave="mouseOn='default'">

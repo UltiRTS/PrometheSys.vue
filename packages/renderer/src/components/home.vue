@@ -14,6 +14,7 @@ declare interface DataReturn {
 }
 export default defineComponent({
   name: 'BabylonOne',
+  props: ['visible'],
   data() {
     const res: DataReturn = {
       engine: null,
@@ -31,57 +32,55 @@ export default defineComponent({
   mounted() { // lifecycle hook
     const canvas = document.querySelector('canvas')
     const engine = new Engine(canvas, true)
-    // let cam = null
-    SceneLoader.Load('', 'models/scene.babylon', engine, (scene) => {
-      this.scene = scene
-      scene.clearColor = new Color4(1, 1, 1, 1)
-      scene.ambientColor = Color3.White()
+    SceneLoader.ShowLoadingScreen = false
+    setTimeout(() => {
+      SceneLoader.Load('', 'models/scene.babylon', engine, (scene) => {
+        this.scene = scene
+        scene.clearColor = new Color4(1, 1, 1, 1)
+        scene.ambientColor = Color3.White()
 
-      const cam = new ArcRotateCamera('Camera', 3.868476102612409, 0.31730543427941743, 33.1220, new Vector3(3.868476102612409, 0.31730543427941743, 255.24346977179576), scene)
-      this.cam = cam
-      scene.activeCamera = scene.cameras[1]
-      scene.activeCamera?.attachControl(canvas, false)
-
-      engine.runRenderLoop(() => {
-        scene.render()
-      })
-
-      window.addEventListener('resize', () => {
-        engine.resize()
-      })
-      let t0 = performance.now()
-      // eslint-disable-next-line @typescript-eslint/no-this-alias
-      const parent = this
-      function rotateCam(timestamp: number) {
-        if (cam.radius > 11)
-          cam.radius = 11
-        if (cam.radius < 2)
-          cam.radius = 2
-        if (cam.beta > 1.04)
-          cam.beta = 1.04
-        parent.camAngle = cam.beta * 5
-        parent.camRadius = -cam.radius + 10
-        const dt = timestamp - t0
-        t0 = timestamp
-        if (scene.activeCamera)
+        const cam = new ArcRotateCamera('Camera', 3.868476102612409, 0.31730543427941743, 33.1220, new Vector3(3.868476102612409, 0.31730543427941743, 255.24346977179576), scene)
+        this.cam = cam
+        scene.activeCamera = scene.cameras[1]
+        scene.activeCamera?.attachControl(canvas, false)
+        let t0 = performance.now()
+        engine.runRenderLoop(() => {
+          if (this.isExiting)
+            return
+          if (!this.visible)
+            return
+          const tPrime = performance.now()
+          const dt = tPrime - t0
+          t0 = tPrime
+          if (cam.radius > 11)
+            cam.radius = 11
+          if (cam.radius < 2)
+            cam.radius = 2
+          if (cam.beta > 1.04)
+            cam.beta = 1.04
+          this.camAngle = cam.beta * 5
+          this.camRadius = -cam.radius + 10
           cam.alpha = cam.alpha + dt * 0.0001
-        if (!parent.isExiting)
-          requestAnimationFrame(rotateCam) // call requestAnimationFrame again to animate next frame
-      }
-      requestAnimationFrame(rotateCam)
-      this.cam.target.x = 126.9098447689291
-      this.cam.target.y = 1.0644704090000594
-      this.cam.target.z = 255.24346977179576
-    })
-    /* setInterval(() => {
-      if (this.cam)
-        this.cam.alpha += 0.1
-      console.log(this.cam.alpha)
-    }, 40) */
+          scene.render()
+        })
+
+        window.addEventListener('resize', () => {
+          engine.resize()
+        })
+
+        this.cam.target.x = 126.9098447689291
+        this.cam.target.y = 1.0644704090000594
+        this.cam.target.z = 255.24346977179576
+      })
+    }, 1000)
   },
   beforeUnmount() {
     if (this.scene)
       this.scene.dispose()
+
+    if (this.engine)
+      this.engine.dispose()
+
     this.isExiting = true
   },
   methods: {
@@ -115,8 +114,8 @@ export default defineComponent({
 })
 </script>
 <template>
-  <div style="position:absolute; top:0; height:100%;width:100%;left:0%;">
-    <canvas class="babylon" style="position:absolute; top:25%; height:50%;width:50%;left:25%;transform: scale(2);"></canvas>
+  <div style="position:absolute; top:0; height:100%;width:100%;left:0%;" :class="{vis:visible, invis:!visible}">
+    <canvas class="babylon" style="position:absolute; top:25%; height:50%;width:50%;left:25%;transform: scale(2);" :class="{notRender:!visible}"></canvas>
     <div v-if="cam" id="ui3dSpace" style="position:absolute;top:0%;width:40%;height:100%;left: 27%;perspective: 10vh;font-size:9vh;pointer-events: none;">
       <div :style="{ position: 'absolute', background: '#00000014', 'transform-style': 'preserve-3d',transform: 'rotateX('+camAngle+'deg) translateZ('+camRadius+'vh)', 'filter': 'drop-shadow(18vh 6vh 18px rgba(50,50,50,0.5))','height':'100%','width':'100%,'}">
         <div class="updateHeader">
@@ -150,3 +149,14 @@ export default defineComponent({
     </div>
   </div>
 </template>
+<style scoped>
+.vis{
+  visibility:visible
+}
+.invis{
+  visibility:hidden
+}
+.notRender{
+  display:none;
+}
+</style>

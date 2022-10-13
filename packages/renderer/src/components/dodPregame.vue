@@ -50,6 +50,18 @@ export default {
           return 'TYPE I'
       }
     },
+    isMapDlDone() {
+      let allDone = true
+
+      for (const player in this.network.joinedGame.value.players) {
+        if (!this.network.joinedGame.value.players[player].hasmap)
+          allDone = false
+      }
+      return allDone
+    },
+    meBeHabeMap() {
+      return this.network.joinedGame.value.players[this.network.username.value].hasmap
+    },
   },
 
   updated() {
@@ -185,7 +197,20 @@ export default {
           Dr. {{ network.username }}
         </div><div data-v-0516f4a8="" style="position: absolute; top: 25%; width: 69%; background: rgb(33, 150, 243); font-family: font5; font-size: 4vh; text-align: right; filter: drop-shadow(rgba(33, 150, 243,0.4) 12px 15px 2.8px);padding-right: 1.9%;padding-top: 2%;height:5.5vh;overflow:hidden;" @click.stop="pickMap">
           {{ mapID2Name }}
-        </div><div data-v-0516f4a8="" style="position: absolute; top: 25%; width: 28.8%; background: rgb(255 255 255); font-family: font5; font-size: 4vh; text-align: right; filter: drop-shadow(rgba(255, 255, 255,0.5) 12px 15px 2.8px);right:0;color:black;mix-blend-mode:screen;padding-top: 2%;padding-right: 0.5%;" @click.stop="viewModelMut">
+        </div>
+        <div v-if="isMapDlDone" style="position:absolute;height: 8.6%;width:15%;background: rgb(33 150 243 / 0%);overflow: hidden;top: 25%;">
+          <img src="/imgs/done.png" class="mapAllDone" style="position: absolute; top: -13%; width: 100%;  font-family: font5; font-size: 4vh; text-align: right; filter: drop-shadow(rgba(33, 150, 243, 0.4) 12px 15px 2.8px);">
+        </div>
+        <div v-if="!meBeHabeMap" style="position: absolute; height: 2.2%; width: 15%; background: rgb(255 255 255); overflow: hidden; top: 25.5%;color:#2196f3;text-align:right;padding-right: 1%;left: 2%;font-family: font5;font-size:1.6vh;">
+          LOADING
+        </div>
+        <div v-if="meBeHabeMap" style="position: absolute; height: 2.2%; width: 15%; background: rgb(255 255 255); overflow: hidden; top: 25.5%;color:#2196f3;text-align:right;padding-right: 1%;left: 2%;font-family: font5;font-size:1.6vh;">
+          CHANGING
+        </div>
+        <div v-if="isMapDlDone" style="position: absolute; height: 2.2%; width: 15%; background: rgb(255 255 255); overflow: hidden; top: 25.5%;color:#2196f3;text-align:right;padding-right: 1%;left: 2%;font-family: font5;font-size:1.6vh;">
+          READY
+        </div>
+        <div data-v-0516f4a8="" style="position: absolute; top: 25%; width: 28.8%; background: rgb(255 255 255); font-family: font5; font-size: 4vh; text-align: right; filter: drop-shadow(rgba(255, 255, 255,0.5) 12px 15px 2.8px);right:0;color:black;mix-blend-mode:screen;padding-top: 2%;padding-right: 0.5%;" @click.stop="viewModelMut">
           {{ pickedMod }}
         </div><div class="mapTags" data-v-0516f4a8="" style="position: absolute; top: 37%; width: 100%; padding: 0vh; font-size: 3vh; text-align: right; font-family: font10; font-weight: 900; opacity: 0.9;filter: drop-shadow(rgb(0, 0, 0) 30px 10px 18px);">
           <span data-v-0516f4a8="" style="background: rgb(92, 92, 92); padding: 0.8vh; margin: 2vh; color: rgba(255, 255, 255, 0.88);">FLAT</span><span data-v-0516f4a8="" style="background: rgb(92, 92, 92); padding: 0.8vh; margin: 2vh; color: rgba(255, 255, 255, 0.88);">WATER</span>
@@ -289,6 +314,29 @@ export default {
 </template>
 
 <style scoped>
+
+.mapAllDone{
+  animation-fill-mode: forwards;
+  animation-name: mapAllDone;
+  animation-duration: 0.6s;
+  animation-iteration-count: 1;
+  animation-delay: 0s;
+  opacity: 0;
+  animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
+}
+
+@keyframes mapAllDone {
+
+  0% {
+    opacity: 0;
+    left:-20%;
+  }
+  100% {
+    opacity: 20%;
+    left:0;
+  }
+}
+
 .spinningIcon{
  animation-fill-mode: forwards;
  animation-name: spinningIconAni;
