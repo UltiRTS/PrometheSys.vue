@@ -198,16 +198,16 @@ export default {
         </div><div data-v-0516f4a8="" style="position: absolute; top: 25%; width: 69%; background: rgb(33, 150, 243); font-family: font5; font-size: 4vh; text-align: right; filter: drop-shadow(rgba(33, 150, 243,0.4) 12px 15px 2.8px);padding-right: 1.9%;padding-top: 2%;height:5.5vh;overflow:hidden;" @click.stop="pickMap">
           {{ mapID2Name }}
         </div>
-        <div v-if="isMapDlDone" style="position:absolute;height: 8.6%;width:15%;background: rgb(33 150 243 / 0%);overflow: hidden;top: 25%;">
+        <div v-if="isMapDlDone" style="position:absolute;height: 8.6%;width:15%;background: rgb(33 150 243 / 0%);overflow: hidden;top: 25%;left:10%;">
           <img src="/imgs/done.png" class="mapAllDone" style="position: absolute; top: -13%; width: 100%;  font-family: font5; font-size: 4vh; text-align: right; filter: drop-shadow(rgba(33, 150, 243, 0.4) 12px 15px 2.8px);">
         </div>
         <div v-if="!meBeHabeMap" style="position: absolute; height: 2.2%; width: 15%; background: rgb(255 255 255); overflow: hidden; top: 25.5%;color:#2196f3;text-align:right;padding-right: 1%;left: 2%;font-family: font5;font-size:1.6vh;">
           LOADING
         </div>
-        <div v-if="meBeHabeMap" style="position: absolute; height: 2.2%; width: 15%; background: rgb(255 255 255); overflow: hidden; top: 25.5%;color:#2196f3;text-align:right;padding-right: 1%;left: 2%;font-family: font5;font-size:1.6vh;">
+        <div v-if="meBeHabeMap&&!isMapDlDone" style="position: absolute; height: 2.2%; width: 15%; background: rgb(255 255 255); overflow: hidden; top: 25.5%;color:#2196f3;text-align:right;padding-right: 1%;left: 2%;font-family: font5;font-size:1.6vh;">
           CHANGING
         </div>
-        <div v-if="isMapDlDone" style="position: absolute; height: 2.2%; width: 15%; background: rgb(255 255 255); overflow: hidden; top: 25.5%;color:#2196f3;text-align:right;padding-right: 1%;left: 2%;font-family: font5;font-size:1.6vh;">
+        <div v-if="isMapDlDone" class="mapAllDone2" style="position: absolute; height: 2.2%; width: 15%; background: rgb(255 255 255); overflow: hidden; top: 25.5%;color:#2196f3;text-align:right;padding-right: 1%;font-family: font5;font-size:1.6vh;">
           READY
         </div>
         <div data-v-0516f4a8="" style="position: absolute; top: 25%; width: 28.8%; background: rgb(255 255 255); font-family: font5; font-size: 4vh; text-align: right; filter: drop-shadow(rgba(255, 255, 255,0.5) 12px 15px 2.8px);right:0;color:black;mix-blend-mode:screen;padding-top: 2%;padding-right: 0.5%;" @click.stop="viewModelMut">
@@ -320,11 +320,19 @@ export default {
   animation-name: mapAllDone;
   animation-duration: 0.6s;
   animation-iteration-count: 1;
+  animation-delay: 0.2s;
+  opacity: 0;
+  animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
+}
+.mapAllDone2{
+  animation-fill-mode: forwards;
+  animation-name: mapAllDone2;
+  animation-duration: 0.6s;
+  animation-iteration-count: 1;
   animation-delay: 0s;
   opacity: 0;
   animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
 }
-
 @keyframes mapAllDone {
 
   0% {
@@ -336,7 +344,17 @@ export default {
     left:0;
   }
 }
+@keyframes mapAllDone2 {
 
+  0% {
+    opacity: 0;
+    left:-1%;
+  }
+  100% {
+    opacity: 1;
+    left:2%;
+  }
+}
 .spinningIcon{
  animation-fill-mode: forwards;
  animation-name: spinningIconAni;

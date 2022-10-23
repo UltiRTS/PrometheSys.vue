@@ -9,6 +9,8 @@ declare interface DataReturn {
   scene: Scene | null
   cam: ArcRotateCamera | null
   camAngle: number
+  camRotate: number
+  camRadius_2: number
   isExiting: boolean
   camRadius: number
 }
@@ -23,6 +25,8 @@ export default defineComponent({
       camAngle: 0,
       isExiting: false,
       camRadius: 10,
+      camRotate: 0,
+      camRadius_2: 0,
     }
     return res
   },
@@ -52,14 +56,20 @@ export default defineComponent({
           const tPrime = performance.now()
           const dt = tPrime - t0
           t0 = tPrime
-          if (cam.radius > 11)
-            cam.radius = 11
-          if (cam.radius < 2)
-            cam.radius = 2
+          if (cam.radius > 21)
+            cam.radius = 21
+          if (cam.radius < 3)
+            cam.radius = 3
           if (cam.beta > 1.04)
             cam.beta = 1.04
+          if (cam.alpha > 3.1415926535 * 2)
+            cam.alpha = 0
+          if (cam.alpha < -3.1415926535 * 2)
+            cam.alpha = 0
+          this.camRotate = cam.alpha
           this.camAngle = cam.beta * 5
           this.camRadius = -cam.radius + 10
+          this.camRadius_2 = -cam.radius + 2
           cam.alpha = cam.alpha + dt * 0.0001
           scene.render()
         })
@@ -116,32 +126,67 @@ export default defineComponent({
 <template>
   <div style="position:absolute; top:0; height:100%;width:100%;left:0%;" :class="{vis:visible, invis:!visible}">
     <canvas class="babylon" style="position:absolute; top:25%; height:50%;width:50%;left:25%;transform: scale(2);" :class="{notRender:!visible}"></canvas>
-    <div v-if="cam" id="ui3dSpace" style="position:absolute;top:0%;width:40%;height:100%;left: 27%;perspective: 10vh;font-size:9vh;pointer-events: none;">
-      <div :style="{ position: 'absolute', background: '#00000014', 'transform-style': 'preserve-3d',transform: 'rotateX('+camAngle+'deg) translateZ('+camRadius+'vh)', 'filter': 'drop-shadow(18vh 6vh 18px rgba(50,50,50,0.5))','height':'100%','width':'100%,'}">
-        <div class="updateHeader">
-          <div style="position: absolute; font-size: 16.5vh; top: 7vh; font-family: font10; width: 109vh; font-weight: 900; color: #000000; left: 59.4vh;">
+    <div v-if="cam" id="uiOverlay" data-v-957c9522="" style="position: absolute; top: 0%; width: 40%; height: 100%; left: 27%; perspective: 10vh; font-size: 9vh; pointer-events: none;">
+      <div class="3dMapOverlay" :style="{'transform-style': 'preserve-3d',transform: 'rotateX('+camAngle+'deg) rotateZ('+camRotate+'rad)  translateZ('+camRadius_2+'vh)', 'filter': 'drop-shadow(18vh 6vh 18px rgba(50,50,50,0.5))','transform-origin': 'center',}">
+        ROTATING PLANE!
+      </div>
+    </div>
+    <div v-if="cam" id="ui3dSpace" data-v-957c9522="" style="position: absolute; top: 0%; width: 40%; height: 100%; left: 27%; perspective: 10vh; font-size: 9vh; pointer-events: none;mix-blend-mode:multiply;">
+      <div data-v-957c9522="" :style="{ position: 'absolute', background: '#00000014', 'transform-style': 'preserve-3d',transform: 'rotateX('+camAngle+'deg) translateZ('+camRadius+'vh)', 'filter': 'drop-shadow(18vh 6vh 18px rgba(50,50,50,0.5))','height':'100%','width':'100%,'}">
+        <div class="updateHeader" data-v-957c9522="">
+          <div style="position:absolute;font-size:16.5vh;top:7vh;font-family:font10;width:109vh;font-weight:900;color:#000000;left:59.4vh;" data-v-957c9522="">
             2
-          </div><div style="position: absolute; font-size: 7vh; top: 9vh; font-family: font10; width: 109vh; font-weight: 900; color: #0000006e; left: -0.6vh;">
+          </div><div style="position:absolute;font-size:7vh;top:9vh;font-family:font10;width:109vh;font-weight:900;color:#0000006e;left:-0.6vh;" data-v-957c9522="">
             INCOMING DATA:
-          </div><div style="position: absolute; font-size: 7vh; top: 11vh; font-family: font10; width: 109vh; /* font-weight: 900; */ color: #0000006e; left: 72.4vh;">
+          </div><div style="position:absolute;font-size:7vh;top:11vh;font-family:font10;width:109vh;/* font-weight:900;*/ color:#0000006e;left:72.4vh;" data-v-957c9522="">
             hours ago
-          </div><div style="position: absolute; font-size: 3.4vh; top: 9vh; font-family: font10; width: 109vh; /* font-weight: 900; */ color: #000000; left: 79.1vh;">
+          </div><div style="position:absolute;font-size:3.4vh;top:9vh;font-family:font10;width:109vh;/* font-weight:900;*/ color:#000000;left:79.1vh;" data-v-957c9522="">
             3 days
-          </div><div style="position: absolute; font-size: 3.4vh; top: 19vh; font-family: font10; width: 109vh; /* font-weight: 900; */ color: #000000; left: 75.1vh;">
+          </div><div style="position:absolute;font-size:3.4vh;top:19vh;font-family:font10;width:109vh;/* font-weight:900;*/ color:#000000;left:75.1vh;" data-v-957c9522="">
             5 minutes
-          </div><div style="position: absolute; font-size: 2.5vh; top: 19vh; font-family: font2; letter-spacing: 2.3vh; width: 176vh; color: black;">
+          </div><div style="position:absolute;font-size:2.5vh;top:19vh;font-family:font2;letter-spacing:2.3vh;width:176vh;color:black;" data-v-957c9522="">
             LATEST UPDATES
           </div>
-        </div>
-        <div class="contentTitle">
-        </div>
-        <div class="content"></div>
-        <div class="contentMenu" style=" font-family: font5;pointer-events: auto; ">
-          <div style="position: absolute; font-size: 3vh; top: 85vh;width: 32vh; /* font-weight: 900; */ color: #ffffffd4; left: -0.6vh;background: #5a5a5a;text-align:right;padding-top: 4vh;padding-right: 1vh;" @click.stop="ui.setmainMenuContent('dod')">
+        </div><div class="contentTitle" style="position:absolute;left: 45vh;">
+          <img src="/imgs/thea.png" style="position:absolute;filter:invert(1);height: 61vh;top: 6vh;opacity: 7%;">
+          <div style="position:absolute;font-size: 23vh;top: 21vh;font-family:font10;width:109vh;font-weight:900;color: #000000;left:-0.6vh;" data-v-957c9522="">
+            ROUTINE
+          </div>
+          <div style="position:absolute;font-size: 2vh;top: 44vh;font-family:font10;width:109vh;/* font-weight:900; */color: #000000;left: 2.4vh;letter-spacing: 3.9vh;">
+            THEA PHARMACEUTICALS
+          </div>
+          <div style="position:absolute;width:4vh;height:4vh;background:black;left: -7vh;top: 52vh;"></div>
+
+          <div style="position:absolute;width:4vh;height: 215vh;background: #00000005;left: -7vh;top: -26vh;"></div><div style="position:absolute;width: 400vw;height:4vh;background: #00000005;left: -74vw;top: 52vh;"></div>
+        </div><div class="content" data-v-957c9522="">
+          <div class="dodContent" style="position:absolute;left: 14vh;">
+            <div class="dodTitle" style="height: 14vh;width: 87vh;background: #7a7a7a17;top: 93vh;left: 47vh;position:absolute;mix-blend-mode: multiply;">
+              <div class="dodTitle" style="font-weight:900;color: #ffffff8c;top: 4vh;left: 68vh;position:absolute;">
+                DOD
+              </div>
+            </div>
+            <div class="dodTitle" style="text-align:right;font-family: font10;color: #000000b5;top: 61vh;left: 45vh;position:absolute;font-size: 4vh;width: 90vh;">
+              <div style="background:black;color:white;width: 16vh;font-size: 4vh;right:1vh;position:absolute;">
+                OBJV
+              </div><div style="/* background:black; */color: black;width: 92vh;font-size: 4vh;right:1vh;position:absolute;top: 5vh;">
+                Participate and organize a series of operations.
+              </div><div style="background:black;color:white;width: 16vh;font-size: 4vh;right:1vh;position:absolute;top: 13vh;">
+                CNDT
+              </div><div style="background:black;color:white;width: 16vh;font-size: 4vh;right:1vh;position:absolute;top: 26vh;">
+                AVBT
+              </div><div style="/* background:black; */color: black;width: 86vh;font-size: 4vh;right:1vh;position:absolute;top: 18vh;">
+                Consumes sanity while xxxx is dropped
+              </div><div style="/* background:black; */color: black;width: 56vh;font-size: 4vh;right:1vh;position:absolute;top: 32vh;">
+                Available daily
+              </div>
+            </div>
+          </div>
+        </div><div class="contentMenu" data-v-957c9522="" style="font-family: font5; pointer-events: auto;">
+          <div data-v-957c9522="" style="position: absolute; font-size: 3vh; top: 85vh; width: 32vh; left: -0.6vh; background: rgb(90, 90, 90); text-align: right; padding-top: 4vh; padding-right: 1vh;" @click.stop="ui.setmainMenuContent('dod')">
             DOCTOR'S DESK
-          </div><div style="position: absolute; font-size: 3vh; top: 73vh; width: 32vh; /* font-weight: 900; */ color: #ffffffd4; left: -0.6vh;background: #5a5a5a;text-align:right;padding-top: 4vh;padding-right: 1vh;">
+          </div><div data-v-957c9522="" style="position: absolute; font-size: 3vh; top: 73vh; width: 32vh; left: -0.6vh; background: rgb(90, 90, 90); text-align: right; padding-top: 4vh; padding-right: 1vh;">
             RECALL
-          </div><div style="position: absolute; font-size: 3vh; top: 61vh;width: 32vh; /* font-weight: 900; */ color: #ffffffd4; left: -0.6vh;background: #5a5a5a;text-align:right;padding-top: 4vh;padding-right: 1vh;">
+          </div><div data-v-957c9522="" style="position: absolute; font-size: 3vh; top: 61vh; width: 32vh; left: -0.6vh; background: rgb(90, 90, 90); text-align: right; padding-top: 4vh; padding-right: 1vh;">
             IVORY TOWER
           </div>
         </div>

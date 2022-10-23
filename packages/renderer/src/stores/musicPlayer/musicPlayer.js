@@ -7,6 +7,7 @@ let sourceLoop
 let audioDelay
 let soundFile
 let isLoop
+let automaticVolume = 1
 
 export function setVol(uvl) {
   userVol = uvl
@@ -35,7 +36,7 @@ export async function playSound(file, loop) {
       }
       else {
         contextGain.gain.setValueAtTime(
-          (userVol / 100) * ((1000 - dt) / 1000),
+          automaticVolume * (userVol / 100) * ((1000 - dt) / 1000),
           audioCtx.currentTime,
         )
         window.requestAnimationFrame(dialDown)
@@ -45,7 +46,7 @@ export async function playSound(file, loop) {
   }
 
   async function actuallyPlay() {
-    contextGain.gain.setValueAtTime(userVol / 100, audioCtx.currentTime)
+    contextGain.gain.setValueAtTime(automaticVolume * userVol / 100, audioCtx.currentTime)
     // const assets_dir = path.join(__dirname, 'music')
     try {
       sourceIntro.disconnect(contextGain)
@@ -108,8 +109,9 @@ export function stopSound() {
       catch { }
     }
     else {
+      automaticVolume = (1000 - dt) / 1000
       contextGain.gain.setValueAtTime(
-        (userVol / 100) * ((1000 - dt) / 1000),
+        (userVol / 100) * (automaticVolume),
         audioCtx.currentTime,
       )
       window.requestAnimationFrame(dialDown)
@@ -119,5 +121,6 @@ export function stopSound() {
 }
 
 export function resumeSound() {
+  automaticVolume = 1
   playSound(soundFile, isLoop)
 }

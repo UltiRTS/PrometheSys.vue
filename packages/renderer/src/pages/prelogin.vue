@@ -14,15 +14,16 @@ uStore.musicPlayer.playSound('bbl.wav', true)
 
 <template>
   <div id="prelogin" style="background:black;position:absolute;height:110%;width:110%;top:-5%;left:-5%;">
-    <div id="init" class="init" style="position: absolute;width:110%;height:110%;top:-5%;left: 3%;overflow:hidden;">
-      <div style="position:absolute;left: 27vw;width: 9vw;top: 39%;height: 20vw;">
+    <div id="init" class="init" style="position: absolute;width:110%;height:110%;top:-5%;left: 3%;overflow:hidden;filter:invert(100%);">
+      <div style="position:absolute;height:10vw;width:50vw;top:38%;left:25vw;background:black;filter: drop-shadow(20px 10px 4px rgba(100,100,100,0.5));"></div>
+      <div style="position:absolute;left: 27vw;width: 9vw;top: 38%;height: 20vw;">
         <img src="/imgs/thea.png" style="position:absolute;width:100%">
       </div>
       <div style="position:absolute;left: 40vw;width: 9vw;top: 39%;height: 20vw;">
-        <div style="font-family:font6;color:white;position:absolute;top: 6.4%;/* height: 43%; */font-size: 2.4vw;">
+        <div style="font-family:font6;color:white;position:absolute;top: 6.4%;font-size: 2.4vw;">
           PROMETHESIS
         </div>
-        <div style="font-family: 'font5';color:white;position:absolute;top: 19.4%;/* height: 43%; */font-size: -0.6vw;left: 95%;">
+        <div style="font-family: 'font5';color:white;position:absolute;top: 19.4%;font-size: 0.8vw;left: 95%;">
           Project
         </div>
         <div style="position:absolute;height:1%;left: 149%;width: 53%;background: linear-gradient(to right, #ffffff38 , black);top: 22%;" />
@@ -33,7 +34,7 @@ uStore.musicPlayer.playSound('bbl.wav', true)
         <div style="position:absolute;width:100%;color:white;font-family:font1;font-size:2vw;top: 5%;font-weight:900;">
           BA
         </div>
-        <div style="font-family:font1;color:white;position:absolute;top: 17.1%;/* height: 43%; */font-size: 0.8vw;">
+        <div style="font-family:font1;color:white;position:absolute;top: 17.1%;font-size: 0.8vw;">
           Balanced Annihilation
         </div>
       </div>
@@ -43,14 +44,14 @@ uStore.musicPlayer.playSound('bbl.wav', true)
         src="/imgs/When_the_city_but_FOGG.png" style="-webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
       mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));"
       >
-      <div style="position:absolute;left: 27vw;width: 9vw;top: 16%;height: 20vw;">
+      <div style="position:absolute;left: 27vw;width: 9vw;top: 13%;height: 20vw;">
         <img src="/imgs/thea.png" style="position:absolute;width:100%">
       </div>
       <div style="position:absolute;left: 40vw;width: 9vw;top: 14%;height: 20vw;">
-        <div style="font-family:font6;color:white;position:absolute;top: 6.4%;/* height: 43%; */font-size: 2.4vw;">
+        <div style="font-family:font6;color:white;position:absolute;top: 6.4%;font-size: 2.4vw;">
           PROMETHESIS
         </div>
-        <div style="font-family: 'font5';color:white;position:absolute;top: 19.4%;/* height: 43%; */font-size: -0.6vw;left: 95%;">
+        <div style="font-family: 'font5';color:white;position:absolute;top: 19.4%;font-size: 0.8vw;left: 95%;">
           Project
         </div>
         <div style="position:absolute;height:1%;left: 149%;width: 53%;background: linear-gradient(to right, #ffffff38 , #dfdfdf00);top: 22%;" />
@@ -61,7 +62,7 @@ uStore.musicPlayer.playSound('bbl.wav', true)
         <div style="position:absolute;width:100%;color:white;font-family:font1;font-size:2vw;top: 5%;font-weight:900;">
           BA
         </div>
-        <div style="font-family:font1;color:white;position:absolute;top: 17.1%;/* height: 43%; */font-size: 0.8vw;">
+        <div style="font-family:font1;color:white;position:absolute;top: 17.1%;font-size: 0.8vw;">
           Balanced Annihilation
         </div>
       </div>
