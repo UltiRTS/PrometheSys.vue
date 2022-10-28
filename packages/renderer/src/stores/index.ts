@@ -10,11 +10,11 @@ import * as dntpService from './mapAPI/dntpService'
 import * as userapi from './userapi/userapi'
 
 import * as engineMgr from './engineManager/engine'
+import * as eStore from './electron-config/e-store'
 
 export const useUserStore = defineStore('user', () => {
   // eslint-disable-next-line dot-notation
   const lobbyDir = ref(process.env['lobbydir'] || '/tmp')
-  console.log(`using ${lobbyDir.value}`)
 
   const isLinux = ref(process.platform != 'win32')
   // UI related var
@@ -59,6 +59,9 @@ export const useUserStore = defineStore('user', () => {
   // engineMgr
   engineMgr.setPlatform(isLinux)
   engineMgr.setWDir(lobbyDir.value)
+
+  // memory
+  const memory = eStore.memory
 
   return {
     ui,
@@ -105,6 +108,7 @@ export const useUserStore = defineStore('user', () => {
     engineMgr,
     musicPlayer,
     soundPlayer,
+    memory,
   }
 })
 // musicPlayer.playSound('scene.babylon', true)

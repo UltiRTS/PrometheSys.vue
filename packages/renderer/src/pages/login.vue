@@ -523,6 +523,7 @@ onMounted(() => {
 
 const username = ref('')
 const password = ref('')
+const isRemember = ref<any>(false)
 
 const qichuangdachenggong = () => {
   uStore.network.initNetWork()
@@ -537,6 +538,17 @@ function loginWrapper() {
     username: username.value,
     password: password.value,
   })
+  if (uStore.memory.get('isRememberedLogin')) {
+    uStore.memory.set('uName', username.value)
+    uStore.memory.set('passwd', password.value)
+  }
+}
+
+isRemember.value = uStore.memory.get('isRememberedLogin')
+
+function toggleRemember() {
+  isRemember.value = !isRemember.value
+  uStore.memory.set('isRememberedLogin', isRemember)
 }
 // setup the canvas based on the window size
 
@@ -614,8 +626,8 @@ function loginWrapper() {
         <div
           style="position:fixed;bottom:-80vh;left:30%;height:10vw;width:37vw;font-size:0.8vw;height:100%;overflow:hidden;"
         >
-          <div id="" class="button-block" style="position:absolute;top:0%;width:100%;" onclick="rememberMe()">
-            <button id="rememberName" style="width:100%;height:3vw;" class="">
+          <div id="" class="button-block" style="position:absolute;top:0%;width:100%;">
+            <button id="rememberName" :class="{'button-clicked': isRemember}" style="width:100%;height:3vw;" @click="toggleRemember">
               Persistent Neural Link
             </button>
           </div>

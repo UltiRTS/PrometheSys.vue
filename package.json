@@ -30,7 +30,7 @@
     "@babylonjs/core": "^5.19.0",
     "axios": "^0.27.2",
     "crypto": "^1.0.1",
-    "electron-store": "^8.0.1",
+    "electron-store": "^8.1.0",
     "md5-file": "^5.0.0",
     "su-downloader3": "^1.1.1",
     "two": "^1.0.1",
