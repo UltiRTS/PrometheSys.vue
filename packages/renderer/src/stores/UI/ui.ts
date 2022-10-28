@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-
+import * as soundPlayer from '../soundPlayer/soundPlayer'
 export const grabberTriggerAction = ref('')
 export const activeWindow = ref('menu')
 export const mainMenuContent = ref('dod')
@@ -38,7 +38,7 @@ export function rmLoading(id: string) {
 export function pushUINewNotif(input: { title: string; msg: string; class: string }) {
   input.class = 'init'
   notifs.value.push(input)
-
+  soundPlayer.playNotif('smolInfo.wav')
   setTimeout(() => {
     notifs.value.shift()
   }, 7000)

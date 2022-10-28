@@ -523,16 +523,16 @@ onMounted(() => {
 
 const username = ref('')
 const password = ref('')
-const yijingqichuang = ref('')
 
 const qichuangdachenggong = () => {
-  yijingqichuang.value = 'qichuangyijingchenggong'
+  uStore.network.initNetWork()
+  // yijingqichuang.value = 'qichuangyijingchenggong'
   uStore.soundPlayer.playNotif('acknowledge.wav')
   uStore.musicPlayer.playSound('title.wav', true)
 }
 
 function loginWrapper() {
-  // do something else
+  uStore.soundPlayer.playNotif('acknowledge.wav')
   uStore.login({
     username: username.value,
     password: password.value,
@@ -551,46 +551,46 @@ function loginWrapper() {
     <div id="stupidCanvas" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events: none;">
       <PBubbles :active="isActive" />
     </div>
-    <div v-if="yijingqichuang" id="spotlight" style="position: absolute; height: 100%; width: 100%; top: 0%; left: 0%;">
+    <div v-if="uStore.network.ws_open.value" id="spotlight" style="position: absolute; height: 100%; width: 100%; top: 0%; left: 0%;">
       <div class="leftSpotLight" style="position: absolute; width: 50%; height: 164%;  left: 0%;top: -60%;"></div>
       <div class="rightSpotLight" style="position: absolute; width: 50%; height: 164%;right: 0%;top: -60%;"></div>
     </div>
-    <div id="cover" :class="{cover:yijingqichuang}" style="width: 43%; height: 20%; top: 33%; left: 27%; position: absolute;">
+    <div id="cover" :class="{cover:uStore.network.ws_open.value}" style="width: 43%; height: 20%; top: 33%; left: 27%; position: absolute;">
       <img src="/imgs/thea_frame.png" style="position: absolute;width: 11vw;filter: drop-shadow(8px 20px 16px #000);">
 
-      <a id="preClick" class="edgy-link" :class="yijingqichuang" style="filter: drop-shadow(rgb(0, 0, 0) 8px 20px 16px); position: absolute; margin: 2vw; top: -4%; left: 5vw; font-size: 2vw;color:white;" @click="qichuangdachenggong()">
+      <a id="preClick" class="edgy-link" :class="{qichuangyijingchenggong:uStore.network.ws_open.value}" style="filter: drop-shadow(rgb(0, 0, 0) 8px 20px 16px); position: absolute; margin: 2vw; top: -4%; left: 5vw; font-size: 2vw;color:white;" @click="qichuangdachenggong()">
         <span style="font-family: font6;position: relative;opacity: 0.95;left: 0vw;font-weight: 900;color: rgba(255,255,255,0.9);">目覚める</span>
         <span style="font-family: font8; position: relative; opacity: 0.95; left: -7.95vw;">目覚める</span>
       </a>
 
       <div id="postClick">
-        <div v-if="yijingqichuang" class="theaTitle" style="position:absolute;font-family:font2;top:9%;left:19%;font-size:2vw;color:white;opacity:0;">
+        <div v-if="uStore.network.ws_open.value" class="theaTitle" style="position:absolute;font-family:font2;top:9%;left:19%;font-size:2vw;color:white;opacity:0;">
           THEA,
         </div>
-        <div v-if="yijingqichuang" class="theaTitle2" style="position:absolute;font-family:font2;top:29%;%;opacity:0;font-size:1.2vw;left:19%;color:white;">
+        <div v-if="uStore.network.ws_open.value" class="theaTitle2" style="position:absolute;font-family:font2;top:29%;%;opacity:0;font-size:1.2vw;left:19%;color:white;">
           INC.
         </div>
       </div>
     </div>
 
-    <div id="loginInterface" :style="{'display':(yijingqichuang? '':'none')}">
-      <img src="/imgs/thea_auth.png" :class="{loginInterface_bgWaterMark:yijingqichuang}" style="opacity:0.00; position: absolute;width: 50vw;top: 70%; ">
+    <div id="loginInterface" :style="{'display':(uStore.network.ws_open.value? '':'none')}">
+      <img src="/imgs/thea_auth.png" :class="{loginInterface_bgWaterMark:uStore.network.ws_open.value}" style="opacity:0.00; position: absolute;width: 50vw;top: 70%; ">
 
       <div id="loginbox" class="loginbox" style="position: absolute; height: 100%; width: 100%; mix-blend-mode: screen;">
         <div class="PRTSLOGO" style="position:absolute;top:45%;color:white;margin:0;left:30%;width:12vw;overflow:hidden;">
           <div style="background:white;position:absolute;top:0;width:100%;height:2px;" />
-          <p class="corpName" style="position:absolute;margin:0;top:0.5vw;font-family:font2;font-weight:900;font-size:2vw;">
+          <p class="corpName" style="position:absolute;margin:0;top:0.1vw;font-family:font2;font-weight:900;font-size:3.5vw;">
             THEA
           </p>
-          <p id="prtsPharma" class="corpJob" style="position:absolute;margin:0;top:2.5vw;font-family:font2;font-size:0.8vw;">
+          <p id="prtsPharma" class="corpJob" style="position:absolute;margin:0;font-family:font3;font-size:0.6vw;letter-spacing:0.3vw;width:100%;text-align:center;font-weight:900;">
             PHARMACEUTICALS
           </p>
 
-          <div class="corpProduct" style="position:absolute;margin:0;font-size:1vw;width:100%;top:55%;font-family:font5;">
+          <div class="corpProduct" style="position:absolute;margin:0;font-size:1vw;width:100%;top:65%;font-family:font5;">
             <span id="prtsOS" style="">Analysis&nbsp;</span>
             <span id="prtsOS1" style="font-weight:900;">OS</span>
-            <span id="prtsVer" class="theaTitle" style="font-size:0.6vw;position:absolute;right:0;top:80%;">&nbsp;LTS BUILD
-              V11.04</span>
+            <span id="prtsVer" class="theaTitle" style="font-size:0.6vw;position:absolute;right:0;bottom:5%;">&nbsp;LTS BUILD
+              V12.04</span>
           </div>
           <div id="underlinePRTS" class="" style="background:white;position:absolute;width:100%;height:2px;top:90%;" />
         </div>
@@ -599,9 +599,9 @@ function loginWrapper() {
           <p style="cursor: default;top:1.2vw;position:absolute;left:1.2vw;font-size:1.5vw;background-color:black;color:white;margin:0;padding:0;filter: drop-shadow(4px 5px 2px rgba(0,0,0,0.5));">
             Dr.&nbsp;
           </p>
-          <input id="usr" v-model="username" style="cursor: text;top:1.2vw;position:absolute;left:3.5vw;font-size:1.5vw; display: inline;border:none;outline:none;width:18vw;background: transparent;color:black;" type="text" placeholder="Name" name="uname" required>
+          <input id="usr" v-model="username" style="cursor: text;top:1.2vw;position:absolute;left:3.5vw;font-size:1.5vw; display: inline;border:none;outline:none;width:18vw;background: transparent;color:black;" type="text" placeholder="称号" name="uname" required>
 
-          <input id="passwd" v-model="password" style="font-size:1.5vw;margin:0;cursor: text;top:3.2vw;position:absolute;left:1.2vw;border:none;outline:none;background: transparent;" type="password" placeholder="Password" name="psw" required>
+          <input id="passwd" v-model="password" style="font-size:1.5vw;margin:0;cursor: text;top:3.2vw;position:absolute;left:1.2vw;border:none;outline:none;background: transparent;" type="password" placeholder="合い詞" name="psw" required>
 
           <p
             id="loginInputStatus" class="connect"
@@ -612,7 +612,7 @@ function loginWrapper() {
         </div>
 
         <div
-          style="position:absolute;top:80%;left:30%;height:10vw;width:37vw;font-size:0.8vw;height:100%;overflow:hidden;"
+          style="position:fixed;bottom:-80vh;left:30%;height:10vw;width:37vw;font-size:0.8vw;height:100%;overflow:hidden;"
         >
           <div id="" class="button-block" style="position:absolute;top:0%;width:100%;" onclick="rememberMe()">
             <button id="rememberName" style="width:100%;height:3vw;" class="">
@@ -1053,10 +1053,49 @@ font-family:font5;
     animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
 }
 
+@keyframes corpJob {
+    0% {
+        left:5%;
+        opacity: 0;
+    }
+
+    80% {
+        left:0%;
+        opacity: 1;
+    }
+
+    81%{
+      background:black;
+      opacity: 1;
+                  top:1.8vw;
+      left:0%;
+    }
+        82%{
+      background:white;
+      opacity: 1;
+      top:1.1vw;
+      left:-50%;
+    }
+            98%{
+      background:white;
+      opacity: 1;
+      top:1.1vw;
+      left:-50%;
+    }
+    100%{
+            top:1.8vw;
+      left:0%;
+      background:black;
+      opacity: 1;
+    }
+
+}
+
 .corpJob{
+  background:black;
     opacity: 0;
     animation-delay: 3.55s;
-    animation-name: logoIn;
+    animation-name: corpJob;
     animation-duration: 0.7s;
     animation-fill-mode: forwards;
     animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
@@ -1205,17 +1244,17 @@ font-family:font5;
 
  .button-block {
   display: inline-block;
-  border-left: 10px solid rgba(70, 66, 47, 0.75);
-  padding: 0 30px;
+  border-left: 0.5vw solid rgba(70, 66, 47, 0.75);
+  padding: 0 3vw;
   position: relative;
 }
 .button-block::before {
   content: "";
   position: absolute;
-  width: 4px;
+  width: 0.1vw;
   top: 0;
   height: 100%;
-  left: 4px;
+  left: 0.2vw;
   background: rgba(70, 66, 47, 0.75);
 }
 
@@ -1223,16 +1262,16 @@ button {
   -moz-appearance: none;
   -webkit-appearance: none;
   appearance: none;
-  border: 2px solid transparent;
+  border: 0.02vw solid transparent;
   color: #46422f;
   background: transparent;
   border-style: solid none;
   margin: 0 auto;
   display: block;
-  font-family: "Noto Sans", sans-serif;
-  font-size: 1em;
-  padding: 10px 20px;
-  min-width: 200px;
+  font-family: font5;
+  font-size: 1vw;
+  padding: 0.5vw 0.5vw;
+  min-width: 5vw;
   cursor: pointer;
   position: relative;
   transition: all 0.25s;
@@ -1243,9 +1282,9 @@ button::before {
   display: block;
   position: absolute;
   width: 100%;
-  height: calc(100% - 10px);
+  height: calc(100% - 0.56vw);
   left: 0px;
-  top: 5px;
+  top: 0.26vw;
   background: transparent linear-gradient(to right, #46422f 50%, rgba(70, 66, 47, 0.75) 50%, rgba(70, 66, 47, 0.25) 100%) 100% 0/200% 100% no-repeat;
   transition: all 0.35s;
   z-index: -1;
@@ -1254,11 +1293,13 @@ button::after {
   content: "";
   display: inline-block;
   /*float: left;*/
-  width: 15px;
-  height: 15px;
-  margin: 2.5px 10px 2.5px 0;
+  width: 0.8vw;
+  height: 0.8vw;
+  margin-top:0.31vw;
+position:absolute;
+left:29vw;
   background: currentColor;
-  border-right: 0.1x solid #46422f;
+  border-right: 0.1px solid #46422f;
 }
 button:hover, button:focus,.button-clicked {
   color: #c9c3ab;

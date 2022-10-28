@@ -8,7 +8,7 @@ import * as engineMgr from '../engineManager/engine'
 import type { Confirmation, Game, GameBrief, Notification, PING, StateMessage } from './interfaces'
 
 let ws: WebSocket
-const ws_open = ref<boolean>()
+export const ws_open = ref<boolean>(false)
 let wdir: string
 const mapsBeingDownloaded: number[] = []
 let lastGame: Game | null
@@ -24,7 +24,7 @@ export const confirmations = ref<Confirmation[]>()
 const password = ref('')
 export const minimapFileName = ref('')
 
-initNetWork()
+// initNetWork()
 
 export function initNetWork(isRe = false) {
   clientHP.value = 3
