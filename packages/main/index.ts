@@ -1,8 +1,9 @@
 import { release } from 'os'
 import { join } from 'path'
 // import Store from 'electron-store'
-import { BrowserWindow, app, shell } from 'electron'
+import { BrowserWindow, app, ipcMain, shell } from 'electron'
 import pkg from '../../package.json'
+import { store } from './store'
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith('6.1'))
@@ -105,3 +106,12 @@ app.on('activate', () => {
 //     console.log('Invalid JSON format', message)
 //   }
 // })
+
+ipcMain.handle('store', (event, type: string, key: string, value: any) => {
+  console.log('store called', type, key, value)
+  if (type === 'set')
+    store.set(key, value)
+
+  else if (type === 'get')
+    return store.get(key)
+})

@@ -532,23 +532,26 @@ const qichuangdachenggong = () => {
   uStore.musicPlayer.playSound('title.wav', true)
 }
 
-function loginWrapper() {
+async function loginWrapper() {
   uStore.soundPlayer.playNotif('acknowledge.wav')
   uStore.login({
     username: username.value,
     password: password.value,
   })
-  if (uStore.memory.get('isRememberedLogin')) {
-    uStore.memory.set('uName', username.value)
-    uStore.memory.set('passwd', password.value)
-  }
+  const remembered = await uStore.eStore.get('isRememberedLogin')
+  console.log(remembered)
+
+  // if (uStore.memory.get('isRememberedLogin')) {
+  //   uStore.memory.set('uName', username.value)
+  //   uStore.memory.set('passwd', password.value)
+  // }
 }
 
-isRemember.value = uStore.memory.get('isRememberedLogin')
+// isRemember.value = uStore.memory.get('isRememberedLogin')
 
 function toggleRemember() {
   isRemember.value = !isRemember.value
-  uStore.memory.set('isRememberedLogin', isRemember)
+  // uStore.memory.set('isRememberedLogin', isRemember)
 }
 // setup the canvas based on the window size
 

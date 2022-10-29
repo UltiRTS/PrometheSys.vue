@@ -61,7 +61,7 @@ export const useUserStore = defineStore('user', () => {
   engineMgr.setWDir(lobbyDir.value)
 
   // memory
-  const memory = eStore.memory
+  // const memory = eStore.memory
 
   return {
     ui,
@@ -108,7 +108,8 @@ export const useUserStore = defineStore('user', () => {
     engineMgr,
     musicPlayer,
     soundPlayer,
-    memory,
+    eStore,
+    // memory,
   }
 })
 // musicPlayer.playSound('scene.babylon', true)
