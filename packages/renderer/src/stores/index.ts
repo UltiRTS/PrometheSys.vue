@@ -18,8 +18,7 @@ export const useUserStore = defineStore('user', () => {
 
   const isLinux = ref(process.platform != 'win32')
   // UI related var
-  const grabberTriggerAction = ui.grabberTriggerAction
-  const grabberActivated = ui.grabberActivated
+
   const mainMenuContent = ui.mainMenuContent
   const modalMenuContent = ui.modalMenuContent
   const activeWindow = ui.activeWindow
@@ -28,7 +27,6 @@ export const useUserStore = defineStore('user', () => {
   const setactiveWindow = ui.setactiveWindow
   const setmodalMenuContent = ui.setmodalMenuContent
   const setmainMenuContent = ui.setmainMenuContent
-  const pushGrabberAction = ui.pushGrabberAction
   const pushUINewNotif = ui.pushUINewNotif
 
   // network related function
@@ -65,8 +63,6 @@ export const useUserStore = defineStore('user', () => {
 
   return {
     ui,
-    grabberTriggerAction,
-    grabberActivated,
     mainMenuContent,
     modalMenuContent,
     activeWindow,
@@ -75,7 +71,6 @@ export const useUserStore = defineStore('user', () => {
     setactiveWindow,
     setmodalMenuContent,
     setmainMenuContent,
-    pushGrabberAction,
     pushUINewNotif,
 
     network,

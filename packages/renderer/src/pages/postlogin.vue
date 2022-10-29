@@ -15,7 +15,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(useUserStore, ['joinedGame', 'grabberActivated', 'mainMenuContent', 'modalMenuContent', 'activeWindow', 'network', 'ui']),
+    ...mapState(useUserStore, ['joinedGame', 'mainMenuContent', 'modalMenuContent', 'activeWindow', 'network', 'ui']),
     shouldIlightUpModal() {
       if (this.activeWindow === 'modal')
         return 1
@@ -292,7 +292,7 @@ export default {
     </div>
   </div>
   <div id="visualOverlay">
-    <InputGrabber :activated="grabberActivated" />
+    <InputGrabber />
     <visNotif />
     <visLoading />
     <visConfirmation />

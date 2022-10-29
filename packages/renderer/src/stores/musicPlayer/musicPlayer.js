@@ -17,7 +17,7 @@ export async function playSound(file, loop) {
     return
   soundFile = file
   isLoop = loop
-  console.log(`playing${file}`)
+  // console.log(`playing${file}`)
   if (!isMusicPlaying) {
     audioCtx = new AudioContext()
     contextGain = audioCtx.createGain()
@@ -26,11 +26,11 @@ export async function playSound(file, loop) {
     actuallyPlay()
   }
   else {
-    console.log('trying to stop music')
+    // console.log('trying to stop music')
     const t0 = performance.now()
     function dialDown(time) {
       const dt = time - t0
-      console.log(dt)
+      // console.log(dt)
       if (dt >= 1000) {
         actuallyPlay()
       }

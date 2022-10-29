@@ -10,7 +10,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(useUserStore, ['gameListing', 'joinedGame', 'ui', 'musicPlayer']),
+    ...mapState(useUserStore, ['gameListing', 'joinedGame', 'ui', 'musicPlayer', 'network']),
   },
 
   updated() {
@@ -21,9 +21,16 @@ export default {
   },
 
   methods: {
-    ...mapActions(useUserStore, ['joinGame', 'pushGrabberAction']),
+    ...mapActions(useUserStore, ['joinGame']),
     addGame() {
-      uStore.pushGrabberAction('AddGame')
+      this.ui.getTextThroughGrabber('HOST game').then((resolve) => {
+        this.network.joinGame(
+          {
+            gameName: resolve,
+            password: '',
+            mapID: '0',
+          })
+      })
     },
     emitJoinGameResult(roomTitle) {
       if (!this.joinedGame) {

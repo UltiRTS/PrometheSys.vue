@@ -44,7 +44,7 @@ export function initNetWork(isRe = false) {
       // console.log('received ping')
       return
     }
-    console.log({ msg })
+    // console.log({ msg })
 
     if (msg.action === 'NOTIFY') {
       msg = msg as Notification
@@ -75,20 +75,20 @@ export function initNetWork(isRe = false) {
 
   ws.onopen = () => {
     ws_open.value = true
-    console.log('ws is open')
+    // console.log('ws is open')
     if (isRe)
       login({ username: username.value, password: password.value })
   }
 
   ws.onclose = () => {
-    console.log('server closed connection')
+    // console.log('server closed connection')
     ws_open.value = false
     userState.value.isLoggedIn = false
     pushConfirm('NEURAL CONNECTION LOST', 'RECONNECTION CONFIRM').then(() => {
       initNetWork(true)
     },
     () => {
-      console.log('logged out')
+      // console.log('logged out')
       ws.close()
       pushUINewNotif({ title: 'IDENT', msg: 'NEURAL CONNECTION DESTROYED', class: 'aaa' })
     })
@@ -99,7 +99,7 @@ export function initNetWork(isRe = false) {
       ws.close()
       clearInterval(hpChecker[0])
       hpChecker.shift()
-      console.log('closing network')
+      // console.log('closing network')
     }
 
     clientHP.value--
@@ -481,7 +481,7 @@ export function wsSendServer(tx: {
     console.error('ws is not open')
     return
   }
-  console.log(tx)
+  // console.log(tx)
   ws.send(JSON.stringify(tx))
 }
 

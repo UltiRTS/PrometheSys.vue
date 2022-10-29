@@ -2,86 +2,40 @@
 /* eslint-disable vue/first-attribute-linebreak */
 /* eslint-disable vue/html-self-closing */
 
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import { useUserStore } from '../stores'
-
-// props: ['channels', 'chatLog'],
-defineProps<{
-  activated: boolean
-}>()
 
 const uStore = useUserStore()
 const text2say = ref('Input Await')
 const exiting = ref(false)
+const activated = ref(false)
 
-const deactivate = () => {
+function deactivate(isViable: boolean) {
+  exiting.value = true
+  if (isViable)
+    uStore.ui.inputGrabber.value.cnfrm(text2say.value)
+  else
+    uStore.ui.inputGrabber.value.rej()
+
   setTimeout(() => {
-    if (text2say.value === 'Input Await' || text2say.value === 'canceling') {
-      uStore.ui.clearGrabber()
-
-      exiting.value = false
-      text2say.value = 'Input Await'
-      return
-    }
-
-    switch (uStore.grabberTriggerAction) {
-      case 'AddChat': {
-        uStore.network.joinChat({
-          chatName: text2say.value,
-          password: '',
-        })
-        break
-      }
-
-      case 'AddGame': {
-        uStore.network.joinGame(
-          {
-            gameName: text2say.value,
-            password: '',
-            mapID: '0',
-          })
-        break
-      }
-
-      case 'mapPick': {
-        uStore.ui.pushNewLoading('getSMap')
-        uStore.dntpService.listMatchMap(text2say.value).then((ret) => {
-          uStore.dntpService.retrieveMap(ret, uStore.lobbyDir).then(() => {
-            uStore.ui.rmLoading('getSMap')
-            uStore.ui.pushUINewNotif({ title: 'MAP', msg: 'SEARCH RESULT RETRIEVED', class: 'abc' })
-          })
-        })
-        break
-      }
-
-      default: {
-        console.log('default trigger')
-        break
-      }
-    }
-
-    // reset action to empty
-    uStore.ui.clearGrabber()
-
+    uStore.ui.inputGrabber.value = false
     exiting.value = false
     text2say.value = 'Input Await'
+    activated.value = false
   }, 300)
 }
 
 const cancel = () => {
-  text2say.value = 'canceling'
-  exiting.value = true
-  deactivate()
+  deactivate(false)
 }
 
 const enter = () => {
-  exiting.value = true
-  deactivate()
+  deactivate(true)
 }
 
 </script>
 <template>
-  <div v-if="activated" class="fixed top-0 left-0 w-screen h-screen" :class="{'bg':!exiting, 'bgExit':exiting}" @click="cancel">
+  <div v-if="uStore.ui.inputGrabber.value" class="fixed top-0 left-0 w-screen h-screen" :class="{'bg':!exiting, 'bgExit':exiting}" @click="cancel">
     <div class="absolute" :class="{'contr':!exiting, 'contrExit':exiting}" style="top: 32%; width: 100%; height: 28%; background: linear-gradient(18deg, rgb(58, 64, 133), rgb(70, 133, 197));" />
     <div class="stripy1" style="position: absolute; top: 32%;  width: 100%;overflow:hidden; height: 28%; ">
       <div style="position: absolute; width: 200%; height: 100%; background: repeating-linear-gradient(56deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.19) 3px, rgba(70, 82, 152, 0) 7px, rgba(70, 82, 152, 0) 17px);opacity:0.5;">
@@ -91,7 +45,7 @@ const enter = () => {
       <div style="left: 0%;position:absolute;width:200%;height:100%;background:repeating-linear-gradient(56deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.19) 3px, rgba(70, 82, 152, 0) 7px, rgba(70, 82, 152, 0) 17px);overflow:hidden;opacity:0.5;">
       </div>
     </div>
-    <div style="position: absolute; top: 32%; left: 0px; width: 100%; height: 28%;" @click-stop="focusText">
+    <div style="position: absolute; top: 32%; left: 0px; width: 100%; height: 28%;">
       <div style="position:absolute;color: #ffffff4a;font-weight:900;font-size: 14vh;font-family: 'font5';top: 10%;left: 4%;padding-top: 1.1%;padding-left: 1.1%;filter: drop-shadow(13px 10px 9px rgba(255, 255, 255, 0.35));width:100%;height: 59%;overflow:hidden;">
         {{ text2say }}
       </div>

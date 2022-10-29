@@ -1,10 +1,9 @@
 import { ref } from 'vue'
 import * as soundPlayer from '../soundPlayer/soundPlayer'
-export const grabberTriggerAction = ref('')
 export const activeWindow = ref('menu')
 export const mainMenuContent = ref('dod')
 export const modalMenuContent = ref('chat')
-export const grabberActivated = ref(false)
+export const inputGrabber = ref<any>(false)
 export const notifs = ref<{ msg: string; title: string; class: string }[]>([])
 const loadingQ = ref<string [] >([])
 export const loadingClass = ref<string>('died')
@@ -50,7 +49,7 @@ export function pushUINewNotif(input: { title: string; msg: string; class: strin
     notifs.value[notifs.value.length - 1].class = 'hold'
   }, 500)
 }
-
+/*
 export function activateGrabber() {
   grabberActivated.value = true
 }
@@ -63,6 +62,12 @@ export function pushGrabberAction(action: string) {
 export function clearGrabber() {
   grabberTriggerAction.value = ''
   grabberActivated.value = false
+}
+*/
+export function getTextThroughGrabber(title: string) {
+  return new Promise((resolve, reject) => {
+    inputGrabber.value = { title, rej: reject, cnfrm: resolve }
+  })
 }
 
 export function setactiveWindow(input: string) {

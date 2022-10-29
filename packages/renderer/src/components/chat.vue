@@ -146,7 +146,12 @@ export default {
       this.msg = ''
     },
     addChat() {
-      this.pushGrabberAction('AddChat')
+      this.ui.getTextThroughGrabber('JOIN CHAT').then((resolve) => {
+        this.network.joinChat({
+          chatName: resolve,
+          password: '',
+        })
+      })
     },
     closeChat(channel) {
       this.leaveChat({
