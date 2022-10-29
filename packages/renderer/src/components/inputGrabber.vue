@@ -2,7 +2,7 @@
 /* eslint-disable vue/first-attribute-linebreak */
 /* eslint-disable vue/html-self-closing */
 
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useUserStore } from '../stores'
 
 // props: ['channels', 'chatLog'],
@@ -78,6 +78,7 @@ const enter = () => {
   exiting.value = true
   deactivate()
 }
+
 </script>
 <template>
   <div v-if="activated" class="fixed top-0 left-0 w-screen h-screen" :class="{'bg':!exiting, 'bgExit':exiting}" @click="cancel">
@@ -90,22 +91,23 @@ const enter = () => {
       <div style="left: 0%;position:absolute;width:200%;height:100%;background:repeating-linear-gradient(56deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.19) 3px, rgba(70, 82, 152, 0) 7px, rgba(70, 82, 152, 0) 17px);overflow:hidden;opacity:0.5;">
       </div>
     </div>
-    <div style="position: absolute; top: 32%; left: 0px; width: 100%; height: 28%;">
+    <div style="position: absolute; top: 32%; left: 0px; width: 100%; height: 28%;" @click-stop="focusText">
       <div style="position:absolute;color: #ffffff4a;font-weight:900;font-size: 14vh;font-family: 'font5';top: 10%;left: 4%;padding-top: 1.1%;padding-left: 1.1%;filter: drop-shadow(13px 10px 9px rgba(255, 255, 255, 0.35));width:100%;height: 59%;overflow:hidden;">
         {{ text2say }}
       </div>
       <div class="submit" style="position:absolute;color: white;font-weight:900;font-size: 3vh;font-family: 'font10';top: 40%;left: 34%;">
         Submit Game Name
       </div>
-      <div :class="{'upload':!exiting, 'uploadExit':exiting}" style="cursor:pointer;position:absolute;mix-blend-mode:screen;color:black;font-weight:900;font-size: 3vh;font-family: 'font2';left: 4%;padding-top: 1.1%;padding-left: 1.1%;filter: drop-shadow(13px 10px 9px rgba(255, 255, 255, 0.35));" @click.stop="enter">
-        Upload Text
-      </div>
+
       <div style="position:absolute;color: white;font-weight:900;font-size: 3vh;font-family: 'font10';top: 0%;left: 60%;overflow:hidden;height:100%;width: 100%;">
         <img src="/imgs/thea.png" style="  /* filter: invert(100%); */height: 76vh;top: -46%;/* left: 54%; */position:absolute;opacity: 7%;/* width: 8vh; */">
       </div>
       <img src="/imgs/upArrow.png" style="  filter: invert(100%);height: 12vh;top: 30%;left: 45%;position:absolute;opacity: 16%;width: 8vh;">
 
-      <textarea v-model="text2say" style="position: absolute; color: #ffffffad; width: 41.6%; height: 45%; padding: 0px; border-width: 0px; background: #ffffff00; resize: none; outline: none; right: 54.4%; margin: 0px; top: 52%;overflow:auto;font-family: 'font6';text-align:right" @click.stop />
+      <textarea v-model="text2say" style="position: absolute; color: rgba(255, 255, 255, 0.68); width: 41.6%; height: 45%; padding-top: 15vh; border-width: 0px; background: rgba(255, 255, 255, 0); resize: none; outline: none; right: 0.4%; margin: 0px; top: 0%; overflow: auto; font-family: font6; text-align: right;padding-left: 7vw;padding-right: 51vw;" @click.stop />
+      <div :class="{'upload':!exiting, 'uploadExit':exiting}" style="cursor:pointer;position:absolute;mix-blend-mode:screen;color:black;font-weight:900;font-size: 3vh;font-family: 'font2';left: 4%;padding-top: 1.1%;padding-left: 1.1%;filter: drop-shadow(13px 10px 9px rgba(255, 255, 255, 0.35));" @click.stop="enter">
+        Upload Text
+      </div>
     </div>
   </div>
 </template>
