@@ -538,20 +538,26 @@ async function loginWrapper() {
     username: username.value,
     password: password.value,
   })
-  const remembered = await uStore.eStore.get('isRememberedLogin')
-  console.log(remembered)
 
-  // if (uStore.memory.get('isRememberedLogin')) {
-  //   uStore.memory.set('uName', username.value)
-  //   uStore.memory.set('passwd', password.value)
-  // }
+  // console.log(remembered)
+  if (isRemember.value) {
+    uStore.eStore.set('uName', username.value)
+    uStore.eStore.set('passwd', password.value)
+  }
 }
 
 // isRemember.value = uStore.memory.get('isRememberedLogin')
+uStore.eStore.get('isRememberedLogin').then(async (r: any) => {
+  isRemember.value = r
+  if (r) {
+    username.value = await uStore.eStore.get('uName')
+    password.value = await uStore.eStore.get('passwd')
+  }
+})
 
 function toggleRemember() {
   isRemember.value = !isRemember.value
-  // uStore.memory.set('isRememberedLogin', isRemember)
+  uStore.eStore.set('isRememberedLogin', isRemember.value)
 }
 // setup the canvas based on the window size
 
