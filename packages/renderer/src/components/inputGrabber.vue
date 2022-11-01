@@ -15,7 +15,7 @@ function deactivate(isViable: boolean) {
   if (isViable)
     uStore.ui.inputGrabber.value.cnfrm(text2say.value)
   else
-    uStore.ui.inputGrabber.value.rej()
+    uStore.ui.inputGrabber.value.rej('notSelected')
 
   setTimeout(() => {
     uStore.ui.inputGrabber.value = false

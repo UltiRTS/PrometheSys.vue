@@ -31,7 +31,7 @@ export default defineComponent({
     return res
   },
   computed: {
-    ...mapState(useUserStore, ['joinedGame', 'grabberActivated', 'mainMenuContent', 'modalMenuContent', 'activeWindow', 'network', 'ui']),
+    ...mapState(useUserStore, ['joinedGame', 'mainMenuContent', 'modalMenuContent', 'activeWindow', 'network', 'ui']),
   },
   mounted() { // lifecycle hook
     const canvas = document.querySelector('canvas')
@@ -100,7 +100,6 @@ export default defineComponent({
         this.cam.target.x = 126.9098447689291
         this.cam.target.y = 1.0644704090000594
         this.cam.target.z = 255.24346977179576
-        console.log('moving')
         this.cam.alpha = 3.868476102612409
         this.cam.beta = 0.31730543427941743
         // // scene.activeCamera._currentTarget.x=126.9098447689291
@@ -158,7 +157,7 @@ export default defineComponent({
           <div style="position:absolute;width:4vh;height:4vh;background:black;left: -7vh;top: 52vh;"></div>
 
           <div style="position:absolute;width:4vh;height: 215vh;background: #00000005;left: -7vh;top: -26vh;"></div><div style="position:absolute;width: 400vw;height:4vh;background: #00000005;left: -74vw;top: 52vh;"></div>
-        </div><div class="content" data-v-957c9522="">
+        </div><div class="content">
           <div class="dodContent" style="position:absolute;left: 14vh;">
             <div class="dodTitle" style="height: 14vh;width: 87vh;background: #7a7a7a17;top: 93vh;left: 47vh;position:absolute;mix-blend-mode: multiply;">
               <div class="dodTitle" style="font-weight:900;color: #ffffff8c;top: 4vh;left: 68vh;position:absolute;">
@@ -186,7 +185,7 @@ export default defineComponent({
             DOCTOR'S DESK
           </div><div data-v-957c9522="" style="position: absolute; font-size: 3vh; top: 73vh; width: 32vh; left: -0.6vh; background: rgb(90, 90, 90); text-align: right; padding-top: 4vh; padding-right: 1vh;">
             RECALL
-          </div><div data-v-957c9522="" style="position: absolute; font-size: 3vh; top: 61vh; width: 32vh; left: -0.6vh; background: rgb(90, 90, 90); text-align: right; padding-top: 4vh; padding-right: 1vh;">
+          </div><div data-v-957c9522="" style="position: absolute; font-size: 3vh; top: 61vh; width: 32vh; left: -0.6vh; background: rgb(90, 90, 90); text-align: right; padding-top: 4vh; padding-right: 1vh;" @click.stop="ui.setmainMenuContent('rglike')">
             IVORY TOWER
           </div>
         </div>

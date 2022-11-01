@@ -26,10 +26,10 @@ export default {
     pickMap() {
       this.ui.getTextThroughGrabber('PICK MAP').then((resolve) => {
         this.ui.pushNewLoading('getSMap')
-        uStore.dntpService.listMatchMap(resolve).then((ret) => {
-          uStore.dntpService.retrieveMap(ret, this.lobbyDir).then(() => {
-            uStore.ui.rmLoading('getSMap')
-            uStore.ui.pushUINewNotif({ title: 'MAP', msg: 'SEARCH RESULT RETRIEVED', class: 'abc' })
+        this.dntpService.listMatchMap(resolve).then((ret) => {
+          this.dntpService.retrieveMap(ret, this.lobbyDir).then(() => {
+            this.ui.rmLoading('getSMap')
+            this.ui.pushUINewNotif({ title: 'MAP', msg: 'SEARCH RESULT RETRIEVED', class: 'abc' })
           })
         })
       })

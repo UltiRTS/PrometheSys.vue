@@ -92,8 +92,15 @@ export default {
     },
 
     pickMap() {
-      this.ui.pushGrabberAction('mapPick')
-      this.ui.activateGrabber()
+      this.ui.getTextThroughGrabber('PICK MAP').then((resolve) => {
+        this.ui.pushNewLoading('getSMap')
+        this.dntpService.listMatchMap(resolve).then((ret) => {
+          this.dntpService.retrieveMap(ret, this.lobbyDir).then(() => {
+            this.ui.rmLoading('getSMap')
+            this.ui.pushUINewNotif({ title: 'MAP', msg: 'SEARCH RESULT RETRIEVED', class: 'abc' })
+          })
+        })
+      })
       this.ui.setmodalMenuContent('dodPGameMap')
       this.ui.setactiveWindow('modal')
     },

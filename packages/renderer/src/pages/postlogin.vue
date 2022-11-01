@@ -4,9 +4,11 @@
 
 import { mapActions, mapState } from 'pinia'
 import { useUserStore } from '../stores'
+import rglike from '../components/rglike.vue'
 // import dodPGameTeam from '../components/dodPGameTeam.vue'
 
 export default {
+  components: { rglike },
   // components: { dodPGameTeam },
   data() {
     return {
@@ -88,6 +90,7 @@ export default {
         <dodPregame v-if="joinedGame && mainMenuContent == 'dodPregame'" />
         <home :visible="mainMenuContent == 'home' " />
         <sys-email v-if="mainMenuContent == 'email' " />
+        <rglike v-if="mainMenuContent == 'rglike' " />
       </div>
       <div id="modalMenu" :style="{opacity:shouldIlightUpModal}" style="transform: rotateY(15.6deg) translateZ(10vw) translateX(-55vw); top: 5%;width: 56%; height: 84%; position: absolute; backdrop-filter: blur(5px);" @click="activateModal" @mouseover="mouseOn=&quot;modal&quot;" @mouseleave="mouseOn='default'">
         <Chat v-if="modalMenuContent == 'chat' " />
