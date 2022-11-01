@@ -2,11 +2,13 @@
 import { mapActions, mapState } from 'pinia'
 import { useUserStore } from '../stores'
 
-const uStore = useUserStore()
-
 export default {
+  setup() {
+  },
   data() {
+    const uStore = useUserStore()
     return {
+      uStore,
     }
   },
   computed: {
@@ -35,7 +37,7 @@ export default {
     emitJoinGameResult(roomTitle) {
       if (!this.joinedGame) {
         console.log(this.joinedGame)
-        uStore.joinGame({
+        this.uStore.joinGame({
           gameName: roomTitle,
           password: 'test',
           mapID: 0,

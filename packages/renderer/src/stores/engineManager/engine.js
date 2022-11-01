@@ -1,3 +1,4 @@
+import { ipcRenderer } from 'electron'
 import { ref } from 'vue'
 import * as musicPlayer from '../musicPlayer/musicPlayer'
 let enginesRunning = 0
@@ -8,6 +9,7 @@ let wdir = ''
 let isLinux = true
 const path = require('node:path')
 export const gameLoaded = ref(false)
+export const gameStarted = ref(false)
 
 export function setWDir(pa) {
   wdir = pa
@@ -23,7 +25,9 @@ export function setPlatform(Linux) {
 
 export function isEngineRunning() {
   if (enginesRunning > 0)
+
     return true
+
   else
     return false
 }
@@ -76,6 +80,8 @@ function launchEngine() {
     if (data.includes('Game Loaded')) {
       console.log('game loaded')
       gameLoaded.value = true
+      ipcRenderer.invoke('popdown')
+      console.log('poping down')
     }
   })
 
@@ -87,6 +93,8 @@ function launchEngine() {
 
 function engineClosed() {
   enginesRunning--
+  if (enginesRunning <= 0)
+    gameStarted.value = false
   if (!isEngineRunning()) {
     musicPlayer.resumeSound()
     console.log('resuming music')
@@ -95,6 +103,10 @@ function engineClosed() {
 
 function engineLaunched() {
   musicPlayer.stopSound()
+  console.log('poping up')
+  ipcRenderer.invoke('popup')
   enginesRunning++
+  if (enginesRunning > 0)
+    gameStarted.value = true
 }
 

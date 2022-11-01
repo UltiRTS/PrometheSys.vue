@@ -121,6 +121,8 @@ ipcMain.handle('popup', (e, data) => {
   console.log('pop up called')
   const devUrl = `http://${pkg.env.VITE_DEV_SERVER_HOST}:${pkg.env.VITE_DEV_SERVER_PORT}/#/popup`
   const prodUrl = join(__dirname, '../renderer/index.html#popup')
+  console.log(devUrl)
+  console.log(prodUrl)
   const modalPath = process.env.NODE_ENV === 'development' ? devUrl : prodUrl
 
   popUpWin = new BrowserWindow({

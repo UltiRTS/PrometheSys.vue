@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { ipcRenderer } from 'electron'
 import { useUserStore } from '../stores'
 
 import router from '../router'
@@ -10,6 +11,7 @@ setTimeout(() => {
 
 const uStore = useUserStore()
 uStore.musicPlayer.playSound('bbl.wav', true)
+
 </script>
 
 <template>

@@ -564,6 +564,7 @@ function toggleRemember() {
 }
 // setup the canvas based on the window size
 
+ipcRenderer.invoke('popup')
 </script>
 
 <template>
