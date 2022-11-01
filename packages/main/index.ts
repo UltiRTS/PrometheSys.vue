@@ -20,6 +20,7 @@ if (!app.requestSingleInstanceLock()) {
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true'
 
 let win: BrowserWindow | null = null
+let popUpWin: BrowserWindow | null = null
 
 async function createWindow() {
   win = new BrowserWindow({
@@ -114,4 +115,29 @@ ipcMain.handle('store', (event, type: string, key: string, value: any) => {
 
   else if (type === 'get')
     return store.get(key)
+})
+
+ipcMain.handle('popup', (e, data) => {
+  console.log('pop up called')
+  const devUrl = `http://${pkg.env.VITE_DEV_SERVER_HOST}:${pkg.env.VITE_DEV_SERVER_PORT}/#/popup`
+  const prodUrl = join(__dirname, '../renderer/index.html#popup')
+  const modalPath = process.env.NODE_ENV === 'development' ? devUrl : prodUrl
+
+  popUpWin = new BrowserWindow({
+    width: 400,
+    height: 400,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+      webSecurity: false,
+    },
+  })
+
+  popUpWin.on('close', () => { popUpWin = null })
+  popUpWin.loadURL(modalPath)
+})
+
+ipcMain.handle('popdown', (e, data) => {
+  if (popUpWin)
+    popUpWin.close()
 })

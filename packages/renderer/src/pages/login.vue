@@ -1,7 +1,10 @@
 <script lang="ts" setup>
 import { numberLiteralTypeAnnotation } from '@babel/types'
 import { computed } from '@vue/reactivity'
+import { ipcRenderer } from 'electron'
 import { onBeforeUnmount, onMounted, onUnmounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
+import router from '../router'
 
 import { useUserStore } from '../stores'
 

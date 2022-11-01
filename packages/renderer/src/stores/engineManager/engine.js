@@ -68,6 +68,7 @@ function launchEngine() {
 
   child.stdout.on('data', (data) => {
     result += data
+    console.log(data)
   })
 
   child.on('close', () => {
