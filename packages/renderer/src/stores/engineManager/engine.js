@@ -1,3 +1,4 @@
+import { ref } from 'vue'
 import * as musicPlayer from '../musicPlayer/musicPlayer'
 let enginesRunning = 0
 // const fsPromises = require('fs').promises
@@ -6,6 +7,7 @@ let engine = ''
 let wdir = ''
 let isLinux = true
 const path = require('node:path')
+export const gameLoaded = ref(false)
 
 export function setWDir(pa) {
   wdir = pa
@@ -67,8 +69,14 @@ function launchEngine() {
   const child = exec(engineCmdLine)
 
   child.stdout.on('data', (data) => {
+    data = data.toString()
+
     result += data
-    console.log(data)
+
+    if (data.includes('Game Loaded')) {
+      console.log('game loaded')
+      gameLoaded.value = true
+    }
   })
 
   child.on('close', () => {

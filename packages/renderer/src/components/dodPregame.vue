@@ -5,6 +5,12 @@ import { mapActions, mapState } from 'pinia'
 import { useUserStore } from '../stores'
 
 export default {
+  setup() {
+    const uStore = useUserStore()
+    uStore.$subscribe((mutation, state) => {
+      console.log(mutation)
+    })
+  },
   data() {
     return {
       percentages: [5, 45, 50],
