@@ -5,6 +5,8 @@ import { onMounted } from 'vue'
 import router from './router'
 import { useUserStore } from './stores'
 
+const store = useUserStore()
+
 ipcRenderer.send('toMain', JSON.stringify({
   action: 'queryMap',
   data: {
@@ -15,8 +17,11 @@ ipcRenderer.send('toMain', JSON.stringify({
 // const userStore = useUserStore()
 // userStore.login({ username: 'test', password: 'testpassword' })
 
-onMounted(() => {
-  router.push('prelogin')
+onMounted(async () => {
+  if (await ipcRenderer.invoke('issubwindow'))
+    router.push('popup')
+  else
+    router.push('prelogin')
 })
 </script>
 

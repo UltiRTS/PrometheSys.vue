@@ -563,8 +563,6 @@ function toggleRemember() {
   uStore.eStore.set('isRememberedLogin', isRemember.value)
 }
 // setup the canvas based on the window size
-
-ipcRenderer.invoke('popup')
 </script>
 
 <template>

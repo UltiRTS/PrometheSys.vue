@@ -108,6 +108,8 @@ app.on('activate', () => {
 //   }
 // })
 
+let subwindow = false
+
 ipcMain.handle('store', (event, type: string, key: string, value: any) => {
   console.log('store called', type, key, value)
   if (type === 'set')
@@ -135,8 +137,14 @@ ipcMain.handle('popup', (e, data) => {
     },
   })
 
+  subwindow = true
+
   popUpWin.on('close', () => { popUpWin = null })
   popUpWin.loadURL(modalPath)
+})
+
+ipcMain.handle('issubwindow', (e, data) => {
+  return subwindow
 })
 
 ipcMain.handle('popdown', (e, data) => {
