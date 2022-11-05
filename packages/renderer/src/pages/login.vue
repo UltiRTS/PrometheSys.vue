@@ -1,15 +1,12 @@
 <script lang="ts" setup>
-import { numberLiteralTypeAnnotation } from '@babel/types'
 import { computed } from '@vue/reactivity'
-import { ipcRenderer } from 'electron'
 import { onBeforeUnmount, onMounted, onUnmounted, ref } from 'vue'
-import { useRoute } from 'vue-router'
-import router from '../router'
 
 import { useUserStore } from '../stores'
 
 const uStore = useUserStore()
-const userState = computed(() => uStore.userState)
+const userState = computed(() => uStore.userState) // dont delete this
+
 const isActive = ref(true)
 
 onBeforeUnmount(() => {
@@ -17,7 +14,7 @@ onBeforeUnmount(() => {
 })
 
 onUnmounted(() => {
-  console.log('unmounted')
+  // console.log('unmounted')
 })
 
 onMounted(() => {

@@ -49,8 +49,6 @@ export const useUserStore = defineStore('user', () => {
   const gameListing = network.gameListing
   const joinedGame = network.joinedGame
   const username = network.username
-  const gameLoaded = engineMgr.gameLoaded
-  const gameStarted = engineMgr.gameStarted
 
   // dntp service
   const searchMap = dntpService.searchMap
@@ -106,9 +104,6 @@ export const useUserStore = defineStore('user', () => {
     musicPlayer,
     soundPlayer,
     eStore,
-
-    gameLoaded,
-    gameStarted,
     // memory,
   }
 })

@@ -1,5 +1,5 @@
 import { ipcRenderer } from 'electron'
-import { ref } from 'vue'
+// import { ref } from 'vue'
 import * as musicPlayer from '../musicPlayer/musicPlayer'
 let enginesRunning = 0
 // const fsPromises = require('fs').promises
@@ -7,9 +7,8 @@ const fs = require('fs')
 let engine = ''
 let wdir = ''
 let isLinux = true
+
 const path = require('node:path')
-export const gameLoaded = ref(false)
-export const gameStarted = ref(false)
 
 export function setWDir(pa) {
   wdir = pa
@@ -25,7 +24,6 @@ export function setPlatform(Linux) {
 
 export function isEngineRunning() {
   if (enginesRunning > 0)
-
     return true
 
   else
@@ -47,7 +45,7 @@ export function configureToLaunch(params = {
         IsHost=0;           // tell the engine this is a client
     
     ` + '}'
-  console.log(writeLine)
+  // console.log(writeLine)
   const scriptPath = path.join(wdir, 'springwritable', 'script.txt')
   fs.writeFile(scriptPath, writeLine, () => {
     launchEngine()
@@ -59,11 +57,12 @@ export function configureToLaunch(params = {
   // )
 }
 
+let loadingScreenShown = false
 function launchEngine() {
   engineLaunched()
   const exec = require('child_process').exec
 
-  let result = ''
+  // let result = ''
   let engineCmdLine
   if (isLinux)
     engineCmdLine = `${engine} -write-dir ${path.join(wdir, 'springwritable')} ${path.join(wdir, 'springwritable', 'script.txt')}`
@@ -75,38 +74,43 @@ function launchEngine() {
   child.stdout.on('data', (data) => {
     data = data.toString()
 
-    result += data
-
-    if (data.includes('Game Loaded')) {
-      console.log('game loaded')
-      gameLoaded.value = true
-      ipcRenderer.invoke('popdown')
-      console.log('poping down')
+    // result += data
+    if (data.includes('Lua Intro ended')) {
+      if (loadingScreenShown)
+      // console.log('game loaded')
+      {
+        ipcRenderer.invoke('popdown')
+        loadingScreenShown = false
+      }
+    }
+    if (data.includes('LuaIntro')) {
+      // console.log('game loaded')
+      // console.log('poping down')
+      if (!loadingScreenShown) {
+        ipcRenderer.invoke('popup')
+        loadingScreenShown = true
+      }
     }
   })
 
   child.on('close', () => {
-    console.log(result)
+    // console.log(result)
     engineClosed()
   })
 }
 
 function engineClosed() {
   enginesRunning--
-  if (enginesRunning <= 0)
-    gameStarted.value = false
-  if (!isEngineRunning()) {
+
+  if (!isEngineRunning())
     musicPlayer.resumeSound()
-    console.log('resuming music')
-  }
+    // console.log('resuming music')
 }
 
 function engineLaunched() {
   musicPlayer.stopSound()
-  console.log('poping up')
-  ipcRenderer.invoke('popup')
+  // console.log('poping up')
+
   enginesRunning++
-  if (enginesRunning > 0)
-    gameStarted.value = true
 }
 
