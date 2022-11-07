@@ -62,7 +62,7 @@ function launchEngine() {
   engineLaunched()
   const exec = require('child_process').exec
 
-  // let result = ''
+  let result = ''
   let engineCmdLine
   if (isLinux)
     engineCmdLine = `${engine} -write-dir ${path.join(wdir, 'springwritable')} ${path.join(wdir, 'springwritable', 'script.txt')}`
@@ -74,8 +74,8 @@ function launchEngine() {
   child.stdout.on('data', (data) => {
     data = data.toString()
 
-    // result += data
-    if (data.includes('Lua Intro ended')) {
+    result += data
+    if (data.includes('Game Loaded')) {
       if (loadingScreenShown)
       // console.log('game loaded')
       {
@@ -83,7 +83,7 @@ function launchEngine() {
         loadingScreenShown = false
       }
     }
-    if (data.includes('LuaIntro')) {
+    if (data.includes('[LuaIntro]')) {
       // console.log('game loaded')
       // console.log('poping down')
       if (!loadingScreenShown) {
@@ -94,7 +94,7 @@ function launchEngine() {
   })
 
   child.on('close', () => {
-    // console.log(result)
+    console.log(result)
     engineClosed()
   })
 }
