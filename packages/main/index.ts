@@ -1,7 +1,7 @@
 import { release } from 'os'
 import { join } from 'path'
 // import Store from 'electron-store'
-import { BrowserWindow, app, ipcMain, shell } from 'electron'
+import { BrowserWindow, app, ipcMain, ipcRenderer, shell } from 'electron'
 import pkg from '../../package.json'
 import { store } from './store'
 
@@ -84,30 +84,6 @@ app.on('activate', () => {
     createWindow()
 })
 
-// function createStorage() {
-//   return new Store({
-//     name: 'Promethesys',
-//   })
-// }
-
-// const store = createStorage()
-// store.set('map', 'testmap')
-
-// ipcMain.on('toMain', (event, message) => {
-//   try {
-//     const msgJson = JSON.parse(message)
-//     if (msgJson.action === 'queryMap') {
-//       event.reply('fromMain', JSON.stringify({
-//         action: 'map',
-//         data: store.get('map'),
-//       }))
-//     }
-//   }
-//   catch (e) {
-//     console.log('Invalid JSON format', message)
-//   }
-// })
-
 let subwindow = false
 
 ipcMain.handle('store', (event, type: string, key: string, value: any) => {
@@ -120,22 +96,27 @@ ipcMain.handle('store', (event, type: string, key: string, value: any) => {
 })
 
 ipcMain.handle('popup', (e, data) => {
-  console.log('pop up called')
+  // console.log('pop up called')
   const devUrl = `http://${pkg.env.VITE_DEV_SERVER_HOST}:${pkg.env.VITE_DEV_SERVER_PORT}/#/popup`
   const prodUrl = join(__dirname, '../renderer/index.html#popup')
-  console.log(devUrl)
-  console.log(prodUrl)
+  // console.log(devUrl)
+  // console.log(prodUrl)
   const modalPath = process.env.NODE_ENV === 'development' ? devUrl : prodUrl
 
   popUpWin = new BrowserWindow({
+    show: false,
     width: 400,
     height: 400,
+    fullscreen: true,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
       webSecurity: false,
     },
   })
+
+  popUpWin.maximize()
+  popUpWin.show()
 
   subwindow = true
 
@@ -148,6 +129,12 @@ ipcMain.handle('issubwindow', (e, data) => {
 })
 
 ipcMain.handle('popdown', (e, data) => {
+  console.log('calling popdown')
   if (popUpWin)
     popUpWin.close()
+})
+
+ipcMain.on('pass2popup', (e, data) => {
+  if (popUpWin)
+    popUpWin.webContents.send('popupData', data)
 })
