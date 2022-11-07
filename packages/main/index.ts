@@ -1,7 +1,7 @@
 import { release } from 'os'
 import { join } from 'path'
 // import Store from 'electron-store'
-import { BrowserWindow, app, ipcMain, shell } from 'electron'
+import { BrowserWindow, app, ipcMain, ipcRenderer, shell } from 'electron'
 import pkg from '../../package.json'
 import { store } from './store'
 
@@ -148,6 +148,12 @@ ipcMain.handle('issubwindow', (e, data) => {
 })
 
 ipcMain.handle('popdown', (e, data) => {
+  console.log('calling popdown')
   if (popUpWin)
     popUpWin.close()
+})
+
+ipcMain.on('pass2popup', (e, data) => {
+  if (popUpWin)
+    popUpWin.webContents.send('popupData', data)
 })

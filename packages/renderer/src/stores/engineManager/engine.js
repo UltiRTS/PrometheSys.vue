@@ -73,9 +73,10 @@ function launchEngine() {
 
   child.stdout.on('data', (data) => {
     data = data.toString()
+    ipcRenderer.send('pass2popup', 'engine messages')
 
     // result += data
-    if (data.includes('Lua Intro ended')) {
+    if (data.includes('Game Loaded')) {
       if (loadingScreenShown)
       // console.log('game loaded')
       {
@@ -83,7 +84,7 @@ function launchEngine() {
         loadingScreenShown = false
       }
     }
-    if (data.includes('LuaIntro')) {
+    if (data.includes('SDL_WINDOWEVENT_SHOWN')) {
       // console.log('game loaded')
       // console.log('poping down')
       if (!loadingScreenShown) {
