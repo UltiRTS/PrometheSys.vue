@@ -77,9 +77,7 @@ function launchEngine() {
 
     result += data
     if (data.includes('Game Loaded')) {
-      if (loadingScreenShown)
-      // console.log('game loaded')
-      {
+      if (loadingScreenShown) {
         ipcRenderer.invoke('popdown')
         loadingScreenShown = false
       }

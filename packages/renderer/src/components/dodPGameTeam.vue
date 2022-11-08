@@ -37,8 +37,8 @@ export default {
         if (this.joinedGame.players[player].hasmap && !this.joinedGame.players[player].isSpec)
           players[player] = this.joinedGame.players[player]
       }
-      console.log('showing normal players')
-      console.log(players)
+      // console.log('showing normal players')
+      // console.log(players)
       return players
     },
 

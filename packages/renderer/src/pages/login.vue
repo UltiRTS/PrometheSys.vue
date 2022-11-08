@@ -558,6 +558,14 @@ uStore.eStore.get('isRememberedLogin').then(async (r: any) => {
 function toggleRemember() {
   isRemember.value = !isRemember.value
   uStore.eStore.set('isRememberedLogin', isRemember.value)
+  if (isRemember.value) {
+    uStore.eStore.set('uName', username.value)
+    uStore.eStore.set('passwd', password.value)
+  }
+  else {
+    uStore.eStore.set('uName', '')
+    uStore.eStore.set('passwd', '')
+  }
 }
 // setup the canvas based on the window size
 </script>
