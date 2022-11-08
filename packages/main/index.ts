@@ -107,8 +107,8 @@ ipcMain.handle('popup', (e, data) => {
     show: false,
     width: 400,
     height: 400,
-    fullscreen: true,
-    webPreferences: {
+    frame: false,
+    webPreferences: { // no fullscreen on startup or context loss occurs
       nodeIntegration: true,
       contextIsolation: false,
       webSecurity: false,
@@ -117,7 +117,7 @@ ipcMain.handle('popup', (e, data) => {
 
   popUpWin.maximize()
   popUpWin.show()
-
+  // popUpWin.setFullScreen(true) // fulscreen but reusing the windowed cache
   subwindow = true
 
   popUpWin.on('close', () => { popUpWin = null })
