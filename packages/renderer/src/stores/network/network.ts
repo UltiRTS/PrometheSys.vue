@@ -48,11 +48,14 @@ export function initNetWork(isRe = false) {
 
     if (msg.action === 'NOTIFY') {
       msg = msg as Notification
+      console.log(msg)
       pushConfirm(msg.action, msg.message, true, false).then()
       return
     }
 
     msg = msg as StateMessage
+
+    console.log(msg)
 
     // login section
     writeLoginStats()
