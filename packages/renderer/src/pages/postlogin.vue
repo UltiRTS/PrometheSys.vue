@@ -98,19 +98,19 @@ export default {
         <dod-p-game-map v-if="modalMenuContent == 'dodPGameMap'" />
         <dod-p-game-mutator v-if="modalMenuContent == 'dodPGameMutator'" />
       </div>
-      <div id="rightHome" class="rightHome" :style="{opacity:shouldIlightUpMenu}" style="transform:rotateY(-15.6deg) translateZ(-147vw) translateX(209vw); width: 100%; height: 102%; position: absolute; backdrop-filter: blur(5px);top: -41%;filter: drop-shadow(rgba(0, 0, 0, 0.2) 18px 25px 15px);" @click="activateMenu" @mouseover="mouseOn=&quot;menu&quot;" @mouseleave="mouseOn='default'">
+      <div id="rightHome" class="rightHome" :style="{opacity:shouldIlightUpMenu}" style="transform:rotateY(-15.6deg) translateZ(-283vh) translateX(380vh); width: 200vh; height: 102%; position: absolute; backdrop-filter: blur(5px);top: -41%;filter: drop-shadow(rgba(0, 0, 0, 0.2) 18px 25px 15px);right:-2vw;" @click="activateMenu" @mouseover="mouseOn=&quot;menu&quot;" @mouseleave="mouseOn='default'">
         <img src="/imgs/horizontalSep1.png" style="position:absolute;top:-1%;height: 5px;width: 93%;opacity:0.3;">
-        <div style="position:absolute;height: 6%;width: 93%;background: rgb(202 246 255 / 5%);top: 0%;padding:2%;">
-          <i class="fa fa-wifi" aria-hidden="true" style="font-size: 2vw;color: #ffffff8c;" />
-          <div id="sysStatusPing" style="font-size: 2vw;color: #ffffff8c;margin-left: 2%;width:5vw;position:relative;display:inline-block;">
+        <div style="position: absolute; height: 6%; width: 93%; background: rgba(202, 246, 255, 0.05); top: 0%; padding: 2%;font-family: font9;">
+          <i class="fa fa-wifi" aria-hidden="true" style="font-size: 6vh;color: #ffffff8c;" />
+          <div id="sysStatusPing" style="font-size: 4vh;color: #ffffff8c;margin-left: 2%;width:5vw;position:relative;display:inline-block;">
             {{ parseInt(parseInt(network.clientHP.value)/3*100) }}%
           </div>
-          <i class="fa fa-sitemap" aria-hidden="true" style="font-size: 2vw;color: #ffffff8c;margin-left: 5%;" />
-          <span id="sysStatusInt" style="font-size: 2vw;color: #ffffff8c;margin:1%;">All Systems Online</span>
-          <i class="fa fa-clock-o" aria-hidden="true" style="font-size: 2vw;color: #ffffff8c;margin-left: 5%;" />
-          <span style="font-size: 2vw;color: #ffffff8c;margin:1%;">{{ new Date().toJSON() }}</span>
-          <i class="fa fa-id-card-o" aria-hidden="true" style="font-size: 2vw;color: #ffffff8c;margin-left: 5%;" />
-          <span id="sysStatusUsr" style="font-size: 2vw;color: #ffffff8c;margin:1%;">Dr. {{ network.username.value }}</span>
+          <i class="fa fa-sitemap" aria-hidden="true" style="font-size: 6vh;color: #ffffff8c;margin-left: 5%;" />
+          <span id="sysStatusInt" style="font-size: 4vh;color: #ffffff8c;margin:1%;">All Systems Online</span>
+          <i class="fa fa-clock-o" aria-hidden="true" style="font-size: 6vh;color: #ffffff8c;margin-left: 5%;" />
+          <span style="font-size: 4vh;color: #ffffff8c;margin:1%;">{{ new Date().toJSON() }}</span>
+          <i class="fa fa-id-card-o" aria-hidden="true" style="font-size: 6vh;color: #ffffff8c;margin-left: 5%;" />
+          <span id="sysStatusUsr" style="font-size: 4vh;color: #ffffff8c;margin:1%;">Dr. {{ network.username.value }}</span>
         </div>
 
         <div style="overflow:hidden;top:11%;position:absolute;height:100%;width:100%;">
@@ -123,19 +123,19 @@ export default {
 
         <div class="sanity rightHomeMainBtns" style="top:11%;position:absolute;height:25%;width:45%;background: rgb(177 182 183);" @click="ui.setmainMenuContent('home')">
           <div style="position:absolute;width: 50.1%;left: 11%;font-size: 10vw;overflow:hidden;height:100%;">
-            <p style="position:absolute;width: 93.7%;background: #00000045;color: #ffffff96;font-size:2vw;bottom: 20%;padding-top: 5%;padding-bottom: 5%;text-align:right;padding-right: 4%;filter: drop-shadow(8px 6px 6px rgba(50,50,50,0.9));">
+            <p style="position:absolute;width:93.7%;background: #606060;color: #d1d1d1;font-size: 5vh;bottom: 3%;padding-top:5%;padding-bottom:5%;text-align:right;padding-right:4%;filter:drop-shadow(8px 6px 6px rgba(50,50,50,0.9));font-family: font2;font-weight:900;">
               SANITY
             </p>
-            <i class="fa fa-bolt" aria-hidden="true" style="position:absolute;top: 20%;left: 3%;color: #949494fa;font-size: 13vw;" />
-            <span style="position:absolute;top: 36%;left: 34%;font-size: 7vw;color: #00000082;filter: drop-shadow(8px 6px 6px black);">125</span>
+            <i class="fa fa-bolt" aria-hidden="true" style="position:absolute;top: 23%;left:3%;color:#949494fa;font-size: 24vh;" />
+            <span style="position:absolute;top: 28%;left: 48%;font-size: 13vh;color: #565656;filter: drop-shadow(8px 11px 8px rgba(0,0,0,0.5));font-family: font9;">125</span>
           </div>
 
           <div style="position:absolute;width: 23%;height: 100%;left: 63%;font-size: 10vw;overflow:hidden;">
-            <span style="position:absolute;top: 42%;font-size: 4vw;color: #00000082;width: 88.5%;text-align:right;filter: drop-shadow(8px 6px 6px black);">/240</span><i class="fa fa-plus" aria-hidden="true" style="position:absolute;top: 65.7%;font-size:2vw;background: #00000045;color: #ffffff96;width: 91%;text-align:center;padding-top: 7.8%;padding-bottom: 3.8%;filter: drop-shadow(8px 6px 6px rgba(50,50,50,0.9));" />
+            <span style="position:absolute;top: 37%;font-size: 9vh;color: #0000005c;width:88.5%;text-align:right;filter:drop-shadow(8px 6px 6px black);font-family: font1;">/240</span><i class="fa fa-plus" aria-hidden="true" style="position:absolute;top: 61.2%;font-size: 8vh;background: #606060;color: #d1d1d1b8;width:91%;text-align:center;padding-top: 7.3%;padding-bottom: 3.8%;filter:drop-shadow(8px 6px 6px rgba(50,50,50,0.9));" />
           </div>
         </div>
 
-        <div class="personalStats rightHomeMainBtns" style="position:absolute;height:25%;width: 53%;background:rgba(255,255,255,0.5);left: 44.9%;top:11%;">
+        <div class="personalStats rightHomeMainBtns" style="display:none; position:absolute;height:25%;width: 53%;background:rgba(255,255,255,0.5);left: 44.9%;top:11%;">
           <div style="position:absolute;width: 36%;height:100%;left: 9%;overflow:hidden;">
             <p style="position:absolute;top: 39%;font-size: 6vw;font-weight:900;color: #3a3a3ae6;filter: drop-shadow(8px 6px 6px rgba(50,50,50,0.5));">
               戦い
@@ -163,7 +163,7 @@ export default {
           </div>
         </div>
 
-        <div class="commander rightHomeMainBtns" style="position:absolute;height: 19%;width: 53%;background: rgb(177 182 183);top: 39%;overflow:hidden;">
+        <div class="commander rightHomeMainBtns" style="display:none; position:absolute;height: 19%;width: 53%;background: rgb(177 182 183);top: 39%;overflow:hidden;">
           <div style="position:absolute;width: 55%;height:100%;left: 9%;overflow:hidden;">
             <p style="position:absolute;top: 37%;font-size: 6vw;font-weight:900;color: #3a3a3ae6;filter: drop-shadow(8px 6px 6px rgba(50,50,50,0.5));">
               司令
@@ -191,7 +191,7 @@ export default {
           </div>
         </div>
 
-        <div class="taskForce rightHomeMainBtns" style="position:absolute;height: 19%;width: 36%;background:rgba(255,255,255,0.5);left: 53.9%;top: 39%;overflow:hidden;">
+        <div class="taskForce rightHomeMainBtns" style="display:none; position:absolute;height: 19%;width: 36%;background:rgba(255,255,255,0.5);left: 53.9%;top: 39%;overflow:hidden;">
           <div style="position:absolute;width: 46%;height:100%;left: 9%;overflow:hidden;">
             <p style="position:absolute;top: 39%;font-size: 6vw;font-weight:900;color: #3a3a3ae6;filter: drop-shadow(8px 6px 6px rgba(50,50,50,0.5));">
               軍
@@ -219,7 +219,7 @@ export default {
           </div>
         </div>
 
-        <div class="forum rightHomeMainBtns" style="position:absolute;height: 19%;width: 30%;background: #2196f3;left: -0.1%;top: 60%;">
+        <div class="forum rightHomeMainBtns" style="display:none; position:absolute;height: 19%;width: 30%;background: #2196f3;left: -0.1%;top: 60%;">
           <div style="position:absolute;width: 100%;height:100%;left: 9%;overflow:hidden;">
             <p style="position:absolute;top: 39%;font-size: 3vw;font-weight:900;color: #ffffffad;filter: drop-shadow(8px 6px 6px rgba(255,255,255,0.5));">
               フォーラム
@@ -232,7 +232,7 @@ export default {
           <i class="fa fa-comments-o" aria-hidden="true" style="position:absolute;font-size: 10vw;color: #ffffff0d;left: 65%;top: 16%;" />
         </div>
 
-        <div class="moderationNaccount rightHomeMainBtns" style="position:absolute;height: 19%;width: 64%;background: #2196f3;left: 30.9%;top: 60%;overflow:hidden;">
+        <div class="moderationNaccount rightHomeMainBtns" style="display:none; position:absolute;height: 19%;width: 64%;background: #2196f3;left: 30.9%;top: 60%;overflow:hidden;">
           <div style="position:absolute;width: 33%;height:100%;left: 9%;overflow:hidden;">
             <p style="position:absolute;top: 39%;font-size: 3vw;font-weight:900;color: #ffffffad;filter: drop-shadow(8px 6px 6px rgba(255,255,255,0.5));">
               節度
@@ -256,7 +256,7 @@ export default {
           </div>
         </div>
 
-        <div class="warehouse rightHomeMainBtns" style="position:absolute;height: 19%;width: 34%;background:rgba(255,255,255,0.5);left: -0.1%;top: 81%;">
+        <div class="warehouse rightHomeMainBtns" style="display:none; position:absolute;height: 19%;width: 34%;background:rgba(255,255,255,0.5);left: -0.1%;top: 81%;">
           <div style="position:absolute;width: 100%;height:100%;left: 9%;overflow:hidden;">
             <p style="position:absolute;top: 39%;font-size: 4vw;font-weight:900;color: #3a3a3ae6;filter: drop-shadow(8px 6px 6px rgba(50,50,50,0.5));">
               ストレージ
@@ -268,7 +268,7 @@ export default {
           <i class="fa fa-home" aria-hidden="true" style="position:absolute;font-size: 10vw;color: #0000000d;left: 74%;top: 16%;" />
         </div>
 
-        <div class="researchCenter rightHomeMainBtns" style="position:absolute;height: 19%;width: 34%;background:rgba(255,255,255,0.5);left: 34.9%;top: 81%;">
+        <div class="researchCenter rightHomeMainBtns" style="display:none; position:absolute;height: 19%;width: 34%;background:rgba(255,255,255,0.5);left: 34.9%;top: 81%;">
           <div style="position:absolute;width: 100%;height:100%;left: 9%;overflow:hidden;">
             <p style="position:absolute;top: 39%;font-size: 4vw;font-weight:900;color: #3a3a3ae6;filter: drop-shadow(8px 6px 6px rgba(50,50,50,0.5));">
               リサーチ
@@ -281,13 +281,13 @@ export default {
         </div>
 
         <div class="email rightHomeMainBtns" style="position:absolute;height:19%;width:34%;background:rgba(255,255,255,0.5);left:69.9%;top:81%;" @click="ui.setmainMenuContent('email')">
-          <div style="position:absolute;width:100%;height:100%;left:9%;overflow:hidden;" data-v-6fa0e716="">
-            <p style="position:absolute;top: -6%;font-size:4vw;font-weight:900;color:#3a3a3ae6;filter:drop-shadow(8px 6px 6px rgba(50,50,50,0.5));" data-v-6fa0e716="">
+          <div style="position:absolute;width:100%;height:100%;left:9%;overflow:hidden;">
+            <p style="position: absolute; top: -6%; font-size: 8vh; font-weight: 900; color: rgba(58, 58, 58, 0.9); filter: drop-shadow(rgba(50, 50, 50, 0.5) 8px 6px 6px);">
               メイル
-            </p><p style="position:absolute;top: 42.7%;font-size:1.8vw;background:#00000045;color:#ffffff73;padding:3.1%;filter:drop-shadow(8px 6px 6px rgba(50,50,50,0.9));" data-v-6fa0e716="">
+            </p><p style="position: absolute; top: 42.7%; font-size: 6vh; background: #606060;color: #d1d1d1; padding: 3.1%; filter: drop-shadow(rgba(50, 50, 50, 0.9) 8px 6px 6px);font-family: font10;">
               EMAIL
             </p>
-          </div><i class="fa fa-globe" aria-hidden="true" style="position:absolute;font-size:10vw;color:#0000000d;left:36%;top:16%;" data-v-6fa0e716=""></i>
+          </div><i class="fa fa-globe" aria-hidden="true" style="position: absolute; font-size: 31vh; color: rgba(0, 0, 0, 0.05); left: 36%; top: 38%;"></i>
         </div>
 
         <img src="/imgs/horizontalSep2.png" style="position:absolute;top: 101%;height: 5px;width: 93%;opacity:0.3;">

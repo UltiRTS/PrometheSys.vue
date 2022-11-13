@@ -11,16 +11,16 @@ const request = axios.create({
 
 export async function getUInfo(username) {
   ui.pushNewLoading('gtUInfo')
-  const resp = await request.get(`/byname/${username}`)
-  ui.rmLoading('gtUInfo')
   try {
-    console.log(resp)
+    const resp = await request.get(`/byname/${username}`)
+
+    // console.log(resp)
     userInfo.value = resp.data
   }
   catch (e) {
-    console.log(e)
-    return null
+    // console.log(e)
   }
+  ui.rmLoading('gtUInfo')
 }
 
 export function resetUserInfo() {
