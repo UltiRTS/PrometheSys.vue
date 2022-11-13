@@ -129,7 +129,7 @@ export const unreadChannel = ref<string[]>([])
 function writeChatStats(msg: StateMessage) {
   // const tmpChannels = Object.keys(msg.state.user.chatRooms)
   // joinedChannels.value = tmpChannels // composes joined channel
-
+  joinedChannels.value = []
   for (const channel in msg.state.user.chatRooms) {
     joinedChannels.value.push(channel)
     const lastMessage = msg.state.user.chatRooms[channel].lastMessage

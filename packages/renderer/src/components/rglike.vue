@@ -51,8 +51,6 @@ export default {
       console.log(this.nodesConnection)
     },
 
-
-
   },
 }
 </script>

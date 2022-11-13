@@ -134,6 +134,7 @@ export default {
         this.isBottom = false
     },
     onChangeChannel(ev) {
+      // console.log(ev)
       this.current_channel = ev
     },
     // parent must provide sayChat interface
@@ -154,6 +155,16 @@ export default {
       })
     },
     closeChat(channel) {
+      // console.log(this.current_channel)
+      const channelIndex = this.joinedChannels.indexOf(channel)
+      let backupChannel = 0
+      if (channelIndex === 0)
+        return
+      else
+        backupChannel = channelIndex - 1
+      this.current_channel = this.joinedChannels[backupChannel]
+      // console.log(backupChannel)
+      // console.log(this.current_channel)
       this.leaveChat({
         chatName: channel,
       })
@@ -211,7 +222,7 @@ export default {
         <div style="font-family: font2; right: 0px; position: absolute; width: 100%; text-align: right; height: 100%; text-transform: uppercase; color: black; opacity: 0.2; font-weight: 900; padding-right: 1vw;top: 23.3%;top:-1vh;right:-5%;">
           {{ channel }}
         </div>
-        <i class="fa fa-times-circle chatClose" aria-hidden="true" style="cursor: crosshair;position:absolute;color:white;font-size:5vh;top:30%;right:-5%;" @click="closeChat(channel)" />
+        <i class="fa fa-times-circle chatClose" aria-hidden="true" style="cursor: crosshair;position:absolute;color:white;font-size:5vh;top:30%;right:-5%;" @click.stop="closeChat(channel)" />
       </div>
       <div style="position:absolute;right:0;">
         <gem v-if="network.unreadChannel.value.includes(channel)" />
