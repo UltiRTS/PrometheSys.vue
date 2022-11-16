@@ -22,9 +22,10 @@ export default {
         13: [14],
         14: [],
       },
+      coors: {},
       horizontalDistance: 0,
       nodesConnection: [], // this will eventually be fed from the server. at this moment it's fed by server_genLevel
-
+      distanceBetween: 400,
     }
   },
   computed: {
@@ -34,7 +35,8 @@ export default {
     const ctx = this.$refs.rg.getContext('2d')
     const topolist = Object.keys(this.adj_list)
     const adj_list = this.adj_list
-    const coords = {}
+    const coords = this.coors
+    const distanceBetween = this.distanceBetween
     function drawLine(start, end) {
       ctx.moveTo(start.x, start.y)
       ctx.lineTo(end.x, end.y)
@@ -47,6 +49,19 @@ export default {
       ctx.fill()
     }
 
+    function drawCurve(start, end) {
+      ctx.beginPath()
+      ctx.moveTo(start.x, start.y)
+      const crHeight = Math.abs(end.y - start.y)
+      const cp1 = {
+        x: end.x,
+        y: end.y + crHeight,
+      }
+
+      ctx.quadraticCurveTo(cp1.x, cp1.y, end.x, end.y)
+      ctx.stroke()
+    }
+
     function draw_graph() {
       let y = 20
       let x = 20
@@ -57,12 +72,13 @@ export default {
 
         drawCircle({ x, y }, 5)
         y = Math.ceil(Math.random() * 800)
-        x += 100
+        x += distanceBetween
       }
 
       for (const node in adj_list) {
         for (const adj of adj_list[node])
-          drawLine(coords[adj], coords[node])
+          // drawLine(coords[adj], coords[node])
+          drawCurve(coords[adj], coords[node])
       }
     }
 
@@ -76,6 +92,18 @@ export default {
     scrl(ev) {
       if (this.horizontalDistance + 0.02 * ev.deltaY < 0 && this.horizontalDistance + 0.02 * ev.deltaY > -168)
         this.horizontalDistance += 0.02 * ev.deltaY
+    },
+    drawCurve(ctx, start, end) {
+      ctx.beginPath()
+      ctx.moveTo(start.x, start.y)
+      const crHeight = Math.abs(end.y - start.y)
+      const cp1 = {
+        x: end.x,
+        y: end.y + crHeight,
+      }
+
+      ctx.quadraticCurveTo(cp1.x, cp1.y, end.x, end.y)
+      ctx.stroke()
     },
 
     // server_genLevel() {
@@ -109,7 +137,7 @@ export default {
 </script>
 
 <template>
-  <div class="rgLike" style="position:absolute;height:100%;width:100%;" @wheel="scrl">
+  <div class="rgLike" style="position:absolute;height:100%; width: 100%; overflow-x: scroll; background-color: cyan;">
     <!-- <img :style="{'left':'0','transform': 'translateX('+horizontalDistance+'vw)', 'position': 'absolute','width':'344vw','height':'100vw'}" src="/imgs/When_the_city_but_FOGG.png">
     <div :style="{'left':'0', 'transform': 'translateX('+2*horizontalDistance+'vw)', 'position': 'absolute','width':'511vw','height':'100vw','font-size':'8vh','top': '1vh','overflow':'hidden'}">
       dfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffff
@@ -117,7 +145,7 @@ export default {
     <div style="font-size:50vh; color:white;top:50%;left:50%;position:absolute;" @click="server_genLevel">
       GET SERVER RESPONSE
     </div> -->
-    <canvas ref="rg" width="1800" height="800"> </canvas>
+    <canvas ref="rg" :width="Object.keys(adj_list).length*distanceBetween" height="800" style="margin-top: 10%;"> </canvas>
   </div>
 </template>
 
