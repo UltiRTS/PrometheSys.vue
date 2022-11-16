@@ -26,63 +26,19 @@ export default {
       horizontalDistance: 0,
       nodesConnection: [], // this will eventually be fed from the server. at this moment it's fed by server_genLevel
       distanceBetween: 400,
+      canvasHeight: 0,
     }
   },
   computed: {
 
   },
   mounted() {
-    const ctx = this.$refs.rg.getContext('2d')
-    const topolist = Object.keys(this.adj_list)
-    const adj_list = this.adj_list
-    const coords = this.coors
-    const distanceBetween = this.distanceBetween
-    function drawLine(start, end) {
-      ctx.moveTo(start.x, start.y)
-      ctx.lineTo(end.x, end.y)
-      ctx.stroke()
-    }
+    this.canvasHeight = this.$refs.container.clientHeight
+    const canvas = this.$refs.rg
+    canvas.width = canvas.offsetWidth
+    canvas.height = canvas.offsetHeight
 
-    function drawCircle(center, radius) {
-      ctx.beginPath()
-      ctx.arc(center.x, center.y, radius, 2 * Math.PI, 0)
-      ctx.fill()
-    }
-
-    function drawCurve(start, end) {
-      ctx.beginPath()
-      ctx.moveTo(start.x, start.y)
-      const crHeight = Math.abs(end.y - start.y)
-      const cp1 = {
-        x: end.x,
-        y: end.y + crHeight,
-      }
-
-      ctx.quadraticCurveTo(cp1.x, cp1.y, end.x, end.y)
-      ctx.stroke()
-    }
-
-    function draw_graph() {
-      let y = 20
-      let x = 20
-      for (let i = 0; i < topolist.length; i++) {
-        coords[topolist[i]] = {
-          x, y,
-        }
-
-        drawCircle({ x, y }, 5)
-        y = Math.ceil(Math.random() * 800)
-        x += distanceBetween
-      }
-
-      for (const node in adj_list) {
-        for (const adj of adj_list[node])
-          // drawLine(coords[adj], coords[node])
-          drawCurve(coords[adj], coords[node])
-      }
-    }
-
-    draw_graph()
+    this.render()
   },
 
   updated() {
@@ -104,6 +60,55 @@ export default {
 
       ctx.quadraticCurveTo(cp1.x, cp1.y, end.x, end.y)
       ctx.stroke()
+    },
+    render() {
+      const ctx = this.$refs.rg.getContext('2d')
+      const topolist = Object.keys(this.adj_list)
+      const adj_list = this.adj_list
+      const coords = this.coors
+      const distanceBetween = this.distanceBetween
+      const canvasHeight = this.canvasHeight
+
+      function drawCircle(center, radius) {
+        ctx.beginPath()
+        ctx.arc(center.x, center.y, radius, 2 * Math.PI, 0)
+        ctx.fill()
+      }
+
+      function drawCurve(start, end) {
+        ctx.beginPath()
+        ctx.moveTo(start.x, start.y)
+        const crHeight = Math.abs(end.y - start.y)
+        const cp1 = {
+          x: end.x,
+          y: end.y + crHeight,
+        }
+
+        ctx.quadraticCurveTo(cp1.x, cp1.y, end.x, end.y)
+        ctx.stroke()
+      }
+
+      function draw_graph() {
+        let y = 20
+        let x = 20
+        for (let i = 0; i < topolist.length; i++) {
+          coords[topolist[i]] = {
+            x, y,
+          }
+
+          drawCircle({ x, y }, 5)
+          y = Math.ceil(Math.random() * canvasHeight)
+          x += distanceBetween
+        }
+
+        for (const node in adj_list) {
+          for (const adj of adj_list[node])
+          // drawLine(coords[adj], coords[node])
+            drawCurve(coords[adj], coords[node])
+        }
+      }
+
+      draw_graph()
     },
 
     // server_genLevel() {
@@ -139,8 +144,13 @@ export default {
 <template>
   <div class="rgLike" style="position:absolute;height:100%; width: 100%;" @wheel="scrl">
     <img :style="{'left':'0','transform': 'translateX('+horizontalDistance+'vw)', 'position': 'absolute','width':'344vw','height':'100vw'}" src="/imgs/When_the_city_but_FOGG.png">
-    <div :style="{'left':'0', 'transform': 'translateX('+2*horizontalDistance+'vw)', 'position': 'absolute','width':'511vw','height':'100vw','font-size':'8vh','top': '1vh','overflow':'hidden'}">
-      <canvas ref="rg" style="position:absolute;height:100%;width:100%;"> </canvas>
+    <div ref="container" :style="{'left':'0', 'transform': 'translateX('+2*horizontalDistance+'vw)', 'position': 'absolute','width':'511vw','height':'100vw','font-size':'8vh','top': '1vh','overflow':'hidden'}">
+      <canvas ref="rg" style="position:absolute; width: 100%; height: 100%;"> </canvas>
+      <div v-for="node, index in coors" :key="index" style="position: relative;">
+        <div :style="`top: ${node.y}px; left: ${node.x}px; position: absolute;`">
+          {{ index }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
