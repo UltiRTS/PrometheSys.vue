@@ -58,7 +58,8 @@ export default {
 <template>
   <div class="rgLike" style="position:absolute;height:100%;width:100%;background:black" @wheel="scrl">
     <img :style="{'left':'0','transform': 'translateX('+horizontalDistance+'vw)', 'position': 'absolute','width':'344vw','height':'100vw'}" src="/imgs/When_the_city_but_FOGG.png">
-    <div :style="{'left':'0', 'transform': 'translateX('+2*horizontalDistance+'vw)', 'position': 'absolute','width':'688vw','height':'100vw','font-size':'8vh','top': '1vh','overflow':'hidden'}">
+    <div :style="{'left':'0', 'transform': 'translateX('+2*horizontalDistance+'vw)', 'position': 'absolute','width':'511vw','height':'100vw','font-size':'8vh','top': '1vh','overflow':'hidden'}">
+      dfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffffdfffffffffffffffffff
     </div>
     <div style="font-size:50vh; color:white;top:50%;left:50%;position:absolute;" @click="server_genLevel">
       GET SERVER RESPONSE
