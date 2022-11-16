@@ -21,7 +21,7 @@ onMounted(async () => {
   if (await ipcRenderer.invoke('issubwindow'))
     router.push('popup')
   else
-    router.push('login')
+    router.push('prelogin')
 })
 </script>
 
