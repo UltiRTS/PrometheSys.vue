@@ -18,6 +18,9 @@ ipcRenderer.send('toMain', JSON.stringify({
 // userStore.login({ username: 'test', password: 'testpassword' })
 
 onMounted(async () => {
+  fetch('music/acknowledge.wav').then(res => res.json()).then((obj) => {
+    console.log(obj)
+  })
   if (await ipcRenderer.invoke('issubwindow'))
     router.push('popup')
   else

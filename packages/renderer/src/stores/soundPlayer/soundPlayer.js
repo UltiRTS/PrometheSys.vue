@@ -30,8 +30,8 @@ export async function playNotif(file) {
 
     isMusicPlaying = true
 
-    sourceIntro.buffer = await fetch(`/music/${file}`).then(res => res.arrayBuffer()).then(ArrayBuffer =>
-      audioCtx.decodeAudioData(ArrayBuffer),
+    sourceIntro.buffer = await fetch(`music/${file}`).then(res => res.arrayBuffer()).then(arrayBuffer =>
+      audioCtx.decodeAudioData(arrayBuffer),
     )
     sourceIntro.connect(contextGain)
     // selfState.contextGain.gain.setValueAtTime(selfState.userVolume/100, selfState.audioCtx.currentTime);source.start(0);},fadeDuration*1000

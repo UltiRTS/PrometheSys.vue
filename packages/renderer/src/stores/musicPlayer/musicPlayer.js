@@ -64,7 +64,7 @@ export async function playSound(file, loop) {
       // const bufferIntro = toArrayBuffer(fs.readFileSync(path.join(assets_dir, file)))
       // const bufferLoop = toArrayBuffer(fs.readFileSync(path.join(assets_dir, `loop_${file}`)))
 
-      sourceIntro.buffer = await fetch(`/music/${file}`).then(res => res.arrayBuffer()).then(ArrayBuffer => audioCtx.decodeAudioData(ArrayBuffer))
+      sourceIntro.buffer = await fetch(`music/${file}`).then(res => res.arrayBuffer()).then(ArrayBuffer => audioCtx.decodeAudioData(ArrayBuffer))
 
       const duration = sourceIntro.buffer.duration
       sourceIntro.connect(contextGain)
@@ -72,7 +72,7 @@ export async function playSound(file, loop) {
       audioDelay.delayTime.value = duration - 0.001
       audioDelay.connect(contextGain)
 
-      sourceLoop.buffer = await fetch(`/music/loop_${file}`).then(res => res.arrayBuffer()).then(ArrayBuffer => audioCtx.decodeAudioData(ArrayBuffer))
+      sourceLoop.buffer = await fetch(`music/loop_${file}`).then(res => res.arrayBuffer()).then(ArrayBuffer => audioCtx.decodeAudioData(ArrayBuffer))
       sourceLoop.loop = true
       // set loop fade in
       // gainLoop.gain.setValueAtTime(0, context.currentTime);
@@ -82,7 +82,7 @@ export async function playSound(file, loop) {
       sourceIntro.start(0)
     }
     else {
-      sourceIntro.buffer = await fetch(`/music/${file}`).then(res => res.arrayBuffer()).then(ArrayBuffer =>
+      sourceIntro.buffer = await fetch(`music/${file}`).then(res => res.arrayBuffer()).then(ArrayBuffer =>
         audioCtx.decodeAudioData(ArrayBuffer),
       )
       sourceIntro.connect(contextGain)

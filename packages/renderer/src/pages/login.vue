@@ -579,30 +579,30 @@ function toggleRemember() {
     <div id="stupidCanvas" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events: none;">
       <PBubbles :active="isActive" />
     </div>
-    <div v-if="uStore.network.ws_open.value" id="spotlight" style="position: absolute; height: 100%; width: 100%; top: 0%; left: 0%;">
+    <div v-if="uStore.network.ws_open" id="spotlight" style="position: absolute; height: 100%; width: 100%; top: 0%; left: 0%;">
       <div class="leftSpotLight" style="position: absolute; width: 50%; height: 164%;  left: 0%;top: -60%;"></div>
       <div class="rightSpotLight" style="position: absolute; width: 50%; height: 164%;right: 0%;top: -60%;"></div>
     </div>
-    <div id="cover" :class="{cover:uStore.network.ws_open.value}" style="width: 43%; height: 20%; top: 33%; left: 27%; position: absolute;">
+    <div id="cover" :class="{cover:uStore.network.ws_open}" style="width: 43%; height: 20%; top: 33%; left: 27%; position: absolute;">
       <img src="/imgs/thea_frame.png" style="position: absolute;width: 11vw;filter: drop-shadow(8px 20px 16px #000);">
 
-      <a id="preClick" class="edgy-link" :class="{qichuangyijingchenggong:uStore.network.ws_open.value}" style="filter: drop-shadow(rgb(0, 0, 0) 8px 20px 16px); position: absolute; margin: 2vw; top: -4%; left: 5vw; font-size: 2vw;color:white;" @click="qichuangdachenggong()">
+      <a id="preClick" class="edgy-link" :class="{qichuangyijingchenggong:uStore.network.ws_open}" style="filter: drop-shadow(rgb(0, 0, 0) 8px 20px 16px); position: absolute; margin: 2vw; top: -4%; left: 5vw; font-size: 2vw;color:white;" @click="qichuangdachenggong()">
         <span style="font-family: font6;position: relative;opacity: 0.95;left: 0vw;font-weight: 900;color: rgba(255,255,255,0.9);">目覚める</span>
         <span style="font-family: font8; position: relative; opacity: 0.95; left: -7.95vw;">目覚める</span>
       </a>
 
       <div id="postClick">
-        <div v-if="uStore.network.ws_open.value" class="theaTitle" style="position:absolute;font-family:font2;top:9%;left:19%;font-size:2vw;color:white;opacity:0;">
+        <div v-if="uStore.network.ws_open" class="theaTitle" style="position:absolute;font-family:font2;top:9%;left:19%;font-size:2vw;color:white;opacity:0;">
           THEA,
         </div>
-        <div v-if="uStore.network.ws_open.value" class="theaTitle2" style="position:absolute;font-family:font2;top:29%;%;opacity:0;font-size:1.2vw;left:19%;color:white;">
+        <div v-if="uStore.network.ws_open" class="theaTitle2" style="position:absolute;font-family:font2;top:29%;%;opacity:0;font-size:1.2vw;left:19%;color:white;">
           INC.
         </div>
       </div>
     </div>
 
-    <div id="loginInterface" :style="{'display':(uStore.network.ws_open.value? '':'none')}">
-      <img src="/imgs/thea_auth.png" :class="{loginInterface_bgWaterMark:uStore.network.ws_open.value}" style="opacity:0.00; position: absolute;width: 50vw;top: 70%; ">
+    <div id="loginInterface" :style="{'display':(uStore.network.ws_open? '':'none')}">
+      <img src="/imgs/thea_auth.png" :class="{loginInterface_bgWaterMark:uStore.network.ws_open}" style="opacity:0.00; position: absolute;width: 50vw;top: 70%; ">
 
       <div id="loginbox" class="loginbox" style="position: absolute; height: 100%; width: 100%; mix-blend-mode: screen;">
         <div class="PRTSLOGO" style="position:absolute;top:45%;color:white;margin:0;left:30%;width:12vw;overflow:hidden;">
