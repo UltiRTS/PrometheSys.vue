@@ -24,9 +24,10 @@ export default {
       },
       coors: {},
       horizontalDistance: 0,
-      nodesConnection: [], // this will eventually be fed from the server. at this moment it's fed by server_genLevel
+      // nodesConnection: [], // this will eventually be fed from the server. at this moment it's fed by server_genLevel
       distanceBetween: 400,
       canvasHeight: 0,
+      resizeMon: 0,
     }
   },
   computed: {
@@ -35,10 +36,20 @@ export default {
   mounted() {
     this.canvasHeight = this.$refs.container.clientHeight
     const canvas = this.$refs.rg
-    canvas.width = canvas.offsetWidth
-    canvas.height = canvas.offsetHeight
 
-    this.render()
+    let heighxWidth = 0
+    this.resizeMon = setInterval(() => {
+      if (heighxWidth !== canvas.offsetWidth * canvas.offsetHeight) {
+        canvas.width = canvas.offsetWidth
+        canvas.height = canvas.offsetHeight
+        heighxWidth = canvas.width * canvas.height
+        this.render()
+      }
+    }, 1000)
+  },
+
+  unmounted() {
+    clearInterval(this.resizeMon)
   },
 
   updated() {
@@ -143,8 +154,8 @@ export default {
 
 <template>
   <div class="rgLike" style="position:absolute;height:100%; width: 100%;" @wheel="scrl">
-    <img :style="{'left':'0','transform': 'translateX('+horizontalDistance+'vw)', 'position': 'absolute','width':'344vw','height':'100vw'}" src="/imgs/When_the_city_but_FOGG.png">
-    <div ref="container" :style="{'left':'0', 'transform': 'translateX('+2*horizontalDistance+'vw)', 'position': 'absolute','width':'511vw','height':'100vw','font-size':'8vh','top': '1vh','overflow':'hidden'}">
+    <img :style="{'left':'0','transform': 'translateX('+horizontalDistance+'vw)', 'position': 'absolute','width':'344vw','height':'177vh'}" src="/imgs/When_the_city_but_FOGG.png">
+    <div ref="container" :style="{'left':'2vh', 'transform': 'translateX('+2*horizontalDistance+'vw)', 'position': 'absolute','width':'900vh','height':'172vh','font-size':'8vh','top': '3vh','overflow':'hidden'}">
       <canvas ref="rg" style="position:absolute; width: 100%; height: 100%;"> </canvas>
       <div v-for="node, index in coors" :key="index" style="position: relative;">
         <div :style="`top: ${node.y}px; left: ${node.x}px; position: absolute;`">
