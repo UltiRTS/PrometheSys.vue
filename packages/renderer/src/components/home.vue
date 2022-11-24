@@ -31,7 +31,7 @@ export default defineComponent({
     return res
   },
   computed: {
-    ...mapState(useUserStore, ['joinedGame', 'mainMenuContent', 'modalMenuContent', 'activeWindow', 'network', 'ui']),
+    ...mapState(useUserStore, ['joinedGame', 'mainMenuContent', 'modalMenuContent', 'activeWindow', 'network', 'ui', 'musicPlayer']),
   },
   mounted() { // lifecycle hook
     const canvas = document.querySelector('canvas')
@@ -71,6 +71,7 @@ export default defineComponent({
           this.camRadius = -cam.radius + 10
           this.camRadius_2 = -cam.radius + 2
           cam.alpha = cam.alpha + dt * 0.0001
+          this.musicPlayer.playSound('base.wav', true)
           scene.render()
         })
 

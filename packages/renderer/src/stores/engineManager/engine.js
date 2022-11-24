@@ -60,16 +60,16 @@ export function configureToLaunch(params = {
 let loadingScreenShown = false
 function launchEngine() {
   engineLaunched()
-  const exec = require('child_process').exec
+  const { execFile } = require('child_process')
 
   let result = ''
-  let engineCmdLine
-  if (isLinux)
+  /* let engineCmdLine
+if (isLinux)
     engineCmdLine = `${engine} -write-dir ${path.join(wdir, 'springwritable')} ${path.join(wdir, 'springwritable', 'script.txt')}`
   else
-    engineCmdLine = `start \"\" \"${engine}\" \"${path.join(wdir, 'springwritable', 'script.txt')}\" --write-dir \"${path.join(wdir, 'springwritable')}\"`
-
-  const child = exec(engineCmdLine)
+    engineCmdLine = `start \"\" \'${engine}\' \'${path.join(wdir, 'springwritable', 'script.txt')}\' --write-dir \'${path.join(wdir, 'springwritable')}\'`
+*/
+  const child = execFile(engine, [path.join(wdir, 'springwritable', 'script.txt'), '-write-dir', path.join(wdir, 'springwritable')], { maxBuffer: 1024 * 1024000 })
 
   child.stdout.on('data', (data) => {
     data = data.toString()
