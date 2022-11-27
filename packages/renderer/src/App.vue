@@ -6,14 +6,14 @@ import router from './router'
 import { useUserStore } from './stores'
 
 const store = useUserStore()
-
+/*
 ipcRenderer.send('toMain', JSON.stringify({
   action: 'queryMap',
   data: {
     mapId: '1',
   },
 }))
-
+*/
 // const userStore = useUserStore()
 // userStore.login({ username: 'test', password: 'testpassword' })
 

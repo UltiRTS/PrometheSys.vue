@@ -76,7 +76,7 @@ if (isLinux)
     ipcRenderer.send('pass2popup', 'engine messages')
 
     result += data
-    if (data.includes('Game Loaded')) {
+    if (data.includes('GameID:')) {
       if (loadingScreenShown) {
         ipcRenderer.invoke('popdown')
         loadingScreenShown = false

@@ -5,14 +5,14 @@
   <meta charset="UTF-8" />
   <link rel="icon" href="/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval';" />
   <title>Vite App Renderer</title>
 </head>
 
 <body>
   <div id="app"></div>
-  <script>var exports = {};</script>
-  <script type="module" src="/src/main.ts"></script>
-</body>
 
+</body>
+<script>var exports = {};</script>
+<script type="module" src="/src/main.ts"></script>
 </html>

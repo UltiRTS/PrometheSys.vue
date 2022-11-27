@@ -50,7 +50,7 @@ const enter = () => {
         {{ text2say }}
       </div>
       <div class="submit" style="position:absolute;color: white;font-weight:900;font-size: 3vh;font-family: 'font10';top: 40%;left: 34%;">
-        Submit Game Name
+        {{ uStore.ui.inputGrabber.value.title }}
       </div>
 
       <div style="position:absolute;color: white;font-weight:900;font-size: 3vh;font-family: 'font10';top: 0%;left: 60%;overflow:hidden;height:100%;width: 100%;">
