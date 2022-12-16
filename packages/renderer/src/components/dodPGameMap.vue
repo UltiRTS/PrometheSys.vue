@@ -92,14 +92,14 @@ export default {
       <img src="/imgs/blueprintswblue.png" style="position:absolute;top: 0%;height: 100%;filter: grayscale(100%) brightness(227%);left: -52%;opacity: 0.1;">
     </div>
     <div class="pickerTopBar" style="position:absolute;height:3%;width:100%;background:#2196f3;top:0%;">
-      <div class="mapSearch" :class="{activeTopBar: activeSection== 'search'}" style="position:relative;display:inline-block;height:100%;padding-left:1vw;width:10vh;" @click="setActivePanel('search')">
+      <div class="mapSearch" :class="{activeTopBar: activeSection== 'search'}" style="position:relative;display:inline-block;height:100%;padding-left:1vw;width:10vh;cursor:pointer;" @click="setActivePanel('search')">
         <div :class="{activeTopBarDecro: activeSection== 'search'}" style="position:absolute;width:10vh;height:10%;"></div>
-        <div :class="{activeTopBarText: activeSection== 'search'}" style="position:absolute;width:100%;height:10%;bottom:72%;right:-39%;font-size:1.7vh;font-family:font5;" @click="pickMap">
+        <div :class="{activeTopBarText: activeSection== 'search'}" style="position:absolute;width:100%;height:10%;bottom:72%;right:-39%;font-size:1.7vh;font-family:font5;cursor:pointer;" @click="pickMap">
           SEARCH
         </div>
       </div>
       <div style="position:relative;display:inline-block;width:0.15%;height:80%;bottom:8%;background:#0000005c;font-size:1.7vh;font-family:font5;margin-left:0.5vh;margin-right:0.5vh;"></div>
-      <div class="mapList" :class="{activeTopBar: activeSection== 'list'}" style="position:relative;display:inline-block;height:100%;width:10vh;" @click="setActivePanel('list')">
+      <div class="mapList" :class="{activeTopBar: activeSection== 'list'}" style="position:relative;display:inline-block;height:100%;width:10vh;cursor:pointer;" @click="setActivePanel('list')">
         <div :class="{activeTopBarDecro: activeSection== 'list'}" style="position:absolute;width:100%;height:10%;"></div>
         <div :class="{activeTopBarText: activeSection== 'list'}" style="position:absolute;width:100%;height:10%;bottom:72%;right:-72%;font-size:1.7vh;font-family:font5;">
           LIST
@@ -109,7 +109,7 @@ export default {
     </div>
     <div v-if="activeSection== 'search'" class="mapSearch">
       <div v-if="searchMap.length>0" class="pickerMainBody" style="position: absolute; height: 95%; width: 73%; background: linear-gradient(to right, rgba(128, 128, 128, 0.09) 1px, transparent 1px) 0% 0% / 40px 40px, linear-gradient(rgba(128, 128, 128, 0.06) 1px, transparent 1px) rgba(255, 255, 255, 0.22); bottom: 0%; padding-left: 2vw; padding-top: 2vh;padding-right: 2.1vw;overflow:auto;">
-        <div v-for="(map, mapNum) in searchMap" :key="mapNum" class="singleMapTag" style="position:relative;height:2.6vw;width:2vw;display:inline-block;margin:1vw;" @mouseenter="setPreviee(mapNum)" @click="changeMap(map.id)">
+        <div v-for="(map, mapNum) in searchMap" :key="mapNum" class="singleMapTag" style="position:relative;height:2.6vw;width:2vw;display:inline-block;margin:1vw;cursor:pointer;" @mouseenter="setPreviee(mapNum)" @click="changeMap(map.id)">
           <img :src="imgPath(map.minimap_filename, 'list')" style="top:16%;left:13%;position:absolute;width:71%;height:71%;filter:grayscale(100%) contrast(250%);mix-blend-mode:screen;">
           <div style="position:absolute;color:white;font-weight:900;font-size: 1.3vw;bottom: -23%;right: -24%;font-family: font5;opacity: 0.4;">
             {{ mapNum }}
@@ -150,7 +150,7 @@ export default {
 
     <div v-if="activeSection== 'list'" class="mapList">
       <div v-if="ListMap.length>0" class="pickerMainBody" style="position: absolute; height: 95%; width: 73%; background: linear-gradient(to right, rgba(128, 128, 128, 0.09) 1px, transparent 1px) 0% 0% / 40px 40px, linear-gradient(rgba(128, 128, 128, 0.06) 1px, transparent 1px) rgba(255, 255, 255, 0.22); bottom: 0%; padding-left: 2vw; padding-top: 2vh;padding-right: 2.1vw;overflow:auto;">
-        <div v-for="(map, mapNum) in ListMap" :key="mapNum" class="singleMapTag" style="position:relative;height:2.6vw;width:2vw;display:inline-block;margin:1vw;" @mouseenter="setPreviee(mapNum)" @click="changeMap(map.id)">
+        <div v-for="(map, mapNum) in ListMap" :key="mapNum" class="singleMapTag" style="position:relative;height:2.6vw;width:2vw;display:inline-block;margin:1vw;cursor:pointer;" @mouseenter="setPreviee(mapNum)" @click="changeMap(map.id)">
           <img :src="imgPath(map.minimap_filename, 'list')" style="top:16%;left:13%;position:absolute;width:71%;height:71%;filter:grayscale(100%) contrast(250%);mix-blend-mode:screen;">
           <div style="position:absolute;color:white;font-weight:900;font-size: 1.3vw;bottom: -23%;right: -24%;font-family: font5;opacity: 0.4;">
             {{ mapNum }}
@@ -176,12 +176,12 @@ export default {
           <div style="position:absolute;background:#ffffff69;font-family:font2;color:white;top:18%;right:0%;width:126%;text-align:right;padding-top:2.9vh;font-size:0.9vw;">
             RELATED QUERIES
           </div>
-          <div v-if="listPgNum-1>=0" style="position:absolute;font-family:font1;color:#ffffff59;top:2%;right:3%;font-size:2.1vw;" @click="listMapNextPage(false)">
+          <div v-if="listPgNum-1>=0" style="cursor:pointer;position:absolute;font-family:font1;color:#ffffff59;top:2%;right:3%;font-size:2.1vw;" @click="listMapNextPage(false)">
             {{ listPgNum-1 }}
           </div><div style="position:absolute;font-weight:900;font-size:8vw;font-family:font9;color:white;top:-17%;right:20%;">
             {{ listPgNum }}
           </div>
-          <div style="position:absolute;font-family:font1;color:white;top:13%;right:3%;font-size:2.1vw;&quot;" @click="listMapNextPage(true)">
+          <div style="position:absolute;font-family:font1;color:white;top:13%;right:3%;font-size:2.1vw;cursor:pointer;" @click="listMapNextPage(true)">
             {{ listPgNum+1 }}
           </div><div style="position:absolute;background:#2196f3;font-family:font2;color:white;top:8%;right:28%;width:57%;text-align:right;padding-top:0.9vh;">
             PAGE

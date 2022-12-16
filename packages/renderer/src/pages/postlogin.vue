@@ -121,7 +121,7 @@ export default {
           <div id="" class="ttblock3" style="position:absolute;width:25%;left:87.5%;        transform: skew(20deg);height:100%;" />
         </div>
 
-        <div class="sanity rightHomeMainBtns" style="top:11%;position:absolute;height:25%;width:45%;background: rgb(177 182 183);" @click="ui.setmainMenuContent('home')">
+        <div class="sanity rightHomeMainBtns" style="cursor:pointer;top:11%;position:absolute;height:25%;width:45%;background: rgb(177 182 183);" @click="ui.setmainMenuContent('home')">
           <div style="position:absolute;width: 50.1%;left: 11%;font-size: 10vw;overflow:hidden;height:100%;">
             <p style="position:absolute;width:93.7%;background: #606060;color: #d1d1d1;font-size: 5vh;bottom: 3%;padding-top:5%;padding-bottom:5%;text-align:right;padding-right:4%;filter:drop-shadow(8px 6px 6px rgba(50,50,50,0.9));font-family: font2;font-weight:900;">
               SANITY
@@ -280,7 +280,7 @@ export default {
           <i class="fa fa-flask" aria-hidden="true" style="position:absolute;font-size: 10vw;color: #0000000d;left: 74%;top: 16%;" />
         </div>
 
-        <div class="email rightHomeMainBtns" style="position:absolute;height:19%;width:34%;background:rgba(255,255,255,0.5);left:69.9%;top:81%;" @click="ui.setmainMenuContent('email')">
+        <div class="email rightHomeMainBtns" style="position:absolute;height:19%;width:34%;background:rgba(255,255,255,0.5);left:69.9%;top:81%;cursor:pointer;" @click="ui.setmainMenuContent('email')">
           <div style="position:absolute;width:100%;height:100%;left:9%;overflow:hidden;">
             <p style="position: absolute; top: -6%; font-size: 8vh; font-weight: 900; color: rgba(58, 58, 58, 0.9); filter: drop-shadow(rgba(50, 50, 50, 0.5) 8px 6px 6px);">
               メイル

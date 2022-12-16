@@ -14,7 +14,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(useUserStore, ['mainMenuContent', 'modelMenuContent', 'ui', 'network', 'lobbyDir', 'dntpService', 'joinedGame']),
+    ...mapState(useUserStore, ['mainMenuContent', 'modelMenuContent', 'ui', 'network', 'lobbyDir', 'dntpService', 'joinedGame', 'musicPlayer']),
     pieSize() {
       return {
         width: this.$refs.dodPie.clientWidth,
@@ -76,6 +76,9 @@ export default {
 
   updated() {
 
+  },
+    mounted() {
+    this.musicPlayer.playSound('kaz.wav', true)
   },
   methods: {
     ...mapActions(useUserStore, ['setmainMenuContent', 'setmodalMenuContent', 'setactiveWindow']),
@@ -234,7 +237,7 @@ export default {
         <div style="font-size: 3vh; text-align: right; color: rgba(255, 255, 255, 0.85); top: 14%; position: absolute; left: 0px; background: rgb(88, 88, 88); filter: drop-shadow(rgb(0, 0, 0) 30px 10px 18px); padding: 0.6vh;font-family: font10;">
           {{ ROLENAME }}
         </div>
-        <div style="position: absolute; top: 25%; width: 69%; background: rgb(33, 150, 243); font-family: font5; font-size: 4vh; text-align: right; filter: drop-shadow(rgba(33, 150, 243,0.4) 12px 15px 2.8px);padding-right: 1.9%;padding-top: 2%;height:5.5vh;overflow:hidden;" @click.stop="pickMap">
+        <div style="position: absolute; top: 25%; width: 69%; background: rgb(33, 150, 243); font-family: font5; font-size: 4vh; text-align: right; filter: drop-shadow(rgba(33, 150, 243,0.4) 12px 15px 2.8px);padding-right: 1.9%;padding-top: 2%;height:5.5vh;overflow:hidden;cursor:pointer;" @click.stop="pickMap">
           {{ mapID2Name }}
         </div>
         <div v-if="isMapDlDone" style="position:absolute;height: 8.6%;width:15%;background: rgb(33 150 243 / 0%);overflow: hidden;top: 25%;left:10%;">
@@ -249,12 +252,12 @@ export default {
         <div v-if="isMapDlDone" class="mapAllDone2" style="position: absolute; height: 2.2%; width: 15%; background: rgb(255 255 255); overflow: hidden; top: 25.5%;color:#2196f3;text-align:right;padding-right: 1%;font-family: font5;font-size:1.6vh;">
           READY
         </div>
-        <div data-v-0516f4a8="" style="position: absolute; top: 25%; width: 28.8%; background: rgb(255 255 255); font-family: font5; font-size: 4vh; text-align: right; filter: drop-shadow(rgba(255, 255, 255,0.5) 12px 15px 2.8px);right:0;color:black;mix-blend-mode:screen;padding-top: 2%;padding-right: 0.5%;" @click.stop="viewModelMut">
+        <div data-v-0516f4a8="" style="position: absolute; top: 25%; width: 28.8%; background: rgb(255 255 255); font-family: font5; font-size: 4vh; text-align: right; filter: drop-shadow(rgba(255, 255, 255,0.5) 12px 15px 2.8px);right:0;color:black;mix-blend-mode:screen;padding-top: 2%;padding-right: 0.5%;cursor:pointer;" @click.stop="viewModelMut">
           {{ pickedMod }}
         </div><div class="mapTags" data-v-0516f4a8="" style="position: absolute; top: 37%; width: 100%; padding: 0vh; font-size: 3vh; text-align: right; font-family: font10; font-weight: 900; opacity: 0.9;filter: drop-shadow(rgb(0, 0, 0) 30px 10px 18px);">
           <span data-v-0516f4a8="" style="background: rgb(92, 92, 92); padding: 0.8vh; margin: 2vh; color: rgba(255, 255, 255, 0.88);">FLAT</span><span data-v-0516f4a8="" style="background: rgb(92, 92, 92); padding: 0.8vh; margin: 2vh; color: rgba(255, 255, 255, 0.88);">WATER</span>
         </div><div style="position:absolute;left:0;width:0.4vw;height: 15%;background:#2196f3;filter: drop-shadow(rgba(33, 150, 243,0.5) 12px 15px 2.8px);top: 48%;" data-v-0516f4a8=""></div>
-        <div class="teamSetUp" data-v-0516f4a8="" style="position: absolute; top: 48%; height: 12vh; width: 40%; overflow: hidden;filter: drop-shadow(rgba(0, 0,0, 0.4) 30px 10px 18px);left: -3%;" @click.stop="viewModelTeam">
+        <div class="teamSetUp" data-v-0516f4a8="" style="position: absolute; top: 48%; height: 12vh; width: 40%; overflow: hidden;filter: drop-shadow(rgba(0, 0,0, 0.4) 30px 10px 18px);left: -3%;cursor:pointer;" @click.stop="viewModelTeam">
           <div style="position:absolute;left:18%;width:100%;height:100%;font-size:4vh;font-family:font1;background: #545454d9;top:0%;" data-v-0516f4a8=""></div><div style="position:absolute;left:24%;width:100%;height:100%;font-size:4vh;font-family:font1;top:-2%;" data-v-0516f4a8="">
             配備
           </div><div style="position:absolute;left:24%;width:100%;height:100%;font-size:4vh;font-family: 'font1';top: 62%;" data-v-0516f4a8="">
@@ -263,7 +266,7 @@ export default {
             DEPLOYMENTS
           </div><i class="fa fa-pencil-square-o" aria-hidden="true" style="position:absolute;left:73%;width:100%;height:100%;font-size:9vh;top:45%;opacity:0.5;" data-v-0516f4a8=""></i>
         </div>
-        <div class="mutatorSetUp" data-v-0516f4a8="" style="position: absolute; top: 48%; height: 12vh; width: 40%; overflow: hidden; left: 39%;filter: drop-shadow(rgba(0, 0,0, 0.4) 30px 10px 18px);" @click.stop="viewModelMut">
+        <div class="mutatorSetUp" data-v-0516f4a8="" style="position: absolute; top: 48%; height: 12vh; width: 40%; overflow: hidden; left: 39%;filter: drop-shadow(rgba(0, 0,0, 0.4) 30px 10px 18px);cursor:pointer;" @click.stop="viewModelMut">
           <div style="position:absolute;left:17%;width:100%;height:100%;font-size:4vh;font-family:font1;background: #545454d9;top:0%;" data-v-0516f4a8=""></div><div style="position:absolute;left:24%;width:100%;height:100%;font-size:4vh;font-family:font1;top:-2%;" data-v-0516f4a8="">
             指揮系統
           </div><div style="position:absolute;left:24%;width:100%;height:100%;font-size:4vh;font-family: 'font1';top: 62%;" data-v-0516f4a8="">
@@ -289,17 +292,17 @@ export default {
         </div>
         <div class="noncanonicalOpts" style="position: absolute; top: 62%; width: 100%; right: -33%;height:40%;filter: drop-shadow(15px 20px 8px rgba(0,0,0,0.5));">
           <!--<img src="/imgs/btlop3.png" style="position:absolute;width:45%;">-->
-          <img src="/imgs/btlop2.png" style="position: absolute; width: 45%; left: 26%;" @click="viewDod">
-          <img src="/imgs/btlop4.png" style="position: absolute; width: 28.1%; left: 61%;top: 16.7%;" @click="killGame">
+          <img src="/imgs/btlop2.png" style="position: absolute; width: 45%; left: 26%;cursor:pointer;" @click="viewDod">
+          <img src="/imgs/btlop4.png" style="position: absolute; width: 28.1%; left: 61%;top: 16.7%;cursor:pointer;" @click="killGame">
         </div>
-        <div class="pGameUserOperation" style="position: absolute; height: 14.1%; width: 40%; left: 77%; overflow:hidden; background: #2196f3;top: 94.6%;filter:drop-shadow(8px 8px 6px #545454);" @click="startGame">
+        <div class="pGameUserOperation" style="position: absolute; height: 14.1%; width: 40%; left: 77%; overflow:hidden; background: #2196f3;top: 94.6%;filter:drop-shadow(8px 8px 6px #545454);cursor:pointer;" @click="startGame">
           <div data-v-0516f4a8="" style="position: absolute; font-size: 6vh; top: 28%; left: 11%; color: rgba(255, 255, 255, 0.78); font-family: font2; font-weight: 100;">
             INIT
           </div><div data-v-0516f4a8="" style="position: absolute; font-size: 2vh; top: 11%; left: 13%; color: white; font-family: font5; font-weight: 900; background: black; mix-blend-mode: screen;">
             OPERATION
           </div><img src="/imgs/btlop1.png" data-v-0516f4a8="" style="position: absolute; height: 204%; top: -28%; left: 39%; opacity: 0.2;">
         </div>
-        <div class="pGameUserOperation" style="position: absolute; height: 14.1%; width: 40%; left: 34%; overflow:hidden;; background: #545454;top: 94.6%;filter:drop-shadow(8px 8px 6px #545454);" @click="exitGame">
+        <div class="pGameUserOperation" style="position: absolute; height: 14.1%; width: 40%; left: 34%; overflow:hidden;; background: #545454;top: 94.6%;filter:drop-shadow(8px 8px 6px #545454);cursor:pointer;" @click="exitGame">
           <div style="position:absolute;font-size: 6vh;top: 28%;left: 11%;color: #ffffffc7;font-family: font2;font-weight: 100;">
             HALT
           </div>
@@ -330,7 +333,7 @@ export default {
           </div>
         </div>
       </div><div class="rejoin" style="position:absolute;top:26%;height:40%;background:#767676;left:39%;width:22%;filter:drop-shadow(23px 16px 10px rgba(0,0,0,0.5));" data-v-0516f4a8="">
-        <div style="position:absolute;top:0%;height:100%;background:#767676;left:0%;width:29%;filter:drop-shadow(9px 6px 10px rgba(255,255,255,0.5));overflow:hidden;" @click="miJoin">
+        <div style="position:absolute;top:0%;height:100%;background:#767676;left:0%;width:29%;filter:drop-shadow(9px 6px 10px rgba(255,255,255,0.5));overflow:hidden;cursor:pointer;" @click="miJoin">
           <img src="/imgs/merge.svg" style="transform:rotate(90deg);filter:invert(100%);height:16vh;opacity:0.2;top:-22%;position:absolute;" data-v-0516f4a8=""><div style="top:24%;font-size:3.1vh;font-family:font5;overflow:hidden;right:0%;position:absolute;font-weight:900;color:#ffffffe6;" data-v-0516f4a8="">
             JOIN<br data-v-0516f4a8=""> OPERATION
           </div>

@@ -150,7 +150,7 @@ export default {
         <div class="deco" style="background:#2196f3;position:absolute;height:100%;right:0%;width:88%;">
           <img src="/imgs/horizontalSep3.png" style="position:absolute;width:96%;height:6%;bottom:0%;opacity:0.7;">
         </div>
-        <div style="position:absolute;top:0%;font-size:3.7vw;left:0;color:white;font-family:font9;" @click="chTeam(true, playerName, player.team)" @contextmenu="chTeam(false, playerName, player.team)">
+        <div style="position:absolute;top:0%;font-size:3.7vw;left:0;color:white;font-family:font9;cursor:pointer;" @click="chTeam(true, playerName, player.team)" @contextmenu="chTeam(false, playerName, player.team)">
           {{ player.team }}
         </div><div style="position:absolute;top:0%;font-size:1.8vw;right:0%;color:#5e5e5e;font-family:font9;">
           {{ playerName }}
@@ -158,7 +158,7 @@ export default {
         <div style="position:absolute;top:39%;font-size:1.2vw;right:0%;color:white;font-family:font9;">
           OPRT
         </div>
-        <div class="roleOperation" style=" position: absolute; top: 41%; font-size: 1.2vw; right: 0%;  font-family: font9;height: 1.3vw;width:3vw;margin:0;" :class="{oprtTagMask:focusedTag==playerName, oprtTagMaskGone:focusedTag!=playerName}" @mouseenter="focusedTag=playerName" @mouseleave="focusedTag=''" @click="toggleSpec(playerName)">
+        <div class="roleOperation" style=" position: absolute; top: 41%; font-size: 1.2vw; right: 0%;  font-family: font9;height: 1.3vw;width:3vw;margin:0;cursor:pointer;" :class="{oprtTagMask:focusedTag==playerName, oprtTagMaskGone:focusedTag!=playerName}" @mouseenter="focusedTag=playerName" @mouseleave="focusedTag=''" @click="toggleSpec(playerName)">
           <div :class="{oprtTagFlash:focusedTag==playerName, oprtTagFlashGone:focusedTag!=playerName}" style="position:absolute; height:100%;background:white;margin:0;"></div>
           <div :class="{oprtTagTxt:focusedTag==playerName, oprtTagTxtGone:focusedTag!=playerName}" style="position:absolute;top:0%;font-size:1.2vw;right:0%;margin:0;color:white;font-family:font9;">
             SPEC
@@ -179,7 +179,7 @@ export default {
         </div><div style="position:absolute;top:39%;font-size:1.2vw;right:0%;color:white;font-family:font9;">
           SPEC
         </div>
-        <div class="roleOperation" style=" position: absolute; top: 39%; font-size: 1.2vw; right: 0%;  font-family: font9;height: 1.3vw;width:3vw;margin:0;" :class="{oprtTagMask:focusedTag==playerName, oprtTagMaskGone:focusedTag!=playerName}" @mouseenter="focusedTag=playerName" @mouseleave="focusedTag=''" @click="toggleSpec(playerName)">
+        <div class="roleOperation" style=" position: absolute; top: 39%; font-size: 1.2vw; right: 0%;  font-family: font9;height: 1.3vw;width:3vw;margin:0;cursor:pointer;" :class="{oprtTagMask:focusedTag==playerName, oprtTagMaskGone:focusedTag!=playerName}" @mouseenter="focusedTag=playerName" @mouseleave="focusedTag=''" @click="toggleSpec(playerName)">
           <div :class="{oprtTagFlash:focusedTag==playerName, oprtTagFlashGone:focusedTag!=playerName}" style="position:absolute; height:100%;background:white;margin:0;"></div>
           <div :class="{oprtTagTxt:focusedTag==playerName, oprtTagTxtGone:focusedTag!=playerName}" style="position:absolute;top:0%;font-size:1.2vw;right:0%;margin:0;color:white;font-family:font9;">
             OPRT
@@ -206,7 +206,8 @@ export default {
       <div v-for="player, playerName in joinedGame.ais" :key="playerName" class="individualPlayerTag tagAnime" style="position: relative; display: inline-block; background: rgba(0, 0, 0, 0.16); height: 4vw; width: 8vw; overflow: hidden; margin: 1vw;">
         <img src="/imgs/blueprintswblue.png" style="position:absolute;width:96%;height: 100%;bottom: 0%;opacity: 1;filter: invert(0%) grayscale(0.3) hue-rotate(29deg);left: 55%;;left: -68%;/* mix-blend-mode:multiply; */"><div class="deco" style="background:#2196f3;position:absolute;height:100%;right:0%;width:88%;">
           <img src="/imgs/horizontalSep3.png" style="position:absolute;width:96%;height:6%;bottom:0%;opacity:0.7;">
-        </div><div style="position:absolute;top:0%;font-size:3.7vw;left:0;color:white;font-family:font9;" @click="chAI(true, playerName, player.team)" @contextmenu="chAI(false, playerName, player.team)">
+        </div>
+        <div style="cursor:pointer;position:absolute;top:0%;font-size:3.7vw;left:0;color:white;font-family:font9;" @click="chAI(true, playerName, player.team)" @contextmenu="chAI(false, playerName, player.team)">
           {{ player.team }}
         </div><div style="position:absolute;top:0%;font-size:1.8vw;right:0%;color:#5e5e5e;font-family:font9;">
           {{ playerName }}
@@ -215,7 +216,7 @@ export default {
         </div>
         <div class="roleOperation" style=" position: absolute; top: 41%; font-size: 1.2vw; right: 0%;  font-family: font9;height: 1.3vw;width:3vw;margin:0;" :class="{oprtTagMask:focusedTag==playerName, oprtTagMaskGone:focusedTag!=playerName}" @mouseenter="focusedTag=playerName" @mouseleave="focusedTag=''">
           <div :class="{oprtTagFlash:focusedTag==playerName, oprtTagFlashGone:focusedTag!=playerName}" style="position:absolute; height:100%;background:white;margin:0;"></div>
-          <div :class="{oprtTagTxt:focusedTag==playerName, oprtTagTxtGone:focusedTag!=playerName}" style="position:absolute;top:0%;font-size:1.2vw;right:0%;margin:0;color:white;font-family:font9;" @click="rmAIorChicken(playerName, 'AI')">
+          <div :class="{oprtTagTxt:focusedTag==playerName, oprtTagTxtGone:focusedTag!=playerName}" style="position:absolute;top:0%;font-size:1.2vw;right:0%;margin:0;color:white;font-family:font9;cursor:pointer;" @click="rmAIorChicken(playerName, 'AI')">
             DEL
           </div>
         </div>
@@ -228,7 +229,7 @@ export default {
         <img src="/imgs/blueprintswblue.png" style="position:absolute;width:96%;height: 100%;bottom: 0%;opacity: 1;filter: invert(0%) grayscale(0.3) hue-rotate(29deg);left: 55%;;left: -68%;/* mix-blend-mode:multiply; */"><div class="deco" style="background:#2196f3;position:absolute;height:100%;right:0%;width:88%;">
           <img src="/imgs/horizontalSep3.png" style="position:absolute;width:96%;height:6%;bottom:0%;opacity:0.7;">
         </div>
-        <div style="position:absolute;top:0%;font-size:3.7vw;left:0;color:white;font-family:font9;" @click="chChicken(true, playerName, player.team)" @contextmenu="chChicken(false, playerName, player.team)">
+        <div style="position:absolute;top:0%;font-size:3.7vw;left:0;color:white;font-family:font9;cursor:pointer;" @click="chChicken(true, playerName, player.team)" @contextmenu="chChicken(false, playerName, player.team)">
           {{ player.team }}
         </div><div style="position:absolute;top:0%;font-size:1.8vw;right:0%;color:#5e5e5e;font-family:font9;">
           {{ playerName }}
@@ -237,7 +238,7 @@ export default {
         </div>
         <div class="roleOperation" style=" position: absolute; top: 41%; font-size: 1.2vw; right: 0%;  font-family: font9;height: 1.3vw;width:3vw;margin:0;" :class="{oprtTagMask:focusedTag==playerName, oprtTagMaskGone:focusedTag!=playerName}" @mouseenter="focusedTag=playerName" @mouseleave="focusedTag=''">
           <div :class="{oprtTagFlash:focusedTag==playerName, oprtTagFlashGone:focusedTag!=playerName}" style="position:absolute; height:100%;background:white;margin:0;"></div>
-          <div :class="{oprtTagTxt:focusedTag==playerName, oprtTagTxtGone:focusedTag!=playerName}" style="position:absolute;top:0%;font-size:1.2vw;right:0%;margin:0;color:white;font-family:font9;" @click="rmAIorChicken(playerName, 'Chicken')">
+          <div :class="{oprtTagTxt:focusedTag==playerName, oprtTagTxtGone:focusedTag!=playerName}" style="position:absolute;top:0%;font-size:1.2vw;right:0%;margin:0;color:white;font-family:font9;cursor:pointer;" @click="rmAIorChicken(playerName, 'Chicken')">
             DEL
           </div>
         </div>
@@ -249,11 +250,11 @@ export default {
 
     <div v-if="joinedGame.hoster == username" class="deploymentOp" style="position: absolute; width: 15%; height: 11.4vw; top: 19%; right: 6%; opacity: 0.5; text-align: right;font-size: 0.9vw;font-family: 'font9';">
       <div class="deploymentTxt" style="position: absolute; height: 100%; right:0; width: 89%;">
-        <span @click="addAI">ADD AI</span>
+        <span style="cursor:pointer;" @click="addAI">ADD AI</span>
 
-        <div style="background:black;height: 0.6vw;width: 0.6vw;position:relative;display: inline-block; margin-left: 0.4vw;"></div>
+        <div style="cursor:pointer;background:black;height: 0.6vw;width: 0.6vw;position:relative;display: inline-block; margin-left: 0.4vw;"></div>
         <br>
-        <span @click="addChicken">ADD CHICKEN</span><div style="background:black;height: 0.6vw;width: 0.6vw;position:relative;display: inline-block; margin-left: 0.4vw;">
+        <span style="cursor:pointer;" @click="addChicken">ADD CHICKEN</span><div style="background:black;height: 0.6vw;width: 0.6vw;position:relative;display: inline-block; margin-left: 0.4vw;cursor:pointer;">
         </div>
       </div>
     </div>

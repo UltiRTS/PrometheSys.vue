@@ -586,7 +586,7 @@ function toggleRemember() {
     <div id="cover" :class="{cover:isNetWorkOpen}" style="width: 43%; height: 20%; top: 33%; left: 27%; position: absolute;">
       <img src="/imgs/thea_frame.png" style="position: absolute;width: 11vw;filter: drop-shadow(8px 20px 16px #000);">
 
-      <a id="preClick" class="edgy-link" :class="{qichuangyijingchenggong:isNetWorkOpen}" style="filter: drop-shadow(rgb(0, 0, 0) 8px 20px 16px); position: absolute; margin: 2vw; top: -4%; left: 5vw; font-size: 2vw;color:white;" @click="qichuangdachenggong()">
+      <a id="preClick" class="edgy-link" :class="{qichuangyijingchenggong:isNetWorkOpen}" style="filter: drop-shadow(rgb(0, 0, 0) 8px 20px 16px); position: absolute; margin: 2vw; top: -4%; left: 5vw; font-size: 2vw;color:white;cursor:pointer;" @click="qichuangdachenggong()">
         <span style="font-family: font6;position: relative;opacity: 0.95;left: 0vw;font-weight: 900;color: rgba(255,255,255,0.9);">目覚める</span>
         <span style="font-family: font8; position: relative; opacity: 0.95; left: -7.95vw;">目覚める</span>
       </a>

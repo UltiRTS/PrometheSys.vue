@@ -215,7 +215,7 @@ export default {
 
   <div id="channelContainer" style="position: absolute; right: 3%; font-size: 4vh; top: -4%; width: 10vw; height: 100%;">
     <div v-for="channel in channels" :key="channel" class="channelOutter" :class="{channelTag:current_channel!=channel, channelTagActivated:current_channel==channel}" style="position: relative; margin-bottom: 4vh; width: 134%; cursor: pointer;height: 5vh;">
-      <div style="text-align: right;border-top-right-radius: 1vh; overflow: hidden;position:absolute;top:0;height:100%;width:100%; " @click="onChangeChannel(channel)">
+      <div style="cursor:pointer;text-align: right;border-top-right-radius: 1vh; overflow: hidden;position:absolute;top:0;height:100%;width:100%; " @click="onChangeChannel(channel)">
         <div style="position: absolute; color: white; font-size: 2vh; font-family: font6; text-align: right; left: 0px; width: 87%;top: 53%;">
           {{ lastMsg[channel].msg }}
         </div>
@@ -230,7 +230,7 @@ export default {
     </div>
   </div>
 
-  <div id="channelAdd" class="channelAdd" style="position: absolute; right: -3%; font-size: 4vh; top: 84%; width: 13vw; height: 6%; background: white;cursor:pointer;overflow:hidden;" @click="addChat">
+  <div id="channelAdd" class="channelAdd" style="position: absolute; right: -3%; font-size: 4vh; top: 84%; width: 13vw; height: 6%; background: white;cursor:pointer;overflow:hidden;cursor:pointer;" @click="addChat">
     <div style="position: absolute; color: black; font-size: 2vh; font-family: font6; text-align: right; left: 0px; width: 87%;top: 53%;">
       Add a Chat
     </div>

@@ -182,11 +182,11 @@ export default defineComponent({
             </div>
           </div>
         </div><div class="contentMenu" data-v-957c9522="" style="font-family: font5; pointer-events: auto;">
-          <div data-v-957c9522="" style="position: absolute; font-size: 3vh; top: 85vh; width: 32vh; left: -0.6vh; background: rgb(90, 90, 90); text-align: right; padding-top: 4vh; padding-right: 1vh;" @click.stop="ui.setmainMenuContent('dod')">
+          <div data-v-957c9522="" style="position: absolute; font-size: 3vh; top: 85vh; width: 32vh; left: -0.6vh; background: rgb(90, 90, 90); text-align: right; padding-top: 4vh; padding-right: 1vh;cursor:pointer;" @click.stop="ui.setmainMenuContent('dod')">
             DOCTOR'S DESK
           </div><div data-v-957c9522="" style="position: absolute; font-size: 3vh; top: 73vh; width: 32vh; left: -0.6vh; background: rgb(90, 90, 90); text-align: right; padding-top: 4vh; padding-right: 1vh;">
             RECALL
-          </div><div data-v-957c9522="" style="position: absolute; font-size: 3vh; top: 61vh; width: 32vh; left: -0.6vh; background: rgb(90, 90, 90); text-align: right; padding-top: 4vh; padding-right: 1vh;" @click.stop="ui.setmainMenuContent('rglike')">
+          </div><div data-v-957c9522="" style="position: absolute; font-size: 3vh; top: 61vh; width: 32vh; left: -0.6vh; background: rgb(90, 90, 90); text-align: right; padding-top: 4vh; padding-right: 1vh;cursor:pointer;" @click.stop="ui.setmainMenuContent('rglike')">
             IVORY TOWER
           </div>
         </div>

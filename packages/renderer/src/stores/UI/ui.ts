@@ -12,6 +12,17 @@ export const confirms = ref<{ title: string; msg: string; rej: any;cnfrm: any; a
 export function pushNewLoading(id: string) {
   loadingClass.value = 'alive'
   loadingQ.value.push(id)
+  setTimeout(()=>{
+    function removeFirst(arr: string[], target: string) {
+      const idx = arr.indexOf(target)
+      if (idx > -1)
+        arr.splice(idx, 1)
+  
+      return arr
+    }
+  
+    loadingQ.value = removeFirst(loadingQ.value, id)
+  },60000)
 }
 
 export function rmLoading(id: string) {

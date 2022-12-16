@@ -72,7 +72,7 @@ export default {
       </div>
     </div>
     <div id="dodContent" style="position:absolute;top: 18%;height: 76%;background: transparent;width: 92%;left: 5%;">
-      <div v-if="joinedGame" class="goBack" style="position:absolute;bottom:1%;font-size: 62vh;height: 76vh;width: 122vh;mix-blend-mode:screen;font-family: 'font9';" @click="emitJoinGameResult(joinedGame.title)">
+      <div v-if="joinedGame" class="goBack" style="position:absolute;bottom:1%;font-size: 62vh;height: 76vh;width: 122vh;mix-blend-mode:screen;font-family: 'font9';cursor:pointer;" @click="emitJoinGameResult(joinedGame.title)">
         <i style="position:absolute;bottom: 23%;opacity: 0.05;" class="fa fa-exchange" aria-hidden="true"></i>
         <div style="position:absolute;font-size: 33vh;top: 28%;left: 28%;background: #4a5b66b8;color: #ffffff;opacity:0.2;font-family: 'font';">
           SN 2
@@ -84,7 +84,7 @@ export default {
           AVAILABLE
         </div>
       </div>
-      <div v-for="game in gameListing" :key="game" class="individualGameTag" style="display:inline-block;height: 9vw;width: 22vw;position:relative;filter: drop-shadow(rgba(0,0,0,0.3) 42px 33px 23px);font-size: 2vw;margin:2vw;" @click="emitJoinGameResult(game.title)">
+      <div v-for="game in gameListing" :key="game" class="individualGameTag" style="display:inline-block;height: 9vw;width: 22vw;position:relative;filter: drop-shadow(rgba(0,0,0,0.3) 42px 33px 23px);font-size: 2vw;margin:2vw;cursor:pointer;" @click="emitJoinGameResult(game.title)">
         <div style="height: 100%;width: 2%;position:absolute;background: #ffffff24;font-size: 2vw;" />
         <div style="left: 8%; height: 100%;width: 100%;position:absolute;background: #ffffff24;font-size: 2vw;overflow:hidden;">
           <img src="/imgs/dottedBg.png" style="position:absolute;top: -254%;left: -168%;width: 279%;opacity:40%;">

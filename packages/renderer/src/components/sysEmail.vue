@@ -169,7 +169,7 @@ export default {
               <img src="/imgs/avtSample.png" style="position:absolute;top:10%;width:28vh;height:28vh;left:10%;filter:drop-shadow(9px 13px 6.5px rgba(0,0,0,0.4));">
             </div>
             <div class="usrIngameInfo" style="position:absolute;top:0;left:-43px;width:100%;height:100%;">
-              <div style="position:absolute;font-family:font5;font-weight:900;top:68%;left:6%;font-size:16.7vh;color:#d9d9d9;background:black;mix-blend-mode:multiply;padding-top:0vh;height:23.3vh;overflow:hidden;width:80.9vh;filter:drop-shadow(9px 13px 11px rgba(0,0,0,0.3));opacity:0.9;" @click="confirmFCard()">
+              <div style="cursor:pointer;position:absolute;font-family:font5;font-weight:900;top:68%;left:6%;font-size:16.7vh;color:#d9d9d9;background:black;mix-blend-mode:multiply;padding-top:0vh;height:23.3vh;overflow:hidden;width:80.9vh;filter:drop-shadow(9px 13px 11px rgba(0,0,0,0.3));opacity:0.9;" @click="confirmFCard()">
                 <div style="position:absolute;top:-18%;font-family:font5;font-size:15vh;left:4vh;">
                   FRIEND
                 </div><div style="position:absolute;top:35%;font-family:font5;font-size:15vh;left:19vh;">
@@ -188,7 +188,7 @@ export default {
             </div>
           </div>
           <div v-else class="unknownReq">
-            <div style="position:absolute;font-size: 17vh;color:black;" @click="confirmFCard()">
+            <div style="position:absolute;font-size: 17vh;color:black;cursor:pointer;" @click="confirmFCard()">
               Process unknown req
             </div>
           </div>

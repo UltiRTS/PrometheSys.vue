@@ -64,7 +64,7 @@ export default {
         <img src="/imgs/barC.png" style="position:absolute;top:28%;right: 32.6%;height:33%;opacity:1;filter: invert(100%);background: #bebebe;">
         <img src="/imgs/caret-right-solid.svg" style="position:absolute;top:0%;left:34%;height:13%;opacity:1;filter:invert(16%);transform:rotate(225deg);">
       </div>
-      <div :class="{confirmRej:getLastConfirm.rejAvail, confirmRejDis:!getLastConfirm.rejAvail}" style="position:absolute;top:32%;left:-2%;width:35%;height:42%;background:#4a4a4a;overflow:hidden;" @click="rejectConfirm">
+      <div :class="{confirmRej:getLastConfirm.rejAvail, confirmRejDis:!getLastConfirm.rejAvail}" style="position:absolute;top:32%;left:-2%;width:35%;height:42%;background:#4a4a4a;overflow:hidden;cursor:pointer;" @click="rejectConfirm">
         <div style="position:absolute;top:3%;right:-2%;color:#ffffff12;font-size:4vh;font-family:font10;font-weight:900;">
           REQUEST
         </div><div style="position:absolute;top:33%;right:-4%;color:#ffffff12;font-size:10vh;font-family:font10;font-weight:900;">
@@ -73,7 +73,7 @@ export default {
           拒絶
         </div><img src="/imgs/rej.png" style="position:absolute;top:12%;height:8vh;filter:contrast(56);right:3%;opacity:100%;image-rendering:pixelated;">
       </div>
-      <div :class="{confirmCheck:getLastConfirm.acceAvail, confirmCheckDis:!getLastConfirm.acceAvail}" style="position:absolute;top:32%;right:-2%;width:35%;height:42%;background:#2196f3;overflow:hidden;" @click="acceptConfirm">
+      <div :class="{confirmCheck:getLastConfirm.acceAvail, confirmCheckDis:!getLastConfirm.acceAvail}" style="position:absolute;top:32%;right:-2%;width:35%;height:42%;background:#2196f3;overflow:hidden;cursor:pointer;" @click="acceptConfirm">
         <div style="position:absolute;top:3%;left:-2%;color:#ffffff3b;font-size:4vh;font-family:font10;font-weight:900;">
           REQUEST
         </div><div style="position:absolute;top:33%;left:-4%;color:#ffffff3b;font-size:10vh;font-family:font10;font-weight:900;">

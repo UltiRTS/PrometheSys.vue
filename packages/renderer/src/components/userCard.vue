@@ -72,7 +72,7 @@ export default {
         </div>
         <div style="position:absolute;top:64%;right:30%;color:#ffffffa8;font-family:font5;font-size:0.6vw;background:#424242;padding-right:0.2vw;padding-top:0.7vw;padding-left:1.6vw;filter:drop-shadow(8px 7px 12px rgba(0,0,0,0.6));">
           PM
-        </div><div style="position:absolute;top:64%;right:49%;color:#ffffffa8;font-family:font5;font-size:0.6vw;background:#424242;padding-right:0.2vw;padding-top:0.7vw;padding-left:1vw;filter:drop-shadow(8px 7px 12px rgba(0,0,0,0.6));" @click.stop="addFrnd()">
+        </div><div style="position:absolute;top:64%;right:49%;color:#ffffffa8;font-family:font5;font-size:0.6vw;background:#424242;padding-right:0.2vw;padding-top:0.7vw;padding-left:1vw;filter:drop-shadow(8px 7px 12px rgba(0,0,0,0.6));cursor:pointer;" @click.stop="addFrnd()">
           FRND
         </div>
       </div>
