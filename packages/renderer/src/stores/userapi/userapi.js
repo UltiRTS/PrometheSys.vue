@@ -10,6 +10,8 @@ const request = axios.create({
 })
 
 export async function getUInfo(username) {
+  if(userInfo.value)
+    return
   ui.pushNewLoading('gtUInfo')
   try {
     const resp = await request.get(`/byname/${username}`)

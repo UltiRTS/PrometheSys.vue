@@ -5,7 +5,7 @@ export default {
   // feed those
   data() {
     return {
-      isBottom: false,
+      isBottom: true,
       // channels: ['general', 'room1'],
       current_channel: 'global',
       current_username: '',
@@ -180,9 +180,9 @@ export default {
     <span style="background:white;color: black; font-size: 4.8vh; top: 70%; left: 13vh; position: absolute; font-family: font4; font-weight: 900;">channelTopic</span>
     <img src="/imgs/thea_frame.png" style="color: white; font-size: 4vh; top: 57%; left: -6vh; position: absolute; font-family: font2; width: 34vh;">
   </div>
-  <div id="chatContainer" ref="chats" style="left:3vw;position:absolute;height:85%;width:90%;overflow-x:hidden;overflow-y:auto;top:1%;padding-top:2vh;padding-bottom:2vh;color:white;" @scroll="onscroll">
-    <div v-for="chat in timeline" id="chatBlock" :key="chat.username" style="margin-bottom: 2.5%; position: relative; left: 2%;padding-bottom:1%;">
-      <div id="userHeading" style="left: 2%; margin: 0px 0px 4%; position: relative; font-size: 6vh; font-family: font10; color: rgb(33, 150, 243); height: 7.3vh;overflow:hidden;" @mouseover.stop="current_username = chat.username">
+  <div id="chatContainer" ref="chats" style="left:3vw;position:absolute;height:85%;width:90%;overflow-x:hidden;overflow-y:auto;top:1%;padding-top:2vh;padding-bottom:2vh;color:white;" @scroll="onscroll" @click="current_username = '';userapi.resetUserInfo();">
+    <div v-for="chat in timeline" id="chatBlock" :key="chat.username" style="margin-bottom: 2.5%; position: relative; left: 2%;padding-bottom:1%;width:98%;">
+      <div id="userHeading" style="left: 2%; margin: 0px 0px 4%; position: relative; font-size: 6vh; font-family: font10; color: rgb(33, 150, 243); height: 7.3vh;overflow:hidden;" @click.stop="current_username = chat.username">
         <div style="opacity: 0.4; margin-right: 2vh; font-weight: 700;width: 16.8vw;overflow:hidden;position:relative;">
           {{ chat.username }}
         </div>
@@ -191,7 +191,7 @@ export default {
         </div>
       </div>
 
-      <div id="userMsgs" style="left:2%;font-size:2vh;height:100%;position:relative;font-family:font5;">
+      <div id="userMsgs" style="left:2%;font-size:2vh;height:100%;position:relative;font-family:font5;width:98%;">
         <div v-for="(message, index) in chat.chats" :id="chat.username" :key="index" class="chat" style="margin:0;">
           {{ message.msg }}
         </div>
@@ -200,7 +200,7 @@ export default {
 
       <div v-if="chat.chats[0].timestring" id="timeBlk" style="position: absolute; right: 0%; bottom: 0px;height: 14vh;width:20%;" v-html="chat.chats[0].timestring">
       </div>
-      <userCard v-if="current_username == chat.username" :username="chat.username" @mouseleave="current_username = '';userapi.resetUserInfo();" />
+      <userCard v-if="current_username == chat.username" :username="chat.username"  />
     </div>
   </div>
 
@@ -210,7 +210,7 @@ export default {
 
       <span style="font-size: min(4vh,2.6vw);color: #74747417;font-weight:900;right:0;bottom:0;position:absolute;">送る</span>
     </div>
-    <textarea v-model="msg" style="position: absolute; color: white; width: 90%; height: 85%; padding: 0px; border-width: 0px; background: #ffffff00; resize: none; outline: none; right: 0%; margin: 0px; top: 7%;overflow:auto;font-family:font5;">{ msg }</textarea>
+    <textarea v-model="msg" @keyup.enter.stop ="sendMessage" style="position: absolute; color: white; width: 90%; height: 85%; padding: 0px; border-width: 0px; background: #ffffff00; resize: none; outline: none; right: 0%; margin: 0px; top: 7%;overflow:auto;font-family:font5;">{ msg }</textarea>
   </div>
 
   <div id="channelContainer" style="position: absolute; right: 3%; font-size: 4vh; top: -4%; width: 10vw; height: 100%;">

@@ -152,6 +152,9 @@ function writeMapStats(msg: StateMessage) {
   const mapBeingDownloaded = msg.state.user.game.mapId
   if (mapsBeingDownloaded.includes(mapBeingDownloaded))
     return
+  
+  if(msg.state.user.game.players[username.value].hasmap)
+    return
 
   mapsBeingDownloaded.push(mapBeingDownloaded)
 
@@ -166,12 +169,11 @@ function writeMapStats(msg: StateMessage) {
         mapsBeingDownloaded.splice(index, 1) // 2nd parameter means remove one item only
       }
 
-      if (msg.action === 'JOINGAME' || msg.action === 'SETMAP') { // gota submit again if I havent submitted
-        hasMap({
+     hasMap({
           mapId: mapBeingDownloaded,
         })
-        pushUINewNotif({ title: 'MAP', msg: 'New Map Retrieved', class: 'aaa' })
-      }
+        
+      
     })
   })
 }
