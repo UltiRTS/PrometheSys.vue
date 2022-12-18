@@ -16,10 +16,12 @@ export default {
     },
   },
   mounted() {
-    this.userapi.getUInfo(this.username)
+    if(!this.userapi.panelAlreadyShown.value){
+      this.userapi.getInfoLock()
+      this.userapi.getUInfo(this.username)
     setTimeout(() => {
       this.showInfo = 'userInfoRealPanel'
-    }, 1150)
+    }, 1150)}
   },
 
   updated() {
