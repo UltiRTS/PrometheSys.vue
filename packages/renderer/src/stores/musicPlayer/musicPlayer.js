@@ -92,7 +92,16 @@ export async function playSound(file, loop) {
   }
 }
 
+export function toggleSound(){
+  if (isMusicPlaying)
+    stopSound()
+  else
+    resumeSound()
+}
+
 export function stopSound() {
+  if(!isMusicPlaying)
+    return
   const t0 = performance.now()
   function dialDown(time) {
     const dt = time - t0
