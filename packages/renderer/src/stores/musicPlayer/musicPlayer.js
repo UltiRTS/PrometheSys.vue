@@ -1,4 +1,5 @@
 let isMusicPlaying = false
+let isTransitioning = false
 let audioCtx
 let contextGain
 let userVol = 100
@@ -6,17 +7,17 @@ let sourceIntro
 let sourceLoop
 let audioDelay
 let soundFile
-let isLoop
 let automaticVolume = 1
 
 export function setVol(uvl) {
   userVol = uvl
 }
 export async function playSound(file, loop) {
+  if (isTransitioning)
+    return
   if (file === soundFile && isMusicPlaying) // if requesting to play the same music that is playing
     return
   soundFile = file
-  isLoop = loop
   // console.log(`playing${file}`)
   if (!isMusicPlaying) {
     audioCtx = new AudioContext()
@@ -26,19 +27,26 @@ export async function playSound(file, loop) {
     actuallyPlay()
   }
   else {
+    isTransitioning = true
     // console.log('trying to stop music')
     const t0 = performance.now()
     function dialDown(time) {
       const dt = time - t0
-      // console.log(dt)
+      if(automaticVolume == 0)
+        return
+      automaticVolume = (1000 - dt) / 1000
       if (dt >= 1000) {
+        automaticVolume = 0
         actuallyPlay()
+        
       }
       else {
         contextGain.gain.setValueAtTime(
-          automaticVolume * (userVol / 100) * ((1000 - dt) / 1000),
+          
+          automaticVolume * (userVol / 100),
           audioCtx.currentTime,
         )
+        console.log('lp1')
         window.requestAnimationFrame(dialDown)
       }
     }
@@ -46,7 +54,7 @@ export async function playSound(file, loop) {
   }
 
   async function actuallyPlay() {
-    contextGain.gain.setValueAtTime(automaticVolume * userVol / 100, audioCtx.currentTime)
+    
     // const assets_dir = path.join(__dirname, 'music')
     try {
       sourceIntro.disconnect(contextGain)
@@ -54,7 +62,8 @@ export async function playSound(file, loop) {
     }
     catch {
     }
-
+    automaticVolume = 1
+    contextGain.gain.setValueAtTime(automaticVolume * userVol / 100, audioCtx.currentTime)
     isMusicPlaying = true
     sourceIntro = audioCtx.createBufferSource()
     sourceLoop = audioCtx.createBufferSource()
@@ -89,11 +98,12 @@ export async function playSound(file, loop) {
       // selfState.contextGain.gain.setValueAtTime(selfState.userVolume/100, selfState.audioCtx.currentTime);source.start(0);},fadeDuration*1000
       sourceIntro.start(0)
     }
+    isTransitioning = false
   }
 }
 
 export function toggleSound(){
-  if (isMusicPlaying)
+  if (automaticVolume==1)
     stopSound()
   else
     resumeSound()
@@ -102,20 +112,17 @@ export function toggleSound(){
 export function stopSound() {
   if(!isMusicPlaying)
     return
+  if (isTransitioning)
+    return
   const t0 = performance.now()
+  isTransitioning = true
   function dialDown(time) {
     const dt = time - t0
 
     if (dt >= 1000) {
-      isMusicPlaying = false
-      try {
-        sourceIntro.disconnect(contextGain)
-      }
-      catch { }
-      try {
-        sourceLoop.disconnect(audioDelay)
-      }
-      catch { }
+      isTransitioning = false
+      automaticVolume = 0
+      contextGain.gain.setValueAtTime(automaticVolume * userVol / 100, audioCtx.currentTime)
     }
     else {
       automaticVolume = (1000 - dt) / 1000
@@ -123,6 +130,7 @@ export function stopSound() {
         (userVol / 100) * (automaticVolume),
         audioCtx.currentTime,
       )
+      console.log('lp2')
       window.requestAnimationFrame(dialDown)
     }
   }
@@ -130,6 +138,31 @@ export function stopSound() {
 }
 
 export function resumeSound() {
-  automaticVolume = 1
-  playSound(soundFile, isLoop)
+  if(!isMusicPlaying)
+    return
+  if (isTransitioning)
+    return
+  isTransitioning = true
+    // console.log('trying to stop music')
+    const t0 = performance.now()
+    function dialUp(time) {
+      const dt = time - t0
+      if(automaticVolume == 1)
+        return
+      automaticVolume = (dt) / 1000
+      if (dt >= 1000) {
+        automaticVolume = 1
+        isTransitioning = false
+      }
+      else {
+        contextGain.gain.setValueAtTime(
+          
+          automaticVolume * (userVol / 100),
+          audioCtx.currentTime,
+        )
+        console.log('lp1')
+        window.requestAnimationFrame(dialUp)
+      }
+    }
+    window.requestAnimationFrame(dialUp)
 }
