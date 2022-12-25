@@ -21,6 +21,7 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SampleComponent: typeof import('./src/components/sampleComponent.vue')['default']
+    'SampleComponent copy': typeof import('./src/components/sampleComponent copy.vue')['default']
     SysEmail: typeof import('./src/components/sysEmail.vue')['default']
     UserCard: typeof import('./src/components/userCard.vue')['default']
     VisConfirmation: typeof import('./src/components/visConfirmation.vue')['default']

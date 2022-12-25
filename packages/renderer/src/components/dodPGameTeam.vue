@@ -12,7 +12,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(useUserStore, ['joinedGame', 'username']),
+    ...mapState(useUserStore, ['joinedGame', 'username', 'network']),
     spectators() {
       const spec = {}
       for (const player in this.joinedGame.players) {
@@ -155,8 +155,11 @@ export default {
         </div><div style="position:absolute;top:0%;font-size:1.8vw;right:0%;color:#5e5e5e;font-family:font9;">
           {{ playerName }}
         </div>
-        <div style="position:absolute;top:39%;font-size:1.2vw;right:0%;color:white;font-family:font9;">
+        <div v-if="playerName != network.joinedGame.value.hoster" style="position:absolute;top:39%;font-size:1.2vw;right:0%;color:white;font-family:font9;">
           OPRT
+        </div>
+        <div v-if="playerName == network.joinedGame.value.hoster" style="position:absolute;top:39%;font-size:1.2vw;right:0%;color:white;font-family:font9;">
+          CRDT
         </div>
         <div class="roleOperation" style=" position: absolute; top: 41%; font-size: 1.2vw; right: 0%;  font-family: font9;height: 1.3vw;width:3vw;margin:0;cursor:pointer;" :class="{oprtTagMask:focusedTag==playerName, oprtTagMaskGone:focusedTag!=playerName}" @mouseenter="focusedTag=playerName" @mouseleave="focusedTag=''" @click="toggleSpec(playerName)">
           <div :class="{oprtTagFlash:focusedTag==playerName, oprtTagFlashGone:focusedTag!=playerName}" style="position:absolute; height:100%;background:white;margin:0;"></div>
@@ -182,7 +185,7 @@ export default {
         <div class="roleOperation" style=" position: absolute; top: 39%; font-size: 1.2vw; right: 0%;  font-family: font9;height: 1.3vw;width:3vw;margin:0;cursor:pointer;" :class="{oprtTagMask:focusedTag==playerName, oprtTagMaskGone:focusedTag!=playerName}" @mouseenter="focusedTag=playerName" @mouseleave="focusedTag=''" @click="toggleSpec(playerName)">
           <div :class="{oprtTagFlash:focusedTag==playerName, oprtTagFlashGone:focusedTag!=playerName}" style="position:absolute; height:100%;background:white;margin:0;"></div>
           <div :class="{oprtTagTxt:focusedTag==playerName, oprtTagTxtGone:focusedTag!=playerName}" style="position:absolute;top:0%;font-size:1.2vw;right:0%;margin:0;color:white;font-family:font9;">
-            OPRT
+            {{ getUserRole }}
           </div>
         </div>
         <div class="typographPlayer" style="pointer-events: none;position:absolute;font-size:2.3vw;right:0%;color:#ffffff21;font-family:font9;">
