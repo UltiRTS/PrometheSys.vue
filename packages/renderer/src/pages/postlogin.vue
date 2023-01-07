@@ -5,10 +5,11 @@
 import { mapActions, mapState } from 'pinia'
 import { useUserStore } from '../stores'
 import rglike from '../components/rglike.vue'
+import FrdSelectPanel from '../components/frdSelectPanel.vue'
 // import dodPGameTeam from '../components/dodPGameTeam.vue'
 
 export default {
-  components: { rglike },
+  components: { rglike, FrdSelectPanel },
   // components: { dodPGameTeam },
   data() {
     return {
@@ -103,6 +104,7 @@ export default {
       <div id="modalMenu" :style="{ opacity: shouldIlightUpModal }"
         style="transform: rotateY(15.6deg) translateZ(10vw) translateX(-55vw); top: 5%;width: 56%; height: 84%; position: absolute; backdrop-filter: blur(5px);"
         @click="activateModal" @mouseover="mouseOn = &quot;modal&quot;" @mouseleave="mouseOn = 'default'">
+        <FrdSelectPanel v-if="modalMenuContent == 'FrdSelectPanel'" />
         <Chat v-if="modalMenuContent == 'chat'" />
         <dod-p-game-team v-if="modalMenuContent == 'dod-p-game-team'" />
         <dod-p-game-map v-if="modalMenuContent == 'dodPGameMap'" />

@@ -188,7 +188,7 @@ export default {
             {{ getUserRole }}
           </div>
         </div>
-        <div class="typographPlayer" style="pointer-events: none;position:absolute;font-size:2.3vw;right:0%;color:#ffffff21;font-family:font9;">
+        <div class="typographSpec" style="pointer-events: none;position:absolute;font-size:2.3vw;right:0%;color:#ffffff21;font-family:font9;">
           SPECTATOR
         </div>
       </div>
@@ -320,28 +320,7 @@ export default {
   }
 }
 
-.typographPlayer{
-  animation-fill-mode: forwards;
-  animation-name: typographPlayer;
-  animation-duration: 0.6s;
-  animation-iteration-count: 1;
-  animation-delay: 0s;
-  opacity: 0;
-  animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
-}
 
-@keyframes typographPlayer {
-
-  0% {
-    top:100%;
-    opacity: 0;
-  }
-
-  100% {
-    top:44%;
-    opacity: 1;
-  }
-}
 
 .oprtTagMaskGone{
   animation-fill-mode: forwards;

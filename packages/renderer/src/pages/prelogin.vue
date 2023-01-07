@@ -40,10 +40,7 @@ uStore.musicPlayer.playSound('bbl.wav', true)
       </div>
     </div>
     <div id="warning" class="warning" style="opacity:0;">
-      <img
-        src="/imgs/When_the_city_but_FOGG.png" style="-webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
-      mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));"
-      >
+      <img src="/imgs/When_the_city_but_FOGG.png" style="-webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0))); mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));position:absolute;width:100%;">
       <div style="position:absolute;left: 27vw;width: 9vw;top: 13%;height: 20vw;">
         <img src="/imgs/thea.png" style="position:absolute;width:100%">
       </div>

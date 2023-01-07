@@ -5,7 +5,7 @@ import { pushConfirm, pushNewLoading, pushUINewNotif, rmLoading } from '../UI/ui
 import router from '../../router'
 import * as dntp from '../mapAPI/dntpService'
 import * as engineMgr from '../engineManager/engine'
-import type { Confirmation, Game, GameBrief, Notification, PING, StateMessage } from './interfaces'
+import type { Confirmation, Game, GameBrief, Notification, PING, StateMessage, User } from './interfaces'
 
 let ws: WebSocket
 export const ws_open = ref<boolean>(false)
@@ -19,6 +19,7 @@ export const gameListing = ref<GameBrief[]>()
 export const joinedGame = ref<Game | null>()
 export const username = ref('')
 export const userState = ref({ isLoggedIn: false })
+export const userDetail = ref<User>()
 export const confirmations = ref<Confirmation[]>()
 
 const password = ref('')
@@ -62,6 +63,7 @@ export function initNetWork(isRe = false) {
 
     // chat section
     writeChatStats(msg)
+    userDetail.value = msg.state.user 
     joinedGame.value = msg.state.user.game
     gameListing.value = msg.state.games
 
@@ -330,6 +332,39 @@ export function leaveGame() {
     seq: randomInt(0, 1000000),
   }
   wsSendServer(tx)
+}
+
+export function createAdv() {
+  const tx = {
+    action: 'ADV_CREATE',
+    parameters: {
+    },
+    seq: randomInt(0, 1000000),
+  }
+  wsSendServer(tx)
+}
+
+export function ADV_RECRUIT(friendName: string) {
+  const tx = {
+    action: 'ADV_RECRUIT',
+    parameters: {
+        friendName,
+    },
+    seq: randomInt(0, 1000000)
+}
+  wsSendServer(tx)
+}
+
+export function forfeit(){
+
+const tx =   {
+  action: 'ADV_FORFEIT',
+  parameters: {
+  },
+  seq: randomInt(0, 1000000)
+}
+
+wsSendServer(tx)
 }
 
 export function setAIorChicken(params: {

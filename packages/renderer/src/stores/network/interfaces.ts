@@ -40,6 +40,9 @@ export interface Confirmation {
 }
 
 export interface User {
+  friends: string[]
+  friendsMarked: string[]
+  friendsOnline: string[]
   username: string
   exp: number
   sanity: number
