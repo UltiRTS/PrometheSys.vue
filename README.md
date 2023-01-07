@@ -1,77 +1,26 @@
 <div align="center">
   
-![image](https://user-images.githubusercontent.com/32544586/163651496-2589c0b0-4151-4941-9d90-4275eea5fd83.png)
+![image](https://github.com/UltiRTS/PrometheSys.vue/blob/main/demos/Screenshot%20from%202023-01-06%2018-04-07.png?raw=true)
+![image](https://github.com/UltiRTS/PrometheSys.vue/blob/main/demos/Screenshot%20from%202023-01-06%2018-11-08.png?raw=true)
+![image](https://github.com/UltiRTS/PrometheSys.vue/blob/main/demos/Screenshot%20from%202023-01-06%2018-11-19.png?raw=true)
+![image](https://github.com/UltiRTS/PrometheSys.vue/blob/main/demos/Screenshot%20from%202023-01-06%2018-11-26.png?raw=true)
+![image](https://github.com/UltiRTS/PrometheSys.vue/blob/main/demos/Screenshot%20from%202023-01-06%2018-13-10.png?raw=true)
+![image](https://github.com/UltiRTS/PrometheSys.vue/blob/main/demos/Screenshot%20from%202023-01-06%2018-14-20.png?raw=true)
+![image](https://github.com/UltiRTS/PrometheSys.vue/blob/main/demos/Screenshot%20from%202023-01-06%2018-14-27.png?raw=true)
+![image](https://github.com/UltiRTS/PrometheSys.vue/blob/main/demos/Screenshot%20from%202023-01-06%2018-14-33.png?raw=true)
+![image](https://github.com/UltiRTS/PrometheSys.vue/blob/main/demos/Screenshot%20from%202023-01-06%2018-14-44.png?raw=true)
+![image](https://github.com/UltiRTS/PrometheSys.vue/blob/main/demos/Screenshot%20from%202023-01-06%2018-14-54.png?raw=true)
+![image](https://github.com/UltiRTS/PrometheSys.vue/blob/main/demos/Screenshot%20from%202023-01-06%2018-15-03.png?raw=true)
 
-A simple starter template for a **Vue3** + **Electron** TypeScript based application, including **ViteJS** and **Electron Builder**.
+明日方舟风格的RTS 游戏/an ARKNIGHTS Styled RTS Game
 </div>
 
 ## About
 
-This template utilizes [ViteJS](https://vitejs.dev) for building and serving your (Vue powered) front-end process, it provides Hot Reloads (HMR) to make development fast and easy ⚡
-
-Building the Electron (main) process is done with [Electron Builder](https://www.electron.build/), which makes your application easily distributable and supports cross-platform compilation 😎
+An arknights inspired RTS game. The game primarily follows the industrial metro which was the earliest seen on win8/winrt devices. The game is based on spring rts; the server is running on node js and the UI is in vue
+一个明日方舟审美的游戏, 这个游戏主要采用metro 设计. 服务器是node, 游戏本体是spring rts, ui 是vue
 
 ## Getting started
 
-Click the green **Use this template** button on top of the repository, and clone your own newly created repository.
-
-**Or..**
-
-Clone this repository: `git clone git@github.com:Deluze/electron-vue-template.git`
-
-### Install dependencies ⏬
-
-```bash
-npm install
-```
-
-### Start developing ⚒️
-
-```bash
-npm run dev
-```
-
-## Additional Commands
-
-```bash
-npm run dev # starts application with hot reload
-npm run build # builds application
-
-# OR
-
-npm run build:win # uses windows as build target
-npm run build:mac # uses mac as build target
-npm run build:linux # uses linux as build target
-```
-
-Optional configuration options can be found in the [Electron Builder CLI docs](https://www.electron.build/cli.html).
-
-## Project Structure
-
-```bash
-- root
-  - config/
-    - vite.js # ViteJS configuration
-    - electron-builder.json # Electron Builder configuration
-  - scripts/ # all the scripts used to build or serve your application, change as you like.
-  - src/
-    - main/ # Main thread (Electron application source)
-    - renderer/ # Renderer thread (VueJS application source)
-```
-
-## Using static files
-
-If you have any files that you want to copy over to the app directory after installation, you will need to add those files in your `src/main/static` directory.
-
-#### Referencing static files from your main process
-
-```js
-/* Assumes src/main/static/yourFile.txt exists */
-
-const FileSystem = require('fs')
-const Path = require('path')
-const { app } = require('electron')
-
-const path = Path.join(app.getAppPath(), 'static', 'yourFile.txt')
-const contents = FileSystem.readFileSync(path)
-```
+This is still a largely wip, please contact me if you'd be interested in a opensource rts spin off of arknights; QQ: 2973733208 Discord: Kal'tsit#3130 and we can talk more about it. 
+正在寻找合作者, 如果想业余参与node 和前段方面的游戏开发可以联系我(Teresa R.) QQ: 2973733208 Discord: Kal'tsit#3130 
