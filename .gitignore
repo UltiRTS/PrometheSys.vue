@@ -5,7 +5,7 @@ dist-ssr
 *.local
 .debug.env
 .vscode
-
+.idea
 tmp
 **/.tmp
 release
