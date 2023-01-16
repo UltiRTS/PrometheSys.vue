@@ -143,7 +143,7 @@ export default {
         </div>
         <div v-if="confirmations.length > 0 && isReloaded" style="transform-style: preserve-3d;position:absolute;top:0;height:100%;right:0;width:100%;background:#fffbf094;overflow:hidden;backdrop-filter:blur(9px);filter:drop-shadow(9px 13px 0px rgba(255,255,255,0.5));">
           <img src="/imgs/hexabg.jpg" style="position:absolute;filter:grayscale(99%);right:0%;height:96%;opacity:0.1;-webkit-mask-image:linear-gradient(87deg,rgb(0 255 220 / 0%) 49%, rgb(255 0 0));">
-          <!----<div v-if="cardInfo.type === 'friend'" class="frdReq">
+          <div v-if="cardInfo.type === 'friend'" class="frdReq">
             <div style="position:absolute;font-family:font5;font-weight:900;top:0%;right:-1%;font-size:29vh;color:#daa70e4f;">
               REQUEST
             </div>
@@ -200,8 +200,8 @@ export default {
                 </div>
               </div>
             </div>
-          </div>-->
-          <div data-v-b484bd42="" style="position:absolute;top:0px;left:0px;width:100%;height:100%;transform-style:preserve-3d;">
+          </div>
+          <div v-if="cardInfo.type === 'adv_recruit'" style="position:absolute;top:0px;left:0px;width:100%;height:100%;transform-style:preserve-3d;">
             <div style="position:absolute;width: 55%;height: 17%;top:20%;overflow:hidden;filter: invert(76%) hue-rotate(166deg) sepia(101%) contrast(101%);transform: translateZ(-68vh);opacity: 0.3;right:2%;">
               <img src="/imgs/angles-right-solid.svg" style="position:absolute;height: 170%;top: -35%;">
               <img src="/imgs/angles-right-solid.svg" style="position:absolute;height: 170%;top: -35%;left: 14%;"><img src="/imgs/angles-right-solid.svg" style="position:absolute;height: 170%;top: -35%;left: 28%;"><img src="/imgs/angles-right-solid.svg" style="position:absolute;height: 170%;top: -35%;left: 42%;"><img src="/imgs/angles-right-solid.svg" style="position:absolute;height: 170%;top: -35%;left: 56%;"><img src="/imgs/angles-right-solid.svg" style="position:absolute;height: 170%;top: -35%;left: 70%;"><img src="/imgs/angles-right-solid.svg" style="position:absolute;height: 170%;top: -35%;left: 84%;">
@@ -214,7 +214,7 @@ export default {
               <div style="position:absolute;font-size: 8vh;font-weight:900;left:0%;">[</div>
               <div style="position:absolute;font-size: 8vh;font-weight:900;right: 0%;">]</div>
             </div>
-            <div class="remoteAcess" style="position:absolute;width: 49%;height: 33%;top: 51%;left: 28%;transform: translateZ(68vh);">
+            <div class="remoteAcess" style="position:absolute;width: 49%;height: 33%;top: 51%;left: 28%;transform: translateZ(68vh);" @click="confirmFCard()">
               <div class="props" style="position:absolute;top: 87%;right: -13%;font-family: font10;font-size: 4vh;color:black;font-weight:900;width: 100%;text-align:right;">
                 <i class="fa fa-superpowers" aria-hidden="true"></i>
                 <i class="fa fa-grav" aria-hidden="true"></i>
@@ -266,11 +266,11 @@ export default {
               <div class="floor" data-v-b484bd42="" style="position:absolute;top:91%;left:0%;height:20vh;width:20vh;background:rgba(141, 141, 141, 0.45);transform:translateY(0vh) translateZ(0vh) rotateY(180deg) rotateX(69deg) rotateZ(135deg);"></div>
             </div>
           </div>
-          <!--<div v-else class="unknownReq">
+          <div v-else class="unknownReq">
             <div style="position:absolute;font-size: 17vh;color:black;cursor:pointer;" @click="confirmFCard()">
               Process unknown req
             </div>
-          </div>-->
+          </div>
         </div>
         <div v-if="confirmations.length <= 0 || !isReloaded" style="position: absolute; top: 30%; left: 29%; height: 100%; width: 100%;">
           <corpEmoji :emoji-seq="['questionMark', 'good']" />
