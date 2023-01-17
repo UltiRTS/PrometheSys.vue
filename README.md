@@ -24,4 +24,4 @@ An arknights inspired RTS game. The game primarily follows the industrial metro 
 ## Getting started
 
 This is still a largely wip, please contact me if you'd be interested in a opensource rts spin off of arknights; QQ: 2973733208 Discord: Kal'tsit#3130 and we can talk more about it. 
-正在寻找合作者, 如果想业余参与node 和前段方面的游戏开发可以联系我(Teresa R.) QQ: 2973733208 Discord: Kal'tsit#3130 
+正在寻找合作者, 如果想业余参与node 和前段方面的游戏开发可以联系我(Teresa R.) QQ群(484071793): https://qm.qq.com/cgi-bin/qm/qr?k=AUXcVJQ4i2cck6gVGRtRQ3jLxjKi-Wvt&authKey=sRg6tJrYBpBiwdRQmf0KOULUjmRRpnglLc40oXRoH/C/N3MNUIUrUab4g6T4bzp1&noverify=0  Discord: Kal'tsit#3130 
