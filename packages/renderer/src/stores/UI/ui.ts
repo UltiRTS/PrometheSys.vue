@@ -75,7 +75,7 @@ export function clearGrabber() {
   grabberActivated.value = false
 }
 */
-export function getTextThroughGrabber(title: string) {
+export function getTextThroughGrabber(title: string): Promise<string> {
   return new Promise((resolve, reject) => {
     inputGrabber.value = { title, rej: reject, cnfrm: resolve }
   })
