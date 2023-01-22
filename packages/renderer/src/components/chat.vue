@@ -13,7 +13,6 @@ const msg = ref('')
 const uStore = useUserStore()
 const { chatLog, joinedChannels,  } = storeToRefs(uStore)
 const {network, ui, userapi } = uStore
-console.log({networkUnreadChannel: network.unreadChannel})
 const chats = ref<HTMLDivElement | null>(null)
 const channels = computed(() => joinedChannels.value.reduce((accu, curr) => {
     if (!accu.includes(curr)) {
@@ -82,21 +81,17 @@ const timeline = computed(() => {
     lastTime = filteredChats[i].timestamp
     }
     function removeItem(array: any[], item: any) {
-        return array.filter((i: any) => i !== item)
+        return array.filter((i: any) => i !== item.value)
     }
     // this prevents the marking the current chat as unread by removing it from unread if the user is watching modal and
     // the modal is a chat
     // TODO: the patch operation maybe costly
-    if (ui.activeWindow === 'modal' && ui.modalMenuContent === 'chat') {
+    if (ui.activeWindow.value === 'modal' && ui.modalMenuContent.value === 'chat') {
     // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-        uStore.$patch({
-            network: {
-                ...network,
-                unreadChannel: removeItem(network.unreadChannel, current_channel),
-            }
-        })
+        const  res = removeItem(network.unreadChannel.value, current_channel)  
+        network.unreadChannel.value = res
+    
     }
-
     return res
 })
 interface MessageMap {
@@ -162,7 +157,7 @@ function addChat() {
             chatName: resolve, 
             password: ""
         })
-    })
+    })  
 }
 
 function closeChat(channel: string) {
