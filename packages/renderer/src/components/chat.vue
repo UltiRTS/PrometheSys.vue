@@ -11,7 +11,9 @@ const current_username = ref('')
 const msg = ref('')
 // computed
 const uStore = useUserStore()
-const { network, chatLog, joinedChannels, ui, userapi } = storeToRefs(uStore)
+const { chatLog, joinedChannels,  } = storeToRefs(uStore)
+const {network, ui, userapi } = uStore
+console.log({networkUnreadChannel: network.unreadChannel})
 const chats = ref<HTMLDivElement | null>(null)
 const channels = computed(() => joinedChannels.value.reduce((accu, curr) => {
     if (!accu.includes(curr)) {
@@ -85,12 +87,12 @@ const timeline = computed(() => {
     // this prevents the marking the current chat as unread by removing it from unread if the user is watching modal and
     // the modal is a chat
     // TODO: the patch operation maybe costly
-    if (ui.value.activeWindow === 'modal' && ui.value.modalMenuContent === 'chat') {
+    if (ui.activeWindow === 'modal' && ui.modalMenuContent === 'chat') {
     // eslint-disable-next-line vue/no-side-effects-in-computed-properties
         uStore.$patch({
             network: {
-                unreadChannel: removeItem(network.value.unreadChannel, current_channel),
                 ...network,
+                unreadChannel: removeItem(network.unreadChannel, current_channel),
             }
         })
     }
@@ -155,8 +157,8 @@ function sendMessage() {
 }
 
 function addChat() {
-    ui.value.getTextThroughGrabber("JOIN CHAT").then((resolve: string) => {
-        network.value.joinChat({
+    ui.getTextThroughGrabber("JOIN CHAT").then((resolve: string) => {
+        network.joinChat({
             chatName: resolve, 
             password: ""
         })
@@ -298,7 +300,7 @@ function closeChat(channel: string) {
         />
       </div>
       <div style="position:absolute;right:0;">
-        <gem v-if="network.unreadChannel.includes(channel)" />
+        <gem v-if="network.unreadChannel.value.includes(channel)" />
       </div>
     </div>
   </div>
