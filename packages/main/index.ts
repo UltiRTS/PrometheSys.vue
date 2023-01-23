@@ -1,9 +1,10 @@
 import { release } from 'os'
-import { join } from 'path'
+import { join, resolve } from 'path'
 // import Store from 'electron-store'
 import { BrowserWindow, app, ipcMain, ipcRenderer, shell } from 'electron'
 import pkg from '../../package.json'
 import { store } from './store'
+import { existsSync } from 'fs'
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith('6.1'))
@@ -41,7 +42,9 @@ async function createWindow() {
   else {
     // 🚧 Use ['ENV_NAME'] avoid vite:define plugin
     const url = `http://${pkg.env.VITE_DEV_SERVER_HOST}:${pkg.env.VITE_DEV_SERVER_PORT}`
-
+    if (process.env.NODE_ENV === "development" && existsSync("devtool")) {
+      win.webContents.session.loadExtension(resolve("devtool"))
+    }
     win.loadURL(url)
     win.webContents.openDevTools()
   }

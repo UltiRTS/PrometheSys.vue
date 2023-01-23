@@ -381,7 +381,7 @@ export default {
     </div>
   </div>
   <div id="visualOverlay">
-    <userCard />
+    <visUserInfo />
     <InputGrabber />
     <visNotif />
     <visLoading />

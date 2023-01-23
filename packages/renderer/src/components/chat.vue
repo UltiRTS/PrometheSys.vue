@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { net } from 'electron'
-import { mapActions, mapState, storeToRefs } from 'pinia'
+import { storeToRefs } from 'pinia'
 import { computed, ref, onUpdated } from 'vue'
 import { useUserStore } from '../stores'
-import { unreadChannel } from '../stores/network/network'
+
+import { useUserCardStore } from '../stores/userCard'
 // data
 const isBottom = ref<any>(true)
+const userCardStore = useUserCardStore();
 const current_channel = ref('global')
 const current_username = ref('')
 const msg = ref('')
@@ -143,6 +144,14 @@ function onChangeChannel(channel: string) {
     current_channel.value = channel
 }
 
+function onUserHeadingClick(ev: MouseEvent, username: string) {
+    const location = {
+        x: ev.clientX,
+        y: ev.clientY
+    }
+    userCardStore.showUserCard(username, location)
+}
+
 function sendMessage() {
     sayChat({
         chatName: current_channel.value, 
@@ -199,7 +208,7 @@ function closeChat(channel: string) {
   <div
     id="chatContainer" ref="chats"
     style="left:3vw;position:absolute;height:85%;width:90%;overflow-x:hidden;overflow-y:auto;top:1%;padding-top:2vh;padding-bottom:2vh;color:white;"
-    @scroll="onscroll" @click="current_username = '';userapi.resetUserInfo();"
+    @scroll="onscroll"
   >
     <div
       v-for="chat in timeline" id="chatBlock" :key="chat.username"
@@ -208,7 +217,7 @@ function closeChat(channel: string) {
       <div
         id="userHeading"
         style="left: 2%; margin: 0px 0px 4%; position: relative; font-size: 6vh; font-family: font10; color: rgb(33, 150, 243); height: 7.3vh;overflow:hidden;"
-        @click.stop="current_username = chat.username"
+        @click.stop="(ev) => onUserHeadingClick(ev, chat.username)"
       >
         <div style="opacity: 0.4; margin-right: 2vh; font-weight: 700;width: 16.8vw;overflow:hidden;position:relative;">
           {{ chat.username }}
