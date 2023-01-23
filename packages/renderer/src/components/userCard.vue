@@ -24,8 +24,9 @@ export default {
     }, 1150)}
   },
 
-  updated() {
-
+  beforeUnmount() {
+    console.log("UserCard: beforeUnmount() called")
+    this.userapi.resetUserInfo()
   },
   methods: {
     addFrnd() {
