@@ -1,5 +1,5 @@
 <template>
-    <div id="userCardContainer" v-if="isVisible" @click.stop="closeUserCard">
+    <div id="userCardContainer" v-if="isVisible" @click.stop="closeUserCard" style="pointer-events: auto;">
       <div :style="locationStyle">
         <UserCard :username="user"/>  
       </div>

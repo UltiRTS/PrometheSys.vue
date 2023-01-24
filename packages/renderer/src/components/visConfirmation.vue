@@ -37,7 +37,7 @@ export default {
 </script>
 
 <template>
-  <div v-if="getLastConfirm" style="position: fixed; top: 0px; left: 0px; background: rgba(0, 0, 0, 0.32); width: 100%; height: 100%; backdrop-filter: blur(4px);">
+  <div v-if="getLastConfirm" style="position: fixed; top: 0px; left: 0px; background: rgba(0, 0, 0, 0.32); width: 100%; height: 100%; backdrop-filter: blur(4px);pointer-events: auto;">
     <div style="overflow:hidden;position:absolute;top:37%;height:25%;width:100%;">
       <div id="" class="ttblock3" style="position:absolute;width:25%;left:-12.5%;transform: skew(20deg);height:100%;" />
       <div id="" class="ttblock" style="position:absolute;width:25%;left:12.5%;      transform: skew(20deg);height:100%;" />

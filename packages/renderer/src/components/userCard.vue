@@ -85,7 +85,7 @@ export default {
 
 <style scoped>
 .userInfoBasePanel{
-  animation: userInfoBasePanel 0.5s;
+  animation: userInfoBasePanel 1.2s;
   animation-fill-mode: forwards;
   animation-iteration-count:1;
 
@@ -95,10 +95,22 @@ export default {
 
 @keyframes userInfoBasePanel {
   0% {
-    left: -2%;
+    left: -5%;
     opacity:0;
   }
 
+  20% {
+    left: 2%;
+    opacity:1;
+  }
+  90% {
+    left: 2%;
+    opacity:1;
+  }
+  91% {
+    left: 2%;
+    opacity:0;
+  }
   100% {
     left: 2%;
     opacity:1;
