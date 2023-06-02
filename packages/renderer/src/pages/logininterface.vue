@@ -5,17 +5,31 @@ import { useUserStore } from '../stores'
 const uStore = useUserStore()
 const userState = computed(() => uStore.userState)
 const isNetWorkOpen = uStore.network.ws_open
+//const  = uStore.network.isReg.value
 const displayAttr = computed(() => isNetWorkOpen.value ? '' : 'none')
+const isReg = computed(() => uStore.network.isReg.value)
+
 const username = ref('')
 const password = ref('')
+const pushUINewNotif = uStore.ui.pushUINewNotif
+
 const isRemember = ref<any>(false)
 async function loginWrapper() {
   uStore.soundPlayer.playNotif('acknowledge.wav')
-  
-  uStore.login({
+  if(isReg.value){
+    uStore.network.register({
+      username: username.value,
+      password: password.value,
+      bio:'some random personal hobby'
+    })
+  }
+  else{
+    uStore.login({
     username: username.value,
     password: password.value,
   })
+  }
+
 
   // console.log(remembered)
   if (isRemember.value) {
@@ -43,6 +57,16 @@ function toggleRemember() {
   else {
     uStore.eStore.set('uName', '')
     uStore.eStore.set('passwd', '')
+  }
+}
+
+function registerMe() {
+  uStore.network.toggleManualReg()
+  if (isReg.value){
+    pushUINewNotif({ title: 'REG', msg: 'REGISTERING', class: 'aaa' })
+  }
+  else{
+    pushUINewNotif({ title: 'REG', msg: 'LOG IN', class: 'aaa' })
   }
 }
 </script>
@@ -118,8 +142,8 @@ function toggleRemember() {
             Persistent Neural Link
           </button>
         </div>
-        <div class="button-block" style="position:absolute;top:4vw;width:100%;" onclick="registerMe()">
-          <button id="register" style="width:100%;height:3vw;" class="">
+        <div class="button-block" style="position:absolute;top:4vw;width:100%;" @click="registerMe">
+          <button id="register" :class="{'button-clicked': isReg}" style="width:100%;height:3vw;" class="">
             Register this Neural Link
           </button>
         </div>
@@ -207,6 +231,12 @@ function toggleRemember() {
           </div>
         </div>
       </div>
+    </div>
+    <div id="visualOverlay" >
+      <InputGrabber />
+      <visNotif />
+      <visLoading />
+      <visConfirmation />
     </div>
   </div>
 </template>

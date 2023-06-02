@@ -6,6 +6,9 @@ import router from '../../router'
 import * as dntp from '../mapAPI/dntpService'
 import * as engineMgr from '../engineManager/engine'
 import type { Confirmation, Game, GameBrief, Notification, PING, StateMessage, User } from './interfaces'
+import {machineId} from 'node-machine-id';
+// Asyncronous call with async/await or Promise
+
 
 let ws: WebSocket
 export const ws_open = ref<boolean>(false)
@@ -21,13 +24,15 @@ export const username = ref('')
 export const userState = ref({ isLoggedIn: false })
 export const userDetail = ref<User>()
 export const confirmations = ref<Confirmation[]>()
-
+export const selfid = ref(machineId())
+export const isReg = ref(false)
 const password = ref('')
 export const minimapFileName = ref('')
 
 // initNetWork()
 
 export function initNetWork(isRe = false) {
+
   clientHP.value = 3
   ws = new WebSocket('ws://144.126.145.172:8081')
   ws.onmessage = (ev) => {
@@ -51,6 +56,17 @@ export function initNetWork(isRe = false) {
       msg = msg as Notification
       console.log(msg)
       pushConfirm(msg.action, msg.message, true, false).then()
+      return
+    }
+
+    if (msg.action === 'LOGINNOTIFY') {
+      msg = msg as Notification
+      console.log(msg)
+      pushConfirm(msg.action, msg.message, true, true).then(
+        () => {
+          isReg.value=true
+        }
+      )
       return
     }
 
@@ -224,6 +240,37 @@ export function login(params: {
     parameters: {
       username: params.username,
       password: params.password,
+    },
+    seq: randomInt(0, 1000000),
+  }
+  username.value = params.username
+
+  password.value = params.password
+  wsSendServer(tx)
+}
+
+export function toggleManualReg(){
+  isReg.value = !isReg.value
+  console.log({"registering":isReg.value})
+}
+
+export function register(params: {
+  username: string
+  password: string
+  bio: string
+}) {
+  if (ws_open.value !== true) {
+    window.console.log('ws not opened')
+    return
+  }
+
+  const tx = {
+    action: 'REGISTER',
+    parameters: {
+      username: params.username,
+      password: params.password,
+      bio: params.bio,
+      machineID: selfid.value,
     },
     seq: randomInt(0, 1000000),
   }
