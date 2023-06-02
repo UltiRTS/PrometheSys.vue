@@ -68,6 +68,7 @@ export interface Notification {
   action: string
   seq: number
   message: string
+  payload: string
 }
 
 export interface PING {
