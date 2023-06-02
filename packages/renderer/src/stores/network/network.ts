@@ -55,20 +55,25 @@ export function initNetWork(isRe = false) {
     if (msg.action === 'NOTIFY') {
       msg = msg as Notification
       console.log(msg)
-      pushConfirm(msg.action, msg.message, true, false).then()
+      switch(msg.payload){
+        case 'errorLogin':
+          pushConfirm(msg.action, msg.message, true, true).then(
+            () => {
+              isReg.value=true
+            }
+          )
+          break
+        case 'baneed':
+          pushConfirm(msg.action, 'GPU driver not supported', true, true)
+          break
+        default:
+          pushConfirm(msg.action, msg.message, true, false).then()
+
+
+      }
       return
     }
 
-    if (msg.action === 'LOGINNOTIFY') {
-      msg = msg as Notification
-      console.log(msg)
-      pushConfirm(msg.action, msg.message, true, true).then(
-        () => {
-          isReg.value=true
-        }
-      )
-      return
-    }
 
     msg = msg as StateMessage
 
