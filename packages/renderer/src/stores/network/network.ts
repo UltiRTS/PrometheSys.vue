@@ -24,7 +24,6 @@ export const username = ref('')
 export const userState = ref({ isLoggedIn: false })
 export const userDetail = ref<User>()
 export const confirmations = ref<Confirmation[]>()
-export const selfid = ref(machineId())
 export const isReg = ref(false)
 const password = ref('')
 export const minimapFileName = ref('')
@@ -55,8 +54,8 @@ export function initNetWork(isRe = false) {
     if (msg.action === 'NOTIFY') {
       msg = msg as Notification
       console.log(msg)
-      switch(msg.payload){
-        case 'errorLogin':
+      switch(msg.from){
+        case 'LOGIN':
           pushConfirm(msg.action, msg.message, true, true).then(
             () => {
               isReg.value=true
@@ -259,7 +258,7 @@ export function toggleManualReg(){
   console.log({"registering":isReg.value})
 }
 
-export function register(params: {
+export async function register(params: {
   username: string
   password: string
   bio: string
@@ -268,6 +267,7 @@ export function register(params: {
     window.console.log('ws not opened')
     return
   }
+  const selfid = await machineId()
 
   const tx = {
     action: 'REGISTER',
@@ -275,7 +275,7 @@ export function register(params: {
       username: params.username,
       password: params.password,
       bio: params.bio,
-      machineID: selfid.value,
+      machineID: selfid,
     },
     seq: randomInt(0, 1000000),
   }
@@ -569,6 +569,7 @@ export function wsSendServer(tx: {
   parameters: any
   seq: number
 }) {
+  console.log({'sending': tx})
   if (ws_open.value !== true) {
     console.error('ws is not open')
     return
