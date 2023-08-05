@@ -68,7 +68,7 @@ export function initNetWork(isRe = false) {
         }
         break
 
-      case 'STATEDUMP':
+      default:
         msg = msg as StateMessage
 
         console.log(msg)
@@ -93,10 +93,7 @@ export function initNetWork(isRe = false) {
         writeMIDGameStats(msg)
         break
 
-      default:
-        console.log('unhandled message')
-        console.log(msg)
-        break
+    
     }
 
     ws.onopen = () => {
