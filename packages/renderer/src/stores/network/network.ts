@@ -94,7 +94,7 @@ export function initNetWork(isRe = false) {
         break
 
     
-    }
+    }}
 
     ws.onopen = () => {
       ws_open.value = true
