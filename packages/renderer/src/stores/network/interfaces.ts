@@ -71,7 +71,7 @@ export interface Notification {
   from: string
 }
 
-export interface PING {
+export interface PONG {
   action: string
   parameters: {}
 }

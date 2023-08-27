@@ -5,7 +5,7 @@ import { pushConfirm, pushNewLoading, pushUINewNotif, rmLoading } from '../UI/ui
 import router from '../../router'
 import * as dntp from '../mapAPI/dntpService'
 import * as engineMgr from '../engineManager/engine'
-import type { Confirmation, Game, GameBrief, Notification, PING, StateMessage, User } from './interfaces'
+import type { Confirmation, Game, GameBrief, Notification, PONG, StateMessage, User } from './interfaces'
 import { machineId } from 'node-machine-id';
 // Asyncronous call with async/await or Promise
 
@@ -15,7 +15,7 @@ export const ws_open = ref<boolean>(false)
 let wdir: string
 const mapsBeingDownloaded: number[] = []
 let lastGame: Game | null
-const hpChecker: any[] = []
+let hpChecker: any
 
 export const clientHP = ref(3)
 export const gameListing = ref<GameBrief[]>()
@@ -33,16 +33,13 @@ export const minimapFileName = ref('')
 export function initNetWork(isRe = false) {
 
   clientHP.value = 3
-  ws = new WebSocket('wss://promethesys.uk:443')
+  ws = new WebSocket('ws://144.126.145.172:8081')
   ws.onmessage = (ev) => {
-    let msg: StateMessage | Notification | PING = JSON.parse(ev.data)
+    let msg: StateMessage | Notification | PONG = JSON.parse(ev.data)
     switch (msg.action) {
-      case 'PING':
-        msg = msg as PING
-        ws.send(JSON.stringify({
-          action: 'PONG',
-          parameters: {},
-        }))
+      case 'PONG':
+        msg = msg as PONG
+
         clientHP.value = 3
         // console.log('received ping')
         break
@@ -117,16 +114,19 @@ export function initNetWork(isRe = false) {
         })
     }
 
-    hpChecker.push(setInterval(() => {
+    hpChecker = setInterval(() => {
       if (clientHP.value <= 0) {
         ws.close()
-        clearInterval(hpChecker[0])
+        clearInterval(hpChecker)
         hpChecker.shift()
-        // console.log('closing network')
       }
 
       clientHP.value--
-    }, 3000))
+      ws.send(JSON.stringify({
+        action: 'PING',
+        parameters: {},
+      }))
+    }, 3000)
   }
   function writeLoginStats() {
     if (userState.value.isLoggedIn === false) {
