@@ -33,7 +33,13 @@ export const minimapFileName = ref('')
 export function initNetWork(isRe = false) {
 
   clientHP.value = 3
-  ws = new WebSocket('ws://144.126.145.172:8081')
+  if (process.env.addr === undefined) 
+    ws = new WebSocket('ws://144.126.145.172:8081')
+
+  
+  else
+  ws = new WebSocket('ws://' + process.env.addr)
+  
   ws.onmessage = (ev) => {
     let msg: StateMessage | Notification | PONG = JSON.parse(ev.data)
     switch (msg.action) {
