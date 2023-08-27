@@ -37,7 +37,7 @@ export function initNetWork(isRe = false) {
   ws.onmessage = (ev) => {
     let msg: StateMessage | Notification | PONG = JSON.parse(ev.data)
     switch (msg.action) {
-      case 'PONG':
+      case 'PING':
         msg = msg as PONG
 
         clientHP.value = 3
@@ -118,7 +118,7 @@ export function initNetWork(isRe = false) {
       if (clientHP.value <= 0) {
         ws.close()
         clearInterval(hpChecker)
-        hpChecker.shift()
+        //hpChecker.shift()
       }
 
       clientHP.value--
