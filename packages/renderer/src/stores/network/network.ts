@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/adjacent-overload-signatures */
 import { randomInt } from 'crypto'
 import { ref } from 'vue'
+import { machineId } from 'node-machine-id'
+import _ from 'lodash'
 import { pushConfirm, pushNewLoading, pushUINewNotif, rmLoading } from '../UI/ui'
 import router from '../../router'
 import * as dntp from '../mapAPI/dntpService'
 import * as engineMgr from '../engineManager/engine'
 import type { Confirmation, Game, GameBrief, Notification, PONG, StateMessage, User } from './interfaces'
-import { machineId } from 'node-machine-id';
 // Asyncronous call with async/await or Promise
-
 
 let ws: WebSocket
 export const ws_open = ref<boolean>(false)
@@ -34,14 +34,12 @@ export const minimapFileName = ref('')
 // initNetWork()
 
 export function initNetWork(isRe = false) {
-
   clientHP.value = 3
   if (process.env.addr === undefined)
-    ws = new WebSocket('ws://144.126.145.172:8081')
-
+    ws = new WebSocket('ws://127.0.0.1:8081')
 
   else
-    ws = new WebSocket('ws://' + process.env.addr)
+    ws = new WebSocket(`ws://${process.env.addr}`)
 
   ws.onmessage = (ev) => {
     let msg: StateMessage | Notification | PONG = JSON.parse(ev.data)
@@ -50,48 +48,43 @@ export function initNetWork(isRe = false) {
         msg = msg as PONG
 
         clientHP.value = 3
-        // console.log('received ping')
         break
 
       case 'NOTIFY':
         msg = msg as Notification
-        console.log(msg)
+
         switch (msg.from) {
           case 'LOGIN':
-            pushConfirm(msg.action, msg.message, true, true).then(
-              () => {
+            pushConfirm(msg.action,
+              msg.message,
+              true,
+              true)
+              .then(() => {
                 isReg.value = true
-              }
-            )
+              })
             break
           case 'baneed':
-            pushConfirm(msg.action, 'GPU driver not supported', true, true)
+            pushConfirm(msg.action,
+              'GPU driver not supported',
+              true,
+              true)
             break
           default:
             pushConfirm(msg.action, msg.message, true, false).then()
-
-
         }
         break
 
       default:
         msg = msg as StateMessage
-        if (msg.path === '') {
-          console.log(msg)
+
+        if (msg.path === '')
           selfState.value = msg
-
-
-        }
-
-        else {
-          _.set(selfState, msg.state, msg.path)
-        }
+        else if (selfState.value)
+          _.set(selfState.value, msg.path, msg.state)
 
         // login section
         writeLoginStats()
 
-        // chat section
-        writeChatStats(selfState.value)
         userDetail.value = msg.state.user
         joinedGame.value = msg.state.user.game
         gameListing.value = msg.state.games
@@ -99,21 +92,24 @@ export function initNetWork(isRe = false) {
         username.value = msg.state.user.username
         // confirmations:
         confirmations.value = msg.state.user.confirmations
-        // console.log(confirmations.value)
         // const mapBeingDownloaded = joinedGame.value.mapId
-        writeMapStats(selfState.value)
-        writeStartGameStats(selfState.value)
-        lastGame = joinedGame.value
-        writeMIDGameStats(selfState.value)
+
+        if (selfState.value) {
+          // chat section
+          writeChatStats(selfState.value)
+
+          writeMapStats(selfState.value)
+          writeStartGameStats(selfState.value)
+          lastGame = joinedGame.value
+          writeMIDGameStats(selfState.value)
+        }
 
         break
-
     }
   }
 
   ws.onopen = () => {
     ws_open.value = true
-    // console.log('ws is open')
     if (isRe)
       login({ username: username.value, password: password.value })
   }
@@ -122,13 +118,18 @@ export function initNetWork(isRe = false) {
     // console.log('server closed connection')
     ws_open.value = false
     userState.value.isLoggedIn = false
-    pushConfirm('NEURAL CONNECTION LOST', 'RECONNECTION CONFIRM').then(() => {
-      initNetWork(true)
-    },
-      () => {
+    pushConfirm('NEURAL CONNECTION LOST',
+      'RECONNECTION CONFIRM')
+      .then(() => {
+        initNetWork(true)
+      }, () => {
         // console.log('logged out')
         ws.close()
-        pushUINewNotif({ title: 'IDENT', msg: 'NEURAL CONNECTION DESTROYED', class: 'aaa' })
+        pushUINewNotif({
+          title: 'IDENT',
+          msg: 'NEURAL CONNECTION DESTROYED',
+          class: 'aaa',
+        })
       })
   }
 
@@ -136,7 +137,7 @@ export function initNetWork(isRe = false) {
     if (clientHP.value <= 0) {
       ws.close()
       clearInterval(hpChecker)
-      //hpChecker.shift()
+      // hpChecker.shift()
     }
 
     clientHP.value--
@@ -198,22 +199,20 @@ function writeMapStats(msg: StateMessage) {
 
   pushNewLoading('loadingMiniMap')
   // pushUINewNotif({ title: 'INTL', msg: 'Operation Intl Updated', class: 'aaa' })
-  dntp.getMiniMapfromID(mapBeingDownloaded, wdir).then((filename) => {
-    minimapFileName.value = filename
-    rmLoading('loadingMiniMap')
-    dntp.getMapActualFile(mapBeingDownloaded, wdir).then(() => {
-      const index = mapsBeingDownloaded.indexOf(mapBeingDownloaded)
-      if (index > -1) { // only splice array when item is found
-        mapsBeingDownloaded.splice(index, 1) // 2nd parameter means remove one item only
-      }
+  dntp.getMiniMapfromID(mapBeingDownloaded, wdir)
+    .then((filename) => {
+      minimapFileName.value = filename
+      rmLoading('loadingMiniMap')
+      dntp.getMapActualFile(mapBeingDownloaded, wdir)
+        .then(() => {
+          const index = mapsBeingDownloaded.indexOf(mapBeingDownloaded)
+          if (index > -1) { // only splice array when item is found
+            mapsBeingDownloaded.splice(index, 1) // 2nd parameter means remove one item only
+          }
 
-      hasMap({
-        mapId: mapBeingDownloaded,
-      })
-
-
+          hasMap({ mapId: mapBeingDownloaded })
+        })
     })
-  })
 }
 function writeStartGameStats(msg: StateMessage) {
   // console.log(joinedGame.value)
@@ -271,7 +270,6 @@ export function login(params: {
 
 export function toggleManualReg() {
   isReg.value = !isReg.value
-  console.log({ "registering": isReg.value })
 }
 
 export async function register(params: {
@@ -420,18 +418,17 @@ export function ADV_RECRUIT(friendName: string) {
     parameters: {
       friendName,
     },
-    seq: randomInt(0, 1000000)
+    seq: randomInt(0, 1000000),
   }
   wsSendServer(tx)
 }
 
 export function forfeit() {
-
   const tx = {
     action: 'ADV_FORFEIT',
     parameters: {
     },
-    seq: randomInt(0, 1000000)
+    seq: randomInt(0, 1000000),
   }
 
   wsSendServer(tx)
@@ -587,7 +584,7 @@ export function wsSendServer(tx: {
   parameters: any
   seq: number
 }) {
-  console.log({ 'sending': tx })
+  // console.log({ sending: tx })
   if (ws_open.value !== true) {
     console.error('ws is not open')
     return

@@ -1,189 +1,183 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { computed, ref, onUpdated } from 'vue'
+import { computed, onUpdated, ref } from 'vue'
 import { useUserStore } from '../stores'
 
 import { useUserCardStore } from '../stores/userCard'
 // data
 const isBottom = ref<any>(true)
-const userCardStore = useUserCardStore();
+const userCardStore = useUserCardStore()
 const current_channel = ref('global')
 const current_username = ref('')
 const msg = ref('')
 // computed
 const uStore = useUserStore()
-const { chatLog, joinedChannels,  } = storeToRefs(uStore)
-const {network, ui, userapi } = uStore
+const { chatLog, joinedChannels } = storeToRefs(uStore)
+const { network, ui, userapi } = uStore
 const chats = ref<HTMLDivElement | null>(null)
 const channels = computed(() => joinedChannels.value.reduce((accu, curr) => {
-    if (!accu.includes(curr)) {
-        accu.push(curr)
-    }
-    return accu
+  if (!accu.includes(curr))
+    accu.push(curr)
+
+  return accu
 }, Array<string>())) // make typescript happy
 
 const timeline = computed(() => {
-    const res: any[] = []
-    const filteredChats = chatLog.value.filter(chat => chat.chatName === current_channel.value)
-    if (filteredChats.length === 0) {
-        return res
-    }
-        
-    let lastUser = ''
+  const res: any[] = []
+  const filteredChats = chatLog.value.filter(chat => chat.chatName === current_channel.value)
+  if (filteredChats.length === 0)
+    return res
 
-      // time in ms
-    let lastTime, curTime, timeStamp, cur
-    lastTime = 0
-    let AMorPM = 'AM'
-    for (let i = 0; i < filteredChats.length; i++) {
+  let lastUser = ''
+
+  // time in ms
+  let lastTime, curTime, timeStamp, cur
+  lastTime = 0
+  let AMorPM = 'AM'
+  for (let i = 0; i < filteredChats.length; i++) {
     curTime = filteredChats[i].timestamp
     // console.log('curTime:'+curTime)
     // duration between two messages greater than 2min
     if ((curTime - lastTime) > 1000 * 30) {
-        lastTime = curTime
+      lastTime = curTime
 
-        const date = new Date(lastTime)
-        // Hours part from the timestamp
-        let hours = date.getHours()
-        // Minutes part from the timestamp
-        const minutes = String(date.getMinutes()).padStart(2, '0')
+      const date = new Date(lastTime)
+      // Hours part from the timestamp
+      let hours = date.getHours()
+      // Minutes part from the timestamp
+      const minutes = String(date.getMinutes()).padStart(2, '0')
 
-        if (hours > 12) {
+      if (hours > 12) {
         hours = hours - 12
         AMorPM = 'PM'
-        }
-        timeStamp = `${hours}:${minutes}`
+      }
+      timeStamp = `${hours}:${minutes}`
     }
     else {
-        timeStamp = ''
+      timeStamp = ''
     }
     // console.log('timestamp:'+timeStampShown)
     // the same with last user
     if (filteredChats[i].author !== lastUser) {
-        cur = {
+      cur = {
         username: filteredChats[i].author,
         chats: [
-            {
+          {
             msg: filteredChats[i].msg,
             timeStamp,
             AMorPM,
-            }],
-        }
-        res.push(cur)
+          }],
+      }
+      res.push(cur)
     }
     else {
-        res[res.length - 1].chats.push({
+      res[res.length - 1].chats.push({
         msg: filteredChats[i].msg,
         timeStamp,
         AMorPM,
-        })
+      })
     }
     lastUser = filteredChats[i].author
     lastTime = filteredChats[i].timestamp
-    }
-    function removeItem(array: any[], item: any) {
-        return array.filter((i: any) => i !== item.value)
-    }
-    // this prevents the marking the current chat as unread by removing it from unread if the user is watching modal and
-    // the modal is a chat
-    // TODO: the patch operation maybe costly
-    if (ui.activeWindow.value === 'modal' && ui.modalMenuContent.value === 'chat') {
+  }
+  function removeItem(array: any[], item: any) {
+    return array.filter((i: any) => i !== item.value)
+  }
+  // this prevents the marking the current chat as unread by removing it from unread if the user is watching modal and
+  // the modal is a chat
+  // TODO: the patch operation maybe costly
+  if (ui.activeWindow.value === 'modal' && ui.modalMenuContent.value === 'chat') {
     // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-        const  res = removeItem(network.unreadChannel.value, current_channel)  
-        network.unreadChannel.value = res
-    
-    }
-    return res
+    const res = removeItem(network.unreadChannel.value, current_channel)
+    network.unreadChannel.value = res
+  }
+  return res
 })
-interface MessageMap {
-   [index: string]: {
-      author: string,
-      msg: string,
-   }
-}
+type MessageMap = Record<string, {
+  author: string
+  msg: string
+}>
 
 const lastMsg = computed(() => {
-    const res: MessageMap = {}
-    for (const channel of channels.value) {
-        const filteredChats = chatLog.value.filter(chat => chat.chatName === channel)
-        if (filteredChats.length === 0) {
-          res[channel] = {
-            author: '',
-            msg: '',
-          }
-          continue
-        }
-
-        res[channel] = {
-          author: filteredChats[filteredChats.length - 1].author,
-          msg: filteredChats[filteredChats.length - 1].msg,
-        }
+  const res: MessageMap = {}
+  for (const channel of channels.value) {
+    const filteredChats = chatLog.value.filter(chat => chat.chatName === channel)
+    if (filteredChats.length === 0) {
+      res[channel] = {
+        author: '',
+        msg: '',
       }
+      continue
+    }
 
-    return res
+    res[channel] = {
+      author: filteredChats[filteredChats.length - 1].author,
+      msg: filteredChats[filteredChats.length - 1].msg,
+    }
+  }
+
+  return res
 })
 
 // hooks
 onUpdated(() => {
-  if (isBottom && chats.value != null) {
+  if (isBottom.value && chats.value != null)
     chats.value.scrollTop = chats.value.scrollHeight
-  }
 })
 
 // methods
-const { joinChat, sayChat, leaveChat  } = uStore;
+const { joinChat, sayChat, leaveChat } = uStore
 function onscroll(ev: Event) {
-    const elem = ev.target as HTMLDivElement
-    if (elem.scrollHeight - elem.scrollTop === elem.clientHeight)
-        isBottom.value = true
-    else
-        isBottom.value = false
- }
+  const elem = ev.target as HTMLDivElement
+  if (elem.scrollHeight - elem.scrollTop === elem.clientHeight)
+    isBottom.value = true
+  else
+    isBottom.value = false
+}
 
 function onChangeChannel(channel: string) {
-    current_channel.value = channel
+  current_channel.value = channel
 }
 
 function onUserHeadingClick(ev: MouseEvent, username: string) {
-    const location = {
-        x: ev.clientX,
-        y: ev.clientY
-    }
-    userCardStore.showUserCard(username, location)
+  const location = {
+    x: ev.clientX,
+    y: ev.clientY,
+  }
+  userCardStore.showUserCard(username, location)
 }
 
 function sendMessage() {
-    sayChat({
-        chatName: current_channel.value, 
-        msg: msg.value,
-    })
-    msg.value = ""
+  sayChat({
+    chatName: current_channel.value,
+    msg: msg.value,
+  })
+  msg.value = ''
 }
 
 function addChat() {
-    ui.getTextThroughGrabber("JOIN CHAT").then((resolve: string) => {
-        network.joinChat({
-            chatName: resolve, 
-            password: ""
-        })
-    })  
+  ui.getTextThroughGrabber('JOIN CHAT').then((resolve: string) => {
+    network.joinChat({
+      chatName: resolve,
+      password: '',
+    })
+  })
 }
 
 function closeChat(channel: string) {
-    const channelIndex = joinedChannels.value.indexOf(channel)
-    let backupChannel = 0
-    if (channelIndex === 0) {
-        return
-    } else {
-        backupChannel = channelIndex - 1
-    }
-    
-    current_channel.value = joinedChannels.value[backupChannel]
-    // console.log(backupChannel)
-    // console.log(this.current_channel)
-    leaveChat({
-        chatName: channel,
-    })
+  const channelIndex = joinedChannels.value.indexOf(channel)
+  let backupChannel = 0
+  if (channelIndex === 0)
+    return
+  else
+    backupChannel = channelIndex - 1
+
+  current_channel.value = joinedChannels.value[backupChannel]
+  // console.log(backupChannel)
+  // console.log(this.current_channel)
+  leaveChat({
+    chatName: channel,
+  })
 }
 
 </script>

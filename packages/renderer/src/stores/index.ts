@@ -12,14 +12,7 @@ import * as userapi from './userapi/userapi'
 import * as engineMgr from './engineManager/engine'
 import * as eStore from './electron-config/e-store'
 
-
-
-
-
 export const useUserStore = defineStore('user', () => {
-  
-
-
   // eslint-disable-next-line dot-notation
   const lobbyDir = ref(process.env['lobbydir'] || '/tmp')
 
