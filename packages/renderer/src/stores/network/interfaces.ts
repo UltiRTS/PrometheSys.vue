@@ -62,6 +62,7 @@ export interface StateMessage {
   action: string
   seq: number
   state: State
+  path: string
 }
 
 export interface Notification {
