@@ -7,6 +7,8 @@ import * as dntp from '../mapAPI/dntpService'
 import * as engineMgr from '../engineManager/engine'
 import type { Confirmation, Game, GameBrief, Notification, PONG, StateMessage, User } from './interfaces'
 import { machineId } from 'node-machine-id';
+import _ from "lodash"
+
 // Asyncronous call with async/await or Promise
 
 
@@ -79,26 +81,23 @@ export function initNetWork(isRe = false) {
         if (msg.path === '') {
           console.log(msg)
           selfState.value = msg
-
-
         }
-
-        else {
-          _.set(selfState, msg.state, msg.path)
+        if (!selfState.value) {
+          return
         }
-
+        _.set(selfState.value, msg.path, msg.state)
         // login section
         writeLoginStats()
 
         // chat section
         writeChatStats(selfState.value)
-        userDetail.value = msg.state.user
-        joinedGame.value = msg.state.user.game
-        gameListing.value = msg.state.games
+        userDetail.value = selfState.value.state.user
+        joinedGame.value = selfState.value.state.user.game
+        gameListing.value = selfState.value.state.games
 
-        username.value = msg.state.user.username
+        username.value = selfState.value.state.user.username
         // confirmations:
-        confirmations.value = msg.state.user.confirmations
+        confirmations.value = selfState.value.state.user.confirmations
         // console.log(confirmations.value)
         // const mapBeingDownloaded = joinedGame.value.mapId
         writeMapStats(selfState.value)

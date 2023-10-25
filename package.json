@@ -31,6 +31,7 @@
     "axios": "^0.27.2",
     "crypto": "^1.0.1",
     "electron-store": "^8.1.0",
+    "lodash": "^4.17.21",
     "md5-file": "^5.0.0",
     "node-machine-id": "^1.1.12",
     "su-downloader3": "^1.1.1",
@@ -45,6 +46,7 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.21.0",
+    "@types/lodash": "^4.14.200",
     "@types/p5": "^1.4.2",
     "@vitejs/plugin-vue": "^2.2.4",
     "@vue/cli": "^5.0.1",
