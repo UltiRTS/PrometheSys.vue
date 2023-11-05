@@ -8,6 +8,9 @@ import router from '../../router'
 import * as dntp from '../mapAPI/dntpService'
 import * as engineMgr from '../engineManager/engine'
 import type { Confirmation, Game, GameBrief, Notification, PONG, StateMessage, User } from './interfaces'
+import { machineId } from 'node-machine-id';
+import _ from "lodash"
+
 // Asyncronous call with async/await or Promise
 
 let ws: WebSocket
@@ -92,8 +95,8 @@ export function initNetWork(isRe = false) {
         username.value = selfState.value?.state.user.username as string
         // confirmations:
         confirmations.value = selfState.value?.state.user.confirmations
-        // const mapBeingDownloaded = joinedGame.value.mapId
 
+        // const mapBeingDownloaded = joinedGame.value.mapId
         if (selfState.value) {
           // chat section
           writeChatStats(selfState.value)
