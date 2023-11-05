@@ -77,21 +77,21 @@ export function initNetWork(isRe = false) {
       default:
         msg = msg as StateMessage
 
+        // assign new value to the local state
         if (msg.path === '')
           selfState.value = msg
         else if (selfState.value)
-          _.set(selfState.value, msg.path, msg.state)
-
+          _.set(selfState.value.state, msg.path, msg.state)
         // login section
         writeLoginStats()
 
-        userDetail.value = msg.state.user
-        joinedGame.value = msg.state.user.game
-        gameListing.value = msg.state.games
+        userDetail.value = selfState.value?.state.user
+        joinedGame.value = selfState.value?.state.user.game
+        gameListing.value = selfState.value?.state.games
 
-        username.value = msg.state.user.username
+        username.value = selfState.value?.state.user.username as string
         // confirmations:
-        confirmations.value = msg.state.user.confirmations
+        confirmations.value = selfState.value?.state.user.confirmations
         // const mapBeingDownloaded = joinedGame.value.mapId
 
         if (selfState.value) {
@@ -100,7 +100,7 @@ export function initNetWork(isRe = false) {
 
           writeMapStats(selfState.value)
           writeStartGameStats(selfState.value)
-          lastGame = joinedGame.value
+          lastGame = joinedGame.value as Game | null
           writeMIDGameStats(selfState.value)
         }
 
