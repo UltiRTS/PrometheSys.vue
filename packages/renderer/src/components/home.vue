@@ -17,12 +17,6 @@ declare interface DataReturn {
 export default defineComponent({
   name: 'BabylonOne',
   props: ['visible'],
-  watch: { 
-    visible: function(newVal, oldVal) { // watch it
-          if(newVal)
-            this.musicPlayer.playSound('base.wav', true)
-        }
-      },
   data() {
     const res: DataReturn = {
       engine: null,
@@ -35,6 +29,12 @@ export default defineComponent({
       camRadius_2: 0,
     }
     return res
+  },
+  watch: {
+    visible(newVal, oldVal) { // watch it
+      if (newVal)
+        this.musicPlayer.playSound('base.wav', true)
+    },
   },
   computed: {
     ...mapState(useUserStore, ['joinedGame', 'mainMenuContent', 'modalMenuContent', 'activeWindow', 'network', 'ui', 'musicPlayer']),
@@ -77,7 +77,7 @@ export default defineComponent({
           this.camRadius = -cam.radius + 10
           this.camRadius_2 = -cam.radius + 2
           cam.alpha = cam.alpha + dt * 0.0001
-          
+
           scene.render()
         })
 

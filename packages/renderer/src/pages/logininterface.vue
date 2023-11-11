@@ -5,7 +5,7 @@ import { useUserStore } from '../stores'
 const uStore = useUserStore()
 const userState = computed(() => uStore.userState)
 const isNetWorkOpen = uStore.network.ws_open
-//const  = uStore.network.isReg.value
+// const  = uStore.network.isReg.value
 const displayAttr = computed(() => isNetWorkOpen.value ? '' : 'none')
 const isReg = computed(() => uStore.network.isReg.value)
 
@@ -16,21 +16,20 @@ const pushUINewNotif = uStore.ui.pushUINewNotif
 const isRemember = ref<any>(false)
 async function loginWrapper() {
   uStore.soundPlayer.playNotif('acknowledge.wav')
-  if(isReg.value){
+  if (isReg.value) {
     console.log('pressed reg!')
     uStore.network.register({
       username: username.value,
       password: password.value,
-      bio:'some random personal hobby'
+      bio: 'some random personal hobby',
     })
   }
-  else{
+  else {
     uStore.login({
-    username: username.value,
-    password: password.value,
-  })
+      username: username.value,
+      password: password.value,
+    })
   }
-
 
   // console.log(remembered)
   if (isRemember.value) {
@@ -63,12 +62,11 @@ function toggleRemember() {
 
 function registerMe() {
   uStore.network.toggleManualReg()
-  if (isReg.value){
+  if (isReg.value)
     pushUINewNotif({ title: 'REG', msg: 'REGISTERING', class: 'aaa' })
-  }
-  else{
+
+  else
     pushUINewNotif({ title: 'REG', msg: 'LOG IN', class: 'aaa' })
-  }
 }
 </script>
 <template>
@@ -233,7 +231,7 @@ function registerMe() {
         </div>
       </div>
     </div>
-    <div id="visualOverlay" >
+    <div id="visualOverlay">
       <InputGrabber />
       <visNotif />
       <visLoading />

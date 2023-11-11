@@ -6,68 +6,58 @@ export default {
   // props: ['channels', 'chatLog'],
   data() {
     return {
-      recruiting:[],
+      recruiting: [],
 
     }
   },
 
   computed: {
-    ...mapState(useUserStore, ['joinedGame', 'username', 'network','ui','userapi']),
-
+    ...mapState(useUserStore, ['joinedGame', 'username', 'network', 'ui', 'userapi']),
 
     friendsOnline() {
-     return this.network.userDetail.value.friendsOnline
+      return this.network.userDetail.value.friendsOnline
     },
-    friendsOffline(){
+    friendsOffline() {
       return this.network.userDetail.value.friends.filter(n => !this.network.userDetail.value.friendsOnline.includes(n))
     },
-    recruitableCount(){
+    recruitableCount() {
       return this.network.userDetail.value.rglike.recruit_ticket
     },
-    friendsInfo(){
+    friendsInfo() {
       console.log(this.userapi.userInfoBulk.value)
       return this.userapi.userInfoBulk.value
     },
 
-
   },
-  mounted(){
+  mounted() {
     this.userapi.getUInfoBulk(this.network.userDetail.value.friends)
-},
+  },
   updated() {
 
   },
   methods: {
     ...mapActions(useUserStore, ['setmainMenuContent', 'setmodalMenuContent', 'setactiveWindow', 'setAIorChicken', 'delAIorChicken', 'setTeam', 'specPlayer']),
 
- 
-
-    toggleRecruit(pName){
-      if(this.recruiting.includes(pName)){
-        this.recruiting = this.recruiting.filter(function(item) {
+    toggleRecruit(pName) {
+      if (this.recruiting.includes(pName)) {
+        this.recruiting = this.recruiting.filter((item) => {
           return item !== pName
         })
         return
       }
-      if(this.recruiting.length > this.network.userDetail.value.rglike.recruit_ticket)
-      {
-        this.ui.pushUINewNotif({title:'RECRUIT', msg:'SQUAD CAPACITY REACHED', class:'abc'})
+      if (this.recruiting.length > this.network.userDetail.value.rglike.recruit_ticket) {
+        this.ui.pushUINewNotif({ title: 'RECRUIT', msg: 'SQUAD CAPACITY REACHED', class: 'abc' })
         return
       }
       this.recruiting.push(pName)
-        
-        
     },
 
-    confirmRecruit(){
+    confirmRecruit() {
       for (const username in this.recruiting)
-      {
         this.network.ADV_RECRUIT(this.recruiting[username])
-      }
-      return
     },
 
-    clearSelection(){
+    clearSelection() {
       this.recruiting = []
     },
 
@@ -81,28 +71,30 @@ export default {
       <div style="position:absolute;width: 37%;left: 1%;background:white;top: 6%;padding-left:4%;font-family: 'font4';mix-blend-mode:screen;opacity: 0.2;font-size: 1.3vw;">
         ENGINEERING SECTION
       </div>
-      <div style="position:absolute;right:2%;width:42%;font-family:font5;filter: drop-shadow(16px 11px 13px #2196f3);" data-v-b86f4f80=""><div style="margin:1vw;padding:-1vw;text-align:center;font-size:1.5vw;background: #fff;color: #2196f3;" data-v-b86f4f80="" @click.stop="confirmRecruit">RECRUIT</div></div>
+      <div style="position:absolute;right:2%;width:42%;font-family:font5;filter: drop-shadow(16px 11px 13px #2196f3);" data-v-b86f4f80="">
+        <div style="margin:1vw;padding:-1vw;text-align:center;font-size:1.5vw;background: #fff;color: #2196f3;" data-v-b86f4f80="" @click.stop="confirmRecruit">
+          RECRUIT
+        </div>
+      </div>
 
       <div v-if="recruiting.length == 0" style="position:absolute;height: 2vw;left: 12%;width: 26vw; top: 69%;background: #ffffff;mix-blend-mode:screen;padding: 3vw;font-family:font5;opacity:0.5;">
-        <div class='recruitingPanel1' style="position:absolute;font-size: 1.1vw;top: 20%;">
+        <div class="recruitingPanel1" style="position:absolute;font-size: 1.1vw;top: 20%;">
           EXPLORE/CHANGE
-        </div><div class='recruitingPanel2' style="position:absolute;font-size: 3vw;top: 29%;">
+        </div><div class="recruitingPanel2" style="position:absolute;font-size: 3vw;top: 29%;">
           DEPLOYMENTS
         </div>
       </div>
 
-      <div  v-if="!recruiting.length == 0" style="position:absolute;height: 2vw;left: 12%;width: 26vw; top: 69%;background: #ffffff;mix-blend-mode:screen;padding: 3vw;font-family:font5;opacity:0.5;">
-        <div class='recruitingPanel1' style="position:absolute;font-size: 1.1vw;top: 20%;">
+      <div v-if="!recruiting.length == 0" style="position:absolute;height: 2vw;left: 12%;width: 26vw; top: 69%;background: #ffffff;mix-blend-mode:screen;padding: 3vw;font-family:font5;opacity:0.5;">
+        <div class="recruitingPanel1" style="position:absolute;font-size: 1.1vw;top: 20%;">
           {{ recruiting.length }} out of {{ recruitableCount }}
-        </div><div class='recruitingPanel2' style="position:absolute;font-size: 3vw;top: 29%;">
+        </div><div class="recruitingPanel2" style="position:absolute;font-size: 3vw;top: 29%;">
           SELECTED
         </div>
       </div>
-
-
     </div>
-    <div v-if='friendsInfo' class="content" style="position: absolute; height: 78%; width: 80%; top: 19%; left: 3%; filter: drop-shadow(rgb(117, 117, 117) 7px 11px 18px); overflow: auto;padding-right: 12%;">
-      <div v-for="(playerName, index) in friendsOnline" :key="playerName" class="individualPlayerTag tagAnime" style="position:relative;display:inline-block;background:#00000029;height:4vw;width:8vw;overflow:hidden;margin:1vw;" @click.stop="toggleRecruit(playerName)" >
+    <div v-if="friendsInfo" class="content" style="position: absolute; height: 78%; width: 80%; top: 19%; left: 3%; filter: drop-shadow(rgb(117, 117, 117) 7px 11px 18px); overflow: auto;padding-right: 12%;">
+      <div v-for="(playerName, index) in friendsOnline" :key="playerName" class="individualPlayerTag tagAnime" style="position:relative;display:inline-block;background:#00000029;height:4vw;width:8vw;overflow:hidden;margin:1vw;" @click.stop="toggleRecruit(playerName)">
         <div class="deco" style="background:#2196f3;position:absolute;height:100%;right:0%;width:88%;">
           <img src="/imgs/horizontalSep3.png" style="position:absolute;width:96%;height:6%;bottom:0%;opacity:0.7;">
         </div>
@@ -114,19 +106,23 @@ export default {
           ONLN
         </div>
 
-        <div  :class="{tagIn: recruiting.includes(playerName), tagOut: !recruiting.includes(playerName)}"  style="position:absolute;font-size:1.2vw;right:0%;color:white;font-family:font9;">
+        <div :class="{tagIn: recruiting.includes(playerName), tagOut: !recruiting.includes(playerName)}" style="position:absolute;font-size:1.2vw;right:0%;color:white;font-family:font9;">
           RCUT
         </div>
-        <div class="level" :class="{fadeOut: recruiting.includes(playerName), fadeIn: !recruiting.includes(playerName)}" style="position: absolute;font-size: 1.2vw;/* left: 12%; */color: white;font-family: font9;height:100%;width:100%;mix-blend-mode:screen;"> 
-          <div v-if='friendsInfo[username]' style="position:absolute;top: 9%;left: 0%;font-size: 2.9vw;color: white;font-family: font9;">{{ friendsInfo[username].user.exp }}</div>
-          <div style="position:absolute;top: 39%;left: 12%;font-size: 0.6vw;color:black;font-family:font1;background:white;border-style:solid;padding-left: 0.8vw;padding-right: 0.8vw;">level</div>
+        <div class="level" :class="{fadeOut: recruiting.includes(playerName), fadeIn: !recruiting.includes(playerName)}" style="position: absolute;font-size: 1.2vw;/* left: 12%; */color: white;font-family: font9;height:100%;width:100%;mix-blend-mode:screen;">
+          <div v-if="friendsInfo[username]" style="position:absolute;top: 9%;left: 0%;font-size: 2.9vw;color: white;font-family: font9;">
+            {{ friendsInfo[username].user.exp }}
+          </div>
+          <div style="position:absolute;top: 39%;left: 12%;font-size: 0.6vw;color:black;font-family:font1;background:white;border-style:solid;padding-left: 0.8vw;padding-right: 0.8vw;">
+            level
+          </div>
         </div>
         <div class="typographSpec" style="pointer-events: none; position:absolute;font-size:2.3vw;right:0%;color:#ffffff21;font-family:font9;">
           OPERATION
         </div>
       </div>
 
-      <div v-for="(playerName, index) in friendsOffline" :key="playerName" class="individualSpecTag tagAnime" style="position:relative;display:inline-block;background:#00000029;height:4vw;width:8vw;overflow:hidden;margin:1vw;" @click.stop="toggleRecruit(playerName)" >
+      <div v-for="(playerName, index) in friendsOffline" :key="playerName" class="individualSpecTag tagAnime" style="position:relative;display:inline-block;background:#00000029;height:4vw;width:8vw;overflow:hidden;margin:1vw;" @click.stop="toggleRecruit(playerName)">
         <div class="deco" style="background: #939393;position:absolute;height:100%;right:0%;width:88%;">
           <img src="/imgs/horizontalSep3.png" style="position:absolute;width:96%;height:6%;bottom:0%;opacity:0.7;">
         </div>
@@ -141,18 +137,19 @@ export default {
         <div :class="{tagIn: recruiting.includes(playerName), tagOut: !recruiting.includes(playerName)}" style="position:absolute;font-size:1.2vw;right:0%;color:white;font-family:font9;">
           RCUT
         </div>
-        <div class="level" :class="{fadeOut: recruiting.includes(playerName), fadeIn: !recruiting.includes(playerName)}" style="position: absolute;font-size: 1.2vw;/* left: 12%; */color: white;font-family: font9;height:100%;width:100%;mix-blend-mode:screen;"> 
-          <div v-if='friendsInfo[username]' style="position:absolute;top: 9%;left: 0%;font-size: 2.9vw;color: white;font-family: font9;">{{ friendsInfo[username].user.exp }}</div>
-          <div style="position:absolute;top: 39%;left: 12%;font-size: 0.6vw;color:black;font-family:font1;background:white;border-style:solid;padding-left: 0.8vw;padding-right: 0.8vw;">level</div>
+        <div class="level" :class="{fadeOut: recruiting.includes(playerName), fadeIn: !recruiting.includes(playerName)}" style="position: absolute;font-size: 1.2vw;/* left: 12%; */color: white;font-family: font9;height:100%;width:100%;mix-blend-mode:screen;">
+          <div v-if="friendsInfo[username]" style="position:absolute;top: 9%;left: 0%;font-size: 2.9vw;color: white;font-family: font9;">
+            {{ friendsInfo[username].user.exp }}
+          </div>
+          <div style="position:absolute;top: 39%;left: 12%;font-size: 0.6vw;color:black;font-family:font1;background:white;border-style:solid;padding-left: 0.8vw;padding-right: 0.8vw;">
+            level
+          </div>
         </div>
         <div class="typographSpec" style="pointer-events: none;position:absolute;font-size:2.3vw;right:0%;color:#ffffff21;font-family:font9;">
           OFFDUTY
         </div>
       </div>
-
     </div>
-
-
   </div>
 </template>
 
@@ -204,7 +201,6 @@ export default {
   }
 }
 
-
 .recruitingPanel2{
   animation-fill-mode: forwards;
   animation-name: recruitingPanel2;
@@ -250,7 +246,6 @@ export default {
     opacity: 1;
   }
 }
-
 
 .tagAnime{
   animation-fill-mode: forwards;
@@ -389,7 +384,6 @@ export default {
     opacity: 0;
   }
 }
-
 
 </style>
 

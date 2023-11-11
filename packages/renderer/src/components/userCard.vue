@@ -16,16 +16,17 @@ export default {
     },
   },
   mounted() {
-    if(!this.userapi.panelAlreadyShown.value){
+    if (!this.userapi.panelAlreadyShown.value) {
       this.userapi.getInfoLock()
       this.userapi.getUInfo(this.username)
-    setTimeout(() => {
-      this.showInfo = 'userInfoRealPanel'
-    }, 1150)}
+      setTimeout(() => {
+        this.showInfo = 'userInfoRealPanel'
+      }, 1150)
+    }
   },
 
   beforeUnmount() {
-    console.log("UserCard: beforeUnmount() called")
+    console.log('UserCard: beforeUnmount() called')
     this.userapi.resetUserInfo()
   },
   methods: {
