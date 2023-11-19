@@ -58,19 +58,19 @@ export default {
         }, 1000)
         this.ui.pushUINewNotif({ title: 'FRND', msg: 'Accepted Friend', class: 'aaa' })
       },
-        () => {
-          this.isReloaded = false
-          const params = {
-            confirmationId: this.confirmations[confID].id,
-            type: this.confirmations[confID].type,
-            agree: false,
-          }
-          setTimeout(() => {
-            this.network.confirmEmail(params)
-            this.isReloaded = true
-          }, 1000)
-          this.ui.pushUINewNotif({ title: 'FRND', msg: 'Rejected Friend', class: 'aaa' })
-        })
+      () => {
+        this.isReloaded = false
+        const params = {
+          confirmationId: this.confirmations[confID].id,
+          type: this.confirmations[confID].type,
+          agree: false,
+        }
+        setTimeout(() => {
+          this.network.confirmEmail(params)
+          this.isReloaded = true
+        }, 1000)
+        this.ui.pushUINewNotif({ title: 'FRND', msg: 'Rejected Friend', class: 'aaa' })
+      })
     },
   },
 }
@@ -206,13 +206,23 @@ export default {
               <img src="/imgs/angles-right-solid.svg" style="position:absolute;height: 170%;top: -35%;">
               <img src="/imgs/angles-right-solid.svg" style="position:absolute;height: 170%;top: -35%;left: 14%;"><img src="/imgs/angles-right-solid.svg" style="position:absolute;height: 170%;top: -35%;left: 28%;"><img src="/imgs/angles-right-solid.svg" style="position:absolute;height: 170%;top: -35%;left: 42%;"><img src="/imgs/angles-right-solid.svg" style="position:absolute;height: 170%;top: -35%;left: 56%;"><img src="/imgs/angles-right-solid.svg" style="position:absolute;height: 170%;top: -35%;left: 70%;"><img src="/imgs/angles-right-solid.svg" style="position:absolute;height: 170%;top: -35%;left: 84%;">
             </div>
-            <div style="position:absolute;top: 39%;left: 54%;font-family: font10;font-size: 4vh;color:black;/* font-weight:900; */width: 51%;background:white;mix-blend-mode:screen;opacity: 0.3;">ENGINEERING SECTION</div>
+            <div style="position:absolute;top: 39%;left: 54%;font-family: font10;font-size: 4vh;color:black;/* font-weight:900; */width: 51%;background:white;mix-blend-mode:screen;opacity: 0.3;">
+              ENGINEERING SECTION
+            </div>
             <div style="position:absolute;top: 9%;left: 54%;font-family: font10;font-size: 4vh;color:black;height:45%;width: 26%;/* background:white; */mix-blend-mode: multiply;/* opacity: 0.3; */">
-              <div style="position:absolute;font-size: 2vh;font-weight:900;left: 8%;top: 12%;letter-spacing: 1.2vh;">COLLABORATION INVITE</div>
+              <div style="position:absolute;font-size: 2vh;font-weight:900;left: 8%;top: 12%;letter-spacing: 1.2vh;">
+                COLLABORATION INVITE
+              </div>
 
-              <div style="position:absolute;font-size: 5vh;font-weight:900;left: 8%;top: 2.1%;background:black;color:white;width: 84%;padding-left: 2%;">Dr. Kal'tsit</div>
-              <div style="position:absolute;font-size: 8vh;font-weight:900;left:0%;">[</div>
-              <div style="position:absolute;font-size: 8vh;font-weight:900;right: 0%;">]</div>
+              <div style="position:absolute;font-size: 5vh;font-weight:900;left: 8%;top: 2.1%;background:black;color:white;width: 84%;padding-left: 2%;">
+                Dr. Kal'tsit
+              </div>
+              <div style="position:absolute;font-size: 8vh;font-weight:900;left:0%;">
+                [
+              </div>
+              <div style="position:absolute;font-size: 8vh;font-weight:900;right: 0%;">
+                ]
+              </div>
             </div>
             <div class="remoteAcess" style="position:absolute;width: 49%;height: 33%;top: 51%;left: 28%;transform: translateZ(68vh);" @click="confirmFCard()">
               <div class="props" style="position:absolute;top: 87%;right: -13%;font-family: font10;font-size: 4vh;color:black;font-weight:900;width: 100%;text-align:right;">
@@ -222,14 +232,17 @@ export default {
                 <i class="fa fa-podcast" aria-hidden="true"></i>
                 <i class="fa fa-binoculars" aria-hidden="true"></i>
                 <i class="fa fa-bomb" aria-hidden="true"></i>
-
               </div>
 
               <div style="position:absolute;width: 100%;height: 100%;background: #ffffff7a;top: 10%;left: 19%;"></div>
               <div style="position:absolute;width: 76%;height: 3%;border-top: 2px solid #0000003d;border-bottom: 2px solid #0000003d;top: 66.5%;left: 16.4%;"></div>
               <div style="position:absolute;width: 45%;height: 1.5%;background:black;top: 67.8%;left: 16.4%;"></div>
-              <div style="position:absolute;top: 33%;left: 16%;font-family: font10;font-size: 11vh;color:black;font-weight:900;width:100%;">REMOTE ACCESS</div>
-              <div style="position:absolute;top: 63%;left: 94.8%;font-family: font10;font-size: 4vh;color:black;/* font-weight:900; *//* letter-spacing: 6.3vh; */">ACTIVE</div>
+              <div style="position:absolute;top: 33%;left: 16%;font-family: font10;font-size: 11vh;color:black;font-weight:900;width:100%;">
+                REMOTE ACCESS
+              </div>
+              <div style="position:absolute;top: 63%;left: 94.8%;font-family: font10;font-size: 4vh;color:black;/* font-weight:900; *//* letter-spacing: 6.3vh; */">
+                ACTIVE
+              </div>
             </div>
             <div class="floorDesc3D" data-v-b484bd42="" style="position:absolute;top:10%;left: 36%;height:78%;width:20%;transform-style:preserve-3d;">
               <div class="descWire" style="position:absolute;height:100%;border-style:dotted;left: -36%;"></div>
@@ -244,11 +257,13 @@ export default {
               <div class="elevator" data-v-b484bd42="" style="position:absolute;top: 13%;left: -14%;height: 0.5vh;width:20vh;background: #000000;transform: translateY(6vh) translateZ(27vh) translateX(-16vh) rotateY(180deg) rotateX(69deg) rotateZ(135deg);"></div>
               <div class="elevator1" data-v-b484bd42="" style="position:absolute;top: 0%;left: -14%;height: 0.5vh;width:20vh;background: #000000;transform: translateY(6vh) translateZ(27vh) translateX(-16vh) rotateY(180deg) rotateX(69deg) rotateZ(135deg);"></div>
               <div class="elevator2" data-v-b484bd42="" style="position:absolute;top: -0.4%;left: -49.5%;height: 0.3vh;width:20vh;background: #000000;transform: translateY(4vh) translateX(-18vh);"></div>
-              <div class="elevator3" data-v-b484bd42="" style="position:absolute;top: -0.4%;left: -49%;height: 0.3vh;width:20vh;color:black;font-size: 2vh;font-weight:900;font-family: font5;transform: translateY(4vh) translateX(-18vh);">GROUND ZERO
+              <div class="elevator3" data-v-b484bd42="" style="position:absolute;top: -0.4%;left: -49%;height: 0.3vh;width:20vh;color:black;font-size: 2vh;font-weight:900;font-family: font5;transform: translateY(4vh) translateX(-18vh);">
+                GROUND ZERO
               </div>
               <div class="elevator1" data-v-b484bd42="" style="position:absolute;top: 91%;left: -14%;height: 0.5vh;width:20vh;background: #000000;transform: translateY(6vh) translateZ(27vh) translateX(-16vh) rotateY(180deg) rotateX(69deg) rotateZ(135deg);"></div>
               <div class="elevator2" data-v-b484bd42="" style="position:absolute;top: 90.6%;left: -49.5%;height: 0.3vh;width:20vh;background: #000000;transform: translateY(4vh) translateX(-18vh);"></div>
-              <div class="elevator3" data-v-b484bd42="" style="position:absolute;top: 90.6%;left: -49%;height: 0.3vh;width:20vh;color:black;font-size: 2vh;font-weight:900;font-family: font5;transform: translateY(4vh) translateX(-18vh);">SUCCESSFUL COLLABORATION
+              <div class="elevator3" data-v-b484bd42="" style="position:absolute;top: 90.6%;left: -49%;height: 0.3vh;width:20vh;color:black;font-size: 2vh;font-weight:900;font-family: font5;transform: translateY(4vh) translateX(-18vh);">
+                SUCCESSFUL COLLABORATION
               </div>
               <div class="floor" data-v-b484bd42="" style="position:absolute;top:0%;left:0%;height:20vh;width:20vh;background:rgba(141, 141, 141, 0.45);transform:translateY(0vh) translateZ(0vh) rotateY(180deg) rotateX(69deg) rotateZ(135deg);"></div>
               <div class="floor" data-v-b484bd42="" style="position:absolute;top:7%;left:0%;height:20vh;width:20vh;background:rgba(141, 141, 141, 0.45);transform:translateY(0vh) translateZ(0vh) rotateY(180deg) rotateX(69deg) rotateZ(135deg);"></div>

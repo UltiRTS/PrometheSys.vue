@@ -320,8 +320,6 @@ export default {
   }
 }
 
-
-
 .oprtTagMaskGone{
   animation-fill-mode: forwards;
   animation-name: oprtTagMaskGone;

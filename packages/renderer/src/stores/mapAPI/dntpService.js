@@ -1,6 +1,6 @@
 import { ref } from 'vue'
-import * as lib from './maplib.js'
 import { pushConfirm, pushNewLoading, pushUINewNotif, rmLoading } from '../UI/ui'
+import * as lib from './maplib.js'
 
 const fs = require('fs')
 const path = require('node:path')
@@ -104,9 +104,10 @@ export async function getMapActualFile(id, dir) {
     if (mapHash !== ret.map.map_hash)
       redlNeeded = true
   }
-  if (ret.success && redlNeeded){
+  if (ret.success && redlNeeded) {
     await downloadMap(ret.prefix + ret.map.map_filename, mapsPath, ret.map.map_filename)
-    pushUINewNotif({ title: 'MAP', msg: 'New Map Retrieved', class: 'aaa' })}
+    pushUINewNotif({ title: 'MAP', msg: 'New Map Retrieved', class: 'aaa' })
+  }
 }
 
 export async function getMiniMapfromID(id, lobbyDir) {

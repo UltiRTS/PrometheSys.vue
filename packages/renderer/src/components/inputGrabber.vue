@@ -35,7 +35,7 @@ const enter = () => {
 
 </script>
 <template>
-  <div v-if="uStore.ui.inputGrabber.value" class="fixed top-0 left-0 w-screen h-screen" :class="{'bg':!exiting, 'bgExit':exiting}" style="pointer-events: auto;" @click="cancel" >
+  <div v-if="uStore.ui.inputGrabber.value" class="fixed top-0 left-0 w-screen h-screen" :class="{'bg':!exiting, 'bgExit':exiting}" style="pointer-events: auto;" @click="cancel">
     <div class="absolute" :class="{'contr':!exiting, 'contrExit':exiting}" style="top: 32%; width: 100%; height: 28%; background: linear-gradient(18deg, rgb(58, 64, 133), rgb(70, 133, 197));" />
     <div class="stripy1" style="position: absolute; top: 32%;  width: 100%;overflow:hidden; height: 28%; ">
       <div style="position: absolute; width: 200%; height: 100%; background: repeating-linear-gradient(56deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.19) 3px, rgba(70, 82, 152, 0) 7px, rgba(70, 82, 152, 0) 17px);opacity:0.5;">

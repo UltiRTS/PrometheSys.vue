@@ -606,9 +606,6 @@ const qichuangdachenggong = () => {
 
 <style scoped>
 
-
-
-
 .leftSpotLight {
   opacity: 0;
   animation-fill-mode: forwards;
@@ -664,8 +661,6 @@ const qichuangdachenggong = () => {
   }
 }
 
-
-
 /* The element to apply the animation to */
 .mainContent {
   animation-name: mainContent;
@@ -692,8 +687,6 @@ const qichuangdachenggong = () => {
   animation-fill-mode: forwards;
   animation-timing-function: cubic-bezier(0.95, 0, 0.24, 0.88);
 }
-
-
 
 @keyframes theaTitle {
   0% {

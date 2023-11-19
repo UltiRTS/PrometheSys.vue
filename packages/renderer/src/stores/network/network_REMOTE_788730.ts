@@ -46,7 +46,6 @@ export function initNetWork(isRe = false) {
 
   ws.onmessage = (ev) => {
     let msg: StateMessage | Notification | PONG = JSON.parse(ev.data)
-    console.log(msg)
     switch (msg.action) {
       case 'PING':
         msg = msg as PONG
@@ -56,13 +55,7 @@ export function initNetWork(isRe = false) {
 
       case 'NOTIFY':
         msg = msg as Notification
-<<<<<<< HEAD
-        
-||||||| 5ce9193
-        console.log(msg)
-=======
 
->>>>>>> 4bafa6902b0773f2d755389b003f4ce3d9b2abd8
         switch (msg.from) {
           case 'LOGIN':
             pushConfirm(msg.action,
@@ -86,34 +79,12 @@ export function initNetWork(isRe = false) {
 
       default:
         msg = msg as StateMessage
-<<<<<<< HEAD
-        if (msg.path === '') {
-
-||||||| 5ce9193
-        if (msg.path === '') {
-          console.log(msg)
-=======
 
         // assign new value to the local state
         if (msg.path === '')
->>>>>>> 4bafa6902b0773f2d755389b003f4ce3d9b2abd8
           selfState.value = msg
-<<<<<<< HEAD
-        }
-        if (!selfState.value) {
-          return
-        }
-        _.set(selfState.value, 'state.'+msg.path, msg.state)
-||||||| 5ce9193
-        }
-        if (!selfState.value) {
-          return
-        }
-        _.set(selfState.value, msg.path, msg.state)
-=======
         else if (selfState.value)
           _.set(selfState.value.state, msg.path, msg.state)
->>>>>>> 4bafa6902b0773f2d755389b003f4ce3d9b2abd8
         // login section
         writeLoginStats()
 
@@ -204,8 +175,6 @@ function writeChatStats(msg: StateMessage) {
   for (const channel in msg.state.user.chatRooms) {
     joinedChannels.value.push(channel)
     const lastMessage = msg.state.user.chatRooms[channel].lastMessage
-    if (!lastMessage)
-      continue
     if (lastMessage.content !== '') {
       chatLog.value.push({
         author: lastMessage.author,
@@ -214,7 +183,6 @@ function writeChatStats(msg: StateMessage) {
         chatName: channel,
       })
       unreadChannel.value.push(channel)
-      msg.state.user.chatRooms[channel].lastMessage = null
       while (chatLog.value.length > 100) chatLog.value.shift()
     }
   }

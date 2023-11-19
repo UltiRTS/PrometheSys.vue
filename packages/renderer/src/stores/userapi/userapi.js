@@ -11,12 +11,11 @@ const request = axios.create({
   timeout: 10000,
 })
 
-export function getInfoLock(){
+export function getInfoLock() {
   panelAlreadyShown.value = true
 }
 
 export async function getUInfo(username) {
-
   ui.pushNewLoading('gtUInfo')
   try {
     const resp = await request.get(`/byname/${username}`)
@@ -31,14 +30,14 @@ export async function getUInfo(username) {
 }
 
 export async function getUInfoBulk(usernames) {
-  let resultCollector = {}
+  const resultCollector = {}
   ui.pushNewLoading('gtUInfo')
-  for (const username in usernames){
+  for (const username in usernames) {
     try {
       const resp = await request.get(`/byname/${usernames[username]}`)
-  
+
       // console.log(resp)
-      resultCollector[usernames[username]]=resp.data
+      resultCollector[usernames[username]] = resp.data
     }
     catch (e) {
       // console.log(e)
@@ -47,7 +46,6 @@ export async function getUInfoBulk(usernames) {
   userInfoBulk.value = resultCollector
   ui.rmLoading('gtUInfo')
 }
-
 
 export function resetUserInfo() {
   userInfo.value = false

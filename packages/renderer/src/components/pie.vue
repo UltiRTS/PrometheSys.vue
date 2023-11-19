@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { onMounted, ref, computed} from 'vue'
-import Two from 'two.js'
 import { randomInt } from 'crypto'
+import { computed, onMounted, ref } from 'vue'
+import Two from 'two.js'
 
 const twoTag = ref<HTMLElement | null>(null)
 

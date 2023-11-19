@@ -77,7 +77,7 @@ export default {
   updated() {
 
   },
-    mounted() {
+  mounted() {
     this.musicPlayer.playSound('kaz.wav', true)
   },
   methods: {
@@ -129,7 +129,8 @@ export default {
 </script>
 
 <template>
-  <div class="dodPreGameWrapper">f
+  <div class="dodPreGameWrapper">
+    f
     <img id="quickFixNoPic" style="position:absolute;top:0;left:0%;width:1px;height:1px;" src="/imgs/minimapSample.png">
     <div class="dodPregame" style="position: absolute; top: 0px; left: 0px; width: 176vw; height: 100%; perspective: 2vh; overflow: hidden;">
       <div class="dodPregameBg" style="position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;background:#989ba1;">

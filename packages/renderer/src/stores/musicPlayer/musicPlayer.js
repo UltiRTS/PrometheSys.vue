@@ -32,17 +32,16 @@ export async function playSound(file, loop) {
     const t0 = performance.now()
     function dialDown(time) {
       const dt = time - t0
-      if(automaticVolume == 0)
+      if (automaticVolume == 0)
         return
       automaticVolume = (1000 - dt) / 1000
       if (dt >= 1000) {
         automaticVolume = 0
         actuallyPlay()
-        
       }
       else {
         contextGain.gain.setValueAtTime(
-          
+
           automaticVolume * (userVol / 100),
           audioCtx.currentTime,
         )
@@ -54,7 +53,6 @@ export async function playSound(file, loop) {
   }
 
   async function actuallyPlay() {
-    
     // const assets_dir = path.join(__dirname, 'music')
     try {
       sourceIntro.disconnect(contextGain)
@@ -102,15 +100,15 @@ export async function playSound(file, loop) {
   }
 }
 
-export function toggleSound(){
-  if (automaticVolume==1)
+export function toggleSound() {
+  if (automaticVolume == 1)
     stopSound()
   else
     resumeSound()
 }
 
 export function stopSound() {
-  if(!isMusicPlaying)
+  if (!isMusicPlaying)
     return
   if (isTransitioning)
     return
@@ -138,31 +136,31 @@ export function stopSound() {
 }
 
 export function resumeSound() {
-  if(!isMusicPlaying)
+  if (!isMusicPlaying)
     return
   if (isTransitioning)
     return
   isTransitioning = true
-    // console.log('trying to stop music')
-    const t0 = performance.now()
-    function dialUp(time) {
-      const dt = time - t0
-      if(automaticVolume == 1)
-        return
-      automaticVolume = (dt) / 1000
-      if (dt >= 1000) {
-        automaticVolume = 1
-        isTransitioning = false
-      }
-      else {
-        contextGain.gain.setValueAtTime(
-          
-          automaticVolume * (userVol / 100),
-          audioCtx.currentTime,
-        )
-        console.log('lp1')
-        window.requestAnimationFrame(dialUp)
-      }
+  // console.log('trying to stop music')
+  const t0 = performance.now()
+  function dialUp(time) {
+    const dt = time - t0
+    if (automaticVolume == 1)
+      return
+    automaticVolume = (dt) / 1000
+    if (dt >= 1000) {
+      automaticVolume = 1
+      isTransitioning = false
     }
-    window.requestAnimationFrame(dialUp)
+    else {
+      contextGain.gain.setValueAtTime(
+
+        automaticVolume * (userVol / 100),
+        audioCtx.currentTime,
+      )
+      console.log('lp1')
+      window.requestAnimationFrame(dialUp)
+    }
+  }
+  window.requestAnimationFrame(dialUp)
 }
