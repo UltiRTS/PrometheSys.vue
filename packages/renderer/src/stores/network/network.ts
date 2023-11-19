@@ -47,6 +47,7 @@ export function initNetWork(isRe = false) {
 
   ws.onmessage = (ev) => {
     let msg: StateMessage | Notification | PONG = JSON.parse(ev.data)
+    console.log(msg)
     switch (msg.action) {
       case 'PING':
         msg = msg as PONG
@@ -57,7 +58,7 @@ export function initNetWork(isRe = false) {
 
       case 'NOTIFY':
         msg = msg as Notification
-        console.log(msg)
+        
         switch (msg.from) {
           case 'LOGIN':
             pushConfirm(msg.action, msg.message, true, true).then(
@@ -79,13 +80,13 @@ export function initNetWork(isRe = false) {
       default:
         msg = msg as StateMessage
         if (msg.path === '') {
-          console.log(msg)
+
           selfState.value = msg
         }
         if (!selfState.value) {
           return
         }
-        _.set(selfState.value, msg.path, msg.state)
+        _.set(selfState.value, 'state.'+msg.path, msg.state)
         // login section
         writeLoginStats()
 
@@ -170,6 +171,8 @@ function writeChatStats(msg: StateMessage) {
   for (const channel in msg.state.user.chatRooms) {
     joinedChannels.value.push(channel)
     const lastMessage = msg.state.user.chatRooms[channel].lastMessage
+    if (!lastMessage)
+      continue
     if (lastMessage.content !== '') {
       chatLog.value.push({
         author: lastMessage.author,
@@ -178,6 +181,7 @@ function writeChatStats(msg: StateMessage) {
         chatName: channel,
       })
       unreadChannel.value.push(channel)
+      msg.state.user.chatRooms[channel].lastMessage = null
       while (chatLog.value.length > 100) chatLog.value.shift()
     }
   }
