@@ -38,16 +38,16 @@ export default {
     setMod(modName) {
       switch (modName) {
         case 1:
-          this.network.setMod({ mod: 'mod.sdd' })
+          this.network.setMod({ mod: 'mod.sdd', game: this.network.joinedGame.value.title })
           return
         case 2:
-          this.network.setMod({ mod: 'arena.sdd' })
+          this.network.setMod({ mod: 'arena.sdd', game: this.network.joinedGame.value.title })
           return
         case 3:
-          this.network.setMod({ mod: 'unitlevelup.sdd' })
+          this.network.setMod({ mod: 'unitlevelup.sdd', game: this.network.joinedGame.value.title })
           return
         default:
-          this.network.setMod({ mod: 'mod.sdd' })
+          this.network.setMod({ mod: 'mod.sdd', game: this.network.joinedGame.value.title })
       }
     },
     makefocus(id) {

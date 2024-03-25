@@ -516,13 +516,16 @@ export function hasMap(params: {
   wsSendServer(tx)
 }
 
+// a string for firned name and text, with text being "hi" by default
 export function addFriend(params: {
   friendName: string
+  text: string
 }) {
   const tx = {
     action: 'ADDFRIEND',
     parameters: {
-      friendName: params.friendName,
+      name: params.friendName,
+      text: params.text || 'hi',
     },
     seq: randomInt(0, 1000000),
   }
@@ -532,11 +535,13 @@ export function addFriend(params: {
 
 export function setMod(params: {
   mod: string
+  game: string
 }) {
   const tx = {
     action: 'SETMOD',
     parameters: {
-      mod: params.mod,
+      modId: params.mod,
+      gameName: params.game,
     },
     seq: randomInt(0, 1000000),
   }
