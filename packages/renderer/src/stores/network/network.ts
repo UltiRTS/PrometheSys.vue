@@ -1,16 +1,15 @@
 /* eslint-disable @typescript-eslint/adjacent-overload-signatures */
 import { randomInt } from 'crypto'
 import { ref } from 'vue'
+import _ from 'lodash'
+import { machineId } from 'node-machine-id'
 import { pushConfirm, pushNewLoading, pushUINewNotif, rmLoading } from '../UI/ui'
 import router from '../../router'
 import * as dntp from '../mapAPI/dntpService'
 import * as engineMgr from '../engineManager/engine'
 import type { Confirmation, Game, GameBrief, Notification, PONG, StateMessage, User } from './interfaces'
-import { machineId } from 'node-machine-id';
-import _ from "lodash"
 
 // Asyncronous call with async/await or Promise
-
 
 let ws: WebSocket
 export const ws_open = ref<boolean>(false)
@@ -36,14 +35,12 @@ export const minimapFileName = ref('')
 // initNetWork()
 
 export function initNetWork(isRe = false) {
-
   clientHP.value = 3
   if (process.env.addr === undefined)
     ws = new WebSocket('ws://144.126.145.172:8081')
 
-
   else
-    ws = new WebSocket('ws://' + process.env.addr)
+    ws = new WebSocket(`ws://${  process.env.addr}`)
 
   ws.onmessage = (ev) => {
     let msg: StateMessage | Notification | PONG = JSON.parse(ev.data)
@@ -58,13 +55,13 @@ export function initNetWork(isRe = false) {
 
       case 'NOTIFY':
         msg = msg as Notification
-        
+
         switch (msg.from) {
           case 'LOGIN':
             pushConfirm(msg.action, msg.message, true, true).then(
               () => {
                 isReg.value = true
-              }
+              },
             )
             break
           case 'baneed':
@@ -72,21 +69,18 @@ export function initNetWork(isRe = false) {
             break
           default:
             pushConfirm(msg.action, msg.message, true, false).then()
-
-
         }
         break
 
       default:
         msg = msg as StateMessage
-        if (msg.path === '') {
-
+        if (msg.path === '')
           selfState.value = msg
-        }
-        if (!selfState.value) {
+
+        if (!selfState.value)
           return
-        }
-        _.set(selfState.value, 'state.'+msg.path, msg.state)
+
+        _.set(selfState.value, `state.${msg.path}`, msg.state)
         // login section
         writeLoginStats()
 
@@ -107,7 +101,6 @@ export function initNetWork(isRe = false) {
         writeMIDGameStats(selfState.value)
 
         break
-
     }
   }
 
@@ -213,8 +206,6 @@ function writeMapStats(msg: StateMessage) {
       hasMap({
         mapId: mapBeingDownloaded,
       })
-
-
     })
   })
 }
@@ -429,7 +420,6 @@ export function ADV_RECRUIT(friendName: string) {
 }
 
 export function forfeit() {
-
   const tx = {
     action: 'ADV_FORFEIT',
     parameters: {
@@ -450,7 +440,7 @@ export function setAIorChicken(params: {
     action: 'SETAI',
     parameters: {
       gameName: params.gameName,
-      AI: params.AI,
+      ai: params.AI,
       team: params.team,
       type: params.type,
     },
