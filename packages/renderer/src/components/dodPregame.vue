@@ -119,7 +119,7 @@ export default {
     },
     startGame() {
       // console.log('trying to start game')
-      this.network.startGame()
+      this.network.startGame(this.network.joinedGame.value.title)
     },
     miJoin() {
       this.network.midJoin()

@@ -548,10 +548,11 @@ export function setMod(params: {
   wsSendServer(tx)
 }
 
-export function startGame() {
+export function startGame(gName: string) {
   const tx = {
     action: 'STARTGAME',
     parameters: {
+      gameName: gName,
     },
     seq: randomInt(0, 1000000),
   }
