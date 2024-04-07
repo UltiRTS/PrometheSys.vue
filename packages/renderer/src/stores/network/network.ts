@@ -80,6 +80,7 @@ export function initNetWork(isRe = false) {
           return
 
         _.set(selfState.value, `state.${msg.path}`, msg.state)
+        console.log('plasmid is trying to update', msg.path)
         console.log('after update', selfState.value)
         // login section
         writeLoginStats()
