@@ -40,11 +40,11 @@ export function initNetWork(isRe = false) {
     ws = new WebSocket('ws://144.126.145.172:8081')
 
   else
-    ws = new WebSocket(`ws://${  process.env.addr}`)
+    ws = new WebSocket(`ws://${process.env.addr}`)
 
   ws.onmessage = (ev) => {
     let msg: StateMessage | Notification | PONG = JSON.parse(ev.data)
-    console.log(msg)
+    //console.log(msg)
     switch (msg.action) {
       case 'PING':
         msg = msg as PONG
@@ -118,18 +118,18 @@ export function initNetWork(isRe = false) {
     pushConfirm('NEURAL CONNECTION LOST', 'RECONNECTION CONFIRM').then(() => {
       initNetWork(true)
     },
-      () => {
-        // console.log('logged out')
-        ws.close()
-        pushUINewNotif({ title: 'IDENT', msg: 'NEURAL CONNECTION DESTROYED', class: 'aaa' })
-      })
+    () => {
+      // console.log('logged out')
+      ws.close()
+      pushUINewNotif({ title: 'IDENT', msg: 'NEURAL CONNECTION DESTROYED', class: 'aaa' })
+    })
   }
 
   hpChecker = setInterval(() => {
     if (clientHP.value <= 0) {
       ws.close()
       clearInterval(hpChecker)
-      //hpChecker.shift()
+      // hpChecker.shift()
     }
 
     clientHP.value--
@@ -202,9 +202,12 @@ function writeMapStats(msg: StateMessage) {
       if (index > -1) { // only splice array when item is found
         mapsBeingDownloaded.splice(index, 1) // 2nd parameter means remove one item only
       }
+      if (!selfState.value || !selfState.value.state.user.game)
+        return
 
       hasMap({
         mapId: mapBeingDownloaded,
+        gameName: selfState.value.state.user.game.title,
       })
     })
   })
@@ -265,7 +268,7 @@ export function login(params: {
 
 export function toggleManualReg() {
   isReg.value = !isReg.value
-  console.log({ "registering": isReg.value })
+  console.log({ registering: isReg.value })
 }
 
 export async function register(params: {
@@ -414,7 +417,7 @@ export function ADV_RECRUIT(friendName: string) {
     parameters: {
       friendName,
     },
-    seq: randomInt(0, 1000000)
+    seq: randomInt(0, 1000000),
   }
   wsSendServer(tx)
 }
@@ -424,7 +427,7 @@ export function forfeit() {
     action: 'ADV_FORFEIT',
     parameters: {
     },
-    seq: randomInt(0, 1000000)
+    seq: randomInt(0, 1000000),
   }
 
   wsSendServer(tx)
@@ -504,6 +507,7 @@ export function specPlayer(params: {
 
 export function hasMap(params: {
   mapId: number
+  gameName: string
 }) {
   const tx = {
     action: 'HASMAP',
@@ -586,7 +590,7 @@ export function wsSendServer(tx: {
   parameters: any
   seq: number
 }) {
-  console.log({ 'sending': tx })
+  console.log({ sending: tx })
   if (ws_open.value !== true) {
     console.error('ws is not open')
     return
