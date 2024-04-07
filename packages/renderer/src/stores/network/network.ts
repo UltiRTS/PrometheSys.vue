@@ -44,7 +44,6 @@ export function initNetWork(isRe = false) {
 
   ws.onmessage = (ev) => {
     let msg: StateMessage | Notification | PONG = JSON.parse(ev.data)
-    //console.log(msg)
     switch (msg.action) {
       case 'PING':
         msg = msg as PONG
@@ -268,7 +267,7 @@ export function login(params: {
 
 export function toggleManualReg() {
   isReg.value = !isReg.value
-  console.log({ registering: isReg.value })
+  // console.log({ registering: isReg.value })
 }
 
 export async function register(params: {
@@ -513,6 +512,7 @@ export function hasMap(params: {
     action: 'HASMAP',
     parameters: {
       mapId: params.mapId,
+      gameName: params.gameName,
     },
     seq: randomInt(0, 1000000),
   }
