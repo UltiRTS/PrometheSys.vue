@@ -12,6 +12,7 @@ export const confirms = ref<{ title: string; msg: string; rej: any;cnfrm: any; a
 export function pushNewLoading(id: string) {
   loadingClass.value = 'alive'
   loadingQ.value.push(id)
+  console.log('appending loading: ', id, 'active loadings:', loadingQ.value)
   setTimeout(() => {
     function removeFirst(arr: string[], target: string) {
       const idx = arr.indexOf(target)

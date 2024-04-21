@@ -70,6 +70,12 @@ if (isLinux)
     engineCmdLine = `start \"\" \'${engine}\' \'${path.join(wdir, 'springwritable', 'script.txt')}\' --write-dir \'${path.join(wdir, 'springwritable')}\'`
 */
   const child = execFile(engine, [path.join(wdir, 'springwritable', 'script.txt'), '-write-dir', path.join(wdir, 'springwritable')], { maxBuffer: 1024 * 1024000 })
+// print launch error like exe not found
+  child.stderr.on('data', (data) => {
+    data = data.toString()
+    result += data
+    console.log(data)
+  })
 
   child.stdout.on('data', (data) => {
     data = data.toString()
