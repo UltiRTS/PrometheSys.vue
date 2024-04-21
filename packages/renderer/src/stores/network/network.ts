@@ -183,7 +183,7 @@ function writeChatStats(msg: StateMessage) {
 }
 
 function writeMapStats(msg: StateMessage) {
-  if (!msg.state.user.game || !msg.state.user.game.players)
+  if (!msg.state.user.game || !msg.state.user.game.players || !msg.state.user.game.players[username.value])
     return
   const mapBeingDownloaded = msg.state.user.game.mapId
   if (mapsBeingDownloaded.includes(mapBeingDownloaded))
