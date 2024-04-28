@@ -122,7 +122,7 @@ export default {
       this.network.startGame(this.network.joinedGame.value.title)
     },
     miJoin() {
-      this.network.midJoin()
+      this.network.midJoin(this.network.joinedGame.value.title)
     },
   },
 }

@@ -579,10 +579,11 @@ export function killGame() {
   wsSendServer(tx)
 }
 
-export function midJoin() {
+export function midJoin(gName: string) {
   const tx = {
     action: 'MIDJOIN',
     parameters: {
+      gameName: gName,
     },
     seq: randomInt(0, 1000000),
   }
