@@ -393,10 +393,11 @@ export function joinGame(params: {
   wsSendServer(tx)
 }
 
-export function leaveGame() {
+export function leaveGame(gameName) {
   const tx = {
     action: 'LEAVEGAME',
     parameters: {
+      gameName,
     },
     seq: randomInt(0, 1000000),
   }
