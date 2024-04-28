@@ -119,6 +119,11 @@ export default {
     },
     startGame() {
       // console.log('trying to start game')
+      // if game started, send midjoin
+      if (this.network.joinedGame.value.isStarted) {
+        this.network.midJoin(this.network.joinedGame.value.title)
+        return
+      }
       this.network.startGame(this.network.joinedGame.value.title)
     },
     miJoin() {
