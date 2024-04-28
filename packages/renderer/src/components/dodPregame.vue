@@ -91,7 +91,7 @@ export default {
     },
 
     exitGame() {
-      this.network.leaveGame()
+      this.network.leaveGame(this.network.joinedGame.value.title)
     },
 
     viewModelTeam() {
