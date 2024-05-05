@@ -120,11 +120,11 @@ export function initNetWork(isRe = false) {
     pushConfirm('NEURAL CONNECTION LOST', 'RECONNECTION CONFIRM').then(() => {
       initNetWork(true)
     },
-    () => {
-      // console.log('logged out')
-      ws.close()
-      pushUINewNotif({ title: 'IDENT', msg: 'NEURAL CONNECTION DESTROYED', class: 'aaa' })
-    })
+      () => {
+        // console.log('logged out')
+        ws.close()
+        pushUINewNotif({ title: 'IDENT', msg: 'NEURAL CONNECTION DESTROYED', class: 'aaa' })
+      })
   }
 
   hpChecker = setInterval(() => {
@@ -182,37 +182,40 @@ function writeChatStats(msg: StateMessage) {
   }
 }
 
-function writeMapStats(msg: StateMessage) {
+async function writeMapStats(msg: StateMessage) {
   if (!msg.state.user.game || !msg.state.user.game.players || !msg.state.user.game.players[username.value])
     return
+  console.log('map ret1')
   const mapBeingDownloaded = msg.state.user.game.mapId
   if (mapsBeingDownloaded.includes(mapBeingDownloaded))
     return
+  console.log('map ret2')
+  minimapFileName.value = await dntp.getMiniMapfromID(mapBeingDownloaded, wdir)
 
-  if (msg.state.user.game.players[username.value].hasmap)
-    return
-
+  console.log('map ret3')
   mapsBeingDownloaded.push(mapBeingDownloaded)
 
   pushNewLoading('loadingMiniMap')
   // pushUINewNotif({ title: 'INTL', msg: 'Operation Intl Updated', class: 'aaa' })
-  dntp.getMiniMapfromID(mapBeingDownloaded, wdir).then((filename) => {
-    minimapFileName.value = filename
-    rmLoading('loadingMiniMap')
-    dntp.getMapActualFile(mapBeingDownloaded, wdir).then(() => {
-      const index = mapsBeingDownloaded.indexOf(mapBeingDownloaded)
-      if (index > -1) { // only splice array when item is found
-        mapsBeingDownloaded.splice(index, 1) // 2nd parameter means remove one item only
-      }
-      if (!selfState.value || !selfState.value.state.user.game)
-        return
 
-      hasMap({
-        mapId: mapBeingDownloaded,
-        gameName: selfState.value.state.user.game.title,
-      })
+  rmLoading('loadingMiniMap')
+  dntp.getMapActualFile(mapBeingDownloaded, wdir).then(() => {
+    const index = mapsBeingDownloaded.indexOf(mapBeingDownloaded)
+    if (index > -1) { // only splice array when item is found
+      mapsBeingDownloaded.splice(index, 1) // 2nd parameter means remove one item only
+    }
+    if (!selfState.value || !selfState.value.state.user.game)
+      return
+    
+    if (selfState.value.state.user.game.players[username.value].hasmap)
+      return
+
+    hasMap({
+      mapId: mapBeingDownloaded,
+      gameName: selfState.value.state.user.game.title,
     })
   })
+
 }
 function writeStartGameStats(msg: StateMessage) {
   // console.log(joinedGame.value)
@@ -393,7 +396,7 @@ export function joinGame(params: {
   wsSendServer(tx)
 }
 
-export function leaveGame(gameName) {
+export function leaveGame(gameName: string) {
   const tx = {
     action: 'LEAVEGAME',
     parameters: {
@@ -572,6 +575,7 @@ export function killGame() {
   const tx = {
     action: 'KILLENGINE',
     parameters: {
+      gameName: joinedGame.value?.title,
     },
     seq: randomInt(0, 1000000),
   }

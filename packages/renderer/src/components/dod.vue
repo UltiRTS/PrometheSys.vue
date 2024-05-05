@@ -30,7 +30,7 @@ export default {
           {
             gameName: resolve,
             password: '',
-            mapID: '0',
+            mapID: '1',
           })
       })
     },
@@ -40,7 +40,7 @@ export default {
         this.uStore.joinGame({
           gameName: roomTitle,
           password: 'test',
-          mapID: 0,
+          mapID: '1',
         })
         return
       }
