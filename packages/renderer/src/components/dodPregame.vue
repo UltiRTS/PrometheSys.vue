@@ -79,6 +79,14 @@ export default {
   },
   mounted() {
     this.musicPlayer.playSound('kaz.wav', true)
+    this.network.joinChat(
+      {
+      chatName: this.network.joinedGame.value.title,
+      password: '',
+    }  
+
+
+    )
   },
   methods: {
     ...mapActions(useUserStore, ['setmainMenuContent', 'setmodalMenuContent', 'setactiveWindow']),

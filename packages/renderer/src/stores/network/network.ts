@@ -468,7 +468,7 @@ export function delAIorChicken(params: {
     action: 'DELAI',
     parameters: {
       gameName: params.gameName,
-      AI: params.AI,
+      ai: params.AI,
       type: params.type,
     },
     seq: randomInt(0, 1000000),
