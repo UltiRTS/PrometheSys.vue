@@ -78,23 +78,36 @@ export function initNetWork(isRe = false) {
 
         if (!selfState.value)
           return
-        selfState.value.action= msg.action
-        _.set(selfState.value, `state.${msg.path}`, msg.state)
+
+        // stateless actions
         console.log('old state', selfState.value)
-        console.log('plasmid is trying to update', msg.path, 'with new partial state', msg.state)
-        console.log('after update', selfState.value)
+        selfState.value.action= msg.action
+        
+        let isBugged = false
+        if (selfState.value.state?.user?.game?.title == ''){
+           pushConfirm(msg.action, 'Lobby server bug encountered: updating game name to empty', false, false) 
+           isBugged = true}
+
+        _.set(selfState.value, `state.${msg.path}`, msg.state)
+        console.log('plasmid is trying to update', msg.path, 'with new partial state', msg.state , 'isBugged', isBugged)
+        console.log('after update', selfState.value, 'isBugged', isBugged)
+        
+
+        userDetail.value = selfState.value.state.user
+        joinedGame.value = selfState.value.state.user.game
+        gameListing.value = selfState.value.state.games
+        username.value = selfState.value.state.user.username
+        // confirmations:
+        confirmations.value = selfState.value.state.user.confirmations
+
+        // the following actions require a trigger
+        
         // login section
         writeLoginStats()
 
         // chat section
         writeChatStats(selfState.value)
-        userDetail.value = selfState.value.state.user
-        joinedGame.value = selfState.value.state.user.game
-        gameListing.value = selfState.value.state.games
 
-        username.value = selfState.value.state.user.username
-        // confirmations:
-        confirmations.value = selfState.value.state.user.confirmations
         // console.log(confirmations.value)
         // const mapBeingDownloaded = joinedGame.value.mapId
         writeMapStats(selfState.value)
@@ -520,6 +533,28 @@ export function hasMap(params: {
     parameters: {
       mapId: params.mapId,
       gameName: params.gameName,
+    },
+    seq: randomInt(0, 1000000),
+  }
+
+  wsSendServer(tx)
+}
+
+export function setPrespawn(params: {
+  gameName: string
+  uname: string
+  x: number
+  y: number
+  owner: string
+}) {
+  const tx = {
+    action: 'setPrespawn',
+    parameters: {
+      gameName: params.gameName,
+      uname: params.uname,
+      x: params.x,
+      y: params.y,
+      owner: params.owner,
     },
     seq: randomInt(0, 1000000),
   }

@@ -15,6 +15,13 @@ export interface Game {
   aiHosters: string[]
   autohostPort: number
   mod: string
+  prespawns: PreSpawn[]
+}
+
+export interface PreSpawn {
+  unitName: string;
+  coordinates: number[];
+  owner: string;
 }
 
 export interface GameBrief {

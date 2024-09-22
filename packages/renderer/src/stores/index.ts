@@ -40,6 +40,7 @@ export const useUserStore = defineStore('user', () => {
   const setTeam = network.setTeam
   const specPlayer = network.specPlayer
   const joinGame = network.joinGame
+  const setPrespawn = network.setPrespawn
   const delAIorChicken = network.delAIorChicken
   network.setWDir(lobbyDir.value)
   const confirmations = network.confirmations
@@ -82,6 +83,7 @@ export const useUserStore = defineStore('user', () => {
     username,
     confirmations,
 
+    setPrespawn,
     hasMap,
     leaveChat,
     sayChat,
