@@ -548,7 +548,7 @@ export function setPrespawn(params: {
   owner: string
 }) {
   const tx = {
-    action: 'setPrespawn',
+    action: 'PRESPAWN',
     parameters: {
       gameName: params.gameName,
       uname: params.uname,
