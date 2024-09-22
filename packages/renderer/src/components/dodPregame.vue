@@ -91,7 +91,7 @@ export default {
   },
   methods: {
     ...mapActions(useUserStore, ['setmainMenuContent', 'setmodalMenuContent', 'setactiveWindow']),
-    setPrespawn() {
+    markPrespawn() {
       this.prespawnVisible = 'visible'
       // push a notification
       this.ui.pushUINewNotif({ title: 'PRESPAWN', msg: 'MARKING PRESPAWN BUILDING', class: 'abc' })
@@ -99,7 +99,9 @@ export default {
     markedPrespawn(event) {
       this.prespawnVisible = 'hidden'
       this.ui.pushUINewNotif({ title: 'PRESPAWN', msg: 'PRESPAWN BUILDING MARKED', class: 'abc' })
-      this.network.markPrespawn({gameName: this.network.joinedGame.value.title, uname: 'turretantiheavy', x: event.clientX, y: event.clientY, owner: this.network.username.value})
+      this.network.setPrespawn({gameName: this.network.joinedGame.value.title, uname: 'turretantiheavy', 
+        x: event.clientX / window.innerWidth, y: event.clientY / window.innerHeight,
+      owner: this.network.username.value})
     },
     viewDod() {
       this.setmainMenuContent('dod')
@@ -301,7 +303,7 @@ export default {
           </div><i class="fa fa-pencil-square-o" aria-hidden="true" style="position:absolute;left:73%;width:100%;height:100%;font-size:9vh;top:45%;opacity:0.5;" data-v-0516f4a8=""></i>
         </div>
 
-        <div class="setPrespawn" data-v-0516f4a8="" style="position: absolute; top: 72%; height: 12vh; width: 40%; overflow: hidden;filter: drop-shadow(rgba(0, 0,0, 0.4) 30px 10px 18px);left: -3%;cursor:pointer;" @click.stop="markPrespawn">
+        <div class="setPrespawn" data-v-0516f4a8="" style="position: absolute; top: 72%; height: 12vh; width: 40%; overflow: hidden;filter: drop-shadow(rgba(0, 0,0, 0.4) 30px 10px 18px);left: -3%;cursor:pointer;" @click.stop="markPrespawn()">
           <div style="position:absolute;left:18%;width:100%;height:100%;font-size:4vh;font-family:font1;background: #545454d9;top:0%;" data-v-0516f4a8=""></div><div style="position:absolute;left:24%;width:100%;height:100%;font-size:4vh;font-family:font1;top:-2%;" data-v-0516f4a8="">
             标记
           </div><div style="position:absolute;left:24%;width:100%;height:100%;font-size:4vh;font-family: 'font1';top: 62%;" data-v-0516f4a8="">
@@ -347,7 +349,7 @@ export default {
           <img src="/imgs/btlop3.png" style="position: absolute; height: 204%; top: -28%; left: 39%;opacity: 0.2;">
         </div>
       </div>
-      <div class='prespawnOverlay' :style='{visibility: prespawnVisible}' style="position:absolute;top:0;left:0;width:100%;height:100%;background: rgba(255,0,0,0.3);" @click='markedPrespawn()' ></div>
+      <div class='prespawnOverlay' :style='{visibility: prespawnVisible}' style="position:absolute;top:0;left:0;width:100%;height:100%;background: rgba(255,0,0,0.3);" @click='markedPrespawn($event)' ></div>
     </div>
     <div v-if="joinedGame.isStarted" class="btlInProgrs" style="position:absolute;width:100%;left:0%;height:15%;bottom:7%; overflow:hidden">
       <div class="bg" style="position:absolute;top:0%;width:100%;height:100%;background:#484848e6;backdrop-filter:blur(4px);" data-v-0516f4a8="">
