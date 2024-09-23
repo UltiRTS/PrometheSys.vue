@@ -99,7 +99,7 @@ export default {
     markedPrespawn(event) {
       this.prespawnVisible = 'hidden'
       this.ui.pushUINewNotif({ title: 'PRESPAWN', msg: 'PRESPAWN BUILDING MARKED', class: 'abc' })
-      this.network.setPrespawn({gameName: this.network.joinedGame.value.title, uname: 'staticheavyarty', 
+      this.network.setPrespawn({gameName: this.network.joinedGame.value.title, uname: 'pw_grid', 
         x: event.clientX / window.innerWidth, y: event.clientY / window.innerHeight,
       owner: this.network.username.value})
     },
