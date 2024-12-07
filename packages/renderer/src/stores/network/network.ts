@@ -90,6 +90,7 @@ export function initNetWork(isRe = false) {
 
           _.set(selfState.value, `state.${msg.path}`, msg.state)
           console.log('plasmid is trying to update', msg.path, 'with new partial state', msg.state, 'isBugged', isBugged)
+          selfState.value.path = msg.path
           console.log('after update', selfState.value, 'isBugged', isBugged)
 
         }
