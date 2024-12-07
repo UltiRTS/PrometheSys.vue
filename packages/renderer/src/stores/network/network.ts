@@ -72,32 +72,35 @@ export function initNetWork(isRe = false) {
         break
 
       default:
-        
+
         console.log('old state', selfState.value)
         if (msg.path === '')  //only directly cast it to StateMessage if it is not a partial state update
         {
-          
+
           msg = msg as StateMessage
           selfState.value = msg
-        return
+
+        }
+        else {
+          let isBugged = false
+          if (selfState.value.state?.user?.game?.title == '') {
+            pushConfirm(msg.action, 'Lobby server bug encountered: updating game name to empty', false, false)
+            isBugged = true
+          }
+
+          _.set(selfState.value, `state.${msg.path}`, msg.state)
+          console.log('plasmid is trying to update', msg.path, 'with new partial state', msg.state, 'isBugged', isBugged)
+          console.log('after update', selfState.value, 'isBugged', isBugged)
+
         }
 
-        if (!selfState.value)
-          return
 
         // stateless actions
-        
-        selfState.value.action= msg.action
-        
-        let isBugged = false
-        if (selfState.value.state?.user?.game?.title == ''){
-           pushConfirm(msg.action, 'Lobby server bug encountered: updating game name to empty', false, false) 
-           isBugged = true}
 
-        _.set(selfState.value, `state.${msg.path}`, msg.state)
-        console.log('plasmid is trying to update', msg.path, 'with new partial state', msg.state , 'isBugged', isBugged)
-        console.log('after update', selfState.value, 'isBugged', isBugged)
-        
+        selfState.value.action = msg.action
+
+
+
 
         userDetail.value = selfState.value.state.user
         joinedGame.value = selfState.value.state.user.game
@@ -107,7 +110,7 @@ export function initNetWork(isRe = false) {
         confirmations.value = selfState.value.state.user.confirmations
 
         // the following actions require a trigger
-        
+
         // login section
         writeLoginStats()
 
@@ -225,7 +228,7 @@ async function writeMapStats(msg: StateMessage) {
     }
     if (!selfState.value || !selfState.value.state.user.game)
       return
-    
+
     if (selfState.value.state.user.game.players[username.value].hasmap)
       return
 
