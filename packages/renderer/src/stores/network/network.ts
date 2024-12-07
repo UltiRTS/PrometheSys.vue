@@ -72,15 +72,21 @@ export function initNetWork(isRe = false) {
         break
 
       default:
-        msg = msg as StateMessage
-        if (msg.path === '')
+        
+        console.log('old state', selfState.value)
+        if (msg.path === '')  //only directly cast it to StateMessage if it is not a partial state update
+        {
+          
+          msg = msg as StateMessage
           selfState.value = msg
+        return
+        }
 
         if (!selfState.value)
           return
 
         // stateless actions
-        console.log('old state', selfState.value)
+        
         selfState.value.action= msg.action
         
         let isBugged = false
