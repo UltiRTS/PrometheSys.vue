@@ -9,11 +9,11 @@ const isBottom = ref<any>(true)
 const userCardStore = useUserCardStore()
 const current_channel = ref('global')
 const current_username = ref('')
-const unreadChannel = computed(() => network.unreadChannel.value)
 
 const msg = ref('')
 // computed
 const uStore = useUserStore()
+const unreadChannel =  uStore.network.unreadChannel
 const { chatLog, joinedChannels } = storeToRefs(uStore)
 const { network, ui, userapi } = uStore
 const chats = ref<HTMLDivElement | null>(null)
@@ -86,10 +86,10 @@ const timeline = computed(() => {
     return array.filter((i: any) => i !== item.value)
   }
   // now we also want to update the unread channel by removing the current channel name from it
-  if (ui.activeWindow.value === 'modal' && ui.modalMenuContent.value === 'chat') {
+  if (ui.activeWindow === 'modal' && ui.modalMenuContent === 'chat') {
     // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-    console.log('unreadChannel:',  network.unreadChannel.value)
-    const withoutcurChannel = removeItem(network.unreadChannel.value, current_channel.value)
+    console.log('unreadChannel:',  network.unreadChannel)
+    const withoutcurChannel = removeItem(network.unreadChannel, current_channel.value)
     network.uiSetUnreadChannel(withoutcurChannel)
   }
   return res

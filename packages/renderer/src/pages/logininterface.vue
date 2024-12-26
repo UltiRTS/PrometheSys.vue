@@ -3,9 +3,13 @@ import { computed } from '@vue/reactivity'
 import { ref } from 'vue'
 import { useUserStore } from '../stores'
 const uStore = useUserStore()
-const userState = computed(() => uStore.userState)
-const isNetWorkOpen = computed(() => uStore.network.ws_open.value)
-const isReg = computed(() => uStore.network.isReg.value)
+// const userState = computed(() => uStore.userState)
+// const isNetWorkOpen = computed(() => uStore.network.ws_open)
+// const isReg = computed(() => uStore.network.isReg)
+
+const userState = uStore.userState
+const isNetWorkOpen = uStore.network.ws_open
+const isReg = uStore.network.isReg
 
 const username = ref('')
 const password = ref('')
@@ -14,7 +18,7 @@ const pushUINewNotif = uStore.ui.pushUINewNotif
 const isRemember = ref<any>(false)
 async function loginWrapper() {
   uStore.soundPlayer.playNotif('acknowledge.wav')
-  if (isReg.value) {
+  if (isReg) {
     console.log('pressed reg!')
     uStore.network.register({
       username: username.value,
@@ -60,7 +64,7 @@ function toggleRemember() {
 
 function registerMe() {
   uStore.network.toggleManualReg()
-  if (isReg.value)
+  if (isReg)
     pushUINewNotif({ title: 'REG', msg: 'REGISTERING', class: 'aaa' })
 
   else
