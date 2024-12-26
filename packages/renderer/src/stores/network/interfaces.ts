@@ -18,6 +18,20 @@ export interface Game {
   prespawns: PreSpawn[]
 }
 
+
+export interface User {
+  friends: string[]
+  friendsMarked: string[]
+  friendsOnline: string[]
+  username: string
+  exp: number
+  sanity: number
+  blocked: boolean
+  confirmations: Confirmation[]
+  chatRooms: Record<string, ChatRoom>
+  game: Game | null
+}
+
 export interface PreSpawn {
   unitName: string;
   coordinates: number[];
@@ -46,18 +60,7 @@ export interface Confirmation {
   claimed: boolean
 }
 
-export interface User {
-  friends: string[]
-  friendsMarked: string[]
-  friendsOnline: string[]
-  username: string
-  exp: number
-  sanity: number
-  blocked: boolean
-  confirmations: Confirmation[]
-  chatRooms: Record<string, ChatRoom>
-  game: Game | null
-}
+
 
 export interface State {
   user: User
@@ -69,6 +72,13 @@ export interface StateMessage {
   action: string
   seq: number
   state: State
+  path: string
+}
+
+export interface partialState{
+  action: string
+  seq: number
+  state: any
   path: string
 }
 

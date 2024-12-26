@@ -4,9 +4,7 @@ import { ref } from 'vue'
 import { useUserStore } from '../stores'
 const uStore = useUserStore()
 const userState = computed(() => uStore.userState)
-const isNetWorkOpen = uStore.network.ws_open
-// const  = uStore.network.isReg.value
-const displayAttr = computed(() => isNetWorkOpen.value ? '' : 'none')
+const isNetWorkOpen = computed(() => uStore.network.ws_open.value)
 const isReg = computed(() => uStore.network.isReg.value)
 
 const username = ref('')
@@ -70,32 +68,20 @@ function registerMe() {
 }
 </script>
 <template>
-  <div id="loginInterface" :style="{display: displayAttr}">
-    <img src="/imgs/thea_auth.png" :class="{loginInterface_bgWaterMark:isNetWorkOpen}"
-         style="opacity:0.00; position: absolute;width: 50vw;top: 70%; "
-    >
+  <div id="loginInterface" :style="{ display: isNetWorkOpen? '':'none' }">
+    <img src="/imgs/thea_auth.png" :class="{ loginInterface_bgWaterMark: isNetWorkOpen }" style="opacity:0.00; position: absolute;width: 50vw;top: 70%; ">
 
-    <div id="loginbox" class="loginbox"
-         style="position: absolute; height: 100%; width: 100%; mix-blend-mode: screen;"
-    >
-      <div class="PRTSLOGO"
-           style="position:absolute;top:45%;color:white;margin:0;left:30%;width:12vw;overflow:hidden;"
-      >
+    <div id="loginbox" class="loginbox" style="position: absolute; height: 100%; width: 100%; mix-blend-mode: screen;">
+      <div class="PRTSLOGO" style="position:absolute;top:45%;color:white;margin:0;left:30%;width:12vw;overflow:hidden;">
         <div style="background:white;position:absolute;top:0;width:100%;height:2px;" />
-        <p class="corpName"
-           style="position:absolute;margin:0;top:0.1vw;font-family:font2;font-weight:900;font-size:3.5vw;"
-        >
+        <p class="corpName" style="position:absolute;margin:0;top:0.1vw;font-family:font2;font-weight:900;font-size:3.5vw;">
           THEA
         </p>
-        <p id="prtsPharma" class="corpJob"
-           style="position:absolute;margin:0;font-family:font3;font-size:0.6vw;letter-spacing:0.3vw;width:100%;text-align:center;font-weight:900;"
-        >
+        <p id="prtsPharma" class="corpJob" style="position:absolute;margin:0;font-family:font3;font-size:0.6vw;letter-spacing:0.3vw;width:100%;text-align:center;font-weight:900;">
           PHARMACEUTICALS
         </p>
 
-        <div class="corpProduct"
-             style="position:absolute;margin:0;font-size:1vw;width:100%;top:65%;font-family:font5;"
-        >
+        <div class="corpProduct" style="position:absolute;margin:0;font-size:1vw;width:100%;top:65%;font-family:font5;">
           <span id="prtsOS" style="">Analysis&nbsp;</span>
           <span id="prtsOS1" style="font-weight:900;">OS</span>
           <span id="prtsVer" class="theaTitle" style="font-size:0.6vw;position:absolute;right:0;bottom:5%;">&nbsp;LTS BUILD
@@ -103,55 +89,34 @@ function registerMe() {
         </div>
         <div id="underlinePRTS" class="" style="background:white;position:absolute;width:100%;height:2px;top:90%;" />
       </div>
-      <div id="logininput" :class="{logininput:!userState.isLoggedIn,logininputOut:userState.isLoggedIn}"
-           style="position:absolute;height:5.5vw;top:45%;filter: drop-shadow(10px 10px 2px rgba(255,255,255,0.5));left:45%;background:rgb(177 170 160 / 78%);width:20%;overflow:hidden;"
-      >
-        <img src="/imgs/thea.png"
-             style="position:absolute;width: 48%;top: 31%;right: 1%;filter: invert(0.1);opacity:0.1"
-        >
+      <div id="logininput" :class="{ logininput: !userState.isLoggedIn, logininputOut: userState.isLoggedIn }" style="position:absolute;height:5.5vw;top:45%;filter: drop-shadow(10px 10px 2px rgba(255,255,255,0.5));left:45%;background:rgb(177 170 160 / 78%);width:20%;overflow:hidden;">
+        <img src="/imgs/thea.png" style="position:absolute;width: 48%;top: 31%;right: 1%;filter: invert(0.1);opacity:0.1">
         <p style="cursor: default;top:1.2vw;position:absolute;left:1.2vw;font-size:1.5vw;background-color:black;color:white;margin:0;padding:0;filter: drop-shadow(4px 5px 2px rgba(0,0,0,0.5));">
           Dr.&nbsp;
         </p>
-        <input id="usr" v-model="username"
-               style="cursor: text;top:1.2vw;position:absolute;left:3.5vw;font-size:1.5vw; display: inline;border:none;outline:none;width:18vw;background: transparent;color:black;"
-               type="text" placeholder="称号" name="uname" required
-        >
+        <input id="usr" v-model="username" style="cursor: text;top:1.2vw;position:absolute;left:3.5vw;font-size:1.5vw; display: inline;border:none;outline:none;width:18vw;background: transparent;color:black;" type="text" placeholder="称号" name="uname" required>
 
-        <input id="passwd" v-model="password"
-               style="font-size:1.5vw;margin:0;cursor: text;top:3.2vw;position:absolute;left:1.2vw;border:none;outline:none;background: transparent;"
-               type="password" placeholder="合い詞" name="psw" required
-        >
+        <input id="passwd" v-model="password" style="font-size:1.5vw;margin:0;cursor: text;top:3.2vw;position:absolute;left:1.2vw;border:none;outline:none;background: transparent;" type="password" placeholder="合い詞" name="psw" required>
 
-        <p
-          id="loginInputStatus" class="connect"
-          style="cursor: pointer;top:3.2vw;position:absolute;left:85%;font-size: 1vw;margin:0;color:black;font-weight:900;filter: drop-shadow(4px 5px 2px rgba(0,0,0,0.5));"
-          @click="loginWrapper"
-        >
+        <p id="loginInputStatus" class="connect" style="cursor: pointer;top:3.2vw;position:absolute;left:85%;font-size: 1vw;margin:0;color:black;font-weight:900;filter: drop-shadow(4px 5px 2px rgba(0,0,0,0.5));" @click="loginWrapper">
           ▶
         </p>
       </div>
 
-      <div
-        style="position:fixed;bottom:-80vh;left:30%;height:10vw;width:37vw;font-size:0.8vw;height:100%;overflow:hidden;"
-      >
+      <div style="position:fixed;bottom:-80vh;left:30%;height:10vw;width:37vw;font-size:0.8vw;height:100%;overflow:hidden;">
         <div id="" class="button-block" style="position:absolute;top:0%;width:100%;">
-          <button id="rememberName" :class="{'button-clicked': isRemember}" style="width:100%;height:3vw;"
-                  @click="toggleRemember"
-          >
+          <button id="rememberName" :class="{ 'button-clicked': isRemember }" style="width:100%;height:3vw;" @click="toggleRemember">
             Persistent Neural Link
           </button>
         </div>
         <div class="button-block" style="position:absolute;top:4vw;width:100%;" @click="registerMe">
-          <button id="register" :class="{'button-clicked': isReg}" style="width:100%;height:3vw;" class="">
+          <button id="register" :class="{ 'button-clicked': isReg }" style="width:100%;height:3vw;" class="">
             Register this Neural Link
           </button>
         </div>
       </div>
 
-      <div v-if="userState.isLoggedIn" id="welcomeMsg"
-           style="position:absolute;left:48%;height:6vw;top:45%;color:white;width:100%;overflow:hidden; "
-           class="welcomeMsg"
-      >
+      <div v-if="userState.isLoggedIn" id="welcomeMsg" style="position:absolute;left:48%;height:6vw;top:45%;color:white;width:100%;overflow:hidden; " class="welcomeMsg">
         <div id="welcomeHeading" class="welcomeHeading" style="font-size:6vw;top:-2vw;">
           歓迎
         </div>
@@ -160,72 +125,38 @@ function registerMe() {
           <span style="font-size:3vw;font-weight:900;opacity:0.4">Dr.&nbsp;{{ username }}</span>
         </div>
 
-        <div id="welcomeSubline1" class="welcomeSubline1"
-             style="font-size:0.5vw;position: absolute; top: 3vw; height:0.4vw;width:0.4vw;"
-        >
-          <div class="welcomeSublineBar1"
-               style="margin-left:200%;position:absolute;top:0;left:0;height:100%; background:rgba(255,255,255,1)"
-          >
+        <div id="welcomeSubline1" class="welcomeSubline1" style="font-size:0.5vw;position: absolute; top: 3vw; height:0.4vw;width:0.4vw;">
+          <div class="welcomeSublineBar1" style="margin-left:200%;position:absolute;top:0;left:0;height:100%; background:rgba(255,255,255,1)">
           </div>
-          <div class="welcomeSublineTxt1"
-               style="position:absolute; color:white; font-size:0.5vw;font-family:font5;width:4000%;margin:0;top:-40%;left:300%;opacity:0;"
-          >
+          <div class="welcomeSublineTxt1" style="position:absolute; color:white; font-size:0.5vw;font-family:font5;width:4000%;margin:0;top:-40%;left:300%;opacity:0;">
             Releasing neural transmitters
           </div>
         </div>
-        <div id="welcomeSubline2" class="welcomeSubline2"
-             style="font-size:0.5vw;position: absolute; top: 3.5vw; height:0.4vw;width:0.4vw;"
-        >
-          <div class="welcomeSublineBar2"
-               style="margin-left:200%;position:absolute;top:0;left:0;height:100%; background:rgba(255,255,255,1)"
-          >
+        <div id="welcomeSubline2" class="welcomeSubline2" style="font-size:0.5vw;position: absolute; top: 3.5vw; height:0.4vw;width:0.4vw;">
+          <div class="welcomeSublineBar2" style="margin-left:200%;position:absolute;top:0;left:0;height:100%; background:rgba(255,255,255,1)">
           </div>
-          <div class="welcomeSublineTxt2"
-               style="position:absolute; color:white; font-size:0.5vw;font-family:font5;width:4000%;margin:0;top:-40%;left:300%;opacity:0;"
-          >
+          <div class="welcomeSublineTxt2" style="position:absolute; color:white; font-size:0.5vw;font-family:font5;width:4000%;margin:0;top:-40%;left:300%;opacity:0;">
             Connecting to the neuralnetwork
           </div>
         </div>
-        <div
-          id="welcomeSubline3"
-          class="welcomeSubline3"
-          style="font-size:0.5vw;position: absolute; top: 4vw; height:0.4vw;width:0.4vw;"
-        >
-          <div
-            class="welcomeSublineBar3"
-            style="margin-left:200%;position:absolute;top:0;left:0;height:100%; background:rgba(255,255,255,1)"
-          >
+        <div id="welcomeSubline3" class="welcomeSubline3" style="font-size:0.5vw;position: absolute; top: 4vw; height:0.4vw;width:0.4vw;">
+          <div class="welcomeSublineBar3" style="margin-left:200%;position:absolute;top:0;left:0;height:100%; background:rgba(255,255,255,1)">
           </div>
-          <div
-            class="welcomeSublineTxt3"
-            style="position:absolute; color:white; font-size:0.5vw;font-family:font5;width:4000%;margin:0;top:-40%;left:300%;opacity:0;"
-          >
+          <div class="welcomeSublineTxt3" style="position:absolute; color:white; font-size:0.5vw;font-family:font5;width:4000%;margin:0;top:-40%;left:300%;opacity:0;">
             Polling database
           </div>
         </div>
-        <div id="welcomeSubline4" class="welcomeSubline4"
-             style="font-size:0.5vw;position: absolute; top: 4.5vw; height:0.4vw;width:0.4vw;"
-        >
-          <div class="welcomeSublineBar4"
-               style="margin-left:200%;position:absolute;top:0;left:0;height:100%; background:rgba(255,255,255,1)"
-          >
+        <div id="welcomeSubline4" class="welcomeSubline4" style="font-size:0.5vw;position: absolute; top: 4.5vw; height:0.4vw;width:0.4vw;">
+          <div class="welcomeSublineBar4" style="margin-left:200%;position:absolute;top:0;left:0;height:100%; background:rgba(255,255,255,1)">
           </div>
-          <div class="welcomeSublineTxt4"
-               style="position:absolute; color:white; font-size:0.5vw;font-family:font5;width:4000%;margin:0;top:-40%;left:300%;opacity:0;"
-          >
+          <div class="welcomeSublineTxt4" style="position:absolute; color:white; font-size:0.5vw;font-family:font5;width:4000%;margin:0;top:-40%;left:300%;opacity:0;">
             Connecting through /dev/neuralTTY0
           </div>
         </div>
-        <div id="welcomeSubline5" class="welcomeSubline5"
-             style="font-size:0.5vw;position: absolute; top: 5vw; height:0.4vw;width:0.4vw;"
-        >
-          <div class="welcomeSublineBar5"
-               style="margin-left:200%;position:absolute;top:0;left:0;height:100%; background:rgba(255,255,255,1)"
-          >
+        <div id="welcomeSubline5" class="welcomeSubline5" style="font-size:0.5vw;position: absolute; top: 5vw; height:0.4vw;width:0.4vw;">
+          <div class="welcomeSublineBar5" style="margin-left:200%;position:absolute;top:0;left:0;height:100%; background:rgba(255,255,255,1)">
           </div>
-          <div class="welcomeSublineTxt5"
-               style="position:absolute; color:white; font-size:0.5vw;font-family:font5;width:4000%;margin:0;top:-40%;left:300%;opacity:0;"
-          >
+          <div class="welcomeSublineTxt5" style="position:absolute; color:white; font-size:0.5vw;font-family:font5;width:4000%;margin:0;top:-40%;left:300%;opacity:0;">
             Welcome
           </div>
         </div>
@@ -264,6 +195,7 @@ function registerMe() {
     left: 45%;
     opacity: 1;
   }
+
   100% {
     width: 0.1vw;
     left: 45%;
@@ -342,24 +274,31 @@ function registerMe() {
   0% {
     opacity: 0.1;
   }
+
   24% {
     opacity: 0.1;
   }
+
   25% {
     opacity: 0;
   }
+
   50% {
     opacity: 0;
   }
+
   51% {
     opacity: 0.1;
   }
+
   76% {
     opacity: 0.1;
   }
+
   77% {
     opacity: 0;
   }
+
   100% {
     opacity: 0;
   }
@@ -409,12 +348,15 @@ function registerMe() {
   0% {
     opacity: 0;
   }
+
   50% {
     opacity: 0;
   }
+
   51% {
     opacity: 1;
   }
+
   100% {
     opacity: 1;
   }
@@ -474,33 +416,43 @@ function registerMe() {
   0% {
     background: rgba(255, 255, 255, 0.5);
   }
+
   20% {
     background: rgba(255, 255, 255, 0.5);
   }
+
   21% {
     background: rgba(255, 255, 255, 0);
   }
+
   40% {
     background: rgba(255, 255, 255, 0);
   }
+
   41% {
     background: rgba(255, 255, 255, 0.5);
   }
+
   60% {
     background: rgba(255, 255, 255, 0.5);
   }
+
   61% {
     background: rgba(255, 255, 255, 0);
   }
+
   80% {
     background: rgba(255, 255, 255, 0);
   }
+
   81% {
     background: rgba(255, 255, 255, 0.5);
   }
+
   99% {
     background: rgba(255, 255, 255, 0.5);
   }
+
   100% {
     background: rgba(255, 255, 255, 0);
   }
@@ -525,14 +477,17 @@ function registerMe() {
     left: 10%;
     opacity: 0;
   }
+
   30% {
     left: 0%;
     opacity: 0.4;
   }
+
   60% {
     left: 0%;
     opacity: 0.4;
   }
+
   100% {
     left: -20%;
     opacity: 0;
@@ -557,6 +512,7 @@ function registerMe() {
     top: 7vw;
     opacity: 0;
   }
+
   100% {
     top: -0.6vw;
     opacity: 1;
@@ -568,6 +524,7 @@ function registerMe() {
     opacity: 0;
     background-image: linear-gradient(0deg, rgba(0, 0, 0, 0), rgb(0, 0, 0), black);
   }
+
   100% {
     opacity: 0.5;
     background-image: linear-gradient(305deg, rgba(0, 0, 0, 0), rgb(0, 0, 0), black);
@@ -579,6 +536,7 @@ function registerMe() {
     opacity: 0;
     background-image: linear-gradient(0deg, rgba(0, 0, 0, 0), rgb(0, 0, 0), black);
   }
+
   100% {
     opacity: 0.5;
     background-image: linear-gradient(55deg, rgba(0, 0, 0, 0), rgb(0, 0, 0), black);
@@ -589,9 +547,11 @@ function registerMe() {
   0% {
     opacity: 0;
   }
+
   30% {
     opacity: 0;
   }
+
   75% {
     opacity: 1;
     visibility: hidden;
@@ -620,49 +580,59 @@ function registerMe() {
     width: 0.2vw;
     opacity: 0;
   }
+
   30% {
     opacity: 0;
   }
+
   50% {
     left: 45%;
     width: 0.2vw;
     opacity: 1;
   }
+
   51% {
     left: 45%;
     width: 0.2vw;
     opacity: 0;
   }
+
   60% {
     left: 45%;
     width: 0.2vw;
     opacity: 0;
   }
+
   61% {
     left: 45%;
     width: 0.2vw;
     opacity: 1;
   }
+
   70% {
     left: 45%;
     width: 0.2vw;
     opacity: 1;
   }
+
   71% {
     left: 45%;
     width: 0.2vw;
     opacity: 0;
   }
+
   80% {
     left: 45%;
     width: 0.2vw;
     opacity: 0;
   }
+
   81% {
     left: 45%;
     width: 0.2vw;
     opacity: 1;
   }
+
   100% {
     width: 22vw;
     left: 45%;
@@ -723,18 +693,21 @@ function registerMe() {
     top: 1.8vw;
     left: 0%;
   }
+
   82% {
     background: white;
     opacity: 1;
     top: 1.1vw;
     left: -50%;
   }
+
   98% {
     background: white;
     opacity: 1;
     top: 1.1vw;
     left: -50%;
   }
+
   100% {
     top: 1.8vw;
     left: 0%;
@@ -838,6 +811,7 @@ function registerMe() {
   0% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
     left: -2.5vw;
@@ -916,34 +890,41 @@ button::after {
   border-right: 0.1px solid #46422f;
 }
 
-button:hover, button:focus, .button-clicked {
+button:hover,
+button:focus,
+.button-clicked {
   color: #c9c3ab;
   border-color: #46422f;
 }
 
-button:focus, button-clicked {
+button:focus,
+button-clicked {
   border-color: transparent;
   opacity: 0.8;
   outline: none;
 }
 
-button:hover::before, button:focus::before, .button-clicked:before {
+button:hover::before,
+button:focus::before,
+.button-clicked:before {
   background-position-x: 0;
 }
 
-button:focus::before, .button-clicked:before {
+button:focus::before,
+.button-clicked:before {
   padding-right: 30px;
 }
 
-button + button {
+button+button {
   margin-top: 10px;
 }
 
 @media (max-width: 800px) {
-  select, option {
+
+  select,
+  option {
     text-align: center;
     text-align-last: center;
   }
 }
-
 </style>

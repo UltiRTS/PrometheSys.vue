@@ -7,7 +7,7 @@ import { pushConfirm, pushNewLoading, pushUINewNotif, rmLoading } from '../UI/ui
 import router from '../../router'
 import * as dntp from '../mapAPI/dntpService'
 import * as engineMgr from '../engineManager/engine'
-import type { Confirmation, Game, GameBrief, Notification, PONG, StateMessage, User } from './interfaces'
+import type { Confirmation, Game, GameBrief, Notification, PONG, StateMessage, User, partialState } from './interfaces'
 
 // Asyncronous call with async/await or Promise
 
@@ -43,7 +43,7 @@ export function initNetWork(isRe = false) {
     ws = new WebSocket(`ws://${process.env.addr}`)
 
   ws.onmessage = (ev) => {
-    let msg: StateMessage | Notification | PONG = JSON.parse(ev.data)
+    let msg: StateMessage | Notification | PONG | any = JSON.parse(ev.data)
     switch (msg.action) {
       case 'PING':
         msg = msg as PONG
@@ -74,35 +74,38 @@ export function initNetWork(isRe = false) {
       default:
 
         console.log('old state', selfState.value)
-        if (msg.path === '')  //only directly cast it to StateMessage if it is not a partial state update
+        if ('path' in msg && msg.path == '')  //only directly cast it to StateMessage if it is not a partial state update
         {
 
           msg = msg as StateMessage
           selfState.value = msg
 
         }
-        else {
-          let isBugged = false
-          if (selfState.value.state?.user?.game?.title == '') {
-            pushConfirm(msg.action, 'Lobby server bug encountered: updating game name to empty', false, false)
-            isBugged = true
-          }
+        if (!selfState.value)
+          return
+        let isBugged = false
+        msg = msg as partialState
 
-          _.set(selfState.value, `state.${msg.path}`, msg.state)
-          console.log('plasmid is trying to update', msg.path, 'with new partial state', msg.state, 'isBugged', isBugged)
-          selfState.value.path = msg.path
-          console.log('after update', selfState.value, 'isBugged', isBugged)
-
+        if (selfState.value?.state?.user?.game?.title == '') {
+          pushConfirm(msg.action, 'Lobby server bug encountered: updating game name to empty', false, false)
+          isBugged = true
         }
+
+        if (selfState.value) {
+          _.set(selfState.value, `state.${msg.path}`, msg.state)
+        }
+        console.log('plasmid is trying to update', msg.path, 'with new partial state', msg.state, 'isBugged', isBugged)
+
+        selfState.value.path = msg.path
+
+        console.log('after update', selfState.value, 'isBugged', isBugged)
+
+
 
 
         // stateless actions
 
         selfState.value.action = msg.action
-
-
-
-
         userDetail.value = selfState.value.state.user
         joinedGame.value = selfState.value.state.user.game
         gameListing.value = selfState.value.state.games
@@ -131,7 +134,7 @@ export function initNetWork(isRe = false) {
 
   ws.onopen = () => {
     ws_open.value = true
-    // console.log('ws is open')
+    console.log('ws is open')
     if (isRe)
       login({ username: username.value, password: password.value })
   }
@@ -205,6 +208,8 @@ function writeChatStats(msg: StateMessage) {
   }
 }
 
+
+
 async function writeMapStats(msg: StateMessage) {
   if (!msg.state.user.game || !msg.state.user.game.players || !msg.state.user.game.players[username.value])
     return
@@ -271,6 +276,11 @@ function writeMIDGameStats(msg: StateMessage) {
     })
   }
 }
+
+export function uiSetUnreadChannel(urd: any) {
+  unreadChannel.value = urd
+}
+
 export function login(params: {
   username: string
   password: string

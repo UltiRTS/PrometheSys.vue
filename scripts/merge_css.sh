@@ -6,4 +6,4 @@ for css in $all_css; do
     cat $css >> dist/renderer/all.css
 done
 
-mv dist/renderer/all.css $index_css
+#mv dist/renderer/all.css $index_css

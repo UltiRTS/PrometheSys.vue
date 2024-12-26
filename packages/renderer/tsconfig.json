@@ -12,7 +12,8 @@
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
     "types": ["vite-plugin-pages/client"],
-    "allowJs": true
+    "allowJs": true,
+    "suppressImplicitAnyIndexErrors": true,
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/stores/mapAPI/dntpService.js"]
 }
