@@ -19,7 +19,8 @@ ipcRenderer.send('toMain', JSON.stringify({
 
 onMounted(async () => {
   if (await ipcRenderer.invoke('issubwindow'))
-    router.push('popup')
+    //router.push('popup')
+  router.push('login')
   else
     router.push('prelogin')
 })
