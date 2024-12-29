@@ -27,7 +27,7 @@ const pushUINewNotif = uStore.ui.pushUINewNotif
 const isRemember = ref<any>(false)
 async function loginWrapper() {
   uStore.soundPlayer.playNotif('acknowledge.wav')
-  if (isReg) {
+  if (isReg.value) {
     console.log('pressed reg!')
     uStore.network.register({
       username: username.value,

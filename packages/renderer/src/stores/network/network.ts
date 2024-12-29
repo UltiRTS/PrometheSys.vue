@@ -43,6 +43,7 @@ export function initNetWork(isRe = false) {
 
   ws.onmessage = (ev) => {
     let msg: StateMessage | Notification | PONG | any = JSON.parse(ev.data)
+    console.log('received', msg)
     switch (msg.action) {
       case 'PING':
         msg = msg as PONG
@@ -80,6 +81,8 @@ export function initNetWork(isRe = false) {
           selfState.value = msg
 
         }
+        console.log('plasmid is trying to update', msg.path, 'with new partial state', msg.state)
+
         if (!selfState.value)
           return
         let isBugged = false
@@ -93,7 +96,6 @@ export function initNetWork(isRe = false) {
         if (selfState.value) {
           _.set(selfState.value, `state.${msg.path}`, msg.state)
         }
-        console.log('plasmid is trying to update', msg.path, 'with new partial state', msg.state, 'isBugged', isBugged)
 
         selfState.value.path = msg.path
 
@@ -297,9 +299,9 @@ export function login(params: {
     },
     seq: randomInt(0, 1000000),
   }
-  username.value = params.username
+  //username.value = params.username
 
-  password.value = params.password
+  //password.value = params.password
   wsSendServer(tx)
 }
 

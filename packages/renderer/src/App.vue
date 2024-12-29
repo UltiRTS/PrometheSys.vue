@@ -36,6 +36,7 @@ export default {
   mounted() {
     console.log('App.vue mounted')
     const thiis = this
+    this.musicPlayer.playSound('bbl.wav', true)
     ipcRenderer.invoke('issubwindow').then((result) => {
       thiis.isSubWindow = result
       if (result) this.musicPlayer.stopSound('bbl.wav')
@@ -50,9 +51,10 @@ export default {
   },
   watch: {
     username(newVal, oldVal) {
+      if (!newVal) return
       setTimeout(() => {
         this.phase = 'postlogin'
-      }, 7000)
+      }, 9000)
     },
   },
 }
