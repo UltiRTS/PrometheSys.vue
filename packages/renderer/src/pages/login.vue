@@ -19,6 +19,7 @@ onUnmounted(() => {
 })
 
 onMounted(() => {
+
   const c = window.c
   let w = c.width = window.innerWidth
   let h = c.height = window.innerHeight
@@ -250,7 +251,7 @@ onMounted(() => {
         for (let i = 0; i < links.length; ++i) {
           const pos = links[i]
           const connection
-              = new Connection(pos.x, pos.y, pos.z, this.size * opts.sizeMultiplier)
+            = new Connection(pos.x, pos.y, pos.z, this.size * opts.sizeMultiplier)
 
           this.links[i] = connection
           all.push(connection)
@@ -538,6 +539,8 @@ onMounted(() => {
     opts.vanishPoint.y = (h = c.height = window.innerHeight) / 2
     ctx.fillRect(0, 0, w, h)
   })
+
+
 })
 
 // 起床大成功？？？？
@@ -553,13 +556,9 @@ const qichuangdachenggong = () => {
 
 <template>
   <div class="blackFadeIn" style="position:absolute;width:100%;height:100%;top:0%;left:0%;background: #000;margin:0;" />
-  <div id="mainContent" class="mainContent"
-       style="position:absolute;height:100%;width:100%;overflow:hidden;margin:0;top:0%;left:0%"
-  >
+  <div id="mainContent" class="mainContent" style="position:absolute;height:100%;width:100%;overflow:hidden;margin:0;top:0%;left:0%">
     <div style="position:absolute;width:100%;height:100%;top:0%;left:0%;background: #95928a;" />
-    <img src="/imgs/bg.png"
-         style="position: absolute; width: 100%;height: 100%;left: 0%;top: 0%;filter: grayscale(100%) contrast(22%) brightness(99%);-webkit-mask-image: linear-gradient(rgb(80 80 80 / 0%), rgb(0, 0, 0));"
-    >
+    <img src="/imgs/bg.png" style="position: absolute; width: 100%;height: 100%;left: 0%;top: 0%;filter: grayscale(100%) contrast(22%) brightness(99%);-webkit-mask-image: linear-gradient(rgb(80 80 80 / 0%), rgb(0, 0, 0));">
     <canvas id="c" ref="canvas" style="position: absolute;top: 0;left: 0;opacity: .2;pointer-events: none;" />
     <div id="stupidCanvas" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events: none;">
       <PBubbles :active="isActive" />
@@ -568,30 +567,19 @@ const qichuangdachenggong = () => {
       <div class="leftSpotLight" style="position: absolute; width: 50%; height: 164%;  left: 0%;top: -60%;"></div>
       <div class="rightSpotLight" style="position: absolute; width: 50%; height: 164%;right: 0%;top: -60%;"></div>
     </div>
-    <div id="cover" :class="{cover:isNetWorkOpen}"
-         style="width: 43%; height: 20%; top: 33%; left: 27%; position: absolute;"
-    >
+    <div id="cover" :class="{ cover: isNetWorkOpen }" style="width: 43%; height: 20%; top: 33%; left: 27%; position: absolute;">
       <img src="/imgs/thea_frame.png" style="position: absolute;width: 11vw;filter: drop-shadow(8px 20px 16px #000);">
 
-      <a id="preClick" class="edgy-link" :class="{qichuangyijingchenggong:isNetWorkOpen}"
-         style="filter: drop-shadow(rgb(0, 0, 0) 8px 20px 16px); position: absolute; margin: 2vw; top: -4%; left: 5vw; font-size: 2vw;color:white;cursor:pointer;"
-         @click="qichuangdachenggong()"
-      >
-        <span
-          style="font-family: font6;position: relative;opacity: 0.95;left: 0vw;font-weight: 900;color: rgba(255,255,255,0.9);"
-        >目覚める</span>
+      <a id="preClick" class="edgy-link" :class="{ qichuangyijingchenggong: isNetWorkOpen }" style="filter: drop-shadow(rgb(0, 0, 0) 8px 20px 16px); position: absolute; margin: 2vw; top: -4%; left: 5vw; font-size: 2vw;color:white;cursor:pointer;" @click="qichuangdachenggong()">
+        <span style="font-family: font6;position: relative;opacity: 0.95;left: 0vw;font-weight: 900;color: rgba(255,255,255,0.9);">目覚める</span>
         <span style="font-family: font8; position: relative; opacity: 0.95; left: -7.95vw;">目覚める</span>
       </a>
 
       <div id="postClick">
-        <div v-if="isNetWorkOpen" class="theaTitle"
-             style="position:absolute;font-family:font2;top:9%;left:19%;font-size:2vw;color:white;opacity:0;"
-        >
+        <div v-if="isNetWorkOpen" class="theaTitle" style="position:absolute;font-family:font2;top:9%;left:19%;font-size:2vw;color:white;opacity:0;">
           THEA,
         </div>
-        <div v-if="isNetWorkOpen" class="theaTitle2"
-             style="position:absolute;font-family:font2;top:29%;%;opacity:0;font-size:1.2vw;left:19%;color:white;"
-        >
+        <div v-if="isNetWorkOpen" class="theaTitle2" style="position:absolute;font-family:font2;top:29%;opacity:0;font-size:1.2vw;left:19%;color:white;">
           INC.
         </div>
       </div>
@@ -605,7 +593,6 @@ const qichuangdachenggong = () => {
 </template>
 
 <style scoped>
-
 .leftSpotLight {
   opacity: 0;
   animation-fill-mode: forwards;
@@ -621,6 +608,7 @@ const qichuangdachenggong = () => {
     opacity: 0;
     background-image: linear-gradient(0deg, rgba(0, 0, 0, 0), rgb(0, 0, 0), black);
   }
+
   100% {
     opacity: 0.5;
     background-image: linear-gradient(305deg, rgba(0, 0, 0, 0), rgb(0, 0, 0), black);
@@ -642,6 +630,7 @@ const qichuangdachenggong = () => {
     opacity: 0;
     background-image: linear-gradient(0deg, rgba(0, 0, 0, 0), rgb(0, 0, 0), black);
   }
+
   100% {
     opacity: 0.5;
     background-image: linear-gradient(55deg, rgba(0, 0, 0, 0), rgb(0, 0, 0), black);
@@ -652,9 +641,11 @@ const qichuangdachenggong = () => {
   0% {
     opacity: 0;
   }
+
   30% {
     opacity: 0;
   }
+
   75% {
     opacity: 1;
     visibility: hidden;
@@ -736,6 +727,7 @@ const qichuangdachenggong = () => {
   0% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
     left: -2.5vw;
@@ -833,21 +825,23 @@ button::after {
   border-right: 0.1px solid #46422f;
 }
 
-button:focus, button-clicked {
+button:focus,
+button-clicked {
   border-color: transparent;
   opacity: 0.8;
   outline: none;
 }
 
-button + button {
+button+button {
   margin-top: 10px;
 }
 
 @media (max-width: 800px) {
-  select, option {
+
+  select,
+  option {
     text-align: center;
     text-align-last: center;
   }
 }
-
 </style>

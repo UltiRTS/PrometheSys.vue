@@ -1,15 +1,24 @@
 <script lang="ts" setup>
-import { computed } from '@vue/reactivity'
-import { ref } from 'vue'
+import { computed, onUpdated, ref } from 'vue'
 import { useUserStore } from '../stores'
-const uStore = useUserStore()
-// const userState = computed(() => uStore.userState)
-// const isNetWorkOpen = computed(() => uStore.network.ws_open)
-// const isReg = computed(() => uStore.network.isReg)
+import { storeToRefs } from 'pinia'
 
-const userState = uStore.userState
-const isNetWorkOpen = uStore.network.ws_open
-const isReg = uStore.network.isReg
+
+
+
+
+
+const uStore = useUserStore()
+
+const userState = computed(() => uStore.userState)
+
+
+const {ws_open, } = storeToRefs(uStore)
+
+//console.log('logininterface', network)
+
+const isNetWorkOpen = computed(() => ws_open.value)
+const isReg = ref(false)
 
 const username = ref('')
 const password = ref('')
@@ -63,8 +72,9 @@ function toggleRemember() {
 }
 
 function registerMe() {
-  uStore.network.toggleManualReg()
-  if (isReg)
+
+  isReg.value=!isReg.value
+  if (isReg.value)
     pushUINewNotif({ title: 'REG', msg: 'REGISTERING', class: 'aaa' })
 
   else

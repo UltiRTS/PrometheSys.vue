@@ -28,7 +28,6 @@ export const username = ref('')
 export const userState = ref({ isLoggedIn: false })
 export const userDetail = ref<User>()
 export const confirmations = ref<Confirmation[]>()
-export const isReg = ref(false)
 const password = ref('')
 export const minimapFileName = ref('')
 
@@ -59,7 +58,7 @@ export function initNetWork(isRe = false) {
           case 'LOGIN':
             pushConfirm(msg.action, msg.message, true, true).then(
               () => {
-                isReg.value = true
+                return
               },
             )
             break
@@ -304,10 +303,7 @@ export function login(params: {
   wsSendServer(tx)
 }
 
-export function toggleManualReg() {
-  isReg.value = !isReg.value
-  // console.log({ registering: isReg.value })
-}
+
 
 export async function register(params: {
   username: string

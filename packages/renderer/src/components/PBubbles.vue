@@ -72,6 +72,7 @@ const sketch = (s: p5) => {
   }
 }
 onMounted(async () => {
+  console.log('activated in bubble')
   if (!isClient)
     return
   const { default: p5 } = await import('p5')

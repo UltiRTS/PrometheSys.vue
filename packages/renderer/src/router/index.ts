@@ -11,7 +11,7 @@ const router = createRouter({
   history: createWebHashHistory(),
   // routes,
   routes: [
-    {
+    /*{
       path: '/login',
       name: 'login',
       component: Login,
@@ -30,7 +30,7 @@ const router = createRouter({
       path: '/prelogin',
       name: 'prelogin',
       component: PreLogin,
-    },
+    },*/
   ],
 })
 

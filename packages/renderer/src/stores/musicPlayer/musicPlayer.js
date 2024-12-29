@@ -1,3 +1,6 @@
+import { ref } from 'vue'
+
+
 let isMusicPlaying = false
 let isTransitioning = false
 let audioCtx
@@ -6,7 +9,7 @@ let userVol = 100
 let sourceIntro
 let sourceLoop
 let audioDelay
-let soundFile
+let soundFile = ref('')
 let automaticVolume = 1
 
 export function setVol(uvl) {
@@ -15,9 +18,9 @@ export function setVol(uvl) {
 export async function playSound(file, loop) {
   if (isTransitioning)
     return
-  if (file === soundFile && isMusicPlaying) // if requesting to play the same music that is playing
+  if (file === soundFile.value && isMusicPlaying) // if requesting to play the same music that is playing
     return
-  soundFile = file
+  soundFile.value = file
   // console.log(`playing${file}`)
   if (!isMusicPlaying) {
     audioCtx = new AudioContext()

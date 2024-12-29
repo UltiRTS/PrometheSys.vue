@@ -11,11 +11,19 @@ const current_channel = ref('global')
 const current_username = ref('')
 
 const msg = ref('')
-// computed
 const uStore = useUserStore()
-const unreadChannel =  uStore.network.unreadChannel
-const { chatLog, joinedChannels } = storeToRefs(uStore)
-const { network, ui, userapi } = uStore
+
+const { joinChat, sayChat, leaveChat, uiSetUnreadChannel,getTextThroughGrabber } = uStore
+
+// computed
+
+const { chatLog, joinedChannels,unreadChannels, network,ui, activeWindow,modalMenuContent } = storeToRefs(uStore)
+
+const activeWindowName = computed(() => activeWindow.value)
+const modalMenuContentName = computed(() => modalMenuContent.value)
+
+const unreadChannel = computed(() => unreadChannels.value)
+
 const chats = ref<HTMLDivElement | null>(null)
 const channels = computed(() => joinedChannels.value.reduce((accu, curr) => {
   if (!accu.includes(curr))
@@ -83,14 +91,14 @@ const timeline = computed(() => {
     lastTime = filteredChats[i].timestamp
   }
   function removeItem(array: any[], item: any) {
-    return array.filter((i: any) => i !== item.value)
+    return array.filter((i: any) => i !== item)
   }
   // now we also want to update the unread channel by removing the current channel name from it
-  if (ui.activeWindow === 'modal' && ui.modalMenuContent === 'chat') {
+  if (activeWindowName.value === 'modal' && modalMenuContentName.value === 'chat') {
     // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-    console.log('unreadChannel:',  network.unreadChannel)
-    const withoutcurChannel = removeItem(network.unreadChannel, current_channel.value)
-    network.uiSetUnreadChannel(withoutcurChannel)
+    console.log('unreadChannel:',  unreadChannel.value)
+    const withoutcurChannel = removeItem(unreadChannel.value, current_channel.value)
+    uiSetUnreadChannel(withoutcurChannel)
   }
   return res
 })
@@ -128,7 +136,6 @@ onUpdated(() => {
 })
 
 // methods
-const { joinChat, sayChat, leaveChat } = uStore
 function onscroll(ev: Event) {
   const elem = ev.target as HTMLDivElement
   if (elem.scrollHeight - elem.scrollTop === elem.clientHeight)
@@ -158,8 +165,8 @@ function sendMessage() {
 }
 
 function addChat() {
-  ui.getTextThroughGrabber('JOIN CHAT').then((resolve: string) => {
-    network.joinChat({
+  getTextThroughGrabber('JOIN CHAT').then((resolve: string) => {
+    joinChat({
       chatName: resolve,
       password: '',
     })

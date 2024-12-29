@@ -24,10 +24,12 @@ export const useUserStore = defineStore('user', () => {
   const activeWindow = ui.activeWindow
   const notifs = ui.notifs
 
+
   const setactiveWindow = ui.setactiveWindow
   const setmodalMenuContent = ui.setmodalMenuContent
   const setmainMenuContent = ui.setmainMenuContent
   const pushUINewNotif = ui.pushUINewNotif
+  const getTextThroughGrabber = ui.getTextThroughGrabber
 
   // network related function
 
@@ -42,7 +44,10 @@ export const useUserStore = defineStore('user', () => {
   const joinGame = network.joinGame
   const setPrespawn = network.setPrespawn
   const delAIorChicken = network.delAIorChicken
+  const uiSetUnreadChannel = network.uiSetUnreadChannel
+  const ws_open = network.ws_open
   network.setWDir(lobbyDir.value)
+  const unreadChannels = network.unreadChannel
   const confirmations = network.confirmations
   const userState = network.userState
   const chatLog = network.chatLog
@@ -73,15 +78,19 @@ export const useUserStore = defineStore('user', () => {
     setmodalMenuContent,
     setmainMenuContent,
     pushUINewNotif,
+    getTextThroughGrabber,
 
     network,
+    ws_open,
     userState,
     chatLog,
     joinedChannels,
     gameListing,
     joinedGame,
     username,
+    unreadChannels,
     confirmations,
+    uiSetUnreadChannel,
 
     setPrespawn,
     hasMap,

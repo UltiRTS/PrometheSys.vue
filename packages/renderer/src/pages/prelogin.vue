@@ -1,14 +1,8 @@
 <script setup lang="ts">
 import { useUserStore } from '../stores'
 
-import router from '../router'
 
-setTimeout(() => {
-  router.push('login')
-}, 9000)
 
-const uStore = useUserStore()
-uStore.musicPlayer.playSound('bbl.wav', true)
 
 </script>
 
